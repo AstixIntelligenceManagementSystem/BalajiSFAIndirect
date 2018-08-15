@@ -1,12 +1,8 @@
 package project.astix.com.balajisfaindirect;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.StringTokenizer;
-
-
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -18,12 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.widget.Toast;
 
 import com.astix.Common.CommonInfo;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.StringTokenizer;
 
 public class StoreAndSKUWiseFragmentOneTab<Context> extends Fragment 
 {
@@ -73,7 +72,7 @@ public class StoreAndSKUWiseFragmentOneTab<Context> extends Fragment
 		}
 		else
 		{
-			imei=CommonInfo.imei.trim();
+			imei= CommonInfo.imei.trim();
 		}
 		
 		

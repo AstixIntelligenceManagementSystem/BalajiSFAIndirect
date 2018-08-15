@@ -1,31 +1,29 @@
 package project.astix.com.balajisfaindirect;
 
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-        import java.util.ArrayList;
-        import java.util.LinkedHashMap;
-        import java.util.Map;
-        import java.util.regex.Pattern;
-
-
-        import android.app.Activity;
-        import android.app.ProgressDialog;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.graphics.Color;
-        import android.graphics.Typeface;
-        import android.os.AsyncTask;
-        import android.os.Bundle;
-        import android.text.TextUtils;
-        import android.view.Gravity;
-        import android.view.KeyEvent;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.View.OnClickListener;
-        import android.view.ViewGroup.LayoutParams;
-        import android.widget.ImageView;
-        import android.widget.LinearLayout;
-        import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 
 public class IncentiveActivity extends Activity

@@ -24,13 +24,11 @@ import android.os.PersistableBundle;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -1104,7 +1102,7 @@ public void loadPurchaseProductDefault()
 						
 						String fileName=imei+"_"+storeID;
 						
-						File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+						File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 						
 						if (!file.exists()) 
 						{
@@ -1119,7 +1117,7 @@ public void loadPurchaseProductDefault()
 							}
 						}
 						
-						CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Cancel Button Click on Product List"+StartClickTimeFinal;
+						CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Cancel Button Click on Product List"+StartClickTimeFinal;
 						
 						
 						FileWriter fw;
@@ -6474,7 +6472,7 @@ public void loadPurchaseProductDefault()
 			}
 			String txtFileNamenew="FinalGPSLastLocation.txt";
 			File file = new File(jsonTxtFolder,txtFileNamenew);
-			String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
+			String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
 
 			// If file does not exists, then create it
 			if (file.exists()) {
@@ -6554,7 +6552,7 @@ public void loadPurchaseProductDefault()
 			}
 			String txtFileNamenew="FinalGPSLastLocation.txt";
 			File file = new File(jsonTxtFolder,txtFileNamenew);
-			String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
+			String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
 
 
 			// If file does not exists, then create it
@@ -6620,7 +6618,7 @@ public void loadPurchaseProductDefault()
 			}
 			String txtFileNamenew="GPSLastLocation.txt";
 			File file = new File(jsonTxtFolder,txtFileNamenew);
-			String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
+			String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
 
 
 			// If file does not exists, then create it
@@ -6977,7 +6975,7 @@ public void loadPurchaseProductDefault()
 			String fileName=imei+"_"+storeID;
 
 			//StringBuffer content=new StringBuffer(imei+"_"+storeID+"_"+"Save Button Click on Product List"+StartClickTimeFinal);
-			File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+			File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 
 			if (!file.exists())
 			{
@@ -6993,7 +6991,7 @@ public void loadPurchaseProductDefault()
 			}
 
 
-			CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Save Button Click on Product List"+StartClickTimeFinal;
+			CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Save Button Click on Product List"+StartClickTimeFinal;
 
 
 			FileWriter fw;
@@ -7041,7 +7039,7 @@ public void loadPurchaseProductDefault()
 			String fileName=imei+"_"+storeID;
 
 			//StringBuffer content=new StringBuffer(imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal);
-			File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+			File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 
 			if (!file.exists())
 			{
@@ -7057,7 +7055,7 @@ public void loadPurchaseProductDefault()
 			}
 
 
-			CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal;
+			CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal;
 
 
 			FileWriter fw;
@@ -7174,7 +7172,7 @@ public void loadPurchaseProductDefault()
 
 			String fileName=imei+"_"+storeID;
 
-			File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+			File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 			if (!file.exists())
 			{
 				try
@@ -7188,7 +7186,7 @@ public void loadPurchaseProductDefault()
 				}
 			}
 
-			CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Submit Button Click on Product List"+StartClickTimeFinal;
+			CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Submit Button Click on Product List"+StartClickTimeFinal;
 
 			FileWriter fw;
 			try

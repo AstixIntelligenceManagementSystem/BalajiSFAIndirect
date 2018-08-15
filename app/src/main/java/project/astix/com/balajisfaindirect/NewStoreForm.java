@@ -1,26 +1,5 @@
 package project.astix.com.balajisfaindirect;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.astix.Common.CommonInfo;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -59,16 +38,18 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.View.OnClickListener;
 import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -79,10 +60,29 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class NewStoreForm extends Fragment  {
+import com.astix.Common.CommonInfo;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class NewStoreForm extends Fragment implements  CategoryCommunicatorCityState  {
 
 	String nameForBeatName;
 	public String currentSelectedBeat="0";
@@ -255,7 +255,7 @@ public class NewStoreForm extends Fragment  {
 
 
 		list_store.setAdapter(cardArrayAdapter);
-		//	editText.setBackgroundResource(R.drawable.et_boundary);
+		ed_search.setBackgroundResource(R.drawable.et_boundary);
 
 
 		boolean isSingleLine=true;
@@ -278,45 +278,8 @@ public class NewStoreForm extends Fragment  {
 
 	}
 
-	public void selectedCityState(String selectedCategory, Dialog dialog, int flgCityState)
-	{
-		dialog.dismiss();
-		if(flgCityState==1)
-		{
-			etCity.setText(selectedCategory);
-			helperDb.updateAllDefaultCity(hmapCity_details.get(selectedCategory));
-			previousSlctdCity=selectedCategory;
-			if(selectedCategory.equalsIgnoreCase("Others") || selectedCategory.equalsIgnoreCase("Other"))
-			{
-				if(etOtherCity.getVisibility()==View.GONE)
-				{
-					etOtherCity.setVisibility(View.VISIBLE);
 
-				}
-				etState.setText("Select");
-				etState.setEnabled(true);
-			}
-			else
-			{
-				if(etOtherCity.getVisibility()==View.VISIBLE)
-				{
-					etOtherCity.setVisibility(View.GONE);
-				}
 
-				if(hmapCityAgainstState!=null && hmapCityAgainstState.containsKey(selectedCategory))
-				{
-					etState.setText(hmapCityAgainstState.get(selectedCategory));
-				}
-				etState.setEnabled(false);
-			}
-		}
-		else
-		{
-			previousSlctdCity=selectedCategory;
-			etState.setText(selectedCategory);
-		}
-
-	}
 
 
 	OnClickListener captrureListener = new OnClickListener() {
@@ -412,7 +375,7 @@ private InputFilter filter = new InputFilter() {
 		File mediaFile;
 		//and make a media file:
 	//	mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
-		mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" +CommonInfo.imei+timeStamp + ".jpg");
+		mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + CommonInfo.imei+timeStamp + ".jpg");
 
 		return mediaFile;
 	}
@@ -725,11 +688,27 @@ private InputFilter filter = new InputFilter() {
 			}
 			if(!AddNewStore_DynamicSectionWise.city.equals("NA"))
 			{
-				etCity.setText(AddNewStore_DynamicSectionWise.city);
+				if(hmapCity_details.containsKey(AddNewStore_DynamicSectionWise.city))
+				{
+					etCity.setText(AddNewStore_DynamicSectionWise.city);
+				}
+				else
+				{
+					etCity.setText("Select");
+				}
+
 			}
 			if(!AddNewStore_DynamicSectionWise.state.equals("NA"))
 			{
-				etState.setText(AddNewStore_DynamicSectionWise.state);
+				if(hmapState_details.containsKey(AddNewStore_DynamicSectionWise.state))
+				{
+					etState.setText(AddNewStore_DynamicSectionWise.state);
+				}
+				else
+				{
+					etState.setText("Select");
+				}
+				//etState.setText(AddNewStore_DynamicSectionWise.state);
 			}
 			boolean isCityFilled = false;
 			if(!AddNewStore_DynamicSectionWise.city.equals("NA")) {
@@ -8899,5 +8878,44 @@ public SpannableStringBuilder textWithMandatory(String text_Value)
 		}
 		return currentSelectedBeat;
 		//currentSelectedBeat=edValBeat.getText().toString();
+	}
+
+
+	public void selectedCityState(String selectedCategory, Dialog dialog, int flgCityState) {
+		dialog.dismiss();
+		if(flgCityState==1)
+		{
+			etCity.setText(selectedCategory);
+			helperDb.updateAllDefaultCity(hmapCity_details.get(selectedCategory));
+			previousSlctdCity=selectedCategory;
+			if(selectedCategory.equalsIgnoreCase("Others") || selectedCategory.equalsIgnoreCase("Other"))
+			{
+				if(etOtherCity.getVisibility()==View.GONE)
+				{
+					etOtherCity.setVisibility(View.VISIBLE);
+
+				}
+				etState.setText("Select");
+				etState.setEnabled(true);
+			}
+			else
+			{
+				if(etOtherCity.getVisibility()==View.VISIBLE)
+				{
+					etOtherCity.setVisibility(View.GONE);
+				}
+
+				if(hmapCityAgainstState!=null && hmapCityAgainstState.containsKey(selectedCategory))
+				{
+					etState.setText(hmapCityAgainstState.get(selectedCategory));
+				}
+				etState.setEnabled(false);
+			}
+		}
+		else
+		{
+			previousSlctdCity=selectedCategory;
+			etState.setText(selectedCategory);
+		}
 	}
 }

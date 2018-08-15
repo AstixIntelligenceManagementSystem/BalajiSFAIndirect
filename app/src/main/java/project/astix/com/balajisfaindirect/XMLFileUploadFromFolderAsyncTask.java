@@ -153,11 +153,11 @@ class XMLFileUploadFromFolderAsyncTask extends AsyncTask<Void,Void,Boolean>
         String fileName = fileUri;
         String zipFileName=fileUri;
 
-        String newzipfile = Environment.getExternalStorageDirectory() + "/"+CommonInfo.OrderXMLFolder+"/" + fileName + ".zip";
+        String newzipfile = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.OrderXMLFolder+"/" + fileName + ".zip";
 
         sourceFileUri=newzipfile;
 
-        xmlForWeb[0]=         Environment.getExternalStorageDirectory() + "/"+CommonInfo.OrderXMLFolder+"/" + fileName + ".xml";
+        xmlForWeb[0]=         Environment.getExternalStorageDirectory() + "/"+ CommonInfo.OrderXMLFolder+"/" + fileName + ".xml";
 
 
         try

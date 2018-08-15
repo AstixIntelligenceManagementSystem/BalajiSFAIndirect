@@ -4,9 +4,6 @@ package project.astix.com.balajisfaindirect;
  * Created by Sunil on 12/4/2017.
  */
 
-import java.util.HashMap;
-import java.util.regex.Pattern;
-
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -16,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.regex.Pattern;
 
 public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.ViewHolder>
 {

@@ -1,9 +1,5 @@
 package project.astix.com.balajisfaindirect;
 
-import java.util.ArrayList;
-
-import java.util.List;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,6 +11,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CardArrayAdapter extends BaseAdapter{
 	

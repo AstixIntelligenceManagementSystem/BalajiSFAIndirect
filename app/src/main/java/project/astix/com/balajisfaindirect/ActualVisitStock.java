@@ -11,11 +11,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
-import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.media.MediaScannerConnection;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -1023,7 +1021,7 @@ public void searchLoadDefaultProduct(String filterSearchText,String ctgryId)
         String timeStamp = new SimpleDateFormat("yyyyMMMdd_HHmmss.SSS",Locale.ENGLISH).format(new Date());
         File mediaFile;
         //and make a media file:
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator +CommonInfo.imei+ "IMG_" + timeStamp + ".jpg");
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + CommonInfo.imei+ "IMG_" + timeStamp + ".jpg");
 
         return mediaFile;
     }

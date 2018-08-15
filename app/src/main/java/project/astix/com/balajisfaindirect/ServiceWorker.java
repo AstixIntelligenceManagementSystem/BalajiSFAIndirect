@@ -1,6 +1,22 @@
 package project.astix.com.balajisfaindirect;
 
 
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.os.Environment;
+
+import com.astix.Common.CommonInfo;
+
+import org.json.JSONArray;
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -17,28 +33,6 @@ import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.json.JSONArray;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-
-
-
-
-
-
-
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.os.Environment;
-
-import com.astix.Common.CommonInfo;
 
 
 public class ServiceWorker 
@@ -3905,7 +3899,7 @@ String RouteType="0";
 		//SoapObject param
 		HttpTransportSE transport = null; // That call webservice
 		SoapSerializationEnvelope sse = null;
-		sse = new SoapSerializationEnvelope(SoapEnvelope.VER11);		
+		sse = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		sse.dotNet = true;
 		HttpTransportSE androidHttpTransport = new HttpTransportSE(URL,0);
 		
@@ -15220,8 +15214,8 @@ String RouteType="0";
 				*/
 				
 				
-				 int DatabaseVersion=CommonInfo.DATABASE_VERSIONID;
-		           int ApplicationID=CommonInfo.Application_TypeID;
+				 int DatabaseVersion= CommonInfo.DATABASE_VERSIONID;
+		           int ApplicationID= CommonInfo.Application_TypeID;
 				
 				client.addProperty("NewStoreGeneralJasonData", ArrOutletGeneralInfoTable.toString().trim());
 				client.addProperty("NewStoreJasonData", ArrJSONTable.toString().trim());
@@ -18884,7 +18878,7 @@ String RouteType="0";
 			client.addProperty("NewDistributorIDOrderID", DstId_OrderPdaId.toString());
 			client.addProperty("uuid", IMEINo.toString());
 			client.addProperty("CoverageAreaNodeID", CommonInfo.CoverageAreaNodeID);
-			client.addProperty("coverageAreaNodeType",CommonInfo.CoverageAreaNodeType);
+			client.addProperty("coverageAreaNodeType", CommonInfo.CoverageAreaNodeType);
 			//client.addProperty("strStoreCollectionUniquneVisitId",strStoreCollectionUniquneVisitId);
 
 			sse.setOutputSoapObject(client);

@@ -472,7 +472,7 @@ public class AddNewStore_DynamicSectionWise extends BaseFragmentActivity impleme
         }
         else
         {
-            imei=CommonInfo.imei.trim();
+            imei= CommonInfo.imei.trim();
         }
         checkHighAccuracyLocationMode(AddNewStore_DynamicSectionWise.this);
         ////helperDb.open();
@@ -1744,7 +1744,7 @@ public class AddNewStore_DynamicSectionWise extends BaseFragmentActivity impleme
             }
             String txtFileNamenew="GPSLastLocation.txt";
             File file = new File(jsonTxtFolder,txtFileNamenew);
-            String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
+            String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
 
 
             // If file does not exists, then create it
@@ -1810,7 +1810,7 @@ public class AddNewStore_DynamicSectionWise extends BaseFragmentActivity impleme
             }
             String txtFileNamenew="FinalGPSLastLocation.txt";
             File file = new File(jsonTxtFolder,txtFileNamenew);
-            String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
+            String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
 
 
             // If file does not exists, then create it
@@ -1866,7 +1866,7 @@ public class AddNewStore_DynamicSectionWise extends BaseFragmentActivity impleme
             }
             String txtFileNamenew="FinalGPSLastLocation.txt";
             File file = new File(jsonTxtFolder,txtFileNamenew);
-            String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
+            String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
 
             // If file does not exists, then create it
             if (file.exists()) {
@@ -2328,7 +2328,7 @@ public class AddNewStore_DynamicSectionWise extends BaseFragmentActivity impleme
 
                         String VisitStartTS=df.format(datefromat);
 
-                        int ApplicationID=CommonInfo.Application_TypeID;
+                        int ApplicationID= CommonInfo.Application_TypeID;
 										   /*helperDb.inserttblOutletMstr(OutletID,VisitStartTS,String.valueOf(lastKnownLocLatitude),
 												String.valueOf(lastKnownLocLongitude),"" + accuracy,locationProvider,battLevel + "%",StoreName,
 												imei,0,3,ApplicationID);*/

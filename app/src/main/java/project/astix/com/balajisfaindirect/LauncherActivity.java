@@ -1,5 +1,42 @@
 package project.astix.com.balajisfaindirect;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.PowerManager;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.astix.Common.CommonInfo;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
@@ -25,49 +62,7 @@ import java.util.StringTokenizer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-
-import com.astix.Common.CommonInfo;
-
-
 //import com.astix.sfatju.R;
-
-
-import android.content.SharedPreferences;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.PowerManager;
-import android.provider.Settings;
-
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.ContextThemeWrapper;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
 
 
 public class LauncherActivity extends BaseActivity
@@ -253,7 +248,7 @@ private void downloadapk()
 	    	//ParagIndirectTest
 	       // URL url = new URL("http://115.124.126.184/downloads/ParagIndirect.apk");
 	      //  URL url = new URL("http://115.124.126.184/downloads/ParagIndirectTest.apk");
-	        URL url = new URL(CommonInfo.VersionDownloadPath.trim()+CommonInfo.VersionDownloadAPKName);
+	        URL url = new URL(CommonInfo.VersionDownloadPath.trim()+ CommonInfo.VersionDownloadAPKName);
 	        URLConnection connection = url.openConnection();
 	        HttpURLConnection urlConnection = (HttpURLConnection) connection;
 	        //urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
@@ -272,7 +267,7 @@ private void downloadapk()
 	 	        
 	 	        String PATH = Environment.getExternalStorageDirectory() + "/download/";
 	 	      // File file2 = new File(PATH+"ParagIndirect.apk");
-	 	       File file2 = new File(PATH+CommonInfo.VersionDownloadAPKName);
+	 	       File file2 = new File(PATH+ CommonInfo.VersionDownloadAPKName);
 	 	      if(file2.exists())
 	          {
 	 	    	 file2.delete();
@@ -1251,7 +1246,7 @@ private void downloadapk()
 					}
 					else
 					{
-						imei=CommonInfo.imei.trim();
+						imei= CommonInfo.imei.trim();
 					}
 					
 					
@@ -1355,7 +1350,7 @@ private void downloadapk()
 		}
 		else
 		{
-			imei=CommonInfo.imei.trim();
+			imei= CommonInfo.imei.trim();
 		}
 		
 		
@@ -1482,7 +1477,7 @@ private void downloadapk()
 		
 		//int submitFlag=dbengine.checkAnyDataSubmitORNot(4);
 		
-		int submitFlag=CommonInfo.AnyVisit;
+		int submitFlag= CommonInfo.AnyVisit;
 		
 		int check=dbengine.fetchflgHasVisitFromtblNoVisitStoreDetails(""+4);
 		if(check==0 && submitFlag==0) // 0 means user did not do any visit or getStore 
@@ -1937,7 +1932,7 @@ private void downloadapk()
 		}
 		else
 		{
-			imei=CommonInfo.imei.trim();
+			imei= CommonInfo.imei.trim();
 		}
 		
 		
@@ -2754,7 +2749,7 @@ private void downloadapk()
 					}
 					else
 					{
-						String f1=Environment.getExternalStorageDirectory().getPath()+"/"+CommonInfo.DistributorStockXMLFolder+"/"+fileUri;
+						String f1=Environment.getExternalStorageDirectory().getPath()+"/"+ CommonInfo.DistributorStockXMLFolder+"/"+fileUri;
 						System.out.println("Sunil Again each file full path"+f1);
 						try
 						{
@@ -2836,12 +2831,12 @@ private void downloadapk()
 		String fileName = fileUri;
 		String zipFileName=fileUri;
 
-		String newzipfile = Environment.getExternalStorageDirectory() + "/"+CommonInfo.DistributorStockXMLFolder+"/" + fileName + ".zip";
+		String newzipfile = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.DistributorStockXMLFolder+"/" + fileName + ".zip";
 		///storage/sdcard0/PrabhatDirectSFAXml/359648069495987.2.21.04.2016.12.44.02.zip
 
 		sourceFileUri=newzipfile;
 
-		xmlForWeb[0] = Environment.getExternalStorageDirectory() + "/"+CommonInfo.DistributorStockXMLFolder+"/" + fileName + ".xml";
+		xmlForWeb[0] = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.DistributorStockXMLFolder+"/" + fileName + ".xml";
 		//[/storage/sdcard0/PrabhatDirectSFAXml/359648069495987.2.21.04.2016.12.44.02.xml]
 
 		try

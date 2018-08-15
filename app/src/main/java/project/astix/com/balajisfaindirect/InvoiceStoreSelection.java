@@ -1,22 +1,6 @@
 package project.astix.com.balajisfaindirect;
 
 
-
-
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.StringTokenizer;
-import java.util.concurrent.ExecutionException;
-
-import project.astix.com.balajisfaindirect.ListAdapter.customButtonListener;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -35,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -43,9 +28,22 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.astix.Common.CommonInfo;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.StringTokenizer;
+import java.util.concurrent.ExecutionException;
+
+import project.astix.com.balajisfaindirect.ListAdapter.customButtonListener;
 
 public class InvoiceStoreSelection extends BaseActivity implements OnItemSelectedListener,customButtonListener
 {

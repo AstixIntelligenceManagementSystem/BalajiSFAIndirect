@@ -1,5 +1,4 @@
 package project.astix.com.balajisfaindirect;
-import android.app.IntentService;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +13,6 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.astix.Common.CommonInfo;
 

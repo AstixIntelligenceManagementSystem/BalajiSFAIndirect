@@ -4,18 +4,6 @@
 package project.astix.com.balajisfaindirect;
 
 
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TimeZone;
-import java.util.regex.Pattern;
-
-
-import com.astix.Common.CommonInfo;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,6 +18,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -41,7 +30,17 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.astix.Common.CommonInfo;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TimeZone;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -2357,7 +2356,7 @@ public void whenPaymentStageClickNew()
 	     }
 	     else
 	     {
-	    	 uniqueId=CommonInfo.newQuottionID;
+	    	 uniqueId= CommonInfo.newQuottionID;
 	    	 
 	     }
 	    

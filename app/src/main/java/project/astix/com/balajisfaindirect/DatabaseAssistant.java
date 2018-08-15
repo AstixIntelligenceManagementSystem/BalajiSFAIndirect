@@ -1,26 +1,27 @@
 package project.astix.com.balajisfaindirect;
 
 //import java.io.BufferedOutputStream;
+
+import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
+
+import com.astix.Common.CommonInfo;
+
 import java.io.File;
-//import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.LinkedHashMap;
 
-
+//import java.io.FileNotFoundException;
 //import android.content.Context;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 //import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
 //import android.provider.SyncStateContract.Constants;
-
-import com.astix.Common.CommonInfo;
 
 public class DatabaseAssistant 
 {
@@ -554,7 +555,7 @@ public class DatabaseAssistant
 	private void exportTableStoreList(final String tableName) throws IOException {
 		xmlBuilder.openTable(tableName);
 
-		String sql = "select IMEINumber,StoreID,StoreName,OwnerName,StoreContactNo,StoreAddress,StoreType, StoreLatitude,StoreLongitude,LastVisitDate,LastTransactionDate,ISNewStore,PaymentStage,DBR,StoreCity,StorePinCode,StoreState,0 AS flgRestart,"+CommonInfo.DATABASE_VERSIONID+" AS AppVersion from " + tableName + " where Sstat = 3 AND ISNewStore=1";		// chk for flag - DB adapter
+		String sql = "select IMEINumber,StoreID,StoreName,OwnerName,StoreContactNo,StoreAddress,StoreType, StoreLatitude,StoreLongitude,LastVisitDate,LastTransactionDate,ISNewStore,PaymentStage,DBR,StoreCity,StorePinCode,StoreState,0 AS flgRestart,"+ CommonInfo.DATABASE_VERSIONID+" AS AppVersion from " + tableName + " where Sstat = 3 AND ISNewStore=1";		// chk for flag - DB adapter
 		Cursor c = db.rawQuery(sql, new String[0]);
 		if (c.moveToFirst()) {
 			int cols = c.getColumnCount();

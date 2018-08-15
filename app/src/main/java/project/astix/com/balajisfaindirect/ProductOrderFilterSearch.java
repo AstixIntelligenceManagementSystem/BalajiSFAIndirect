@@ -1,40 +1,4 @@
 package project.astix.com.balajisfaindirect;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.UUID;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.regex.Pattern;
-
-
-import com.astix.Common.CommonInfo;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-
-
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
@@ -47,7 +11,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
-
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -94,9 +57,43 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.astix.Common.CommonInfo;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.Timer;
+import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class ProductOrderFilterSearch  extends BaseActivity implements OnItemSelectedListener, OnClickListener, OnFocusChangeListener, LocationListener,GoogleApiClient.ConnectionCallbacks,
 GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
@@ -1352,7 +1349,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 						String fileName=imei+"_"+storeID;
 
 						//File file = new File("/sdcard/MeijiIndirectTextFile/"+fileName);
-					  File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+					  File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 
 						if (!file.exists())
 						{
@@ -1367,7 +1364,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator
 							}
 						}
 
-						CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Cancel Button Click on Product List"+StartClickTimeFinal;
+						CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Cancel Button Click on Product List"+StartClickTimeFinal;
 
 
 						FileWriter fw;
@@ -8992,7 +8989,7 @@ if(hmapProductListOnWhichWholePriceNeedsToApplyIfRequired.containsKey(ProductID)
 			}
 			String txtFileNamenew="GPSLastLocation.txt";
 			File file = new File(jsonTxtFolder,txtFileNamenew);
-			String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
+			String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
 
 
 			// If file does not exists, then create it
@@ -9048,7 +9045,7 @@ if(hmapProductListOnWhichWholePriceNeedsToApplyIfRequired.containsKey(ProductID)
 			}
 			String txtFileNamenew="FinalGPSLastLocation.txt";
 			File file = new File(jsonTxtFolder,txtFileNamenew);
-			String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
+			String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
 
 			// If file does not exists, then create it
 			if (file.exists()) {
@@ -9128,7 +9125,7 @@ if(hmapProductListOnWhichWholePriceNeedsToApplyIfRequired.containsKey(ProductID)
 			}
 			String txtFileNamenew="FinalGPSLastLocation.txt";
 			File file = new File(jsonTxtFolder,txtFileNamenew);
-			String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
+			String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
 
 
 			// If file does not exists, then create it
@@ -9450,7 +9447,7 @@ if(hmapProductListOnWhichWholePriceNeedsToApplyIfRequired.containsKey(ProductID)
 			String fileName=imei+"_"+storeID;
 			//StringBuffer content=new StringBuffer(imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal);
 			//File file = new File("/sdcard/MeijiIndirectTextFile/"+fileName);
-			File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+			File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 			if (!file.exists())
 			{
 				try
@@ -9463,7 +9460,7 @@ if(hmapProductListOnWhichWholePriceNeedsToApplyIfRequired.containsKey(ProductID)
 					e1.printStackTrace();
 				}
 			}
-			CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal;
+			CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal;
 			FileWriter fw;
 			try
 			{
@@ -9522,7 +9519,7 @@ if(hmapProductListOnWhichWholePriceNeedsToApplyIfRequired.containsKey(ProductID)
 
 			//StringBuffer content=new StringBuffer(imei+"_"+storeID+"_"+"Save Button Click on Product List"+StartClickTimeFinal);
 			//File file = new File("/sdcard/MeijiIndirectTextFile/"+fileName);
-			File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+			File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 
 			if (!file.exists())
 			{
@@ -9538,7 +9535,7 @@ if(hmapProductListOnWhichWholePriceNeedsToApplyIfRequired.containsKey(ProductID)
 			}
 
 
-			CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Save Button Click on Product List"+StartClickTimeFinal;
+			CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Save Button Click on Product List"+StartClickTimeFinal;
 
 
 			FileWriter fw;
@@ -9599,7 +9596,7 @@ if(hmapProductListOnWhichWholePriceNeedsToApplyIfRequired.containsKey(ProductID)
 
 			//StringBuffer content=new StringBuffer(imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal);
 			//File file = new File("/sdcard/MeijiIndirectTextFile/"+fileName);
-			File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+			File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 
 			if (!file.exists())
 			{
@@ -9615,7 +9612,7 @@ if(hmapProductListOnWhichWholePriceNeedsToApplyIfRequired.containsKey(ProductID)
 			}
 
 
-			CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal;
+			CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal;
 
 
 			FileWriter fw;
@@ -9744,7 +9741,7 @@ if(hmapProductListOnWhichWholePriceNeedsToApplyIfRequired.containsKey(ProductID)
 
 			//StringBuffer content=new StringBuffer(imei+"_"+storeID+"_"+"Submit Button Click on Product List"+StartClickTimeFinal);
 			//File file = new File("/sdcard/MeijiIndirectTextFile/"+fileName);
-			File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+			File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 
 			if (!file.exists())
 			{
@@ -9760,7 +9757,7 @@ if(hmapProductListOnWhichWholePriceNeedsToApplyIfRequired.containsKey(ProductID)
 			}
 
 
-			CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Submit Button Click on Product List"+StartClickTimeFinal;
+			CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Submit Button Click on Product List"+StartClickTimeFinal;
 
 
 			FileWriter fw;

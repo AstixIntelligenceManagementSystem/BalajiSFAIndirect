@@ -1,7 +1,5 @@
 package project.astix.com.balajisfaindirect;
 
-import java.util.StringTokenizer;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -13,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.util.StringTokenizer;
 
 public class LastVisitDetailsSecondPart extends BaseActivity
 {

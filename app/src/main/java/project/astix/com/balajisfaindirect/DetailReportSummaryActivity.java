@@ -154,7 +154,7 @@ public class DetailReportSummaryActivity extends BaseActivity
 		}
 		else
 		{
-			imei=CommonInfo.imei.trim();
+			imei= CommonInfo.imei.trim();
 		}
 
 		Date date1=new Date();

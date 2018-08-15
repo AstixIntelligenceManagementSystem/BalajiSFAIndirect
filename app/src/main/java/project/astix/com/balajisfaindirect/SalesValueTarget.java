@@ -1,19 +1,18 @@
 package project.astix.com.balajisfaindirect;
 
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Html;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-        import android.app.Activity;
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.text.Html;
-        import android.text.TextUtils;
-        import android.view.KeyEvent;
-        import android.view.View;
-        import android.view.View.OnClickListener;
-        import android.widget.ImageView;
-        import android.widget.TextView;
-
-        import com.astix.Common.CommonInfo;
+import com.astix.Common.CommonInfo;
 
 
 public class SalesValueTarget extends Activity {

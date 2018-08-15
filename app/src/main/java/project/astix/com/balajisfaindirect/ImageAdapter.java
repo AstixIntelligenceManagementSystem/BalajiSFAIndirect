@@ -1,9 +1,5 @@
 package project.astix.com.balajisfaindirect;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -12,6 +8,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 class ImageAdapter extends BaseAdapter

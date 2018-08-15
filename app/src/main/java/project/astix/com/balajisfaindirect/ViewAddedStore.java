@@ -1,9 +1,6 @@
 package project.astix.com.balajisfaindirect;
 
 
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 public class ViewAddedStore extends Activity {
 

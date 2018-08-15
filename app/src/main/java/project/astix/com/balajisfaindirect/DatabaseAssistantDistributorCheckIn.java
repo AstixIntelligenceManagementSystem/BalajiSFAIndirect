@@ -1,25 +1,27 @@
 package project.astix.com.balajisfaindirect;
 
 //import java.io.BufferedOutputStream;
-import java.io.File;
-//import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 
-//import android.content.Context;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-//import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
-//import android.provider.SyncStateContract.Constants;
 import android.util.Log;
 
 import com.astix.Common.CommonInfo;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+
+//import java.io.FileNotFoundException;
+//import android.content.Context;
+//import android.database.sqlite.SQLiteOpenHelper;
+//import android.provider.SyncStateContract.Constants;
 
 public class DatabaseAssistantDistributorCheckIn
 {

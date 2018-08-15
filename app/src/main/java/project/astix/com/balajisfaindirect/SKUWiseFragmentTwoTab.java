@@ -1,5 +1,18 @@
 package project.astix.com.balajisfaindirect;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.astix.Common.CommonInfo;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,20 +23,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
-
-
-import android.os.Bundle;
-import android.telephony.TelephonyManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.app.Activity;
-import android.app.Fragment;
-
-import com.astix.Common.CommonInfo;
 
 public class SKUWiseFragmentTwoTab<Context> extends Fragment 
 {
@@ -64,7 +63,7 @@ public class SKUWiseFragmentTwoTab<Context> extends Fragment
 		}
 		else
 		{
-			imei=CommonInfo.imei.trim();
+			imei= CommonInfo.imei.trim();
 		}
 		
 		

@@ -34,7 +34,7 @@ import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.util.*;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -401,7 +401,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
         }
         else
         {
-            imei=CommonInfo.imei.trim();
+            imei= CommonInfo.imei.trim();
         }
 
         Date date1=new Date();
@@ -3761,7 +3761,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             jArray.put(jOnew);
             jsonObjMain.put("GPSLastLocationDetils", jArray);
 
-            File jsonTxtFolder = new File(Environment.getExternalStorageDirectory(),CommonInfo.AppLatLngJsonFile);
+            File jsonTxtFolder = new File(Environment.getExternalStorageDirectory(), CommonInfo.AppLatLngJsonFile);
             if (!jsonTxtFolder.exists())
             {
                 jsonTxtFolder.mkdirs();
@@ -3769,7 +3769,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             }
             String txtFileNamenew="GPSLastLocation.txt";
             File file = new File(jsonTxtFolder,txtFileNamenew);
-            String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
+            String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
 
 
             // If file does not exists, then create it
@@ -4701,7 +4701,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                         String tempIdImage=imageDetail.split(Pattern.quote("^"))[0].toString();
                         String imagePath=imageDetail.split(Pattern.quote("^"))[1].toString();
                         String imageName=imageDetail.split(Pattern.quote("^"))[2].toString();
-                        String file_dj_path = Environment.getExternalStorageDirectory() + "/"+CommonInfo.ImagesFolder+"/"+imageName;
+                        String file_dj_path = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.ImagesFolder+"/"+imageName;
                         File fImage = new File(file_dj_path);
                         if (fImage.exists())
                         {
@@ -4817,7 +4817,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 dbengine.updateSSttImage(fileName, 4);
                 dbengine.fndeleteSbumittedStoreImagesOfSotre(4);
 
-                String file_dj_path = Environment.getExternalStorageDirectory() + "/"+CommonInfo.ImagesFolder+"/"+fileName;
+                String file_dj_path = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.ImagesFolder+"/"+fileName;
                 File fdelete = new File(file_dj_path);
                 if (fdelete.exists()) {
                     if (fdelete.delete()) {
@@ -5061,11 +5061,11 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
         String fileName = fileUri;
         String zipFileName=fileUri;
 
-        String newzipfile = Environment.getExternalStorageDirectory() + "/"+CommonInfo.OrderXMLFolder+"/" + fileName + ".zip";
+        String newzipfile = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.OrderXMLFolder+"/" + fileName + ".zip";
 
         sourceFileUri=newzipfile;
 
-        xmlForWeb[0]=         Environment.getExternalStorageDirectory() + "/"+CommonInfo.OrderXMLFolder+"/" + fileName + ".xml";
+        xmlForWeb[0]=         Environment.getExternalStorageDirectory() + "/"+ CommonInfo.OrderXMLFolder+"/" + fileName + ".xml";
 
 
         try

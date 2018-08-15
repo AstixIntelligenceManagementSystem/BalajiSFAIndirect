@@ -5900,7 +5900,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 			}
 			String txtFileNamenew="GPSLastLocation.txt";
 			File file = new File(jsonTxtFolder,txtFileNamenew);
-			String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
+			String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
 
 
 			// If file does not exists, then create it
@@ -5956,7 +5956,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 			}
 			String txtFileNamenew="FinalGPSLastLocation.txt";
 			File file = new File(jsonTxtFolder,txtFileNamenew);
-			String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
+			String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
 
 			// If file does not exists, then create it
 			if (file.exists()) {
@@ -6036,7 +6036,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 			}
 			String txtFileNamenew="FinalGPSLastLocation.txt";
 			File file = new File(jsonTxtFolder,txtFileNamenew);
-			String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
+			String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
 
 
 			// If file does not exists, then create it
@@ -6316,7 +6316,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 			String fileName=imei+"_"+storeID;
 			//StringBuffer content=new StringBuffer(imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal);
 			//File file = new File("/sdcard/MeijiIndirectTextFile/"+fileName);
-			File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+			File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 			if (!file.exists())
 			{
 				try
@@ -6329,7 +6329,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 					e1.printStackTrace();
 				}
 			}
-			CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal;
+			CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal;
 			FileWriter fw;
 			try
 			{
@@ -6377,7 +6377,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 
 			//StringBuffer content=new StringBuffer(imei+"_"+storeID+"_"+"Save Button Click on Product List"+StartClickTimeFinal);
 			//File file = new File("/sdcard/MeijiIndirectTextFile/"+fileName);
-			File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+			File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 
 			if (!file.exists())
 			{
@@ -6393,7 +6393,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 			}
 
 
-			CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Save Button Click on Product List"+StartClickTimeFinal;
+			CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Save Button Click on Product List"+StartClickTimeFinal;
 
 
 			FileWriter fw;
@@ -6441,7 +6441,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 
 			//StringBuffer content=new StringBuffer(imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal);
 			//File file = new File("/sdcard/MeijiIndirectTextFile/"+fileName);
-			File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+			File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 
 			if (!file.exists())
 			{
@@ -6457,7 +6457,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 			}
 
 
-			CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal;
+			CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"SaveExit Button Click on Product List"+StartClickTimeFinal;
 
 
 			FileWriter fw;
@@ -6580,7 +6580,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 
 			//StringBuffer content=new StringBuffer(imei+"_"+storeID+"_"+"Submit Button Click on Product List"+StartClickTimeFinal);
 			//File file = new File("/sdcard/MeijiIndirectTextFile/"+fileName);
-			File file = new File("/sdcard/"+CommonInfo.TextFileFolder+"/"+fileName);
+			File file = new File("/sdcard/"+ CommonInfo.TextFileFolder+"/"+fileName);
 
 			if (!file.exists())
 			{
@@ -6596,7 +6596,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 			}
 
 
-			CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Submit Button Click on Product List"+StartClickTimeFinal;
+			CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Submit Button Click on Product List"+StartClickTimeFinal;
 
 
 			FileWriter fw;

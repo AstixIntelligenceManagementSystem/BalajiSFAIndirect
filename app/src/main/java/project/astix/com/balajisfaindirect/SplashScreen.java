@@ -2,6 +2,7 @@ package project.astix.com.balajisfaindirect;
 
 
 //import com.newrelic.agent.android.NewRelic;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,20 +16,19 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
-import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.widget.Toast;
-
 
 import com.astix.Common.CommonInfo;
 import com.example.gcm.ApplicationConstants;
@@ -328,7 +328,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
       //  imei="352801088236109";
 
 
-       imei="354010084603910";  // paras imei like Godrej
+       imei="911560353114284";  // paras imei like Godrej
         CommonInfo.imei = imei;
 
         if(dbengine.isDBOpen()==false)
@@ -842,7 +842,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
             //ParagIndirectTest
             // URL url = new URL("http://115.124.126.184/downloads/ParagIndirect.apk");
             //  URL url = new URL("http://115.124.126.184/downloads/ParagIndirectTest.apk");
-            URL url = new URL(CommonInfo.VersionDownloadPath.trim()+CommonInfo.VersionDownloadAPKName);
+            URL url = new URL(CommonInfo.VersionDownloadPath.trim()+ CommonInfo.VersionDownloadAPKName);
             URLConnection connection = url.openConnection();
             HttpURLConnection urlConnection = (HttpURLConnection) connection;
             //urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
@@ -861,7 +861,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
 
             String PATH = Environment.getExternalStorageDirectory() + "/download/";
             // File file2 = new File(PATH+"ParagIndirect.apk");
-            File file2 = new File(PATH+CommonInfo.VersionDownloadAPKName);
+            File file2 = new File(PATH+ CommonInfo.VersionDownloadAPKName);
             if(file2.exists())
             {
                 file2.delete();
@@ -960,12 +960,12 @@ public class SplashScreen extends BaseActivity implements  TaskListner
         String fileName = fileUri;
         String zipFileName=fileUri;
 
-        String newzipfile = Environment.getExternalStorageDirectory() + "/"+CommonInfo.DistributorStockXMLFolder+"/" + fileName + ".zip";
+        String newzipfile = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.DistributorStockXMLFolder+"/" + fileName + ".zip";
         ///storage/sdcard0/PrabhatDirectSFAXml/359648069495987.2.21.04.2016.12.44.02.zip
 
         sourceFileUri=newzipfile;
 
-        xmlForWeb[0] = Environment.getExternalStorageDirectory() + "/"+CommonInfo.DistributorStockXMLFolder+"/" + fileName + ".xml";
+        xmlForWeb[0] = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.DistributorStockXMLFolder+"/" + fileName + ".xml";
         //[/storage/sdcard0/PrabhatDirectSFAXml/359648069495987.2.21.04.2016.12.44.02.xml]
 
         try
@@ -1403,8 +1403,8 @@ public class SplashScreen extends BaseActivity implements  TaskListner
                     }
                     if(mm==3)
                     {
-                        int DatabaseVersion=CommonInfo.DATABASE_VERSIONID;
-                        int ApplicationID=CommonInfo.Application_TypeID;
+                        int DatabaseVersion= CommonInfo.DATABASE_VERSIONID;
+                        int ApplicationID= CommonInfo.Application_TypeID;
                         newservice = newservice.callfnSingleCallAllWebService(getApplicationContext(),ApplicationID,imei);
                         if(!newservice.director.toString().trim().equals("1"))
                         {
@@ -1486,7 +1486,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
                     }
                     if(mm==10)
                     {
-                        newservice = newservice.fnGetStateCityListMstr(SplashScreen.this,imei, fDate,CommonInfo.Application_TypeID);
+                        newservice = newservice.fnGetStateCityListMstr(SplashScreen.this,imei, fDate, CommonInfo.Application_TypeID);
                         if(!newservice.director.toString().trim().equals("1"))
                         {
                             if(chkFlgForErrorToCloseApp==0)
@@ -1859,7 +1859,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
                     }
                     else
                     {
-                        String f1=Environment.getExternalStorageDirectory().getPath()+"/"+CommonInfo.DistributorStockXMLFolder+"/"+fileUri;
+                        String f1=Environment.getExternalStorageDirectory().getPath()+"/"+ CommonInfo.DistributorStockXMLFolder+"/"+fileUri;
                         System.out.println("Sunil Again each file full path"+f1);
                         try
                         {

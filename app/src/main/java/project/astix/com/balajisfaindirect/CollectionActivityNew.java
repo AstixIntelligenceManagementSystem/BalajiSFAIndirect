@@ -64,6 +64,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -82,7 +83,7 @@ public class CollectionActivityNew extends BaseActivity  implements DatePickerDi
 /* For Location Srvices Start*/
 
     CustomKeyboard mCustomKeyboardNum, mCustomKeyboardNumWithoutDecimal;
-
+public Double overallOutStand=0.0,curntCol=0.0;
 public String VisitTimeInSideStore="NA";
     public  int flgRestartOrderReview=0;
     public  int flgStoreOrderOrderReview=0;
@@ -192,7 +193,7 @@ Double OverAllAmountCollected=0.0;
     public String strGlobalOrderID="0";
     int flgOrderType=0;
     public EditText et_SelfCreditNote;
-    TextView tv_outstandingvalue,tv_MinCollectionvalue,tv_cntInvoceValue,tv_totOutstandingValue;
+    public TextView tv_outstandingvalue,tv_MinCollectionvalue,tv_cntInvoceValue,tv_totOutstandingValue;
 
     HashMap<String,Integer> hmapDistPrdctStockCount =new HashMap<String,Integer>();
     HashMap<String,String> hmapPrdctIdOutofStock=new HashMap<String,String> ();
@@ -329,7 +330,8 @@ ctx=this;
 
 
         tv_totOutstandingValue=(TextView) findViewById(R.id.tv_totOutstandingValue);
-        Double totOutstandingValue=cntAllOustandings+cntInvoceValue+cntTotInvoicesAmtAgainstStoreIrespectiveOfVisit-cntTotCollectionAmtAgainstStoreIrespectiveOfVisit;
+        //Double totOutstandingValue=cntAllOustandings+cntInvoceValue+cntTotInvoicesAmtAgainstStoreIrespectiveOfVisit-cntTotCollectionAmtAgainstStoreIrespectiveOfVisit;
+        Double totOutstandingValue=cntAllOustandings+cntInvoceValue-cntTotCollectionAmtAgainstStoreIrespectiveOfVisit;
         totOutstandingValue=Double.parseDouble(new DecimalFormat("##.##").format(totOutstandingValue));
         tv_totOutstandingValue.setText(" : "+String.format("%.2f", totOutstandingValue));
 
@@ -2083,6 +2085,23 @@ ctx=this;
             pDialogGetStores.setCanceledOnTouchOutside(false);
             pDialogGetStores.show();
 
+            if(TextUtils.isEmpty(tv_totOutstandingValue.getText().toString().replace(":","").trim()))
+            {
+                overallOutStand=0.0;
+            }
+            else
+            {
+                overallOutStand=Double.parseDouble(tv_totOutstandingValue.getText().toString().replace(":","")) ;
+            }
+            if(!TextUtils.isEmpty(totaltextview.getText().toString().replace(":","").trim()))
+            {
+                curntCol=0.0;
+            }
+            else
+            {
+                curntCol=Double.parseDouble(totaltextview.getText().toString().replace(":","").trim()) ;
+            }
+            //curntCol
 
         }
 
@@ -2139,6 +2158,9 @@ ctx=this;
 
             //dbengine.open();
             dbengine.UpdateStoreEndVisit(storeID, StampEndsTime);
+
+
+
             dbengine.UpdateStoreProductAppliedSchemesBenifitsRecords(storeID.trim(),"3",strGlobalOrderID,TmpInvoiceCodePDA);
             dbengine.UpdateStoreStoreReturnDetail(storeID.trim(),"3",strGlobalOrderID,TmpInvoiceCodePDA);
             dbengine.UpdateStoreFlag(storeID.trim(), 3);
@@ -2151,11 +2173,17 @@ ctx=this;
 
             //dbengine.close();
 
-            Double outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
-            outstandingvalue=Double.parseDouble(new DecimalFormat("##.##").format(outstandingvalue));
-            dbengine.updateOutstandingOfStore(storeID,0.0);
 
-            Double CollectionAmtAgainstStore=dbengine.fnTotCollectionAmtAgainstStore(storeID.trim(),TmpInvoiceCodePDA,StoreVisitCode);
+
+            //overallOutStand=0.0;
+           /* Double outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
+            outstandingvalue=Double.parseDouble(new DecimalFormat("##.##").format(outstandingvalue));*/
+
+            Double FinalOutStand=overallOutStand-curntCol;
+            FinalOutStand=Double.parseDouble(new DecimalFormat("##.##").format(FinalOutStand));
+             dbengine.updateOutstandingOfStore(storeID,FinalOutStand);
+            //dbengine.updateOutstandingOfStore(storeID,0.0);
+           // Double CollectionAmtAgainstStore=dbengine.fnTotCollectionAmtAgainstStore(storeID.trim(),TmpInvoiceCodePDA,StoreVisitCode);
 
             dbengine.updateStoreQuoteSubmitFlgInStoreMstr(storeID.trim(),0,StoreVisitCode);
             if(dbengine.checkCountIntblStoreSalesOrderPaymentDetails(storeID,strGlobalOrderID,TmpInvoiceCodePDA)==0)
@@ -2758,7 +2786,7 @@ ctx=this;
             }
             String txtFileNamenew="GPSLastLocation.txt";
             File file = new File(jsonTxtFolder,txtFileNamenew);
-            String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
+            String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
 
 
             // If file does not exists, then create it
@@ -2813,7 +2841,7 @@ ctx=this;
             }
             String txtFileNamenew="FinalGPSLastLocation.txt";
             File file = new File(jsonTxtFolder,txtFileNamenew);
-            String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
+            String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
 
             // If file does not exists, then create it
             if (file.exists()) {
@@ -2892,7 +2920,7 @@ ctx=this;
             }
             String txtFileNamenew="FinalGPSLastLocation.txt";
             File file = new File(jsonTxtFolder,txtFileNamenew);
-            String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
+            String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.FinalLatLngJsonFile+"/"+txtFileNamenew;
 
 
             // If file does not exists, then create it
@@ -2989,5 +3017,44 @@ ctx=this;
         }
         Log.i ("isMyServiceRunning?", false+"");
         return false;
+    }
+    public ArrayList<String> fnGetOutStandingDetailsForPrint()
+    {
+
+
+        ArrayList<String> arrCollectionDetailsForPrint=new ArrayList<String>();
+
+        if(!TextUtils.isEmpty(totaltextview.getText().toString().replace(":","").trim()))
+        {
+            curntCol=0.0;
+        }
+        else
+        {
+            curntCol=Double.parseDouble(totaltextview.getText().toString().replace(":","").trim()) ;
+            curntCol=Double.parseDouble(new DecimalFormat("##.##").format(curntCol));
+        }
+
+
+
+        Double outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
+        outstandingvalue=Double.parseDouble(new DecimalFormat("##.##").format(outstandingvalue));
+
+
+        Double cntInvoceValue=dbengine.fetch_Store_InvValAmount(storeID,TmpInvoiceCodePDA);
+        cntInvoceValue=Double.parseDouble(new DecimalFormat("##.##").format(cntInvoceValue));
+
+
+
+        Double cntAllOustandings=dbengine.fetch_Store_AllOustandings(storeID);
+        cntAllOustandings=Double.parseDouble(new DecimalFormat("##.##").format(cntAllOustandings));
+
+        arrCollectionDetailsForPrint.add(""+outstandingvalue);
+        arrCollectionDetailsForPrint.add(""+cntInvoceValue);
+        arrCollectionDetailsForPrint.add(""+curntCol);
+        Double fnOutStand=outstandingvalue+cntInvoceValue-curntCol;
+        fnOutStand=Double.parseDouble(new DecimalFormat("##.##").format(fnOutStand));
+        arrCollectionDetailsForPrint.add(""+fnOutStand);
+
+        return arrCollectionDetailsForPrint;
     }
 }

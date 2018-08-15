@@ -1,18 +1,17 @@
 package project.astix.com.balajisfaindirect;
 
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 public class Add_New_Store_DynamicSectionWise extends Activity {
 	PRJDatabase helperDb = new PRJDatabase(this);

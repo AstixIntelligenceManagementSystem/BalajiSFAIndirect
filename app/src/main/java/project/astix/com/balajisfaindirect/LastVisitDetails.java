@@ -1,26 +1,5 @@
 package project.astix.com.balajisfaindirect;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.StringTokenizer;
-import java.util.UUID;
-import java.util.regex.Pattern;
-
-
-
-
-
-
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.BatteryManager;
-import android.os.Bundle;
-import android.provider.Settings;
 import android.app.ActionBar.LayoutParams;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -30,6 +9,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.BatteryManager;
+import android.os.Bundle;
+import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
@@ -50,6 +34,17 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.astix.Common.CommonInfo;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.StringTokenizer;
+import java.util.UUID;
+import java.util.regex.Pattern;
 
 
 public class LastVisitDetails extends BaseActivity
@@ -1265,7 +1260,7 @@ final Button btn_Cancel=(Button) findViewById(R.id.btn_Cancel);
 						String StartClickTimeFinal = df1.format(dateobj1);
 						
 						
-						CommonInfo.fileContent=CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Next Button Click on last Visit Details"+StartClickTimeFinal;
+						CommonInfo.fileContent= CommonInfo.fileContent+"     "+imei+"_"+storeID+"_"+"Next Button Click on last Visit Details"+StartClickTimeFinal;
 						
 						
 						

@@ -223,7 +223,7 @@ class ImageUploadAsyncTask extends AsyncTask<Void,Void,Boolean>
                 dbengine.updateSSttImage(fileName, 4);
                 dbengine.fndeleteSbumittedStoreImagesOfSotre(4);
 
-                String file_dj_path = Environment.getExternalStorageDirectory() + "/"+CommonInfo.ImagesFolder+"/"+fileName;
+                String file_dj_path = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.ImagesFolder+"/"+fileName;
                 File fdelete = new File(file_dj_path);
                 if (fdelete.exists()) {
                     if (fdelete.delete()) {

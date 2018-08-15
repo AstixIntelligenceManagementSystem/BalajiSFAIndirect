@@ -1,14 +1,6 @@
 package project.astix.com.balajisfaindirect;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +10,16 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
+
 import com.astix.Common.CommonInfo;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class AppLocationService extends Service implements LocationListener, com.google.android.gms.location.LocationListener {
 
@@ -71,7 +72,7 @@ public class AppLocationService extends Service implements LocationListener, com
 						}
 						String txtFileNamenew="GPSLastLocation.txt";
 						File file = new File(jsonTxtFolder,txtFileNamenew);
-						String fpath = Environment.getExternalStorageDirectory()+"/"+CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
+						String fpath = Environment.getExternalStorageDirectory()+"/"+ CommonInfo.AppLatLngJsonFile+"/"+txtFileNamenew;
 
 
 						// If file does not exists, then create it

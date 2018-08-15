@@ -10,10 +10,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.media.ExifInterface;
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.astix.Common.CommonInfo;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -25,7 +26,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
@@ -12504,7 +12504,7 @@ public class PRJDatabase
             Iterator it11new = hmapDistinctSalesQuotePersonMeetMstr.entrySet().iterator();
 
             while (it11new.hasNext()) {
-                Map.Entry pair = (Map.Entry)it11new.next();
+                Entry pair = (Entry)it11new.next();
                 if(hmapDistinctSalesQuotePersonMeetMstr.containsKey(pair.getKey().toString())){
                     //crntPID	=pair.getKey().toString();
                     int affected18 = db.update("tblSalesQuoteProductsMstr", values,"SalesQuoteId=?", new String[] { pair.getKey().toString() });
@@ -12681,7 +12681,7 @@ public class PRJDatabase
             LinkedHashMap<String, String> hmapDistinctSalesQuotePersonMeetMstr= fngetDistinctSalesQuotePersonMeetMstrForSstatUpdate(sID);
             Iterator it11new = hmapDistinctSalesQuotePersonMeetMstr.entrySet().iterator();
             while (it11new.hasNext()) {
-                Map.Entry pair = (Map.Entry)it11new.next();
+                Entry pair = (Entry)it11new.next();
                 if(hmapDistinctSalesQuotePersonMeetMstr.containsKey(pair.getKey().toString())){
                     int affected18 = db.update("tblSalesQuoteProductsMstr", values,"SalesQuoteId=?", new String[] { pair.getKey().toString() });
                 }
@@ -13056,7 +13056,7 @@ public class PRJDatabase
             }
             if(!CommonInfo.ActiveRouteSM.equals("0"))
             {
-                activeRouteID=CommonInfo.ActiveRouteSM;
+                activeRouteID= CommonInfo.ActiveRouteSM;
             }
 
         } finally {
@@ -13147,7 +13147,7 @@ public class PRJDatabase
             }
             if(!CommonInfo.ActiveRouteSM.equals("0"))
             {
-                activeRouteID=CommonInfo.ActiveRouteSM;
+                activeRouteID= CommonInfo.ActiveRouteSM;
             }
             return activeRouteID;
         } finally {
@@ -17828,7 +17828,7 @@ public class PRJDatabase
         int Sstat=0;
 
 
-        for (Map.Entry<String, String> entry : hmapReturnData.entrySet()) {
+        for (Entry<String, String> entry : hmapReturnData.entrySet()) {
 
             returnProductID=entry.getKey();
             routeID=(entry.getValue().split(Pattern.quote("~")))[0];
@@ -18003,7 +18003,7 @@ public class PRJDatabase
         //open();
 
         {
-            for(Map.Entry<String, String> dataEntry : hmapConfirmCancel.entrySet()){
+            for(Entry<String, String> dataEntry : hmapConfirmCancel.entrySet()){
 
                 // // System.out.println("Update tblInvoiceButtonTransac Set flgCancel='"+isCancelConfirm+"' and Sstat="+dataEntry.getValue()+" WHERE OrderID='"+dataEntry.getKey()+"'");
                 // db.execSQL("Update tblInvoiceButtonTransac Set flgCancel='"+isCancelConfirm+"' and Sstat="+dataEntry.getValue()+" WHERE OrderID='"+dataEntry.getKey()+"'");
@@ -23315,7 +23315,7 @@ public class PRJDatabase
             Iterator it11new = hmapDistinctSalesQuotePersonMeetMstr.entrySet().iterator();
 
             while (it11new.hasNext()) {
-                Map.Entry pair = (Map.Entry)it11new.next();
+                Entry pair = (Entry)it11new.next();
                 if(hmapDistinctSalesQuotePersonMeetMstr.containsKey(pair.getKey().toString())){
                     //crntPID	=pair.getKey().toString();
                     int affected18 = db.update("tblSalesQuoteProductsMstr", values,"SalesQuoteId=?", new String[] { pair.getKey().toString() });
@@ -24577,7 +24577,7 @@ public class PRJDatabase
         int sectionID = 0;
         int QuestionGroupID=0;
 
-        for(Map.Entry<String, String> entry:hmapQuesAnsVal.entrySet())
+        for(Entry<String, String> entry:hmapQuesAnsVal.entrySet())
         {
             String questId=entry.getKey().split(Pattern.quote("^"))[0].toString();
             AnswerType=entry.getKey().split(Pattern.quote("^"))[1].toString();
@@ -24928,7 +24928,7 @@ public class PRJDatabase
         }
         String StoreID = null, qstIdAndCntrlTyp = null, _imageName = null, imagePath = null,clkdTime;
         int sStat = 3;
-        for(Map.Entry<String, String> hmaEntry:hmapAllValues.entrySet())
+        for(Entry<String, String> hmaEntry:hmapAllValues.entrySet())
         {
             StoreID=hmaEntry.getValue().split(Pattern.quote("~"))[1].toString();
             qstIdAndCntrlTyp=hmaEntry.getValue().split(Pattern.quote("~"))[0].toString();
@@ -27027,7 +27027,7 @@ String fetchdate=fnGetDateTimeString();
             }
             if(!CommonInfo.ActiveRouteSM.equals("0"))
             {
-                activeRouteID=CommonInfo.ActiveRouteSM;
+                activeRouteID= CommonInfo.ActiveRouteSM;
             }
             return activeRouteID;
         } finally {
@@ -28255,7 +28255,7 @@ String fetchdate=fnGetDateTimeString();
     public static void updateOriginalStock(HashMap<String,Integer> hmapProductStock,String distId)
     {
         //open();
-        for(Map.Entry<String,Integer> entry:hmapProductStock.entrySet())
+        for(Entry<String,Integer> entry:hmapProductStock.entrySet())
         {
             ContentValues values=new ContentValues();
             System.out.println("hmapProductStock = "+entry.getKey()+" : "+entry.getValue());
@@ -30288,8 +30288,8 @@ String fetchdate=fnGetDateTimeString();
 //tv_GrossInvVal
         //open();
         Double dblMaxCollectionAmount = 0.0;
-        Cursor   cursor = db.rawQuery("SELECT tblTmpInvoiceHeader.InvoiceVal from tblTmpInvoiceHeader WHERE tblTmpInvoiceHeader.StoreID='"+StoreID+"' AND TmpInvoiceCodePDA='"+TmpInvoiceCodePDA+"'", null); //order by AutoIdOutlet Desc
-        //Cursor cursor = db.rawQuery("SELECT tblTmpInvoiceHeader.InvoiceVal from tblTmpInvoiceHeader", null); //order by AutoIdOutlet Desc
+       // Cursor   cursor = db.rawQuery("SELECT tblTmpInvoiceHeader.InvoiceVal from tblTmpInvoiceHeader WHERE tblTmpInvoiceHeader.StoreID='"+StoreID+"' AND TmpInvoiceCodePDA='"+TmpInvoiceCodePDA+"'", null); //order by AutoIdOutlet Desc
+        Cursor cursor = db.rawQuery("SELECT tblTmpInvoiceHeader.InvoiceVal from tblTmpInvoiceHeader WHERE tblTmpInvoiceHeader.StoreID='"+StoreID+"'", null); //order by AutoIdOutlet Desc
         try
         {
             if(cursor.getCount()>0)
@@ -30548,6 +30548,7 @@ String fetchdate=fnGetDateTimeString();
     {
 
         //open();
+        //
         try
         {
             db.execSQL("Update tblLastOutstanding Set  Outstanding="+OutStandingAmt+" WHERE StoreID='"+StoreID+"'");
@@ -30718,7 +30719,7 @@ String fetchdate=fnGetDateTimeString();
             Iterator it11new = hmapDistinctSalesQuotePersonMeetMstr.entrySet().iterator();
 
             while (it11new.hasNext()) {
-                Map.Entry pair = (Map.Entry)it11new.next();
+                Entry pair = (Entry)it11new.next();
                 if(hmapDistinctSalesQuotePersonMeetMstr.containsKey(pair.getKey().toString())){
                     //crntPID	=pair.getKey().toString();
                     int affected18 = db.update("tblSalesQuoteProductsMstr", values,"SalesQuoteId=?", new String[] { pair.getKey().toString() });
@@ -34085,7 +34086,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         db.beginTransaction();
 
         ContentValues value=new ContentValues();
-        for(Map.Entry<String,String> entry:hmapPicData.entrySet())
+        for(Entry<String,String> entry:hmapPicData.entrySet())
         {
             value.put("StoreID",storeId);
             value.put("imageName",entry.getKey());
@@ -34484,6 +34485,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         // ArrayList<String> arrTaxWisePrdctDtlt=new ArrayList<String>();
         Cursor cursor21=null;
         try {
+
             cursor21 = db.rawQuery("Select DISTINCT ifnull(Sum(tblAllCollectionData.Amount),'0.0') As Amount from tblAllCollectionData where tblAllCollectionData.StoreID='"+StoreID+"' AND tblAllCollectionData.StoreVisitCode='"+StoreVisitCode+"'", null);
             if(cursor21.getCount()>0)
             {

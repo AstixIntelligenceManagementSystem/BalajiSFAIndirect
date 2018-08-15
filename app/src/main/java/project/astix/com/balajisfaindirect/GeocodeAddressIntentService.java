@@ -1,10 +1,5 @@
 package project.astix.com.balajisfaindirect;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.IntentService;
 import android.content.Intent;
 import android.location.Address;
@@ -13,6 +8,11 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.text.TextUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class GeocodeAddressIntentService extends IntentService {
 

@@ -11,7 +11,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
-
 import android.widget.Toast;
 
 import com.astix.Common.CommonInfo;
@@ -60,7 +59,7 @@ public class BaseActivity extends Activity
         }
         else
         {
-            imei=CommonInfo.imei.trim();
+            imei= CommonInfo.imei.trim();
         }
         return imei;
     }

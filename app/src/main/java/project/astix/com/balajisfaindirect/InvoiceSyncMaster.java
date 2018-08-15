@@ -1,18 +1,20 @@
 package project.astix.com.balajisfaindirect;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Environment;
+import android.text.format.DateUtils;
+import android.util.Log;
+import android.view.WindowManager;
 
+import com.astix.Common.CommonInfo;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,21 +30,18 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Environment;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.text.format.DateUtils;
-import android.util.Log;
-import android.view.WindowManager;
-
-import com.astix.Common.CommonInfo;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 
 public class InvoiceSyncMaster extends Activity
@@ -639,7 +638,7 @@ private class SyncImgTasker extends AsyncTask<String, Void, Void> {
 			 
 			 			// ZIPPING XML FILE HERE
 			 //String newzipfile = Environment.getExternalStorageDirectory() + "/TJUKSFAInvoicexml/" + zipFileName + ".zip";
-				String newzipfile = Environment.getExternalStorageDirectory() + "/"+CommonInfo.InvoiceXMLFolder+"/" + zipFileName + ".zip";
+				String newzipfile = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.InvoiceXMLFolder+"/" + zipFileName + ".zip";
 
 				try {
 				zip(xmlForWeb,newzipfile);
