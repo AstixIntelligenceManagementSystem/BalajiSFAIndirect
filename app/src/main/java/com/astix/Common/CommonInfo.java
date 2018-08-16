@@ -27,7 +27,7 @@ public class CommonInfo {
 	public static String ImagesFolder = "BalajiSFAImages";
 	public static String ImagesFolderServer = "BalajiSFAImagesServer";
 	public static String InvoiceSyncPath = "http://103.20.212.194/ReadXML_BalajiInvoiceDevelopment/Default.aspx";
-	public static String InvoiceXMLFolder = "ParasInvoiceXml";
+	public static String InvoiceXMLFolder = "BalajiInvoiceXml";
 	public static String OrderSyncPath = "http://103.20.212.194/ReadXML_BalajiDevelopment/DefaultSFA.aspx";
 	public static String OrderSyncPathDistributorMap = "http://103.20.212.194/ReadXML_BalajiLive/DefaultSODistributorMapping.aspx";
 	public static String OrderTextSyncPath = "http://103.20.212.194/ReadTxtFileForBalajiSFADev/default.aspx";
@@ -41,8 +41,8 @@ public class CommonInfo {
 	public static String VersionDownloadAPKName = "BalajiSFA_Dev.apk";
 	public static String VersionDownloadPath = "http://103.20.212.194/downloads/";
 	public static String WebServicePath = "http://103.20.212.194/WebServiceAndroidBalajiDevelopment/Service.asmx";
-	public static String WebStockInUrl = "http://103.20.212.194/Balajisfa/manageorder/frmstockin.aspx";
-	public static String WebStockOutUrl = "http://103.20.212.194/Balajisfa/manageorder/frmStockTransferToVanDetail_PDA.aspx";
+	public static String WebStockInUrl = "http://103.20.212.194/Balaji_dev/manageorder/frmstockin.aspx";
+	public static String WebStockOutUrl = "http://103.20.212.194/Balaji_dev/manageorder/frmStockTransferToVanDetail_PDA.aspx";
 	public static String clickedTagPhoto_savedInstance = null;
 	public static String fileContent = "";
 	public static int flgAllRoutesData = 1;

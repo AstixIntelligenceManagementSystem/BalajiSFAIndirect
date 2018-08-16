@@ -82,7 +82,7 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NewStoreForm extends Fragment implements  CategoryCommunicatorCityState  {
+public class NewStoreForm extends Fragment   {
 
 	String nameForBeatName;
 	public String currentSelectedBeat="0";
@@ -5922,6 +5922,7 @@ public SpannableStringBuilder textWithMandatory(String text_Value)
 				 {
 					 hmapAddress.put("2",etCity.getText().toString().trim());
 					 hmapAddress.put("4",hmapCity_details.get(etCity.getText().toString().trim()));
+
 				 }
 				 else
 				 {
@@ -5937,6 +5938,7 @@ public SpannableStringBuilder textWithMandatory(String text_Value)
 			 else
 			 {
 				 hmapAddress.put("2","NA");
+				 hmapAddress.put("4","0");
 			 }
 			 if(!etState.getText().toString().trim().equals("Select"))
 			 {
@@ -5946,6 +5948,7 @@ public SpannableStringBuilder textWithMandatory(String text_Value)
 			 else
 			 {
 				 hmapAddress.put("3","NA");
+				 hmapAddress.put("5","0");
 			 }
 
 				//}

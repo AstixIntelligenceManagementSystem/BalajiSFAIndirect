@@ -95,7 +95,7 @@ public class CardArrayAdapterCityState extends BaseAdapter{
 			holder.ll_listChild=(LinearLayout) convertView.findViewById(R.id.ll_listChild);
 
 
-			communicator=(CategoryCommunicatorCityState) context.getApplicationContext();
+			communicator=(CategoryCommunicatorCityState) context;
 			convertView.setTag(holder);
 		}
 		else

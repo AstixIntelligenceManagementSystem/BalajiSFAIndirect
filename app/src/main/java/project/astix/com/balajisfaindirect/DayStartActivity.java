@@ -1593,9 +1593,13 @@ public class DayStartActivity extends BaseActivity implements InterfaceClass,OnM
                     startService(mMyServiceIntent);
                 }
 
-                Intent intent=new Intent(DayStartActivity.this,AllButtonActivity.class);
+                /*Intent intent=new Intent(DayStartActivity.this,AllButtonActivity.class);
                 startActivity(intent);
-                finish();
+                finish();*/
+                Intent intent=new Intent(DayStartActivity.this,DSR_Registration.class);
+                intent.putExtra("IntentFrom", "SPLASH");
+                startActivity(intent);
+                finish();;
 
                 /*Intent syncIntent = new Intent(DayStartActivity.this, SyncMaster.class);
                 syncIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/" + CommonInfo.OrderXMLFolder + "/" + newfullFileName + ".xml");

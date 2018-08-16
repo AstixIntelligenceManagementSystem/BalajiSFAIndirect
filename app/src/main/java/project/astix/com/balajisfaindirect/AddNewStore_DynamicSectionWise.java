@@ -84,9 +84,11 @@ import java.util.TimerTask;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-
-public class AddNewStore_DynamicSectionWise extends BaseFragmentActivity implements LocationListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,SearchListCommunicator,OnMapReadyCallback
+//CategoryCommunicatorCityState
+public class AddNewStore_DynamicSectionWise extends BaseFragmentActivity implements LocationListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,SearchListCommunicator,OnMapReadyCallback,CategoryCommunicatorCityState
 {
+    public static int StoreCityID=0;
+    public static int StoreStateID=0;
     int IsComposite=0;
     int flgCheckNewOldStore=0;
     String StoreNameFromBack="";
@@ -1159,7 +1161,7 @@ public class AddNewStore_DynamicSectionWise extends BaseFragmentActivity impleme
         }
                                                 //RetailerName
         helperDb.savetblStoreMain("NA",selStoreID,StoreName,"NA","NA","NA","NA","NA","NA","NA","0",StoreTypeTradeChannel,
-                Integer.parseInt(fnlStoreType),0,0, 0, "NA",VisitStartTS,imei,""+battLevel,3,1,String.valueOf(fnLati),String.valueOf(fnLongi),"" + fnAccuracy,"" + fnAccurateProvider,0,fnlAddressName,allValuesOfPaymentStageID,flgHasQuote,flgAllowQuotation,flgSubmitFromQuotation,flgGSTCapture,flgGSTCompliance,GSTNumber,flgGSTRecordFromServer,flgLocationServicesOnOff,flgGPSOnOff,flgNetworkOnOff,flgFusedOnOff,flgInternetOnOffWhileLocationTracking,flgRestart,flgStoreOrder, hmapStoreAddress.get("2"), hmapStoreAddress.get("1"), hmapStoreAddress.get("3"),distID,fnlOwnerName,fnlMobileNumber,fnStoreCatType,flgRuleTaxVal,flgTransType,fnlMobileNumber,fnSalesPersonName,fnSalesPersonContactNo,IsComposite);
+                Integer.parseInt(fnlStoreType),0,0, 0, "NA",VisitStartTS,imei,""+battLevel,3,1,String.valueOf(fnLati),String.valueOf(fnLongi),"" + fnAccuracy,"" + fnAccurateProvider,0,fnlAddressName,allValuesOfPaymentStageID,flgHasQuote,flgAllowQuotation,flgSubmitFromQuotation,flgGSTCapture,flgGSTCompliance,GSTNumber,flgGSTRecordFromServer,flgLocationServicesOnOff,flgGPSOnOff,flgNetworkOnOff,flgFusedOnOff,flgInternetOnOffWhileLocationTracking,flgRestart,flgStoreOrder, hmapStoreAddress.get("2"), hmapStoreAddress.get("1"), hmapStoreAddress.get("3"),distID,fnlOwnerName,fnlMobileNumber,fnStoreCatType,flgRuleTaxVal,flgTransType,fnlMobileNumber,fnSalesPersonName,fnSalesPersonContactNo,IsComposite,Integer.parseInt(""+hmapStoreAddress.get("4")),Integer.parseInt(""+hmapStoreAddress.get("5")));
 
         helperDb.saveSOAPdataStoreListDetailsInNewTable(selStoreID, hmapStoreAddress.get("2"), hmapStoreAddress.get("1"), hmapStoreAddress.get("3"),1);
         //helperDb.close();
@@ -2201,6 +2203,15 @@ public class AddNewStore_DynamicSectionWise extends BaseFragmentActivity impleme
         }
 
         return editedAddress;
+    }
+
+    @Override
+    public void selectedCityState(String selectedCategory, Dialog dialog, int flgCityState) {
+        NewStoreForm recFragment = (NewStoreForm) getFragmentManager().findFragmentByTag("NewStoreFragment");
+        if(null != recFragment)
+        {
+            recFragment.selectedCityState(selectedCategory,dialog,flgCityState);
+        }
     }
 
     class MyTimerTask extends TimerTask

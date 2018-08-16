@@ -207,6 +207,8 @@ public class ServiceWorker
 					String SalesPersonName="NA";
 					String SalesPersonContactNo="NA";
 					int IsComposite=0;
+					int StoreStateID=0;
+					int StoreCityID=0;
 
 					//not used
 					//int IsNextDat=0;
@@ -594,6 +596,27 @@ public class ServiceWorker
 						}
 					}
 
+					if(!element.getElementsByTagName("CityID").equals(null))
+					{
+						NodeList CityIDNode = element.getElementsByTagName("CityID");
+						Element     line = (Element) CityIDNode.item(0);
+						if(CityIDNode.getLength()>0)
+						{
+							StoreCityID=Integer.parseInt(XMLParser.getCharacterDataFromElement(line));
+						}
+					}
+
+					if(!element.getElementsByTagName("StateID").equals(null))
+					{
+						NodeList StateIDNode = element.getElementsByTagName("StateID");
+						Element     line = (Element) StateIDNode.item(0);
+						if(StateIDNode.getLength()>0)
+						{
+							StoreStateID=Integer.parseInt(XMLParser.getCharacterDataFromElement(line));
+						}
+					}
+					//int StoreStateID=0;
+					//					int StoreCityID=0;
 					//hmapStoreIdVisitStatus
          /*    if(hmapStoreIdVisitStatus!=null)
                {
@@ -663,7 +686,7 @@ public class ServiceWorker
 							StoreLatitude,StoreLongitude,LastVisitDate,LastTransactionDate, Sstat,StoreRouteID,
 							RouteNodeType, StoreCatNodeId,PaymentStage , flgHasQuote , flgAllowQuotation, flgGSTCapture,
 							flgGSTCompliance, GSTNumber , flgGSTRecordFromServer , StoreCity , StorePinCode , StoreState,
-							OutStanding , OverDue , DBR , flgRuleTaxVal,flgTransType,StoreType,IsClose,SalesPersonName,SalesPersonContactNo,IsComposite);
+							OutStanding , OverDue , DBR , flgRuleTaxVal,flgTransType,StoreType,IsClose,SalesPersonName,SalesPersonContactNo,IsComposite,StoreCityID,StoreStateID);
 					}
 				}
 
