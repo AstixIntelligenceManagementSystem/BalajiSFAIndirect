@@ -5922,7 +5922,6 @@ public SpannableStringBuilder textWithMandatory(String text_Value)
 				 {
 					 hmapAddress.put("2",etCity.getText().toString().trim());
 					 hmapAddress.put("4",hmapCity_details.get(etCity.getText().toString().trim()));
-
 				 }
 				 else
 				 {
@@ -5938,7 +5937,6 @@ public SpannableStringBuilder textWithMandatory(String text_Value)
 			 else
 			 {
 				 hmapAddress.put("2","NA");
-				 hmapAddress.put("4","0");
 			 }
 			 if(!etState.getText().toString().trim().equals("Select"))
 			 {
@@ -5948,7 +5946,6 @@ public SpannableStringBuilder textWithMandatory(String text_Value)
 			 else
 			 {
 				 hmapAddress.put("3","NA");
-				 hmapAddress.put("5","0");
 			 }
 
 				//}
