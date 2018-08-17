@@ -50,6 +50,10 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
+    <uses-feature android:name="android.hardware.usb.host"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_logo"
@@ -488,7 +492,11 @@
         <service
             android:name=".MyService"
             android:enabled="true"
-            android:process=":ParassfaBkgSync" />
+            android:process=":BalajiDirectSaleBkgSync" />
+        <activity
+            android:name="project.astix.com.balajisfaindirect.printer.DeviceListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog"></activity>
 
     </application>
 

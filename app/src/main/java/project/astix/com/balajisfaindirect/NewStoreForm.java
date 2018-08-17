@@ -82,7 +82,7 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NewStoreForm extends Fragment   {
+public class NewStoreForm extends Fragment  {
 
 	String nameForBeatName;
 	public String currentSelectedBeat="0";
@@ -255,7 +255,7 @@ public class NewStoreForm extends Fragment   {
 
 
 		list_store.setAdapter(cardArrayAdapter);
-		ed_search.setBackgroundResource(R.drawable.et_boundary);
+		//	editText.setBackgroundResource(R.drawable.et_boundary);
 
 
 		boolean isSingleLine=true;
@@ -278,8 +278,45 @@ public class NewStoreForm extends Fragment   {
 
 	}
 
+	public void selectedCityState(String selectedCategory, Dialog dialog, int flgCityState)
+	{
+		dialog.dismiss();
+		if(flgCityState==1)
+		{
+			etCity.setText(selectedCategory);
+			helperDb.updateAllDefaultCity(hmapCity_details.get(selectedCategory));
+			previousSlctdCity=selectedCategory;
+			if(selectedCategory.equalsIgnoreCase("Others") || selectedCategory.equalsIgnoreCase("Other"))
+			{
+				if(etOtherCity.getVisibility()==View.GONE)
+				{
+					etOtherCity.setVisibility(View.VISIBLE);
 
+				}
+				etState.setText("Select");
+				etState.setEnabled(true);
+			}
+			else
+			{
+				if(etOtherCity.getVisibility()==View.VISIBLE)
+				{
+					etOtherCity.setVisibility(View.GONE);
+				}
 
+				if(hmapCityAgainstState!=null && hmapCityAgainstState.containsKey(selectedCategory))
+				{
+					etState.setText(hmapCityAgainstState.get(selectedCategory));
+				}
+				etState.setEnabled(false);
+			}
+		}
+		else
+		{
+			previousSlctdCity=selectedCategory;
+			etState.setText(selectedCategory);
+		}
+
+	}
 
 
 	OnClickListener captrureListener = new OnClickListener() {
@@ -688,27 +725,11 @@ private InputFilter filter = new InputFilter() {
 			}
 			if(!AddNewStore_DynamicSectionWise.city.equals("NA"))
 			{
-				if(hmapCity_details.containsKey(AddNewStore_DynamicSectionWise.city))
-				{
-					etCity.setText(AddNewStore_DynamicSectionWise.city);
-				}
-				else
-				{
-					etCity.setText("Select");
-				}
-
+				etCity.setText(AddNewStore_DynamicSectionWise.city);
 			}
 			if(!AddNewStore_DynamicSectionWise.state.equals("NA"))
 			{
-				if(hmapState_details.containsKey(AddNewStore_DynamicSectionWise.state))
-				{
-					etState.setText(AddNewStore_DynamicSectionWise.state);
-				}
-				else
-				{
-					etState.setText("Select");
-				}
-				//etState.setText(AddNewStore_DynamicSectionWise.state);
+				etState.setText(AddNewStore_DynamicSectionWise.state);
 			}
 			boolean isCityFilled = false;
 			if(!AddNewStore_DynamicSectionWise.city.equals("NA")) {
@@ -5937,6 +5958,7 @@ public SpannableStringBuilder textWithMandatory(String text_Value)
 			 else
 			 {
 				 hmapAddress.put("2","NA");
+				 hmapAddress.put("4","0");
 			 }
 			 if(!etState.getText().toString().trim().equals("Select"))
 			 {
@@ -5946,6 +5968,7 @@ public SpannableStringBuilder textWithMandatory(String text_Value)
 			 else
 			 {
 				 hmapAddress.put("3","NA");
+				 hmapAddress.put("5","0");
 			 }
 
 				//}
@@ -8878,44 +8901,5 @@ public SpannableStringBuilder textWithMandatory(String text_Value)
 		}
 		return currentSelectedBeat;
 		//currentSelectedBeat=edValBeat.getText().toString();
-	}
-
-
-	public void selectedCityState(String selectedCategory, Dialog dialog, int flgCityState) {
-		dialog.dismiss();
-		if(flgCityState==1)
-		{
-			etCity.setText(selectedCategory);
-			helperDb.updateAllDefaultCity(hmapCity_details.get(selectedCategory));
-			previousSlctdCity=selectedCategory;
-			if(selectedCategory.equalsIgnoreCase("Others") || selectedCategory.equalsIgnoreCase("Other"))
-			{
-				if(etOtherCity.getVisibility()==View.GONE)
-				{
-					etOtherCity.setVisibility(View.VISIBLE);
-
-				}
-				etState.setText("Select");
-				etState.setEnabled(true);
-			}
-			else
-			{
-				if(etOtherCity.getVisibility()==View.VISIBLE)
-				{
-					etOtherCity.setVisibility(View.GONE);
-				}
-
-				if(hmapCityAgainstState!=null && hmapCityAgainstState.containsKey(selectedCategory))
-				{
-					etState.setText(hmapCityAgainstState.get(selectedCategory));
-				}
-				etState.setEnabled(false);
-			}
-		}
-		else
-		{
-			previousSlctdCity=selectedCategory;
-			etState.setText(selectedCategory);
-		}
 	}
 }

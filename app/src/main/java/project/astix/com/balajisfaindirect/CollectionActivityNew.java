@@ -1,9 +1,13 @@
 package project.astix.com.balajisfaindirect;
 
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,9 +19,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.text.Editable;
+import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -37,6 +44,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astix.Common.CommonInfo;
 import com.google.android.gms.common.ConnectionResult;
@@ -59,6 +67,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -77,9 +87,28 @@ import java.util.StringTokenizer;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import project.astix.com.balajisfaindirect.printer.DeviceListActivity;
+import project.astix.com.balajisfaindirect.printer.UnicodeFormatter;
+
 public class CollectionActivityNew extends BaseActivity  implements DatePickerDialog.OnDateSetListener, LocationListener,GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,InterfaceClass,View.OnFocusChangeListener
+        GoogleApiClient.OnConnectionFailedListener,InterfaceClass,View.OnFocusChangeListener,Runnable
 {
+    //Bluetooth Code
+    private CoundownClass countDownTimer;
+    //protected static final String TAG = "TAG";
+    private static final int REQUEST_CONNECT_DEVICE = 1;
+    private static final int REQUEST_ENABLE_BT = 2;
+    Button mScan, mPrint, mDisc,mPrintImage,usbPrint;
+    BluetoothAdapter mBluetoothAdapter;
+    private UUID applicationUUID = UUID
+            .fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private ProgressDialog mBluetoothConnectProgressDialog;
+    private BluetoothSocket mBluetoothSocket;
+    BluetoothDevice mBluetoothDevice;
+    int aletrDialogFlag=0;
+    //Bluetooth end
+    ArrayList<LinkedHashMap<String,ArrayList<String>>> arrAllPrintResult;
+
 /* For Location Srvices Start*/
 
     CustomKeyboard mCustomKeyboardNum, mCustomKeyboardNumWithoutDecimal;
@@ -179,7 +208,7 @@ Double OverAllAmountCollected=0.0;
     EditText amountEdittextFirst,amountEdittextSecond,amountEdittextThird,checqueNoEdittextSecond,checqueNoEdittextThird;
 
 
-    Button Done_btn;
+    Button Done_btn ,btn_print;
     String storeIDGlobal;
     String flagNew_orallDataFromDatabase,PaymentModeUpdate,PaymentModeSecondUpdate,AmountUpdate,ChequeNoUpdte,DateUpdate;
     String BankNameUpdate,BankNameSecondUpdate="0",BankNameThirdUpdate="0";
@@ -1268,7 +1297,24 @@ ctx=this;
                 }
             }
         });
+        mDisc = (Button) findViewById(R.id.dis);
+        mDisc.setOnClickListener(new OnClickListener() {
+            public void onClick(View mView) {
+                if (mBluetoothAdapter != null)
+                    mBluetoothAdapter.disable();
+            }
+        });
+        btn_print=(Button) findViewById(R.id.btn_print);
+        btn_print.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               /* ArrayList<String> arrResult=  dbengine.fnFetch_tblWarehouseMstr();
+                arrAllPrintResult= dbengine.fnFetch_InvoiceReportForPrint(StoreVisitCode,storeID, Integer.parseInt(arrResult.get(0)),Integer.parseInt(arrResult.get(1)));
+                MakePrintRecipt();*/
 
+                PrintALlFuctionality();
+            }
+        });
         Done_btn=(Button) findViewById(R.id.Done_btn);
         Done_btn.setOnClickListener(new OnClickListener() {
 
@@ -2091,9 +2137,9 @@ ctx=this;
             }
             else
             {
-                overallOutStand=Double.parseDouble(tv_totOutstandingValue.getText().toString().replace(":","")) ;
+                overallOutStand=Double.parseDouble(tv_totOutstandingValue.getText().toString().replace(":","").trim()) ;
             }
-            if(!TextUtils.isEmpty(totaltextview.getText().toString().replace(":","").trim()))
+            if(TextUtils.isEmpty(totaltextview.getText().toString().replace(":","").trim()))
             {
                 curntCol=0.0;
             }
@@ -2175,7 +2221,7 @@ ctx=this;
 
 
 
-            //overallOutStand=0.0;
+           // overallOutStand=0.0;
            /* Double outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
             outstandingvalue=Double.parseDouble(new DecimalFormat("##.##").format(outstandingvalue));*/
 
@@ -3024,7 +3070,7 @@ ctx=this;
 
         ArrayList<String> arrCollectionDetailsForPrint=new ArrayList<String>();
 
-        if(!TextUtils.isEmpty(totaltextview.getText().toString().replace(":","").trim()))
+        if(TextUtils.isEmpty(totaltextview.getText().toString().replace(":","").trim()))
         {
             curntCol=0.0;
         }
@@ -3057,4 +3103,518 @@ ctx=this;
 
         return arrCollectionDetailsForPrint;
     }
+
+    //Printer functions start here----------------------------------------------------------------
+    public void PrintALlFuctionality(){
+        {
+            if(mBluetoothAdapter==null){
+                mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            }
+            if (!mBluetoothAdapter.isEnabled()) {
+
+
+                aletrDialogFlag=1;
+                AlertDialogCommonFunction("Bluetooth Printer is not connected.Do you want to  connect to Printer? ");
+
+            }
+            else{
+                if((mBluetoothSocket != null) && (mBluetoothSocket.isConnected())){
+                    //dbengine.open();
+                    ArrayList<String> arrResult=  dbengine.fnFetch_tblWarehouseMstr();
+                   // dbengine.close();
+                    arrAllPrintResult=null;
+                    if((arrResult!=null) && (arrResult.size()>0)){
+                        arrAllPrintResult= dbengine.fnFetch_InvoiceReportForPrint(StoreVisitCode,storeID, Integer.parseInt(arrResult.get(0)),Integer.parseInt(arrResult.get(1)));
+                        if((arrAllPrintResult!=null) && (arrAllPrintResult.size()>0)){
+                            PrintAll_Code();
+                        }
+                        else{
+                            Toast.makeText(CollectionActivityNew.this, "All print data is blank", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    else{
+                        Toast.makeText(CollectionActivityNew.this, "NodeID Blank", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else{
+                    aletrDialogFlag=2;
+                    AlertDialogCommonFunction("Bluetooth Printer is not connected.Do you want to connect to Printer");
+
+                }
+            }
+
+
+
+        }
+
+    }
+
+
+    public class CoundownClass extends CountDownTimer {
+
+        CoundownClass(long startTime, long interval) {
+            super(startTime, interval);
+            // TODO Auto-generated constructor stub
+            if(mBluetoothSocket!=null){
+                if(mBluetoothSocket.isConnected()){
+                    countDownTimer.cancel();
+                }
+            }
+
+        }
+
+        @Override
+        public void onFinish()
+        {
+
+            if(mBluetoothConnectProgressDialog!=null){
+                if(mBluetoothConnectProgressDialog.isShowing()){
+                    mBluetoothConnectProgressDialog.dismiss();
+                    try {
+                        if (mBluetoothSocket != null)
+                            mBluetoothSocket.close();
+                        Toast.makeText(CollectionActivityNew.this, "Not Connected", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Log.e("Tag", "Exe ", e);
+                    }
+                }
+            }
+
+
+        }
+
+        @Override
+        public void onTick(long arg0) {
+            // TODO Auto-generated method stub
+
+        }}
+    public void AlertDialogCommonFunction(String msg ){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+                CollectionActivityNew.this);
+        alertDialog.setTitle(getResources().getString(R.string.genTermInformation));
+
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage(msg);
+        alertDialog.setPositiveButton(getResources().getString(R.string.AlertDialogYesButton),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+
+                        dialog.dismiss();
+                        if((aletrDialogFlag==1) ){
+                            Intent enableBtIntent = new Intent(
+                                    BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                            startActivityForResult(enableBtIntent,
+                                    REQUEST_ENABLE_BT);
+                        }
+                        if((aletrDialogFlag==2) ){
+                            ListPairedDevices();
+                            Intent connectIntent = new Intent(CollectionActivityNew.this,
+                                    DeviceListActivity.class);
+                            startActivityForResult(connectIntent,
+                                    REQUEST_CONNECT_DEVICE);
+                        }
+
+
+
+
+                    }
+                });
+        alertDialog.setNegativeButton(getResources().getString(R.string.AlertDialogNoButton),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        // Showing Alert Message
+        alertDialog.show();
+    }
+    public void  PrintAll_Code(){
+        Thread t = new Thread() {
+            public void run() {
+                try {
+                    String data="";
+                    for(int i=1;i<10;i++){
+                        if(i==0){
+                            data  ="\n";
+                        }
+                        else{
+                            data=data+"\n " + String.format("%1$-10s %2$10s %3$11s %4$10s", "Shivam-001", "5", "10", "50.00");
+                        }
+                    }
+                    OutputStream os = mBluetoothSocket
+                            .getOutputStream();
+                    byte[] format = {29, 10, 35 }; // manipulate your font size in the second parameter
+                    byte[] center =  { 0x1b, 'a', 0x01 }; // center alignment
+
+
+                    byte[] printformat = new byte[]{0x1b,0x21,0x01};//center bold
+                           /*  byte[] printformat = new byte[]{0x1,'a',0x01};//center normal
+                            os.write(printformat);*/
+                     //os.write(printformat);
+                    //  os.write(format);
+
+                    String billDatatoprint=  MakePrintRecipt();
+                    os.write(printformat);//for small text
+                    os.write(center);//for center
+                   os.write(billDatatoprint.getBytes());
+                    //This is printer specific code you can comment ==== > Start
+
+                    // Setting height
+                /*    int gs = 29;
+                    os.write(intToByteArray(gs));
+                    int h = 104;
+                    os.write(intToByteArray(h));
+                    int n = 162;
+                    os.write(intToByteArray(n));
+
+                    // Setting Width
+                    int gs_width = 29;
+                    os.write(intToByteArray(gs_width));
+                    int w = 119;
+                    os.write(intToByteArray(w));
+                    int n_width = 2;
+                    os.write(intToByteArray(n_width));*/
+
+
+                } catch (Exception e) {
+                    Log.e("MainActivity", "Exe ", e);
+
+                }
+            }
+        };
+        t.start();
+    }
+    public String MakePrintRecipt(){
+
+        LinkedHashMap<String,ArrayList<String>>hmapWareHouseDetails=arrAllPrintResult.get(0);
+        LinkedHashMap<String,ArrayList<String>> hmapStoreBasicDetails=arrAllPrintResult.get(1);
+        LinkedHashMap<String,ArrayList<String>> hmapInvoiceRecodsToPrint=arrAllPrintResult.get(2);
+        LinkedHashMap<String,ArrayList<String>> hmapTotalBfrAftrTaxVal=arrAllPrintResult.get(3);
+        LinkedHashMap<String,ArrayList<String>> hmapTaxWisePrdctDtlt=arrAllPrintResult.get(4);
+
+        //ware house details starts
+        ArrayList<String> arrListWarehouse=  hmapWareHouseDetails.get("WarehouseDetails");
+        String shopName=arrListWarehouse.get(0);
+        String shopAddress=arrListWarehouse.get(2);//",GT ROAD, NEAR STATE BANK, GOPIGANJ BHADOHI"
+        String placeOfSuppllyAddress=arrListWarehouse.get(3)+", "+arrListWarehouse.get(1)+", "+arrListWarehouse.get(4);//"BHADOHI, UTTARPRADESH,221409 ";
+        String phoneNumber=arrListWarehouse.get(5);//"9716082084";
+        String gstNumber=arrListWarehouse.get(6);//"1231222ASSSMM99";
+        //ware house details ends
+
+        //Store details starts
+        ArrayList<String> arrListStoreData=  hmapStoreBasicDetails.get("StoreDetails");
+        String custName=arrListStoreData.get(0);//"CHANCHAL PAN";
+        String custAddress= arrListStoreData.get(1);//"B-166/48 GANDHI  TRAFFIC CHAURAHA MISSION ROAD  ";
+        String custStateCityPin=arrListStoreData.get(3)+", "+arrListStoreData.get(2)+", "+arrListStoreData.get(4);//"BHADOHI, UTTARPRADESH,210205";
+        int delNo=dbengine.fnGettblDeliveryNoteNumber();
+        String deliveryNumber=""+delNo;//"12345678900";
+
+        long  syncTIMESTAMP = System.currentTimeMillis();
+        Date dateobj = new Date(syncTIMESTAMP);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
+        String currentDateTime = df.format(dateobj);
+        String date=currentDateTime;//"09-Aug-2018-10:45:17 AM";
+        String compositeScheme=arrListWarehouse.get(7);//"No";//or yes
+        //Store details ends
+
+        String data="";
+
+       //loop for product
+        //Product details Starts
+        int i=1;
+        for(Map.Entry<String,ArrayList<String>> entry:hmapInvoiceRecodsToPrint.entrySet())
+        {
+
+            String storeID= entry.getKey().trim();
+            ArrayList<String> arrProductInvoiceDetailsForPrint= entry.getValue();
+            String sr = (i < 10 ? "0" : "") + i+" ";
+            i++;
+            String HSNCode=arrProductInvoiceDetailsForPrint.get(0);//"00000"+i;
+            String itemDscr=arrProductInvoiceDetailsForPrint.get(1).toString().trim();//"item-11111133"+i;
+            itemDscr= itemDscr .replace(Html.fromHtml("&nbsp;"),"");
+           /* Spanned itemDscr1=  Html.fromHtml(itemDscr);// itemDscr.replace("   ","");
+            itemDscr=  itemDscr.replace("  ","");*/
+
+           /* if(itemDscr.contains("  ") || itemDscr.contains("   ")){
+                if(itemDscr.contains("  ") ){
+                    itemDscr=  itemDscr.replace("  ","");
+                }
+                if(itemDscr.contains("   ")){
+                    itemDscr=   itemDscr.replace("   ","");
+                }
+            }*/
+            //String rate="\u20B9"+"50.00"+i;
+            double rate=0.0;
+            double ValueText=0.0;
+            if(!arrProductInvoiceDetailsForPrint.get(2).toString().trim().equals("")){
+                rate=Double.parseDouble(arrProductInvoiceDetailsForPrint.get(2).toString().trim());//""+"50.0"+i;
+            }
+
+            String taxRate=arrProductInvoiceDetailsForPrint.get(3);//"6%";
+            String Qty=arrProductInvoiceDetailsForPrint.get(4);//"10"+i;
+            // String ValueText="\u20B9"+"500.00"+i;
+            if(!arrProductInvoiceDetailsForPrint.get(5).toString().trim().equals("")){
+                ValueText=Double.parseDouble(arrProductInvoiceDetailsForPrint.get(5).toString().trim());//""+"500.0"+i;
+            }
+
+            data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, rate, taxRate, Qty,ValueText);
+
+        }
+        //Product details Ends
+
+        //Tax details Starts
+        ArrayList<String> arrTaxWisePrdctDtlt=  hmapTotalBfrAftrTaxVal.get("TotalInvoiceBeforeAfterTax");
+        double valueBeforeTax=0.0;
+        double valueAfterTax=0.0;
+        if(!arrTaxWisePrdctDtlt.get(0).equals("")){
+            valueBeforeTax=Double.parseDouble(arrTaxWisePrdctDtlt.get(0));//"1000.00";
+        }
+        if(!arrTaxWisePrdctDtlt.get(1).equals("")){
+            valueAfterTax=Double.parseDouble(arrTaxWisePrdctDtlt.get(1));//"1040.00";
+        }
+
+
+        //loop for tax
+        String taxData="";
+        int  length=2;
+        double totalTaxValue=0.0;
+        for(Map.Entry<String,ArrayList<String>> entry:hmapTaxWisePrdctDtlt.entrySet())
+        {
+            String taxPercent= entry.getKey().trim();
+            ArrayList<String> arrTaxValue= entry.getValue();
+            String tax=taxPercent;//"5% Tax";
+            double taxAmount=Double.parseDouble(arrTaxValue.get(0));//"20.00";
+            totalTaxValue=totalTaxValue+taxAmount;
+
+            taxData = taxData +"\n"+ String.format("%1$-11s %2$-21s %3$9s %4$3s %5$13s %6$3s",  "", tax, "","",taxAmount, "");
+
+        }
+
+        String totalTax=""+totalTaxValue;//"40.00";
+        if(hmapTaxWisePrdctDtlt.size()>1){
+            taxData = taxData +"\n"+ String.format("%1$-11s %2$-21s %3$9s %4$3s %5$13s %6$3s",  "", "Tax Value", "","",totalTax, "");
+        }
+        //Tax details Ends
+        //loop for tax end
+
+        //OutStandingsDetails Starts here
+        ArrayList<String> arrCollectionDetailsForPrint=   fnGetOutStandingDetailsForPrint();
+        String PreviousOutStandings= arrCollectionDetailsForPrint.get(0);//"150.00";
+        String currentInvoice=arrCollectionDetailsForPrint.get(1);//"1040.00";
+        String collection=arrCollectionDetailsForPrint.get(2);//"500.00";
+        String currentOutStanding=arrCollectionDetailsForPrint.get(3);//"750.00";
+        //OutStandingsDetails Ends here
+
+        String BILL = "";
+        BILL = BILL + "\n"+
+                "-----------------------------------------------------------------\n" +
+                "                           "+shopName+"                          \n" +
+                ""+shopAddress+"      \n " +
+                ""+ placeOfSuppllyAddress+"  \n";
+        BILL = BILL
+                + "Phone: "+ phoneNumber+ "  GSTIN. No.:"+ gstNumber+" \n";
+        BILL = BILL
+                + "-----------------------------------------------------------------\n";
+
+        BILL = BILL
+                + "                          "+custName+"                            \n";
+        BILL = BILL
+                + ""+custAddress+"\n";
+        BILL = BILL
+                + ""+custStateCityPin+"\n";
+        BILL = BILL
+                + "DELIVERY  NO: "+ deliveryNumber+ "\n";
+        BILL = BILL
+                + "DATE:  "+ date+ "\n";
+
+        BILL = BILL + "Register under composite scheme? "+ compositeScheme+"\n";
+
+        BILL = BILL
+                + "-----------------------------------------------------------------\n";
+
+
+        BILL = BILL + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", "Sr HSNCode","Item Descr", "Rate ", "TaxRt", "Qty","Value");
+        BILL = BILL + "\n";
+        BILL = BILL
+                + "-----------------------------------------------------------------";
+       /* BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$7s", "01 111111","item-111111", "\u20B9"+"50", "6%", "10","200.00");
+
+        BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$5s", "01 111111","item-11", "\u20B9"+"50", "6%", "10","₹200.00");
+        BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$5s", "01 111111","item-111111333", "\u20B9"+"50", "6%", "10","200.00");
+        BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$5s", "01 111111","item-111455555555", "\u20B9"+"50", "6%", "10","200.00");
+        */
+        BILL = BILL +data;
+
+        BILL = BILL + "\n";
+        BILL = BILL
+                + "-----------------------------------------------------------------\n";
+        BILL = BILL
+                + "                           Tax Details                            \n";
+
+        BILL = BILL
+                + "-----------------------------------------------------------------\n";
+        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Value Before Tax", "","","", valueBeforeTax);
+
+        BILL=BILL+taxData;
+        BILL = BILL + "\n";
+        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Value After Tax", "","","", valueAfterTax);
+        BILL = BILL + "\n";
+        BILL = BILL
+                + "-----------------------------------------------------------------\n";
+        BILL = BILL
+                + "                       OutStanding(s) Details                    \n";
+        BILL = BILL
+                + "-----------------------------------------------------------------\n";
+
+        BILL = BILL +"\n" + String.format("%1$-8s %2$-24s %3$9s %4$3s %5$3s %6$13s",  "", "Previous OutStanding(s)", "","","", PreviousOutStandings);
+        BILL = BILL +"\n" + String.format("%1$-8s %2$-24s %3$9s %4$3s %5$3s %6$13s",  "", "Current Invoice", "","","", currentInvoice);
+        BILL = BILL +"\n" + String.format("%1$-8s %2$-24s %3$9s %4$3s %5$3s %6$13s",  "", "Collection", "","","", collection);
+        BILL = BILL +"\n" + String.format("%1$-8s %2$-24s %3$9s %4$3s %5$3s %6$13s",  "", "Current OutStanding(s)", "","","", currentOutStanding);
+        BILL = BILL + "\n";
+        BILL = BILL
+                + "-----------------------------------------------------------------\n";
+
+        BILL = BILL
+                + "                           *Thank You*                            \n";
+        BILL = BILL
+                + "-----------------------------------------------------------------\n";
+        BILL = BILL + "";
+        System.out.println("SHIVAMJAYSAWAL"+BILL);
+        return BILL;
+    }
+    public void onActivityResult(int mRequestCode, int mResultCode,
+                                 Intent mDataIntent) {
+        super.onActivityResult(mRequestCode, mResultCode, mDataIntent);
+
+        switch (mRequestCode) {
+            case REQUEST_CONNECT_DEVICE:
+                if (mResultCode == Activity.RESULT_OK) {
+                    Bundle mExtra = mDataIntent.getExtras();
+                    String mDeviceAddress = mExtra.getString("DeviceAddress");
+                    Log.v(TAG, "Coming incoming address " + mDeviceAddress);
+                    mBluetoothDevice = mBluetoothAdapter
+                            .getRemoteDevice(mDeviceAddress);
+                    long interval = 200;
+                    long startTime = 25000;
+                    countDownTimer = new CoundownClass(startTime, interval);
+                    countDownTimer.start();
+                    mBluetoothConnectProgressDialog = ProgressDialog.show(this,
+                            "Connecting...", mBluetoothDevice.getName() + " : "
+                                    + mBluetoothDevice.getAddress(), true, false);
+                    Thread mBlutoothConnectThread = new Thread(this);
+                    mBlutoothConnectThread.start();
+                    // pairToDevice(mBluetoothDevice); This method is replaced by
+                    // progress dialog with thread
+                }
+                break;
+
+            case REQUEST_ENABLE_BT:
+                if (mResultCode == Activity.RESULT_OK) {
+                    ListPairedDevices();
+                    Intent connectIntent = new Intent(CollectionActivityNew.this,
+                            DeviceListActivity.class);
+                    startActivityForResult(connectIntent, REQUEST_CONNECT_DEVICE);
+                } else {
+                    Toast.makeText(CollectionActivityNew.this, "Message", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+    private void ListPairedDevices() {
+        Set<BluetoothDevice> mPairedDevices = mBluetoothAdapter
+                .getBondedDevices();
+        if (mPairedDevices.size() > 0) {
+            for (BluetoothDevice mDevice : mPairedDevices) {
+                Log.v(TAG, "PairedDevices: " + mDevice.getName() + "  "
+                        + mDevice.getAddress());
+            }
+        }
+    }
+    public void run() {
+        try {
+            mBluetoothSocket = mBluetoothDevice
+                    .createRfcommSocketToServiceRecord(applicationUUID);
+            mBluetoothAdapter.cancelDiscovery();
+            mBluetoothSocket.connect();
+            mHandler.sendEmptyMessage(0);
+        } catch (IOException eConnectException) {
+            Log.d(TAG, "CouldNotConnectToSocket", eConnectException);
+            closeSocket(mBluetoothSocket);
+            return;
+        }
+    }
+
+    private void closeSocket(BluetoothSocket nOpenSocket) {
+        try {
+            nOpenSocket.close();
+            Log.d(TAG, "SocketClosed");
+        } catch (IOException ex) {
+            Log.d(TAG, "CouldNotCloseSocket");
+        }
+    }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            mBluetoothConnectProgressDialog.dismiss();
+            if((countDownTimer!=null)){
+                countDownTimer.cancel();
+            }
+            Toast.makeText(CollectionActivityNew.this, "DeviceConnected", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    public static byte intToByteArray(int value) {
+        byte[] b = ByteBuffer.allocate(4).putInt(value).array();
+
+        for (int k = 0; k < b.length; k++) {
+            System.out.println("Selva  [" + k + "] = " + "0x"
+                    + UnicodeFormatter.byteToHex(b[k]));
+        }
+
+        return b[3];
+    }
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        try {
+            if((countDownTimer!=null)&& (mBluetoothConnectProgressDialog!=null)){
+
+                if(mBluetoothConnectProgressDialog.isShowing()){
+                    mBluetoothConnectProgressDialog.dismiss();
+                    countDownTimer.cancel();
+                }
+            }
+            if (mBluetoothSocket != null)
+                mBluetoothSocket.close();
+        } catch (Exception e) {
+            Log.e("Tag", "Exe ", e);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        try {
+            if((countDownTimer!=null)&& (mBluetoothConnectProgressDialog!=null)){
+
+                if(mBluetoothConnectProgressDialog.isShowing()){
+                    mBluetoothConnectProgressDialog.dismiss();
+                    countDownTimer.cancel();
+                }
+            }
+            if (mBluetoothSocket != null)
+                mBluetoothSocket.close();
+        } catch (Exception e) {
+            Log.e("Tag", "Exe ", e);
+        }
+        setResult(RESULT_CANCELED);
+        finish();
+    }
+    //Printer functions start here----------------------------------------------------------------
 }

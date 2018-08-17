@@ -328,7 +328,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
       //  imei="352801088236109";
 
 
-       imei="911560353114284";  // paras imei like Godrej
+       imei="354010084603910";  // paras imei like Godrej
         CommonInfo.imei = imei;
 
         if(dbengine.isDBOpen()==false)
@@ -1448,6 +1448,8 @@ public class SplashScreen extends BaseActivity implements  TaskListner
                     {
                         //Commented For Now By Abhinav On 24-Apr-2018
                        /// getRouteservice = getRouteservice.fnGetIncentiveData(getApplicationContext(), fDate, imei);
+//getWarehouseMappingMstr
+                        newservice = newservice.getWarehouseMappingMstr(getApplicationContext(), imei, fDate);
 
                     }
                     if(mm==7)

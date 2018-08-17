@@ -34218,7 +34218,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
     }
 
 
-    public ArrayList<LinkedHashMap<String,ArrayList<String>>> fnFetch_InvoiceReportForPrint(String VisitCode,String StoreID,int WarehouseNodeID,int WarehouseNodeType)
+    public static ArrayList<LinkedHashMap<String,ArrayList<String>>> fnFetch_InvoiceReportForPrint(String VisitCode,String StoreID,int WarehouseNodeID,int WarehouseNodeType)
     {
 
         ArrayList<LinkedHashMap<String,ArrayList<String>>> arrResult=new ArrayList<LinkedHashMap<String,ArrayList<String>>>();
@@ -34244,13 +34244,13 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
 
         //--------------Store Invoice  Before Tax And After Tax Starts Here--------------------------------
 
-        LinkedHashMap<String,ArrayList<String>> hmapTotalBfrAftrTaxVal=fnGetTotalBfrAftrTaxVal(VisitCode,StoreID);
+        LinkedHashMap<String,ArrayList<String>> hmapTotalBfrAftrTaxVal=fnGetTotalBfrAftrTaxVal(StoreID,VisitCode);
 
         //--------------Store Invoice Before Tax And After Tax Ends Here--------------------------------
 
         //--------------Store Invoice  Tax wise Product Details Starts Here--------------------------------
 
-        LinkedHashMap<String,ArrayList<String>> hmapTaxWisePrdctDtlt=fnGetTaxWisePrdctDtl(VisitCode,StoreID);
+        LinkedHashMap<String,ArrayList<String>> hmapTaxWisePrdctDtlt=fnGetTaxWisePrdctDtl(StoreID,VisitCode);
 
         //--------------Store Invoice Tax wise Product Details  Ends Here--------------------------------
 
@@ -34258,6 +34258,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         arrResult.add(hmapStoreBasicDetails);
         arrResult.add(hmapInvoiceRecodsToPrint);
         arrResult.add(hmapTotalBfrAftrTaxVal);
+        arrResult.add(hmapTaxWisePrdctDtlt);
         return arrResult;
     }
 
@@ -34265,7 +34266,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
     {
         ArrayList<String> arrWareHouseDetails=new ArrayList<String>();
         try {
-            Cursor cursor2 = db.rawQuery("SELECT Descr,ifnull(State,'') AS State,ifnull(Address,'NA') AS Address,ifnull(City,'') AS City,ifnull(PinCode,'') AS PinCode,ifnull(PhoneNo,'') AS PhoneNo,ifnull(TaxNumber,'NA') AS TaxNumber FROM tblWarehouseMstr Where NodeID="+WarehouseNodeID+" and NodeType="+WarehouseNodeType, null);
+            Cursor cursor2 = db.rawQuery("SELECT Descr,ifnull(State,'') AS State,ifnull(Address,'') AS Address,ifnull(City,'') AS City,ifnull(PinCode,'') AS PinCode,ifnull(PhoneNo,'NA') AS PhoneNo,ifnull(TaxNumber,'NA') AS TaxNumber FROM tblWarehouseMstr Where NodeID="+WarehouseNodeID+" and NodeType="+WarehouseNodeType, null);
 
             if(cursor2.getCount()>0)
             {
@@ -34279,7 +34280,13 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
                     arrWareHouseDetails.add(cursor2.getString(5));
                     arrWareHouseDetails.add(cursor2.getString(6));
                     int IsCompositeStatus=fnGetStoreIsCompositeStatus(StoreID);
-                    arrWareHouseDetails.add(""+IsCompositeStatus);
+                    if(IsCompositeStatus==0){
+                        arrWareHouseDetails.add("No");
+                    }
+                    if(IsCompositeStatus==1){
+                        arrWareHouseDetails.add("Yes");
+                    }
+
                 }
             }
             return arrWareHouseDetails;
@@ -34385,7 +34392,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
 
         Cursor cursor21=null;
         try {
-            cursor21 = db.rawQuery("SELECT tblInvoiceDetails.ProdID,ifnull(tblProductList.HSNCode,'') AS HSNCode,ifnull(tblInvoiceDetails.ProductShortName,'NA') AS ProductShortName,ifnull(tblInvoiceDetails.ProductPrice,'0') AS ProductPrice,ifnull(tblProductSegementMap.VatTax,'0') AS VatTax,ifnull(tblInvoiceDetails.OrderQty,'0') AS OrderQty,ifnull(tblInvoiceDetails.LineValAftrTxAftrDscnt,'0') AS OrdValue FROM tblInvoiceDetails inner join tblProductSegementMap on tblInvoiceDetails.ProdID=tblProductSegementMap.ProductID inner join tblProductList on tblProductList.ProductID=tblInvoiceDetails.ProdID Where StoreID='"+StoreID+"' AND tblInvoiceDetails.StoreVisitCode='"+StoreVisitCode+"' AND tblInvoiceDetails.OrderQty>0", null);
+            cursor21 = db.rawQuery("SELECT tblTmpInvoiceDetails.ProdID,ifnull(tblProductList.HSNCode,'') AS HSNCode,ifnull(tblTmpInvoiceDetails.ProductShortName,'NA') AS ProductShortName,ifnull(tblTmpInvoiceDetails.ProductPrice,'0') AS ProductPrice,ifnull(tblProductSegementMap.VatTax,'0') AS VatTax,ifnull(tblTmpInvoiceDetails.OrderQty,'0') AS OrderQty,ifnull(tblTmpInvoiceDetails.LineValAftrTxAftrDscnt,'0') AS OrdValue FROM tblTmpInvoiceDetails inner join tblProductSegementMap on tblTmpInvoiceDetails.ProdID=tblProductSegementMap.ProductID inner join tblProductList on tblProductList.ProductID=tblTmpInvoiceDetails.ProdID inner join tblTmpInvoiceHeader on tblTmpInvoiceHeader.TmpInvoiceCodePDA=tblTmpInvoiceDetails.TmpInvoiceCodePDA Where tblTmpInvoiceHeader.StoreID='"+StoreID+"' AND tblTmpInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblTmpInvoiceDetails.OrderQty>0", null);
             if(cursor21.getCount()>0)
             {
                 if (cursor21.moveToFirst())
@@ -34422,7 +34429,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         // ArrayList<String> arrTaxWisePrdctDtlt=new ArrayList<String>();
         Cursor cursor21=null;
         try {
-            cursor21 = db.rawQuery("Select tblInvoiceHeader.TotalBeforeTaxDis,tblInvoiceHeader.InvoiceVal from tblInvoiceHeader where StoreID='"+StoreID+"' AND StoreVisitCode='"+storeVisitCode+"' group by tblProductSegementMap.VatTax Order by tblProductSegementMap.VatTax ASC"
+            cursor21 = db.rawQuery("Select tblTmpInvoiceHeader.TotalBeforeTaxDis,tblTmpInvoiceHeader.InvoiceVal from tblTmpInvoiceHeader where tblTmpInvoiceHeader.StoreID='"+StoreID+"' AND tblTmpInvoiceHeader.StoreVisitCode='"+storeVisitCode+"'"
                     , null);
             if(cursor21.getCount()>0)
             {
@@ -34430,7 +34437,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
                 {
 
                     // arrTaxWisePrdctDtlt.add(cursor21.getString(0));
-                    ArrayList arrTaxWisePrdctDtlt=new ArrayList<String>();
+                    ArrayList<String> arrTaxWisePrdctDtlt=new ArrayList<String>();
                     arrTaxWisePrdctDtlt.add(cursor21.getString(0));
                     arrTaxWisePrdctDtlt.add(cursor21.getString(1));
 
@@ -34453,8 +34460,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         // ArrayList<String> arrTaxWisePrdctDtlt=new ArrayList<String>();
         Cursor cursor21=null;
         try {
-            cursor21 = db.rawQuery("Select DISTINCT tblProductSegementMap.VatTax,ifnull(Sum(tblInvoiceDetails.LineValBfrTxAftrDscnt),'0') As BfrtaxOrdrVal from tblProductSegementMap inner join tblInvoiceDetails On tblProductSegementMap.ProductID=tblInvoiceDetails.ProdID inner join tblInvoiceHeader.InvoiceNumber=tblInvoiceDetails.InvoiceNumber where tblInvoiceDetails.StoreID='"+StoreID+"' AND tblInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblInvoiceDetails.OrderQty>0 group by tblProductSegementMap.VatTax Order by tblProductSegementMap.VatTax ASC"
-                    , null);
+            cursor21 = db.rawQuery("Select DISTINCT tblProductSegementMap.VatTax,CASE WHEN ifnull(Sum(tblTmpInvoiceDetails.LineValAftrTxAftrDscnt-tblTmpInvoiceDetails.LineValBfrTxAftrDscnt),'0.0')=0 THEN '0.0' ELSE ifnull(Sum(tblTmpInvoiceDetails.LineValAftrTxAftrDscnt-tblTmpInvoiceDetails.LineValBfrTxAftrDscnt),'0.0') END AS TaxAmtPercent from tblProductSegementMap inner join tblTmpInvoiceDetails On tblProductSegementMap.ProductID=tblTmpInvoiceDetails.ProdID inner join tblTmpInvoiceHeader on tblTmpInvoiceHeader.TmpInvoiceCodePDA=tblTmpInvoiceDetails.TmpInvoiceCodePDA where tblTmpInvoiceDetails.StoreID='"+StoreID+"' AND tblTmpInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblTmpInvoiceDetails.OrderQty>0 group by tblProductSegementMap.VatTax Order by tblProductSegementMap.VatTax ASC", null);
             if(cursor21.getCount()>0)
             {
                 if (cursor21.moveToFirst())
@@ -34463,9 +34469,15 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
                     {
                         // arrTaxWisePrdctDtlt.add(cursor21.getString(0));
                         ArrayList arrTaxWisePrdctDtlt=new ArrayList<String>();
-                        arrTaxWisePrdctDtlt.add(cursor21.getString(1));
+                        Double TaxSum=Double.parseDouble(cursor21.getString(1).toString());
+                        TaxSum=Double.parseDouble(new DecimalFormat("##.##").format(TaxSum));
+                        arrTaxWisePrdctDtlt.add(""+TaxSum);
 
-                        hmapTaxWisePrdctDtlt.put(cursor21.getString(0).toString().trim()+"%",arrTaxWisePrdctDtlt);
+                        Double TaxRateToShow=Double.parseDouble(cursor21.getString(0).toString());
+                        TaxRateToShow=Double.parseDouble(new DecimalFormat("##.##").format(TaxRateToShow));
+
+
+                        hmapTaxWisePrdctDtlt.put(""+TaxRateToShow+"% Tax",arrTaxWisePrdctDtlt);
                         cursor21.moveToNext();
                     }
                 }
@@ -34505,6 +34517,78 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
             {
                 cursor21.close();
             }
+        }
+    }
+    public static ArrayList<String> fnFetch_tblWarehouseMstr()
+    {
+        ArrayList<String> arrResult=new ArrayList<String>();
+
+
+      //  Cursor cursor = db.rawQuery("SELECT NodeID ,NodeType from tblWarehouseMstr", null); //order by AutoIdOutlet Desc
+        try
+        {
+            Cursor cursor = db.rawQuery("SELECT NodeID ,NodeType from tblWarehouseMstr", null); //order by AutoIdOutlet Desc
+            if(cursor.getCount()>0)
+            {
+                if (cursor.moveToFirst())
+                {
+                    for (int i = 0; i < cursor.getCount(); i++) {
+                        arrResult.add(0,cursor.getString(0));
+                        arrResult.add(1,cursor.getString(1));
+                       // cursor.moveToNext();
+                    }
+
+                }
+            }
+
+
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        finally
+        {
+            if(cursor!=null) {
+                cursor.close();
+            }
+            return arrResult;
+
+        }
+    }
+    public static String fnFetch_StoreGST_Number(String StoreID)
+    {
+
+        String gstNo="0";
+
+
+        //  Cursor cursor = db.rawQuery("SELECT NodeID ,NodeType from tblWarehouseMstr", null); //order by AutoIdOutlet Desc
+        try
+        {
+            Cursor cursor = db.rawQuery("SELECT StoreID from tblStoreList", null); //order by AutoIdOutlet Desc
+            if(cursor.getCount()>0)
+            {
+                if (cursor.moveToFirst())
+                {
+                    for (int i = 0; i < cursor.getCount(); i++) {
+                        gstNo=cursor.getString(0);
+                        // cursor.moveToNext();
+                    }
+
+                }
+            }
+
+
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        finally
+        {
+            if(cursor!=null) {
+                cursor.close();
+            }
+            return gstNo;
+
         }
     }
 }

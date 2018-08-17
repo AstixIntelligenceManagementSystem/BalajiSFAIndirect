@@ -647,6 +647,30 @@
 			android:background="@drawable/custom_button"
 			android:gravity="center"
 			android:text="Print"
+			android:visibility="visible"
+			android:textColor="#ffffff"
+			android:textSize="11sp"/>
+		<Button
+			android:id="@+id/mPrintImage"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_weight="1"
+			android:background="@drawable/custom_button"
+			android:gravity="center"
+			android:text="Print"
+			android:visibility="gone"
+			android:textColor="#ffffff"
+			android:textSize="11sp"/>
+		<Button
+			android:id="@+id/dis"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_weight="1"
+			android:background="@drawable/custom_button"
+			android:gravity="center"
+			android:text="Print"
 			android:visibility="gone"
 			android:textColor="#ffffff"
 			android:textSize="11sp"/>
