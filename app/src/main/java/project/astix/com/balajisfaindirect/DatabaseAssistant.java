@@ -555,7 +555,7 @@ public class DatabaseAssistant
 	private void exportTableStoreList(final String tableName) throws IOException {
 		xmlBuilder.openTable(tableName);
 
-		String sql = "select IMEINumber,StoreID,StoreName,OwnerName,StoreContactNo,StoreAddress,StoreType, StoreLatitude,StoreLongitude,LastVisitDate,LastTransactionDate,ISNewStore,PaymentStage,DBR,StoreCity,StorePinCode,StoreState,0 AS flgRestart,"+ CommonInfo.DATABASE_VERSIONID+" AS AppVersion from " + tableName + " where Sstat = 3 AND ISNewStore=1";		// chk for flag - DB adapter
+		String sql = "select IMEINumber,StoreID,StoreName,OwnerName,StoreContactNo,StoreAddress,StoreType, StoreLatitude,StoreLongitude,LastVisitDate,LastTransactionDate,ISNewStore,PaymentStage,DBR,StoreCity,StorePinCode,StoreState,0 AS flgRestart,"+ CommonInfo.DATABASE_VERSIONID+" AS AppVersion,StoreStateID,StoreCityID from " + tableName + " where Sstat = 3 AND ISNewStore=1";		// chk for flag - DB adapter
 		Cursor c = db.rawQuery(sql, new String[0]);
 		if (c.moveToFirst()) {
 			int cols = c.getColumnCount();
