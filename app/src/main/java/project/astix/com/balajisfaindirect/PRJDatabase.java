@@ -31704,6 +31704,38 @@ String fetchdate=fnGetDateTimeString();
         }
     }
 
+
+
+
+
+    public static ArrayList<String> getStoreCheckInImages(int sStat)
+    {
+        //open();
+        ArrayList<String> listImageDetails=new ArrayList<String>();
+        try
+        {
+            Cursor cursor=db.rawQuery("Select StoreID,picClkdPath,imageName from tblStoreCheckInPic where Sstat='"+sStat+"'", null);
+
+            if(cursor.getCount()>0)
+            {
+                if(cursor.moveToFirst())
+                {
+                    for(int i=0;i<cursor.getCount();i++)
+                    {
+                        listImageDetails.add(cursor.getString(0)+"^"+cursor.getString(1)+"^"+cursor.getString(2));
+                        cursor.moveToNext();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        finally
+        {
+            //  close();
+            return listImageDetails;
+        }
+    }
     public static void updateSSttImage(String imageName,int sStat)
     {
         //open();
@@ -31718,15 +31750,38 @@ String fetchdate=fnGetDateTimeString();
         //close();
     }
 
+    public static void updateSSttStoreCheckImageImage(String imageName,int sStat)
+    {
+        //open();
+        Cursor cursorImage=db.rawQuery("Select StoreID from tblStoreCheckInPic where imageName='"+imageName+"'", null);
+        if(cursorImage.getCount()>0)
+        {
+            ContentValues value=new ContentValues();
+            value.put("Sstat", sStat);
+            db.update(DATABASE_TABLE_tblStoreCheckInPic, value, "imageName=?", new String[]{imageName});
+        }
+
+        //close();
+    }
+
     public static void fndeleteSbumittedStoreImagesOfSotre(int Sstat)
     {
 
         //open();
 
-        db.execSQL("DELETE FROM tableImage WHERE  Sstat='"+Sstat+"'");
+        db.execSQL("DELETE FROM tblStoreCheckInPic WHERE  Sstat='"+Sstat+"'");
+
        // close();
     }
+    public static void fndeleteSbumittedStoreImagesOfSotreCheckIn(int Sstat)
+    {
 
+        //open();
+
+        db.execSQL("DELETE FROM tableImage WHERE  Sstat='"+Sstat+"'");
+
+        // close();
+    }
     public static int fnCheckForPendingXMLFilesInTable()
     {
         //open();

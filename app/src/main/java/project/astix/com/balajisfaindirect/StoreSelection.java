@@ -5197,6 +5197,29 @@ else
 				}
 
 
+				ArrayList<String> listImageStoreCheckIn=new ArrayList<String>();
+
+				listImageStoreCheckIn=dbengine.getStoreCheckInImages(5);
+
+				if(listImageStoreCheckIn!=null && listImageStoreCheckIn.size()>0)
+				{
+					for(String imageDetail:listImageStoreCheckIn)
+					{
+						String tempIdImage=imageDetail.split(Pattern.quote("^"))[0].toString();
+						String imagePath=imageDetail.split(Pattern.quote("^"))[1].toString();
+						String imageName=imageDetail.split(Pattern.quote("^"))[2].toString();
+						String file_dj_path = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.ImagesFolder+"/"+imageName;
+						File fImage = new File(file_dj_path);
+						if (fImage.exists())
+						{
+							uploadImage(imagePath, imageName, tempIdImage);
+						}
+
+
+
+					}
+				}
+
 			}
 			catch (Exception e)
 			{
@@ -5270,7 +5293,8 @@ else
 		bitmap.recycle();
 		nameValuePairs.add(new BasicNameValuePair("image",image_str));
 		nameValuePairs.add(new BasicNameValuePair("FileName", fileName));
-		nameValuePairs.add(new BasicNameValuePair("TempID", tempIdImage));
+		nameValuePairs.add(new BasicNameValuePair("storeID", tempIdImage));
+
 		try
 		{
 
@@ -5294,6 +5318,8 @@ else
 			if(the_string_response.equals("Abhinav"))
 			{
 				dbengine.updateSSttImage(fileName, 4);
+				dbengine.fndeleteSbumittedStoreImagesOfSotre(4);
+				dbengine.updateSSttStoreCheckImageImage(fileName, 4);
 				dbengine.fndeleteSbumittedStoreImagesOfSotre(4);
 
 				String file_dj_path = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.ImagesFolder+"/"+fileName;

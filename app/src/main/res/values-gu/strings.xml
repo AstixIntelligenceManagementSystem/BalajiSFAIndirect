@@ -4,19 +4,15 @@
     <!-- <string name="app_name">Balaji SFA Stagging</string>-->
     <!--<string name="app_name">Balaji SFA Test</string>-->
     <string name="app_name">Balaji SFA Dev</string>
-    <string name="RqrdQty">आवश्यक मात्रा : </string>
+
     <string name="StoreSale">स्टोर बिक्री </string>
     <string name="InvoiceReview">चालान समीक्षा</string>
     <string name="selectAtleastOneOption">आगे बढ़ने के लिए कम से कम एक विकल्प का चयन करें।</string>
     <string name="selectAtleastOneOptionwithedittext">आगे बढ़ने के लिए पहले कारण निर्दिष्ट करें</string>
     <string name="DayStartButtonText">दिन शुरू</string>
     <string name="ExitButtonText">बाहर जाएं</string>
-    <string name="today_working">आज का काम</string>
-    <string name="today_Notworking">काम नहीं कर रहे हो</string>
-    <string name="working">काम कर रहे हो</string>
-    <string name="not_working">काम नहीं कर रहे हो</string>
-    <string name="submittingDayStart">दिन प्रारंभ विवरण जमा हो रहा है ...</string>
-    <string name="TodayStock">आज का स्टोक</string>
+    <string name="today_Notworking">ચલ્તુ નથિ</string>
+
     <string name="stockAsOn">आज तक का स्टॉक</string>
     <string name="verifyLocation">अगली पर क्लिक करने से पहले कृपया अपना स्थान सत्यापित करें.</string>
 
@@ -24,102 +20,24 @@
     <string name="Coverage_Area">कवरेज क्षेत्र</string>
     <string name="Contact_No">संपर्क नंबर</string>
     <string name="DOB">जन्म तिथि</string>
-    <string name="OrderTypeActualVisitHeader">भंडार की जांच</string>
+
 
     <string name="WareHouseMsgWithoutInvoiceNumber">Stock loaded/adjusted recently will reflect after few minutes.</string>
 
 
 
 
-    <string name="SubmittingPndngDataMsg"> लंबित डेटा सबमिट करना…</string>
+
     <string name="genStoreListWhoseDataIsNotYetSubmitted">Following invoices are Not Submitted as Yet. Invoices only Saved but not Submitted now will be permanently lost.</string>
     <string name="VanStock">Van Stock</string>
     <!--Splash screen starts here-->
-    <string name="genTermNoDataConnection">जानकारी</string>
-    <string name="AlertDialogOkButton">ठीक</string>
-    <string name="internetError">इंटरनेट कनेक्शन धीमा है, कृपया फिर से प्रयास करें।</string>
-    <string name="phnRegisterError">यह फोन पंजीकृत नहीं है, कृपया व्यवस्थापक से संपर्क करें।</string>
-    <string name="phnDateError">आपकी फोन की तारीख सही नहीं है। कृपया तारीख ठीक करें</string>
-    <string name="regID">पंजीकरण आईडी बनाएं</string>
-    <string name="errorTxt">त्रुटि:</string>
-    <string name="errorPlayServices">यह डिवाइस प्ले  स्टोर सेवाओं का समर्थन नहीं करता है । एप्लीकेशनआमतौर पर काम नहीं करेगा</string>
-    <string name="AlertDialogHeaderMsg">चेतावनी</string>
-    <string name="NewVersionMsg">इस एप्लिकेशन का नया संस्करण अब उपलब्ध है । कृपया नया संस्करण स्थापित करने के लिए ठीक पर क्लिक करें!</string>
-    <string name="UpdatingNewVersionMsg">नया संस्करण अपडेट हो रहा है ...</string>
-    <string name="routeNoAvail">इस फोन के लिए मार्ग उपलब्ध नहीं हैं</string>
-    <string name="errorFetchData">डेटा पुरी तरह डाउनलोड नहीं हुआ , कृपया पुनः प्रयास करें।</string>
-    <string name="genTermPleaseWaitNew">कृपया प्रतीक्षा करें ...</string>
-    <string name="genTermLoadData">डेटा लोड हो रहा है...</string>
+
     <!--Splash screen ends here-->
 
     <string name="stockUploadStatusMsg">स्टॉक अपलोड स्थिति नहीं आ रही है</string>
 
     <string name="NoRouteAvailable">आपके डिवाइस के लिए कोई मार्ग उपलब्ध नहीं है</string>
     <!--DSR_Registrion starts here-->
-    <string name="txtWelcome">स्वागत है  </string>
-    <string name="txtDayStart">दिन का आरंभ करें</string>
-    <string name="radioYes">हाँ</string>
-    <string name="radioNo">नहीं</string>
-    <string name="txtUpdate">अभी अपडेट करें</string>
-    <string name="txtNotYou">क्या आप नहीं हो</string>
-    <string name="hintMobileNo">मोबाइल नंबर</string>
-    <string name="txtValidate">मान्य करें</string>
-    <string name="txtFName">पहला नाम</string>
-    <string name="txtLName">अंतिम नाम</string>
-    <string name="txtContactNo">संपर्क नंबर।</string>
-    <string name="txtDOB">जन्म तिथि</string>
-    <string name="txtSelectDate">तारीख़</string>
-    <string name="txtSex">लिंग</string>
-    <string name="txtMale">नर</string>
-    <string name="txtFemale">महिला</string>
-    <string name="txtMaritalStatus">वैवाहिक स्थिति</string>
-    <string name="txtMarried">शादीशुदा</string>
-    <string name="txtUnmarried">अविवाहित</string>
-    <string name="txtMarriedDate">विवाह की तिथि</string>
-    <string name="txtQualification">योग्यता</string>
-    <string name="txtSelect">चुनें</string>
-    <string name="txtUpdatedphoto">फ़ोटो अपडेट की गई</string>
-    <string name="txtSelfie">सेल्फी</string>
-    <string name="txtBrowse">ब्राउज</string>
-    <string name="txtEmailID">ईमेल</string>
-    <string name="txtBloodGroup">रक्त समूह</string>
-    <string name="txtSIGNHERE">यहाँ पर हस्ताक्षर करे</string>
-    <string name="txtCancel">रद्द करें</string>
-    <string name="txtclearSign">स्पष्ट हस्ताक्षर करें</string>
-    <string name="txtsave">बचाना</string>
-    <string name="txtProceed">बढ़ना</string>
-    <string name="txtSubmit">जमा करें</string>
-    <!--<string name="txtUpdatePersonalInfo">कृपया दिन के अंत की गतिविधि करने से पहले अपने व्यक्तिगत विवरण को अपडेट करने के लिए याद रखें</string>-->
-    <string name="txtNoCamera">क्षमा करें, आपके फोन में एक कैमरा नहीं है!</string>
-    <string name="txtNoFrontCamera">सामने वाला कैमरा नहीं मिला।</string>
-    <string name="txtSuccessfullySaved">सफलतापूर्वक SAVED कर लिया गया है</string>
-    <string name="txtSELECTDOB">चुनें जन्म तिथि</string>
-    <string name="txtSelectMarriedDate">विवाह की तिथि चुनें</string>
-    <string name="txtBloodGroupTitle">रक्त समूह</string>
-    <string name="txtSubmitData">क्या आप डेटा जमा करना चाहते हैं?</string>
-    <string name="txtErrorNoDataConnection">कोई डाटा कनेक्शन नहीं!</string>
-    <string name="txtErrorInternetConnection">आपके डिवाइस में कोई डेटा कनेक्शन नहीं है! कृपया सुनिश्चित करें कि इंटरनेट काम कर रहा है की नहीं</string>
-    <string name="txtErrorMobileNo">मोबाइल नंबर मान्य नहीं है</string>
-    <string name="txtSelectDOB">कृपया जन्म तिथि चुनें </string>
-    <string name="txtValidateFirstName">प्रथम नाम खाली है</string>
-    <string name="txtValidateLastName">अंतिम नाम खाली है</string>
-    <string name="txtValidateContactNo">संपर्क नंबर मान्य नहीं है</string>
-    <string name="txtValidateSelectSex">कृपया लिंग चुनें</string>
-    <string name="txtValidateMaritalStatus">कृपया वैवाहिक स्थिति चुनें</string>
-    <string name="txtValidateMarriedDate">कृपया विवाहित तिथि का चयन करें</string>
-    <string name="txtValidateQualification">कृपया योग्यता चुनें</string>
-    <string name="txtValidateUpdatePhoto">कृपया फोटो अपडेट करें</string>
-    <string name="txtValidateEmailID">ईमेल आईडी मान्य नहीं है</string>
-    <string name="txtValidateBloodGroup">कृपया रक्त समूह चुनें</string>
-    <string name="txtValidateSignature">कृपया हस्ताक्षर करें</string>
-
-    <string name="hintSearchproducts">उत्पादों को खोजे </string>
-
-    <string name="txtSwitchCamera">स्विच कैमरा</string>
-    <string name="txtCapture">फोटो खींचे</string>
-
-
-    <string name="txtDSRMsg">कृपया दिन के अंत की गतिविधि करने से पहले अपने व्यक्तिगत विवरण को अपडेट करने के लिए याद रखें</string>
 
 
 
@@ -137,174 +55,18 @@
 
 
     <!--Launcher Activity starts here-->
-    <string name="txtSalesPerformanceMaximizer">बिक्री प्रदर्शन मैक्सिमाइजर</string>
-    <string name="radioTodayRoute">आज का मार्गः </string>
-    <string name="radioChooseDifferentRoute">अलग मार्ग चुनें</string>
-    <string name="txtSelectedRoute">चयनित रूट</string>
-    <string name="txtNoRouteAvailable">कोई मार्ग उपलब्ध नहीं है</string>
-    <string name="txtGetStores">स्टोर लिस्ट पर जाओ</string>
-    <string name="txtNoStoreVisittoday">आज किसी स्टोर की यात्रा नहीं है</string>
-    <string name="txtDistributorStock">डिस्ट्रिबुटर स्टॉक</string>
-    <string name="txtUpdateExecution">ऑर्डर की डिलीवरी कन्फ़र्म करें</string>
-    <string name="txtErrorPhnDate">आपकी फोन की तारीख सही नहीं है। कृपया तारीख ठीक करें</string>
-    <string name="AvailableRoutesMsg">उपलब्ध मार्ग</string>
-    <string name="txtError">त्रुटि .....</string>
-    <string name="txtErrorRetrievingData">डेटा पुन: प्राप्त करते समय त्रुटि हुई है!\n कृपया पुनः प्रयास करें</string>
-    <string name="txtErr">त्रुटि</string>
-    <string name="txtSelectReason">कृपया पहले कारण चुने </string>
-    <string name="txtEnterReason">कृपया कारण दर्ज करें</string>
-    <string name="txtInvoicePending">कोई इनवॉइस लंबित नहीं है</string>
-    <string name="txtRetry">पुन: प्रयास करें</string>
-    <string name="txtReason">कारण :</string>
-    <string name="NoDataConnectionFullMsg">आपके डिवाइस में कोई डेटा कनेक्शन नहीं है! \nकृपया सुनिश्चित करें कि इंटरनेट काम कर रहा है की नहीं</string>
 
-    <string name="RetrivingDataMsg">डाटा लिया जा रहा है…</string>
-    <string name="LogoutMsg">क्या आप लॉग आउट करना चाहते हैं</string>
     <!--Launcher Activity ends here-->
 
     <!--Common strings starts-->
-    <string name="AlertDialogCancelButton">रद्द करना</string>
-    <string name="AlertDialogYesButton">हाँ</string>
-    <string name="AlertDialogNoButton">नहीं</string>
-    <string name="genTermInformation">जानकारी</string>
-    <string name="genTermNoDataConnectionFullMsg">आपके डिवाइस में डेटा कनेक्शन नहीं है \n कृपया सुनिश्चित करें कि इंटरनेट को जारी रखने के लिए पहुंच योग्य है</string>
+     <string name="genTermNoDataConnectionFullMsg">आपके डिवाइस में डेटा कनेक्शन नहीं है \n कृपया सुनिश्चित करें कि इंटरनेट को जारी रखने के लिए पहुंच योग्य है</string>
 
 
-    <!--Common strings ends-->
 
-
-    <!--Incentive Activity starts here-->
-    <string name="txtIncentive">प्रोत्साहन</string>
-    <string name="txtFetchingReports">रिपोर्ट प्राप्त करें</string>
-    <string name="txtEarnedpoints">अर्जित अंक \ n रु: 100</string>
-    <string name="txtIncentiveName">प्रोत्साहन नाम</string>
-
-    <!--Incentive Activity ends here-->
-
-    <!--Sales Value Target Activity starts here-->
-    <string name="txtSalesTargetValue">बिक्री लक्ष्य मुल्य</string>
 
     <!--Sales Value Target Activity ends here-->
 
 
-    <!--StoreSelection Activity starts here-->
-    <string name="txtSelectStore">स्टोर चुनें</string>
-    <string name="txtManagerName">मेनेजेर का नाम</string>
-    <string name="hash">#</string>
-    <string name="txtFindNearby">नजदीक की दुकानों को ढूंढें</string>
-    <string name="txtNextDay">अगला दिन </string>
-    <string name="txtClose">बंद करे</string>
-    <string name="txtAddStore">स्टोर ऐड करे</string>
-    <string name="txtStart">शुरुआत करे</string>
-    <string name="txtStoreName">स्टोर का नाम</string>
-    <string name="hintManagerName">मेनेजेर का नाम</string>
-    <string name="searchingnearbystores">आसपास के स्टोरों की खोज कर रहे हैं</string>
-    <string name="genTermProcessingRequest">अनुरोध प्रोसेस हो रहा है</string>
-    <string name="genTermGPSDisablePleaseEnable">जीपीएस ओन नहीं है। कृपया अगले पृष्ठ पर सभी सेटिंग्स का चयन करें.</string>
-    <string name="PleaseConformMsg">कृपया पुष्टि करें</string>
-    <string name="genTermDayEndAlert">क्या आप अपना दिन का दौरा खत्म करना चाहते हैं?</string>
-    <string name="genTermDayEndAlertWithoutStoreSubmit">क्या आप वाकई अपना दिन का दौरा खत्म करना चाहते हैं?\ n  आपके सभी पिछले बिना -सबमिट किए गए ऑर्डर खो जाएंगे!</string>
-    <string name="genTermchangeRouteAlert">क्या आप वास्तव में रूट बदलना चाहते हैं? \ n आपके सभी पिछले बिना -सबमिट किए गए ऑर्डर खो जाएंगे!</string>
-    <string name="genTermchangeRouteAlertWhenNoStoreisLeftToSubmit">क्या आप वास्तव में रूट बदलना चाहते हैं? \ n</string>
-    <string name="genTermSelectStoresPendingToCompleteDayEnd">निम्नलिखित आदेशों को अभी तक प्रोसेस नहीं किया गया है। जो ऑर्डर सबमिशन के लिए चयनित नहीं हैं, वो पूरी तरह से खो जाएंगे।</string>
-    <string name="genTermSelectStoresPendingToCompleteChangeRoute">बिना सबमिट किए गए आदेशों को डिलीट कर  दिया जाएगा, यदि आप सबमिट किए बिना रूट बदलते हैं।</string>
-    <string name="genTermSubmitSelected">ऑर्डर सबमिट करें</string>
-    <string name="genTermNoStroeSelectedOnSubmit">कोई स्टोर चयनित नहीं \ n कृपया किसी भी स्टोर का चयन करें या रद्द करें!</string>
-    <string name="genTermDirectlyChangeRoute">ऑर्डर रद्द करें</string>
-    <string name="txtOnChangeRouteDayEndCancel">रद्द करें व  वापस जाए</string>
-    <string name="genTermRetrivingData">डेटा पुन: प्राप्त किया जा रहा है…</string>
-    <string name="txtErrRetrieving">डेटा पुन: प्राप्त करते समय त्रुटि हुई! \n कृपया पुनः प्रयास करें</string>
-    <string name="txtEnterManagerName">कृप्या मेनेजेर का नाम दर्ज करें</string>
-    <string name="genTermPleaseSelectDiffrentStore">कृपया एक अलग स्टोर का चयन करें, यह स्टोर आपके द्वारा बंद करने के लिए चिह्न है</string>
-    <string name="genTermPleaseSelectStore">कृपया स्टोर का चयन करें</string>
-    <string name="txtRefreshingData">रीफ़्रेश डेटा …</string>
-    <string name="genTermAvailableRoute">उपलब्ध रूट</string>
-    <string name="txtProductName">उत्पाद का नाम</string>
-    <string name="txtConfirmCancel">रद्द की पुष्टि करें ..</string>
-    <string name="txtYouWant">क्या आप असल मे चाहते है</string>
-    <string name="txtOrderCancel">आदेश रद्द किए जाने हैं?</string>
-    <string name="txtOrderCancelQues">रद्द करने का आदेश?</string>
-    <string name="txtQuantity">मात्रा</string>
-
-    <!--StoreSelection Activity ends here-->
-
-
-    <!--DetailReportSummaryActivity Activity starts here-->
-    <!--<string name="txtSummaryAsOn">सारांश के रूप में पर</string>-->
-    <string name="txtSummaryAsOn">सारांश</string>
-    <string name="txtMeasures">उपाय</string>
-    <string name="txtTodaySummary">आज का सारांश</string>
-    <string name="txtMTDSummary">एमटीडी\nसारांश</string>
-    <string name="txtDetailsReport">विवरण रिपोर्ट:</string>
-    <string name="txtTargetvsAchieved">लक्ष्य बनाम हासिल</string>
-    <string name="txtSKUWise">एसकेयू\nविवरण</string>
-    <string name="txtStoreWise">दुकान\nविवरण</string>
-    <string name="txtStoreSKUWise">दुकान-एसकेयू\nविवरण</string>
-    <string name="txtTargetCalls">नोटिफिकेशन</string>
-    <string name="txtNotification">अधिसूचना</string>
-    <!--DetailReportSummaryActivity Activity ends here-->
-
-
-
-
-    <!--TargetVsAcievedActivity Activity starts here-->
-    <string name="txtTargetvsAchievedReport">लक्ष्य बनाम उपलब्ध कराई गई रिपोर्ट</string>
-    <string name="txtToday">आज</string>
-    <string name="txtMTD">एमटीडी</string>
-    <string name="txtTgt">लक्ष्य</string>
-    <string name="txtAch">उपलब्धि</string>
-    <string name="txtBal">शेष</string>
-    <string name="txtVolTarget">मात्रा लक्ष्य</string>
-    <string name="txtInPcs">टुकड़ों में</string>
-    <string name="txtInCases">डिब्बों में</string>
-    <string name="txtAcievementPer">उपलब्धि%:</string>
-
-    <string name="genTermRetrivingSummary">जनरेटिंग सारांश रिपोर्ट ...</string>
-    <string name="genTermRetrivingTargetVsAchievedSummary">जनरेटिंग लक्ष्य बनाम रिपोर्ट प्राप्त ...</string>
-
-
-    <!--TargetVsAcievedActivity Activity ends here-->
-
-
-    <!--SKUWiseSummaryReportByTab Activity starts here-->
-    <!--1st part-->
-    <string name="prodlstProduct">उत्पाद</string>
-    <string name="txtStores">दुकान</string>
-    <string name="txtOrderQty">आदेश की मात्रा</string>
-    <string name="txtFreeQty">मुफ्त मात्रा</string>
-    <string name="txtDiscountValue">डिस्काउंट वैल्यू</string>
-    <string name="txtValBeforeTax">टैक्स से पहले मूल्य</string>
-    <string name="txtTaxValue">टैक्स मूल्य</string>
-    <string name="txtValAfterTax">टैक्स के बाद मूल्य</string>
-    <string name="txtGrandTotal">कुल योग :</string>
-    <string name="submit_sent_server">सबमिट किया गया और सर्वर पर भेजा गया</string>
-    <string name="saved_not_submit">सहेजे गए लेकिन सबमिट नहीं किए गए</string>
-    <string name="submit_not_sent_server">सबमिट किया गया लेकिन सर्वर पर भेजा नहीं गया</string>
-    <string name="txtSKUWiseSummary">एसकेयू विवरण सारांश</string>
-
-
-
-    <!--2nd part-->
-
-    <string name="txtLinesperBill">लाइन प्रति बिल</string>
-    <string name="txtStockValue">स्टॉक मूल्य</string>
-    <string name="txtTotal">कुल:</string>
-    <string name="txtNoStoreToDisplay">प्रदर्शित करने के लिए कोई दुकान के अनुसार आदेश नहीं</string>
-
-    <!--3 rd part-->
-    <string name="txtSKUWISE">एसकेयू विवरण</string>
-
-    <string name="txtStoreWiseSummary">दुकान विवरण सारांश</string>
-    <string name="txtNoRecord">कोई रिकॉर्ड नहीं मिला है</string>
-
-    <string name="txtStoreSKUSummary">स्टोर और एसकेयू सारांश</string>
-
-    <string name="txtSTOREWISE">दुकान विवरण</string>
-    <string name="txtSTORESKUWISE">दुकान एसकेयू विवरण</string>
-
-
-
-    <!--SKUWiseSummaryReportByTab Activity ends here-->
 
 
 
@@ -314,7 +76,7 @@
     <string name="txtEndingDay">आपके दिन की यात्रा समाप्त ...</string>
     <string name="txtChangeRoute">मार्ग बदल रहा है ....</string>
     <string name="txtSubmitQuoteDetail">कोटेशन विवरण जमा करना ...</string>
-    <string name="txtGetStockData">स्टॉक डेटा मिल रहा है</string>
+
     <!-- Day end menu header ends -->
 
 
@@ -326,14 +88,7 @@
 
 
 
-    <!-- Notification Activity starts -->
-    <string name="txtLatestNotification">नवीनतम 10 अधिसूचना</string>
-    <string name="txtDate">तारीख</string>
-    <string name="txtMessage">संदेश</string>
-    <string name="txtReport">रिपोर्ट</string>
-    <string name="txtBack">वापस</string>
 
-    <!-- Notification Activity ends -->
 
 
 
@@ -341,110 +96,10 @@
     <!--surbhi-->
     <!-- Order view Activity -->
 
-    <string name="OrderReview">ऑर्डर की समीक्षा</string>
-    <string name="Stock">स्टॉक</string>
-    <string name="SmplQty">सैंपल की मात्रा</string>
-    <string name="OQty">आदेश की मात्रा</string>
-    <string name="MinDQ">न्यूनतम वितरण मात्रा</string>
-    <string name="MRP">एमआरपी</string>
-    <string name="Rate">मूल्य</string>
-    <string name="FQty">मुफ्त मात्रा</string>
-    <string name="DVal">वितरण मूल्य</string>
-    <string name="LODQty">LOD/Qty</string>
-    <string name="OVal">ऑर्डर का मूल्य</string>
-    <string name="Remove">हटाये</string>
-    <string name="OrderTotal">कुल ऑर्डर</string>
-    <string name="CrAmt">राशी जमा करें</string>
-    <string name="CrAdj">क्रेडिट समायोजन</string>
-    <string name="UpdateTotal">कुल का अद्यतन करें</string>
-    <string name="OrderDeliveryDetails">आदेश वितरण विवरण</string>
-    <string name="CollectAmount">राशि जमा करें</string>
-    <string name="Cancel">रद्द करें</string>
-    <string name="Save">सुरक्षित करना</string>
-    <string name="SaveExit">सुरक्षित और बहार</string>
-    <string name="Submit">डेटा भेजें</string>
-    <string name="Next">Next</string>
-    <string name="CrBal">जमा शेष</string>
-    <string name="prodlstSchmeApplicable">योजना लागू है</string>
-    <string name="ProductName">उत्पाद का नाम</string>
-    <string name="Scheme">स्कीम</string>
-    <string name="prodlstCreditAmount">राशी जमा करें:</string>
-    <string name="prodlstProductLevelDiscount">उत्पाद स्तर छूट:</string>
-    <string name="prodlstOValBeforeTax">टैक्स से पहले आदेश मूल्य:</string>
-    <string name="productlist_nadditionaldiscount">अतिरिक्त छूट:</string>
-    <string name="prodlstOValAfterDis">छूट के बाद ऑर्डर मूल्य:</string>
-    <string name="GStAmount">जीएसटी राशि:</string>
-    <string name="prodOValAfterGst">जीएसटी के बाद ऑर्डर मूल्य:</string>
-    <string name="Coupons">कूपन की संख्या:</string>
-    <string name="TotalCouponsAmt">कुल कूपन राशि:</string>
-    <string name="AmtPrevDue">पिछली बकाया राशि:</string>
-    <string name="AmtCollctd">एकत्र राशि: </string>
-    <string name="AmtOutStnding">बकाया राशि: </string>
-    <string name="StockQty">स्टोक मात्रा</string>
-    <string name="O.Qty">ऑर्डर की मात्रा</string>
-    <string name="PleasefillRatefirst">कृपया मुल्य पहले भरें</string>
-    <string name="PleasefillproperRatefirst">कृपया उचित मुल्य पहले भरें</string>
-    <string name="RemoveProdct">क्या आप वाकई इस उत्पाद को हटाना चाहते हैं??</string>
-    <string name="ConfirmDel">हटाने की पुष्टि करें...</string>
-    <string name="YouclickedonNO">आपने नो पर क्लिक किया है</string>
-
- <string name="prodOValAfterTax">कर राशि के बाद ऑर्डर मूल्य:</string>
-    <string name="submitConfirmAlert"><small>स्टोर ऑर्डर के डिटेल सिंक किए जाएंगे।\n क्या आप ऑर्डर डिटेल सबमिट करना चाहते हैं?</small></string>
-    <string name="genTermRetrivingLocation">स्टोर के स्थान की पहचान के लिए जीपीएस जांच कर रहा है</string>
-
-    <string name="prodlstFreeQtyTotal">कुल मुफ्त मात्रा </string>
-    <string name="NoStocks">उत्पाद वापस करने के लिए कोई स्टॉक नहीं है</string>
-    <string name="WhileWeSave"> जब हम आपके डेटा को सहेजते हैं, तो वापस जाएं</string>
-    <string name="WhileWeSaveExit">जब हम आपके डेटा को सहेजते हैं, तब बाहर निकलते हैं</string>
-    <string name="WhileSave">जब हम आपके डेटा को सहेजते हैं</string>
-    <string name="WhileReview">जब हम आपके डेटा को सहेजते हैं, तो ऑर्डर की समीक्षा करें</string>
-    <string name="SelectActualFreeQty">कृपया लागू करने के लिए वास्तविक मुफ्त मात्रा का चयन करें</string>
-    <string name="SelectActualValue">कृपया लागू करने के लिए वास्तविक मूल्य का चयन करें:</string>
-    <string name="DefaultDiscValue">स्लैब के लिए डिफ़ॉल्ट डिस्काउंट वैल्यू:</string>
-    <string name="SelectActualDisc">कृपया लागू करने के लिए वास्तविक डिस्काउंट प्रतिशत का चयन करें:</string>
-    <string name="DefaultFreeVal">स्लैब के लिए निशुल्क मुफ़्त मूल्य:</string>
-    <string name="DefaultVal">स्लैब के लिए डिफ़ॉल्ट मूल्य:</string>
-    <string name="DefaultDisc">स्लैब के लिए डिफ़ॉल्ट डिस्काउंट प्रतिशत:</string>
-    <string name="DefaultFreeQty">स्लैब के लिए डिफ़ॉल्ट निशुल्क मात्रा:</string>
-
-    <string name="syncAlertOKMsg"><small>ऑर्डर सफलतापूर्वक सबमिट हो गया है</small></string>
 
     <!-- Order view Activity ends -->
     <!-- Product order filter search Activity starts -->
 
-    <string name="alertClickPic">कृपया स्टोर के कम से कम एक तस्वीर पर क्लिक करें</string>
-    <string name="alertOtherReason">कृपया अन्य कारण दर्ज करें.</string>
-
-    <string name="OrderDetail">ऑर्डर विवरण</string>
-    <string name="CategoryName">श्रेणी नाम</string>
-
-    <string name="StoreStock">स्टोर का स्टॉक</string>
-    <string name="Smpl.Qty">नमूना मात्रा</string>
-    <string name="AlertExecNoSum">एक्सिस्यूशन सारांश के लिए कोई डेटा उपलब्ध नहीं है</string>
-    <string name="AlertCancelOrder">क्या आप स्टोर के आदेश को रद्द करना चाहते हैं?</string>
-    <string name="FreeOffer">निःशुल्क ऑफ़र</string>
-    <string name="AlertTryAgain">कृपया फिर से प्रयास करें, कोई फ़्यूज़, जीपीएस या नेटवर्क नहीं मिला।</string>
-    <string name="AlertSameLoc">आपका वर्तमान स्थान पिछले स्थान के समान है, इसलिए कृपया अपनी लोकेशन सर्विस को बंद करें, फिर चालू करें</string>
-    <string name="AlertFilter">कोई डेटा नहीं मिला कृपया उचित शब्द के साथ फ़िल्टर  लगाये</string>
-    <string name="StockOverbooked">स्टॉक ओवरबुक</string>
-    <string name="Continue">जारी रखे</string>
-    <string name="ChangeQty">परिवर्तन मात्रा</string>
-    <string name="SubmittingOrderDetails">चालान/ऑर्डर डिटेल जमा कर रहे  है ...</string>
-    <string name="SubmittingInvoiceOrderDetails">ऑर्डर डिटेल जमा कर रहे  है ...</string>
-    <string name="Loading">लोड हो रहा है...</string>
-    <string name="MyNameAbhinav">मेरा नाम अभिनव</string>
-    <string name="AvailableQty">उपलब्ध मात्रा :</string>
-    <string name="OrderQty">आदेश की मात्रा : </string>
-
-
-    <string name="LastExecutionSummary">अंतिम वितरण सारांश</string>
-    <string name="SKU">SKU</string>
-
-    <string name="credit_retailer_balance">रिटेलर का बकाया क्रेडिट बैलेंस?</string>
-    <string name="Searching">खोज कर रहा है</string>
-
-    <string name="order_exceeds_stock">हो सकता है कि डिलीवरी पर उपलब्ध न हो। कृपया पुष्टि करें।</string>
-    <!-- Product order filter search Activity ends -->
 
 
 
@@ -455,270 +110,7 @@
     <string name="SalesPersonContact">Sales Person Contact :</string>
     <string name="SalesPersonAddress">Sales Person Address :</string>
     <string name="StoreCatType">Store Category Type :</string>
-    <string name="LastVisitDate">अंतिम यात्रा की तारीख :</string>
-    <string name="Details">विवरण</string>
-    <string name="LastOrderDate">अंतिम ऑर्डर तिथि:</string>
-    <string name="ExecutionSummary">वितरण सारांश : </string>
-    <string name="GSTDetails">जीएसटी विवरण:-</string>
-    <string name="GSTCompliance">जीएसटी अनुपालन</string>
-    <string name="NotRequired">जरूरी नहीं है </string>
-    <string name="Pending">अपूर्ण</string>
-    <string name="GSTNo">जीएसटी नंबर :</string>
-    <string name="Edit">संपादित करें</string>
-    <string name="GeneralScheme">सामान्य योजना :</string>
-    <string name="None">कोई नहीं</string>
-    <string name="SpecialScheme">विशेष योजना : </string>
-    <string name="SpecialSchemeDescription">विशेष योजना विवरण</string>
-    <string name="QuotationInfo">कोटेशन जानकारी : </string>
-    <string name="QuotationCode">कोटेशन कोड</string>
-    <string name="QuotStatus">उद्धरण स्थिति</string>
-    <string name="QuotDate">कोटेशन की तारीख</string>
-    <string name="NewQuotation">नया उद्धरण</string>
-    <string name="PaymentInfo">भुगतान की जानकारी :</string>
-    <string name="PaymentStage">भुगतान चरण</string>
-    <string name="Percage">प्रतिशत</string>
-    <string name="PaymentMode">भुगतान का प्रकार</string>
-    <string name="CreditDays">क्रेडिट दिन</string>
-    <string name="CreditLimit">क्रेडिट सीमा</string>
-    <string name="AdvanceBeforeDelivery">डिलिवरी से पहले एड्वान्स</string>
-    <string name="OnDelivery">डिलिवरी के समय</string>
-    <string name="Credit">भुगतान</string>
-    <string name="CancelVisitDealer">क्या आप डीलर की यात्रा को रद्द करना चाहते हैं?</string>
-    <string name="NoDataAvlblForOrder">विज़िट / ऑर्डर के लिए कोई डेटा उपलब्ध नहीं है</string>
-    <string name="Ord">आदेश</string>
-    <string name="Inv">बीजक</string>
-    <string name="SelectGst">कृपया जीएसटी अनुपालन का चयन करें.</string>
-    <string name="FillGst">कृपया जीएसटी अनुपालन मूल्य भरें.</string>
-    <string name="EnterGst">जीएसटी नंबर दर्ज करें</string>
-    <string name="PleaseEnterGstToProc">कृपया आगे बढ़ने के लिए जीएसटी नंबर दर्ज करें</string>
-    <string name="Confirm">पुष्टि करना</string>
-    <string name="lastvisitdetails_back">वापस</string>
-    <string name="lastvisitdetails_next">अगला</string>
 
-    <string name="lastvisitdetails_last">अंतिम </string>
-    <string name="ExecSummary"> निष्पादन सारांश</string>
-    <string name="lastvisitdetails_schemedescription">स्कीम विवरण</string>
-
-
-    <!-- LastVisitDetails Activity ends -->
-
-    <!-- LastVisitDetails SecondPart Activity start -->
-    <string name="LastVisitDetails"> अंतिम यात्रा डिटेल</string>
-    <string name="lastvisitdetails_skuname">एसकेयू नाम</string>
-    <string name="LastOrderDetails">अंतिम आदेश विवरण</string>
-    <string name="LastVisitOrderDetails">अंतिम विज़िट / ऑर्डर विवरण</string>
-    <string name="lastvisitdetails_oqty">आदेश की मात्रा</string>
-    <string name="prodlstFQty">मुफ्त मात्रा</string>
-    <string name="OrderVal">ऑर्डर का मूल्य :</string>
-    <string name="ExecutionVal">वितरण मूल्य:</string>
-    <string name="lastvisitdetails_stock">स्टॉक</string>
-    <string name="Executed">निष्पादित</string>
-    <!-- LastVisitDetails SecondPart Activity ends -->
-
-    <!-- Return Activity start -->
-    <string name="SelectReasonToReturn">कृपया वापसी का कारण चुनें </string>
-    <string name="ReturnDetail">वापसी का विवरण</string>
-    <string name="SaveAndClose">सहेजें और बंद करें</string>
-    <string name="productlist_schemeapplicable">योजना लागू</string>
-    <string name="RetQty">वापसी की मात्रा</string>
-    <string name="Photo">फ़ोटो</string>
-    <string name="ReturnsType">रिटर्न प्रकार</string>
-    <string name="ReturnFQty">मुफ्त मात्रा</string>
-    <string name="RetQTyExcStock">रिटर्न की मात्रा स्टॉक से अधिक है I</string>
-    <!-- Return Activity ends -->
-
-    <!-- Distributor Entry Activity start -->
-    <string name="SubmitDistrbtrStck">क्या आप डिस्ट्रिबुटर स्टॉक जमा करना चाहते.</string>
-    <string name="SubmitDistrbtrDetail">डिस्ट्रिबुटर स्टॉक जमा हो रहा है</string>
-    <string name="DistrbtrENtryHeader">डिस्ट्रिबुटर स्टॉक</string>
-    <string name="StockDate">स्टॉक तिथि: </string>
-    <string name="StckInPcs">स्टॉक (गिनती में)</string>
-    <string name="Pieces">गिनती में</string>
-    <string name="Cases">डिब्बों में</string>
-    <string name="PKDMonth">पीकेडी महीना</string>
-    <string name="OldStck">पुराना स्टॉक</string>
-    <string name="FreeStock">फ्री स्टॉक</string>
-    <string name="SMPSTK">सैम्पल स्टॉक</string>
-    <string name="NoRsltFound">माफ़ कीजिये! \ nकोई परिणाम नहीं मिला</string>
-    <string name="StockValue">स्टॉक मूल्य</string>
-
-    <string name="StockAsOn">आज तक का स्टॉक</string>
-    <string name="StckInCases">स्टॉक (डिब्बों में)</string>
-    <!-- Distributor Entry Activity ends -->
-
-    <!-- Invoice store selection Activity starts -->
-
-    <string name="NoStoreSubmision">प्रस्तुत करने के लिए कोई स्टोर नहीं है</string>
-    <string name="StoreOrderSelForCon">पुष्टि के लिए कोई स्टोर ऑर्डर नहीं चुना गया है.</string>
-    <string name="NoSTrOrdCancel">रद्दीकरण के लिए कोई स्टोर ऑर्डर नहीं चुना गया है.</string>
-    <string name="MarkdOrder">आपने निष्पादन / हटाने के लिए आदेशों को चिह्नित किया है, लेकिन सबमिट नहीं किया, क्या आप जारी रखना चाहते हैं??</string>
-    <string name="WhileWeSubmt">जब तक  हम आपका डेटा सबमिट करते हैं ...</string>
-    <string name="InvoiceHeader">चालान स्टोर चयन</string>
-    <string name="SelDistrbtr">डिस्ट्रिबुटर का चयन करें</string>
-    <string name="launcActiSelectRut">मार्ग का चयन करें</string>
-    <string name="ExecuteOrders">आदेश निष्पादित करें</string>
-    <string name="CancelOrders">ऑर्डर रद्द करें</string>
-    <string name="SearchStore">स्टोर खोजे </string>
-    <!-- Invoice store selection Activity ends -->
-
-
-    <!--Add new store starts-->
-    <string name="AddNewStoreHeader">नया स्टोर जोड़ें</string>
-    <string name="txtExit">बाहर जाएं</string>
-    <string name="IsLocCorrect">क्या आपके अनुसार मानचित्र पर आपका स्थान सही है?</string>
-    <string name="RefreshLoc">यदि आप स्टोर के अंदर हैं तो कृपया स्टोर से बाहर जाएं और फिर अपना स्थान अपडेट करने के लिए रिफ्रेश बटन पर क्लिक करें</string>
-    <string name="txtRefresh">रिफ्रेश</string>
-    <string name="SubmitStrInfo">क्या आप स्टोर की जानकारी सबमिट करना चाहते हैं? \n\n</string>
-    <string name="DataSent">डेटा भेजा दिया गया है </string>
-    <string name="DataSucc">डेटा को सफलतापूर्वक सबमिट हो गया है</string>
-    <string name="SameLocRestart">स्थान एक ही है, कृपया ठीक बटन क्लिक करने के बाद अपने फोन को रीस्टार्ट करें</string>
-    <string name="txtDone">हो गया है|</string>
-    <string name="txtNext">अगला</string>
-    <string name="txtClickPhoto">कृपया एक और तस्वीर पर क्लिक करें, यह फ़ोटो लोड करने के लिए बहुत भारी है</string>
-    <string name="txtExitwithoutSave">बिना सेव किये बाहर जाए</string>
-    <string name="SaveandExit">सेव करे और बहर जाए</string>
-    <string name="Pleaseselectvalue">मूल्य का चयन करें</string>
-    <string name="PleaseFillNameToSave">कृपया सहेजने के लिए नाम भरे</string>
-    <string name="SveDataBeforeExit">कृपया सुनिश्चित करें कि आपने बाहर निकलने से पहले डेटा सेव कर लिया है?</string>
-    <string name="rtrvng_loc">अपने वर्तमान स्थान को पुन र्प्राप्त करे</string>
-    <string name="Datawillbesaved">डेटा सहेजा जाएगा</string>
-    <string name="SaveData">डेटा बचा लिया जाएगा</string>
-
-
-
-    <!--NewStoreForm starts here-->
-    <string name="PleaseFill">कृपया भरें</string>
-    <string name="PleaseProvideProper">कृपया उचित प्रदान करें </string>
-    <string name="PleaseSelect">कृपया चुनें </string>
-    <string name="PleaseClick">कृपया कम से कम एक तस्वीर पर क्लिक करें</string>
-    <string name="STDAndLandline">कृपया एसटीडी कोड और लैंडलाइन नंबर भरें</string>
-    <string name="ProvideSTDAndLandline">कृपया उचित एसटीडी कोड और लैंडलाइन नंबर प्रदान करें</string>
-    <string name="OutletNametoSaveandExit">कृपया सहेजें और बाहर निकलने के लिए आउटलेट का नाम भरें</string>
-
-    <!--NewStoreForm ends here-->
-
-
-    <!--Add new store ends-->
-
-    <!--invoice sync master starts-->
-    <string name="genTermSyncErrornew">सिंक त्रुटि!</string>
-    <string name="genTermSyncErrorFullMsg">सिंक त्रुटि! \ n \ nकृपया अपने इंटरनेट कनेक्टिविटी की फिर से जांच करें|</string>
-    <string name="SubmittingDelDetails">वितरण विवरण सबमिट करना ...</string>
-    <!--invoice sync master ends-->
-
-    <!--invoice product list starts-->
-    <string name="CancelOrder">क्या आप वाकई में निम्नलिखित स्टोर के लिए ऑर्डर रद्द करना चाहते हैं</string>
-    <string name="DelDetails">डिलिवरी का विवरण</string>
-    <string name="prodlstCategoryName">श्रेणी का नाम:</string>
-    <string name="DistbtrName">डिस्ट्रिबुटर का नाम:</string>
-    <string name="StoreName">स्टोर का नाम:</string>
-    <string name="productlist_tblproduct">उत्पाद</string>
-    <string name="prodlstRate">मुल्य</string>
-    <string name="prodlstOQty">आदेश मात्रा</string>
-    <string name="DelQty">डिलिवरी मात्रा</string>
-    <string name="productlist_tblfqty">नि: शुल्क मात्रा</string>
-    <string name="prodlstDvalue">डिलिवरी मूल्य</string>
-    <string name="prodlstAdditionalDiscount">अतिरिक्त छूट</string>
-    <string name="AmountPrevDue">पिछ्ली बकाया राशि</string>
-    <string name="ExecuteOrder">आदेश निष्पादित करें</string>
-    <string name="txtCancelOrder">ऑर्डर रद्द करें</string>
-    <string name="genTernStoreOrderInvoicesubmitConfirmAlert"><small>क्या आप निष्पादन विवरण सबमिट करना चाहते हैं?</small></string>
-    <!--invoice product list ends-->
-
-
-    <!--surbhi ends here-->
-
-    <!--  Selection header starts -->
-    <string name="ChangeLanguage">भाषा बदले</string>
-    <string name="Language">भाषा</string>
-    <string name="LanguageSelection">कृपया भाषा चुनें</string>
-    <string name="Hindi">हिंदी</string>
-    <string name="English">अंग्रेज़ी</string>
-    <string name="DayEnd">दिन की समाप्ति</string>
-    <string name="Dsrmessage">कृपया दिन के अंत की गतिविधि करने से पहले अपने व्यक्तिगत डिटेल को अपडेट करें</string>
-    <string name="RefreshData">डेटा रिफ्रेश करें</string>
-    <string name="UploadPendingData">બાકી ડેટા અપલોડ કરો</string>
-    <string name="RefreshDataMsg">क्या आप डेटा रीफ्रेश करना चाहते हैं?</string>
-    <string name="ChangeRoute">मार्ग बदलें</string>
-    <string name="Summary">सारांश</string>
-    <string name="TargetVsAchieved">लक्ष्य बनाम हासिल</string>
-    <string name="VersionNo">संस्करण संख्या-V</string>
-    <string name="CheckTodayOrder">आज का ऑर्डर देखें</string>
-
-
-
-    <!-- Selection header ends -->
-
-
-
-
-    <string name="genlocaldataMsg">डेटा स्थानीय रूप से फोन मे सहेजा गया है, इंटरनेट एक्सेस करने के बाद सर्वर पर भेज दिया जायेगा</string>
-    <string name="reason_prompt">Please Select Reason</string>
-    <string name="category_prompt">Please Select Category</string>
-    <string name="phone_nos">Phone Num:</string>
-    <string name="spinner_route">Routes </string>
-    <string name="remarks">.,/- abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</string>
-    <string name="spinner_store_type">Store Type </string>
-    <string name="spinner_trade_channel">Trade Channel </string>
-    <string name="spinner_store_Category">Store Category </string>
-    <string name="spinner_retailer_sales_type">रिटेलर सेलस के प्रकार</string>
-    <string name="spinner_store_potential_type">Store Potential Type </string>
-    <string name="only_alpha_numeric_new">.- ,abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    <string name="only_character_Space_no_slash">.- abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
-    <string name="spinnerloc">Distributor Names </string>
-    <string name="spinnerarea">Route Names </string>
-    <string name="spinnerstore">Store Type </string>
-    <string name="only_alpha_numeric">.- abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    <string name="nameValidation">. abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    <string name="syncAlertStoreQuotationOKMsg"><small>स्टोर कोटेशन सफलतापूर्वक सबमिट हो गया है</small></string>
-    <string name="syncAlertInvoiceOKMsg"><small>डिलीवरी डिटेल सबमिट हो गया है</small></string>
-    <string name="syncAlertErrMsg"><small>समन्वयन सफल नहीं हुआ|\n कृपया पुन: प्रयास करें।</small></string>
-    <string name="syncAlertErrMsgDayEndOrChangeRoute"><small>इंटरनेट कनेक्टिविटी टूटने के कारण ऑर्डर सबमिट नहीं हुआ है| कृपया पुन: प्रयास करें।</small></string>
-    <string name="title_activity_store_selection">स्टोर चयन</string>
-    <string name="title_activity_last_visit_details">अंतिम विज़िट विवरण</string>
-    <string name="title_activity_stores_summary">स्टोर सारांश</string>
-    <string name="title_activity_return">स्टोक रिटर्न</string>
-    <string name="productlist_orderbooking">ऑर्डर बुकिंग फॉर्म</string>
-    <string name="productlist_returnbutton">عودة المنتج</string>
-    <string name="productlist_storebutton">स्टोर की फोटो</string>
-    <string name="productlist_currentproduct"> वर्तमान उत्पाद</string>
-    <string name="productlist_sampleqty">सैम्पल मात्रा</string>
-    <string name="productlist_samplehint">सैम्पल मात्रा यहां दर्ज करें</string>
-    <string name="productlist_sampletotalhint">जारी किए गए कुल सैम्पल</string>
-    <string name="productlist_cramt">राशी जमा करें</string>
-    <string name="productlist_cradj">क्रेडिट समायोजन</string>
-    <string name="productlist_crbal">जमा शेष</string>
-    <string name="productlist_creditamount">राशी जमा करें :</string>
-    <string name="productlist_productleveldiscount">उत्पाद स्तर छूट :</string>
-    <string name="productlist_freeqtytotal">कुल मुफ्त मात्रा</string>
-    <string name="productlist_netinvoicevalue">शुद्ध चालान मुल्य :</string>
-    <string name="productlist_invoiceaftdiscount">छूट के बाद ऑर्डर :</string>
-    <string name="productlist_taxamount">कर राशि :</string>
-    <string name="productlist_grossinvoicevalue">सकल क्रम मूल्य :</string>
-    <string name="productlist_noofcoupons">कूपन की संख्या :</string>
-    <string name="productlist_totalcouponamount">कुल कूपन राशि :</string>
-    <string name="productlist_amountprevdue">पहले की राशि :</string>
-    <string name="productlist_amountoutstanding">बकाया राशि:</string>
-    <string name="prodlstAmtCollected">एकत्रित राशि:</string>
-    <string name="genTermSelectStoresPendingToComplete">क्या आप चयनित स्टोर ऑर्डर की पुष्टि करना चाहते हैं?</string>
-    <string name="genTermSelectStoresPendingToCancel">क्या आप चयनित स्टोर ऑर्डर रद्द करना चाहते हैं?</string>
-    <string name="genTermSubmitSelectedInvoice">चयनित की पुष्टि करें</string>
-    <string name="genTermSubmitCancelInvoiceList">ठीक</string>
-    <string name="txtYes">हाँ</string>
-    <string name="txtCancle">रद्द करना</string>
-    <string name="mysummary_back">वापस</string>
-    <string name="second_msg_for_map">कृपया अपना स्थान एक बार फिर प्राप्त करने का प्रयास करें, यदि सिस्टम को सिस्टम के अनुसार यथोचित रूप से सटीक पाया जाता है तो इसे सहेजा जाएगा।</string>
-    <string name="third_msg_for_map">डेटा को वर्तमान स्थान के साथ सहेजा जाएगा जो सही दिखाई देगा...</string>
-    <string name="title_activity_view_added_store">जोड़ा गया स्टोर देखें</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_quotation">कोटेशन गतिविधि</string>
-    <string name="loc_not_found">स्टोर का स्थान सिस्टम को सही तरीके से नहीं मिला, स्टोर स्थान के बिना सहेजा जाएगा.यह बाद में किया जा सकता है।</string>
-    <string name="txtNo">नहीं</string>
-
-    <string name="DistributorLocation">वितरक स्थान</string>
-    <string name="home">होम</string>
-    <string name="DistributorCheckInMsg">कृपया पहले वितरक की पुष्टि करें</string>
-    <string name="NoPendingDataMsg">अपलोड के लिए कोई लंबित डेटा नहीं है</string>
 
 
 
@@ -744,66 +136,705 @@
 
     <!--All Button  Activity ends here-->
 
-
-    <string name="ClickPhoto">फोटो क्लिक करें</string>
-
-    <string name="Dashboard">डैशबोर्ड</string>
-    <string name="MarketVisit">मार्केट विजिट</string>
-    <string name="Execution">निष्पादन</string>
-    <string name="StoreMapping">स्टोर मैपिंग</string>
-    <string name="DistributorCheckIn">वितरक चेक इन</string>
-    <string name="DSMTracker">डीएसएम ट्रैकर</string>
-    <string name="MapDistributor">मानचित्र वितरक</string>
-    <string name="NoVisit">कोई यात्रा नहीं</string>
-
-
-    <string name="BackButConfirm">क्या आपने वापस जाने से पहले अपना डेटा बचाना चाहते है?</string>
-    <string name="DistributorDataSubmit">वितरक डेटा सफलतापूर्वक सबमिट हो चूका हैं</string>
-
     <string name="AlertDialogHeaderErrorMsg">त्रुटि</string>
     <string name="distributorSubmitMessage">क्या आप वितरकों की जानकारी सबमिट करना चाहते हैं?</string>
-    <string name="SubmittingDataMsg">डेटा जमा हो रहा है ...</string>
-    <string name="PleaseWaitMsg">कृपया प्रतीक्षा करें ...</string>
-    <string name="Route_prompt">मार्ग बदलें</string>
+
+    <string name="internetslowMsggg">आपका डिवाइस डेटा कनेक्शन धीमा है</string>
+
+
+    <string name="currentStock">वर्तमान स्टॉक</string>
+    <string name="LastStock">છેલ્લું સ્ટક એનએ</string>
+
+
+
+
+
+    <string name="OrderTypeTelephonic">ટેલિફોનિક</string>
+    <string name="OrderTypeActualVisit">વાસ્તવિક મુલાકાત</string>
+
+
+    <string name="txtReport">અહેવાલ</string>
+    <string name="genTermInformation">માહિતી</string>
+    <string name="AlertDialogOkButton">ઓકે</string>
+    <string name="internetError">ઇન્ટરનેટ કનેક્શન ધીમું છે, કૃપા કરીને ફરી પ્રયાસ કરો.</string>
+    <string name="phnRegisterError">આ ફોન નોંધાયેલ નથી, કૃપા કરીને સંચાલકનો સંપર્ક કરો.</string>
+    <string name="phnDateError">તમારી ફોનની તારીખ સાચું નથી. કૃપા કરી તેને ઠીક કરો.</string>
+    <string name="regID">નોંધણી આઈડી બનાવો.</string>
+    <string name="errorTxt">ભૂલ :</string>
+    <string name="errorPlayServices">આ ઉપકરણ પ્લે સેવાઓને સપોર્ટ કરતું નથી, એપ સામાન્ય રીતે કાર્ય કરશે નહીં</string>
+    <string name="AlertDialogHeaderMsg">ચેતવણી</string>
+    <string name="NewVersionMsg">આ એપ્લિકેશનનું નવું સંસ્કરણ હવે ઉપલબ્ધ છે. કૃપા કરીને નવું સંસ્કરણ ઇન્સ્ટોલ કરવા માટે OK પર ક્લિક કરો!</string>
+    <string name="UpdatingNewVersionMsg">નવી સંસ્કરણ અપડેટ કરી રહ્યું છે...</string>
+    <string name="routeNoAvail">આ ફોન માટે રૂટ ઉપલબ્ધ નથી</string>
+    <string name="errorFetchData">ડેટાનું આનયન કરવામાં અસમર્થ, કૃપા કરીને ફરી પ્રયાસ કરો.</string>
+    <string name="genTermPleaseWaitNew">મહેરબાની કરી રાહ જુવો ...</string>
+    <string name="genTermLoadData">ડેટા લોડ કરી રહ્યું છે ...</string>
+    <string name="txtDayStart">દિવસનો પ્રારંભ</string>
+
+    <string name="working">કાર્યરત</string>
+    <string name="not_working">ચલ્તુ નથિ</string>
+
+    <string name="today_working">આજે કામ</string>
+    <string name="submittingDayStart">ડે પ્રારંભિક વિગતો સબમિટ કરવી ...</string>
+    <string name="txtWelcome">આપનું સ્વાગત છે</string>
+    <string name="radioYes">હા</string>
+    <string name="radioNo">ના</string>
+
+
+    <string name="txtUpdate">હવે અપડેટ કરો</string>
+    <string name="txtNotYou">તમે નહિ</string>
+    <string name="hintMobileNo">મોબાઈલ નમ્બર.</string>
+
+    <string name="txtValidate">માન્ય</string>
+    <string name="txtFName">પ્રથમ નામ</string>
+    <string name="txtLName">છેલ્લું નામ</string>
+    <string name="txtContactNo">સંપર્ક નં.</string>
+    <string name="txtDOB">જન્મ તારીખ</string>
+    <string name="txtSelectDate">તારીખ પસંદ કરો</string>
+    <string name="txtSex">જાતિ</string>
+    <string name="txtMale">પુરૂષ</string>
+    <string name="txtFemale">સ્ત્રી</string>
+    <string name="txtMaritalStatus">વૈવાહિક સ્થિતિ</string>
+    <string name="txtMarried">પરણિત</string>
+    <string name="txtUnmarried">અપરિણિત</string>
+    <string name="txtMarriedDate">પરણિત તારીખ</string>
+    <string name="txtQualification">લાયકાત</string>
+    <string name="txtSelect">પસંદ કરો</string>
+    <string name="txtUpdatedphoto">ફોટો અપડેટ કર્યો</string>
+    <string name="txtSelfie">સેલ્ફી</string>
+    <string name="txtBrowse">બ્રાઉઝ કરો</string>
+    <string name="txtEmailID">ઈમૈલ</string>
+    <string name="txtBloodGroup">બ્લડ ગ્રુપ</string>
+    <string name="txtSIGNHERE">અહીં સહી કરો</string>
+    <string name="txtCancel">રદ કરો</string>
+    <string name="txtclearSign">સંકેત સાફ કરો</string>
+    <string name="txtsave">સાચવો</string>
+    <string name="txtProceed">આગળ વધો</string>
+    <string name="txtSubmit">સબમિટ કરો</string>
+
+
+    <string name="txtNoCamera">માફ કરશો, તમારા ફોનમાં કૅમેરો નથી!</string>
+    <string name="txtNoFrontCamera">કોઈ ફ્રન્ટ કેમેરા મળી નથી.</string>
+    <string name="txtSuccessfullySaved">સફળતાપૂર્વક સાચવ્યું</string>
+    <string name="txtSELECTDOB">પસંદ કરો DOB</string>
+    <string name="txtSelectMarriedDate">લગ્નની તારીખ પસંદ કરો</string>
+    <string name="txtBloodGroupTitle">બ્લડ ગ્રુપ</string>
+    <string name="txtSubmitData">શું તમે ડેટા સબમિટ કરવા માંગો છો?</string>
+    <string name="txtErrorNoDataConnection">કોઈ ડેટા કનેક્શન નથી!</string>
+    <string name="txtErrorInternetConnection">તમારા ઉપકરણમાં કોઈ ડેટા કનેક્શન નથી! કૃપા કરીને ખાતરી કરો કે ઇન્ટરનેટ ચાલુ રાખવા માટે ઍક્સેસિબલ છે</string>
+    <string name="txtErrorMobileNo">મોબાઈલ નમ્બર. માન્ય નથી</string>
+    <string name="txtSelectDOB">કૃપા કરી DOB પસંદ કરો</string>
+    <string name="txtValidateFirstName">પ્રથમ નામ ખાલી છે</string>
+    <string name="txtValidateLastName">છેલ્લું નામ ખાલી છે</string>
+    <string name="txtValidateContactNo">સંપર્ક નં. માન્ય નથી</string>
+    <string name="txtValidateSelectSex">કૃપા કરીને સેક્સ પસંદ કરો</string>
+    <string name="txtValidateMaritalStatus">કૃપા કરીને વૈવાહિક સ્થિતિ પસંદ કરો</string>
+    <string name="txtValidateMarriedDate">કૃપા કરીને લગ્નની તારીખ પસંદ કરો</string>
+    <string name="txtValidateQualification">કૃપા કરી લાયકાત પસંદ કરો</string>
+    <string name="txtValidateUpdatePhoto">કૃપા કરીને ફોટો અપડેટ કરો</string>
+    <string name="txtValidateEmailID">ઈમૈલ માન્ય નથી</string>
+    <string name="txtValidateBloodGroup">કૃપા કરીને બ્લડ ગ્રુપ પસંદ કરો</string>
+    <string name="txtValidateSignature">કૃપા કરીને સહી કરો</string>
+    <string name="txtDSRMsg">દિવસના અંતની પ્રવૃત્તિ કરવા પહેલાં તમારા વ્યક્તિગત વિગતોને અપડેટ કરવાનું યાદ રાખો</string>
+
+
+
+    <!--activity_list.xml inflated in DSR_Registration start here-->
+    <string name="hintSearchproducts">ઉત્પાદનો શોધો ..</string>
+    <!--activity_list.xml inflated in DSR_Registration ends here-->
+
+    <!--activity_main.xml inflated in DSR_Registration start here-->
+    <string name="txtSwitchCamera">કેમેરા સ્વિચ કરો</string>
+    <string name="txtCapture">કેપ્ચર કરો</string>
+    <!--activity_main.xml inflated in DSR_Registration ends here-->
+
+    <!--DSR_Registration ends here-->
+
+    <string name="ReadyStockOut">જથ્થો ખલાસ</string>
+    <string name="ReadyStockIn">સ્ટોક ઇન</string>
+
+    <!--Launcher Activity starts here-->
+    <string name="txtSalesPerformanceMaximizer">સેલ્સ બોનસ મેક્સિમેઝર</string>
+    <string name="radioTodayRoute">આજે રસ્તો   :</string>
+    <string name="radioChooseDifferentRoute">અલગ રૂટ પસંદ કરો</string>
+    <string name="txtSelectedRoute">પસંદ થયેલ રૂટ</string>
+    <string name="txtNoRouteAvailable">કોઈ રસ્તો ઉપલબ્ધ નથી</string>
+    <string name="txtGetStores">સ્ટોર્સ મેળવો</string>
+    <string name="txtNoStoreVisittoday">આજે કોઈ દુકાનની મુલાકાત લો</string>
+    <string name="txtDistributorStock">ડિસ્ટ્રીબ્યુટર સ્ટોક</string>
+    <string name="txtUpdateExecution">એક્ઝેક્યુશન અપડેટ કરો</string>
+    <string name="txtErrorPhnDate">તમારી ફોનની તારીખ અદ્યતીત નથી. કૃપા કરીને તારીખને યોગ્ય બનાવો.</string>
+    <string name="AvailableRoutesMsg">ઉપલબ્ધ રૂટ</string>
+    <string name="txtError">ભૂલ........</string>
+    <string name="txtErrorRetrievingData">ડેટા પુનઃપ્રાપ્ત કરવામાં ભૂલ! કૃપા કરીને ફરી પ્રયાસ કરો</string>
+    <string name="txtErr">ભૂલ</string>
+    <string name="txtSelectReason">કૃપા કરી પ્રથમ કારણ પસંદ કરો</string>
+    <string name="txtEnterReason">કૃપા કરીને કારણ દાખલ કરો</string>
+    <string name="txtInvoicePending">કોઈ ઇન્વૉઇસ બાકી નથી</string>
+    <string name="txtRetry">ફરી પ્રયાસ કરો</string>
+    <string name="txtReason">કારણ  :</string>
+    <string name="NoDataConnectionFullMsg">તમારા ઉપકરણમાં કોઈ ડેટા કનેક્શન નથી. કૃપા કરીને ખાતરી કરો કે ઇન્ટરનેટ ચાલુ રાખવા માટે ઍક્સેસિબલ છે</string>
+    <string name="RetrivingDataMsg">ડેટા પુનઃપ્રાપ્ત</string>
+    <string name="SubmittingDataMsg">ડેટા સબમિટ કરી રહ્યું છે ...</string>
+    <string name="SubmittingPndngDataMsg">બાકી ડેટા સબમિટ કરી રહ્યું છે…</string>
+
+    <!--Incentive Activity starts here-->
+    <string name="txtIncentive">પ્રોત્સાહન</string>
+    <string name="txtFetchingReports">રિપોર્ટ્સનું આનયન કરવું</string>
+    <string name="txtEarnedpoints">કમાવ્યા પોઇન્ટ્સ \ n રૂ: 100</string>
+    <string name="txtIncentiveName">પ્રોત્સાહન નામ</string>
+
+    <!--Incentive Activity ends here-->
+
+    <!--Sales Value Target Activity starts here-->
+    <string name="txtSalesTargetValue">સેલ્સ લક્ષ્યાંક મૂલ્ય</string>
+    <!--Sales Value Target Activity ends here-->
+
+    <!--StoreSelection Activity starts here-->
+    <string name="txtSelectStore">સ્ટોર પસંદ કરો</string>
+    <string name="txtManagerName">મેનેજર નામ</string>
+    <string name="hash">#</string>
+    <string name="txtFindNearby">સ્ટોર્સ દ્વારા નજીકથી શોધો</string>
+    <string name="txtNextDay">આવતો દિવસ</string>
+    <string name="txtClose">બંધ</string>
+    <string name="txtAddStore">દુકાન ઉમેરો</string>
+    <string name="txtStart">શરૂઆત</string>
+    <string name="txtStoreName">સ્ટોરનું નામ</string>
+    <string name="hintManagerName">મેનેજર નામ</string>
+    <string name="searchingnearbystores">નજીકના સ્ટોર્સ શોધી રહ્યાં છે</string>
+    <string name="genTermProcessingRequest">પ્રોસેસીંગ વિનંતી ..</string>
+    <string name="genTermGPSDisablePleaseEnable">સક્ષમ નથી. કૃપા કરીને આગલા પૃષ્ઠ પર બધી સેટિંગ્સ પસંદ કરો!</string>
+    <string name="PleaseConformMsg">ખાતરી કરો</string>
+    <string name="genTermDayEndAlert">શું તમે તમારી દિવસની મુલાકાતને સમાપ્ત કરવા માંગો છો?</string>
+    <string name="genTermDayEndAlertWithoutStoreSubmit">શું તમે ખરેખર તમારી દિવસની મુલાકાતને સમાપ્ત કરવા માંગો છો? પહેલાંના તમામ ન-સબમિટ કરેલ ઓર્ડર્સ ખોવાઈ જશે!</string>
+    <string name="genTermchangeRouteAlert">શું તમે ખરેખર રૂટને બદલવા માંગો છો? પહેલાંના તમામ ન-સબમિટ કરેલ ઓર્ડર્સ ખોવાઈ જશે!</string>
+    <string name="genTermchangeRouteAlertWhenNoStoreisLeftToSubmit">શું તમે ખરેખર રૂટને બદલવા માંગો છો? \ n</string>
+    <string name="genTermSelectStoresPendingToCompleteDayEnd">નીચેના ઇન્વૉઇસેસ હજી સુધી સબમિટ નથી થયા. ભર્યા માટે ઇનવૉઇસેસ પસંદ નથી હવે કાયમ માટે હારી જશે.</string>
+    <string name="genTermSelectStoresPendingToCompleteChangeRoute">જો તમે સબમિટ કર્યા વગર રૂટ બદલતા હો તો બિન-સબમિટ કરાયેલા ઓર્ડર્સને ગુમાવશો.</string>
+    <string name="genTermSubmitSelected">ઓર્ડર્સ સબમિટ કરો</string>
+    <string name="genTermNoStroeSelectedOnSubmit">કોઈ સ્ટોર્સ પસંદ નથી કોઈપણ સ્ટોર (ઓ) પસંદ કરો અથવા રદ કરો!</string>
+    <string name="genTermDirectlyChangeRoute">ઓર્ડર્સ કાઢી નાખો</string>
+    <string name="txtOnChangeRouteDayEndCancel">રદ કરો  &amp; પાછા જાવ</string>
+    <string name="genTermRetrivingData">ડેટા પુનઃપ્રાપ્ત કરી રહ્યું છે ...</string>
+    <string name="txtErrRetrieving">ડેટા પુનઃપ્રાપ્ત કરવામાં ભૂલ! કૃપા કરીને ફરી પ્રયાસ કરો</string>
+    <string name="txtEnterManagerName">કૃપા કરી સંચાલકનું નામ દાખલ કરો</string>
+    <string name="genTermPleaseSelectDiffrentStore">કૃપા કરીને ભિન્ન દુકાન પસંદ કરો, આ દુકાન તમારા દ્વારા બંધ કરવા માટે માર્ક છે.</string>
+    <string name="genTermPleaseSelectStore">કૃપા કરીને દુકાન પસંદ કરો</string>
+    <string name="txtRefreshingData">ડેટા રીફ્રેશ કરી રહ્યું છે ...</string>
+    <string name="genTermAvailableRoute">ઉપલબ્ધ રૂટ</string>
+    <string name="txtProductName">ઉત્પાદન નામ</string>
+    <string name="txtQuantity">જથ્થો</string>
+    <string name="txtConfirmCancel">રદ કરવાની પુષ્ટિ કરો ..</string>
+    <string name="txtYouWant">શું તમે ખરેખર ઇચ્છો છો? </string>
+    <string name="txtOrderCancel">ઇન્વૉઇસેસ રદ કરવામાં આવે છે ?</string>
+    <string name="txtOrderCancelQues">રદ કરવું ભરતિયું ?</string>
+
+    <!--DetailReportSummaryActivity Activity starts here-->
+    <string name="txtSummaryAsOn">આના પર સારાંશ:</string>
+    <string name="txtMeasures">પગલાં</string>
+    <string name="txtTodaySummary">આજે સારાંશ</string>
+    <string name="txtMTDSummary">એમટીડી સારાંશ</string>
+    <string name="txtDetailsReport">વિગતો રિપોર્ટ :</string>
+    <string name="txtTargetvsAchieved">લક્ષ્યાંક વિ. પ્રાપ્ત</string>
+    <string name="txtSKUWise">SKU વાઈસ</string>
+    <string name="txtStoreWise">સ્ટોર વાઈસ</string>
+    <string name="txtStoreSKUWise">્ટોર- એસકેયુ વાઈસ</string>
+    <string name="txtTargetCalls">લક્ષ્યાંક કૉલ્સ</string>
+    <string name="txtNotification">સૂચના</string>
+
+    <string name="txtTargetvsAchievedReport">લક્ષ્યાંક v / s પ્રાપ્ત અહેવાલ</string>
+    <string name="txtToday">આજે</string>
+    <string name="txtMTD">એમટીડી</string>
+    <string name="txtTgt">Tgt</string>
+    <string name="txtAch">અચ</string>
+    <string name="txtBal">બાલ</string>
+    <string name="txtVolTarget">વોલ્યુમ લક્ષ્ય</string>
+    <string name="txtInPcs">પીસીએસમાં</string>
+    <string name="txtInCases">કેસમાં</string>
+    <string name="txtAcievementPer">સિદ્ધિ%  :</string>
+    <string name="genTermRetrivingSummary">સારાંશ અહેવાલ બનાવવો ...</string>
+    <string name="genTermRetrivingTargetVsAchievedSummary">લક્ષ્યાંક વિ. પ્રાપ્ત અહેવાલ બનાવો ...</string>
+
+    <string name="txtLessThanNinety" translatable="false">&lt;90%</string>
+    <string name="txtGreaterThanNinety" translatable="false">&gt;=90 &lt;100</string>
+    <string name="txtGreaterThanHundred" translatable="false">&gt;=100 &lt;=105</string>
+    <string name="txtHighest" translatable="false">&gt;105</string>
+
+    <!--1st part-->
+    <string name="prodlstProduct">ઉત્પાદન</string>
+    <string name="txtStores">સ્ટોર્સ</string>
+    <string name="txtOrderQty">ઓર્ડર Qty</string>
+    <string name="txtFreeQty">મુક્ત જથ્થો</string>
+    <string name="txtDiscountValue">ડિસ્કાઉન્ટ ભાવ</string>
+    <string name="txtValBeforeTax">કરવેરા પહેલાં વૅલ</string>
+    <string name="txtTaxValue">કરવેરા મૂલ્યe</string>
+    <string name="txtValAfterTax">વેલઅફટર ટેક્સ</string>
+    <string name="txtGrandTotal">કુલ કુલ:</string>
+    <string name="submit_sent_server">સર્વરમાં મોકલવા અને મોકલવા</string>
+    <string name="saved_not_submit">સાચવેલ નથી પરંતુ સબમિટ કરો</string>
+    <string name="submit_not_sent_server">સબમિટ કરો પરંતુ સર્વરમાં મોકલ્યું નથી</string>
+    <string name="txtSKUWiseSummary">બિલ દીઠ લાઇન્સ</string>
+
+
+    <string name="txtLinesperBill">રેખાઓ \ n બિલ</string>
+    <string name="txtStockValue">સ્ટોક મૂલ્ય</string>
+    <string name="txtTotal">કુલ   :</string>
+    <string name="txtNoStoreToDisplay">દર્શાવવા માટે કોઈ દુકાન મુજબના આદેશ ઉપલબ્ધ નથી</string>
+
+
+    <!--  Selection header starts -->
+
+    <string name="Hindi">હિન્દી</string>
+    <string name="English">અંગ્રેજી</string>
+    <string name="DayEnd">દિવસ સમાપ્તિ</string>
+    <string name="Dsrmessage">કૃપા કરીને દિવસની પ્રવૃત્તિ કરતા પહેલાં તમારી વ્યક્તિગત વિગતો અપડેટ કરો</string>
+    <string name="RefreshData">ડેટા રીફ્રેશ કરો</string>
+    <string name="RefreshDataMsg">શું તમે ડેટા રીફ્રેશ કરવા માંગો છો?</string>
+    <string name="ChangeRoute">રૂટ બદલો</string>
+    <string name="Summary">Summary</string>
+    <string name="TargetVsAchieved">લક્ષ્યાંક વિ. પ્રાપ્ત</string>
+    <string name="AccountCensusBtn">એકાઉન્ટ સેન્સસ રીપોર્ટ</string>
+    <string name="VersionNo">વર્ઝન નંબર-વી</string>
+    <string name="CheckTodayOrder">આજે ઓર્ડર તપાસો</string>
+
+    <!--3rd part-->
+    <string name="txtSKUWISE">SKU વાઈસ</string>
+
+    <string name="txtStoreWiseSummary">સમરી વાઈઝ સ્ટોર કરો</string>
+    <string name="txtNoRecord">કોઈ રેકોર્ડ મળ્યો નથી</string>
+    <string name="txtStoreSKUSummary">સ્ટોર અને &amp; SKU સારાંશ</string>
+
+
+    <string name="txtSTOREWISE">સ્ટોર વાઈઝ</string>
+    <string name="txtSTORESKUWISE">વાઈઝ સ્ટોર કરો</string>
+
+
+    <string name="OrderReview">ઓર્ડર સમીક્ષા</string>
+    <string name="Stock">સ્ટોક</string>
+    <string name="SmplQty">સેમ્પલ કોન્ટીટી</string>
+    <string name="OQty">ઓર્ડેર કોન્ટીટી</string>
+    <string name="MinDQ">મીન. ડીક્યુ</string>
+    <string name="MRP">એમઆરપી</string>
+    <string name="Rate">દર</string>
+    <string name="FQty">એફ. ક્વિ</string>
+    <string name="DVal">ડી.વીલ</string>
+    <string name="LODQty">LID/જથ્થો</string>
+    <string name="OVal">ઓ.વોલ</string>
+    <string name="Remove">દૂર કરો</string>
+    <string name="OrderTotal">ઓર્ડર કુલ</string>
+    <string name="CrAmt">સી.આ.એમ.ટી.</string>
+    <string name="CrAdj">સીઆર.એડજે.</string>
+    <string name="UpdateTotal">અપડેટ કુલ</string>
+    <string name="OrderDeliveryDetails">ઑર્ડર ડિલિવરી વિગતો</string>
+    <string name="CollectAmount">રકમ એકત્રિત કરો</string>
+    <string name="Cancel">રદ કરો</string>
+    <string name="Save">સાચવો</string>
+    <string name="SaveExit">સાચવો &amp; બહાર નીકળો</string>
+    <string name="Submit">સબમિટ કરો</string>
+    <string name="Next">આગળ</string>
+    <string name="CrBal">સીઆર. બાલ.</string>
+
+    <string name="ProductName">ઉત્પાદન નામ</string>
+    <string name="Scheme">યોજના</string>
+    <string name="prodlstCreditAmount">ક્રેડિટ રકમ :</string>
+    <string name="prodlstProductLevelDiscount">ઉત્પાદન સ્તર ડિસ્કાઉન્ટ :</string>
+    <string name="prodlstOValBeforeTax">કરવેરા પહેલાં ઓ. વૅલ :</string>
+    <string name="productlist_nadditionaldiscount">વધારાની ડિસ્કાઉન્ટ :</string>
+    <string name="prodlstOValAfterDis">જીએસટી પછી ઓ. વૅલ :</string>
+    <string name="GStAmount">જીએસટી રકમ :</string>
+    <string name="prodOValAfterGst">I. Val After GST:</string>
+    <string name="Coupons">કુપન્સની સંખ્યા :</string>
+    <string name="TotalCouponsAmt">કુલ કુપન્સ રકમ:</string>
+    <string name="AmtPrevDue">અગાઉની રકમ :</string>
+    <string name="AmtCollctd">એકત્રિત કરેલ રકમ: </string>
+    <string name="AmtOutStnding">ઉત્કૃષ્ટ રકમ : </string>
+    <string name="StockQty">સ્ટોક. ક્વિટી</string>
+    <string name="O.Qty">I.Qty</string>
+    <string name="PleasefillRatefirst">કૃપા કરીને દર પ્રથમ ભરો</string>
+    <string name="PleasefillproperRatefirst">કૃપા કરીને યોગ્ય દર પ્રથમ ભરો</string>
+    <string name="RemoveProdct">શું તમે ખરેખર આ ઉત્પાદનને દૂર કરવા માંગો છો?</string>
+    <string name="ConfirmDel">કાઢી નાખોની પુષ્ટિ કરો ...</string>
+    <string name="YouclickedonNO">તમે ના પર ક્લિક કર્યું</string>
+    <string name="OrderTypeActualVisitHeader">સ્ટોર તપાસો</string>
+    <string name="prodOValAfterTax">I.Val ઉમેરો પછી ડિસ્કાઉન્ટ:</string>
+    <string name="CategoryName">કેટેગરી નામ</string>
+    <string name="OrderDetail">ઓર્ડર વિગતવાર</string>
+    <string name="TodayStock">સ્ટોક આજે</string>
+    <string name="laststock">છેલ્લું સ્ટક એનએ</string>
+    <string name="submitConfirmAlert"><small>દુકાન ભરતિયું વિગતો સમન્વિત થશે! \ n શું તમે ઇન્વોઇસ વિગતો સબમિટ કરવા માંગો છો?</small></string>
+    <string name="genTermRetrivingLocation">સ્ટોર સ્થાનને ઓળખવા માટે જીપીએસ કોઓર્ડિનેટ્સ ગણના</string>
+    <string name="prodlstFreeQtyTotal">મુક્ત જથ્થો કુલ :</string>
+    <string name="WhileWeSave"> જ્યારે અમે તમારો ડેટા સાચવીએ છીએ, તે પછી પાછા જાઓ</string>
+    <string name="WhileWeSaveExit">જ્યારે અમે તમારો ડેટા સાચવીએ છીએ ત્યારે બહાર નીકળો</string>
+    <string name="WhileSave">જ્યારે અમે તમારો ડેટા સાચવો</string>
+    <string name="WhileReview">જ્યારે અમે તમારા ડેટાને સાચવીએ છીએ, ત્યારે ઓર્ડરની સમીક્ષા કરો .</string>
+    <string name="SelectActualFreeQty">લાગુ કરવા માટે કૃપા કરીને વાસ્તવિક મુક્ત જથ્થો પસંદ કરો  :</string>
+    <string name="SelectActualValue">લાગુ કરવા માટેનું વાસ્તવિક મૂલ્ય પસંદ કરો:</string>
+    <string name="DefaultDiscValue">સ્લેબ માટે ડિફોલ્ટ ડિસ્કાઉન્ટ કિંમત : </string>
+    <string name="SelectActualDisc">લાગુ કરવા માટે કૃપા કરીને વાસ્તવિક ડિસ્કાઉન્ટ ટકાવારી પસંદ કરો  :</string>
+    <string name="DefaultFreeVal">સ્લેબ માટે ડિફોલ્ટ ફ્રી વેલ્યૂ  : </string>
+    <string name="DefaultVal">્લેબ માટે ડિફૉલ્ટ મૂલ્ય  : </string>
+    <string name="DefaultDisc">સ્લેબ માટે ડિફોલ્ટ ડિસ્કાઉન્ટ ટકાવારી  : </string>
+    <string name="DefaultFreeQty">સ્લેબ માટે ડિફૉલ્ટ મફત જથ્થો   :</string>
+
+    <string name="txtGetStockData">સ્ટોક ડેટા મેળવવો</string>
+    <string name="AlertDialogCancelButton">રદ કરો</string>
+    <string name="syncAlertOKMsg"><small>ભરતિયું સબમિશન સફળ હતી</small></string>
+
+    <string name="OrderTypeActualVisitNew">વાસ્તવિક મુલાકાત</string>
+    <string name="ConfirmOrderType">ટેલિફોનિક ઓર્ડરની પુષ્ટિ કરો</string>
+    <string name="AlertTelephonic">આ ટેલિફોનિક ઓર્ડર છે અને સ્ટોર મુલાકાતની ગણતરી કરવામાં આવશે નહીં, કૃપા કરી આગળ વધવાની ખાતરી કરો</string>
+
+    <string name="StoreStock">દુકાન સ્ટોક</string>
+    <string name="AlertExecNoSum">એક્ઝ્યુઝેશન સારાંશ માટે કોઈ ડેટા ઉપલબ્ધ નથી</string>
+    <string name="AlertCancelOrder">શું તમે સ્ટોરની ઑર્ડરને રદ કરવાનું છે?</string>
+    <string name="FreeOffer">મફત ઓફર</string>
+    <string name="AlertTryAgain">કૃપા કરી ફરી પ્રયાસ કરો, કોઈ ફ્યુઝ્ડ, જીપીએસ કે નેટવર્ક મળી નથી.</string>
+
+    <string name="AlertSameLoc">તમારું વર્તમાન સ્થાન પહેલાંનું જેવું જ છે, તેથી કૃપા કરીને તમારી સ્થાન સેવાઓ બંધ કરો, પછી ચાલુ કરો, તે ફરી ફરી આવે છે .</string>
+    <string name="AlertFilter">કોઈ ડેટા મળી નથી કૃપા કરીને યોગ્ય શબ્દ સાથે ફિલ્ટર કરો</string>
+    <string name="StockOverbooked">સ્ટોક ઓવરબુકિએડ</string>
+    <string name="Continue">ચાલુ રાખો</string>
+    <string name="ChangeQty">બદલો</string>
+    <string name="SubmittingOrderDetails">ઇનવોઇસ વિગતો સાચવી રહ્યું છે...</string>
+    <string name="SubmittingInvoiceOrderDetails">ઇન્વૉઇસ / ઑર્ડર વિગતો સાચવી રહ્યું છે...</string>
+    <string name="Loading">લોડ કરી રહ્યું છે ...</string>
+    <string name="MyNameAbhinav">મારું નામ અભિનવ</string>
+    <string name="AvailableQty">ઉપલબ્ધ જથ્થો :</string>
+    <string name="OrderQty">ઓર્ડર Qty: </string>
+    <string name="RqrdQty">જરૂરી જથ્થો : </string>
+
+    <string name="LastExecutionSummary">છેલ્લું એક્ઝેક્યુશન સારાંશ</string>
+    <string name="SKU">SKU</string>
+    <string name="credit_retailer_balance"><small>રિટેલર બેલેન્સની ઉત્કૃષ્ટ ક્રેડિટ બેલેન્સ ?</small></string>
+    <string name="Searching">શોધી રહ્યું છે</string>
+
+    <string name="order_exceeds_stock"><small> આવશ્યક પ્રમાણ ઉપલબ્ધ ક્વોલિટી કરતાં વધુ ન હોઈ શકે</small></string>
+
+    <string name="LastVisitDate">અંતિમ મુલાકાત તારીખ :</string>
+    <string name="Details">વિગતો</string>
+    <string name="LastOrderDate">છેલ્લું ઑર્ડર તારીખ :</string>
+    <string name="ExecutionSummary">એક્ઝેક્યુશન સારાંશ : </string>
+    <string name="GSTDetails">જીએસટી વિગતો : -</string>
+    <string name="GSTCompliance">જીએસટી પાલન</string>
+    <string name="NotRequired">જરૂરી નથી</string>
+    <string name="Pending">બાકી</string>
+    <string name="GSTNo">જીએસટી નંબર :</string>
+    <string name="Edit">સંપાદિત કરો</string>
+    <string name="GeneralScheme">સામાન્ય યોજના :</string>
+    <string name="None">કંઈ નહીં</string>
+    <string name="SpecialScheme">ખાસ યોજના  : </string>
+    <string name="SpecialSchemeDescription">ખાસ યોજનાનું વર્ણન</string>
+    <string name="QuotationInfo">અવતરણ માહિતી  : </string>
+    <string name="QuotationCode">ક્વોટેશન કોડ</string>
+    <string name="Gujarati">ગુજરાતી</string>
+    <string name="QuotDate">ક્વોટ તારીખ</string>
+    <string name="NewQuotation">નવી અવતરણ</string>
+    <string name="PaymentInfo">ચુકવણી માહિતી :</string>
+    <string name="PaymentStage">ચુકવણી સ્ટેજ</string>
+    <string name="Percage"> % ઉંમર</string>
+    <string name="PaymentMode">ચુકવણી મોડ</string>
+    <string name="CreditDays">ક્રેડિટ દિવસો</string>
+    <string name="CreditLimit">ક્રેડિટ મર્યાદા</string>
+    <string name="AdvanceBeforeDelivery">ડિલિવરી પહેલાં એડવાન્સ</string>
+    <string name="OnDelivery">ડિલિવરી પર</string>
+    <string name="Credit">ક્રેડિટ</string>
+    <string name="CancelVisitDealer">શું તમે વેપારીની મુલાકાતને રદ્દ કરો છો?</string>
+    <string name="NoDataAvlblForOrder">મુલાકાત માટે કોઈ ડેટા ઉપલબ્ધ નથી / ઑર્ડર છે</string>
+
+    <string name="Ord">ઓર્ડ</string>
+    <string name="Inv">Inv</string>
+    <string name="SelectGst">કૃપા કરીને જીસ્ટ પાલન પસંદ કરો.</string>
+    <string name="FillGst">કૃપા કરીને Gst પાલન મૂલ્ય ભરો.</string>
+    <string name="EnterGst">જીએસટી નંબર દાખલ કરો</string>
+    <string name="PleaseEnterGstToProc">કૃપા કરીને આગળ વધવા માટે જીએસટી નંબર દાખલ કરો</string>
+    <string name="Confirm">પુષ્ટિ કરો</string>
+
+    <string name="lastvisitdetails_back">પાછળ</string>
+    <string name="lastvisitdetails_next">આગળ</string>
+
+    <string name="lastvisitdetails_last">છેલ્લા </string>
+    <string name="ExecSummary"> એક્ઝેક્યુશન સારાંશ</string>
+    <string name="lastvisitdetails_schemedescription">યોજના વર્ણન</string>
+    <string name="prodlstSchmeApplicable">યોજના લાગુ</string>
+    <string name="QuotStatus">ક્વોટ સ્થિતિ</string>
+
+    <string name="LastVisitDetails">છેલ્લે મુલાકાત લો </string>
+    <string name="lastvisitdetails_skuname">SKU નામ</string>
+    <string name="LastVisitOrderDetails">છેલ્લું ઓર્ડર વિગતો</string>
+    <string name="lastvisitdetails_oqty">I.Qty</string>
+    <string name="prodlstFQty">F.Qty</string>
+    <string name="OrderVal">ઓર્ડર વેલ્યુ  :</string>
+    <string name="ExecutionVal">એક્ઝેક્યુશન વૅલ:</string>
+
+    <string name="Executed">અમલ</string>
+
+    <string name="SelectReasonToReturn">કૃપા કરીને પાછા જવા માટે કારણ પસંદ કરો </string>
+    <string name="ReturnDetail">વિગતવાર આવો</string>
+    <string name="SaveAndClose">સાચવો અને બંધ કરો</string>
+    <string name="productlist_schemeapplicable">યોજના લાગુ</string>
+    <string name="RetQty">રેટ જથ્થો</string>
+    <string name="Photo">ફોટો</string>
+    <string name="ReturnsType">રીટર્ન પ્રકાર</string>
+    <string name="ReturnFQty">એફ / જથ્થો</string>
+    <string name="RetQTyExcStock">વળતર જથ્થો સ્ટોક કરતાં વધી જાય</string>
+
+    <string name="SubmitDistrbtrStck">શું તમે ખરેખર ડિસ્ટ્રીબ્યુટર સ્ટોક એન્ટ્રી સબમિટ કરો છો. </string>
+    <string name="SubmitDistrbtrDetail">ડિસ્ટ્રીબ્યુટર એન્ટ્રી વિગતો સબમિટ કરી રહ્યું છે ...</string>
+    <string name="DistrbtrENtryHeader">ડિસ્ટ્રીબ્યુટર સ્ટોક એન્ટ્રી</string>
+    <string name="StockDate">સ્ટોક તારીખ : </string>
+    <string name="StckInPcs">સ્ટોક એન્ટ્રી (પિસીસમાં)</string>
+    <string name="Pieces">પિસીસમાં</string>
+    <string name="Cases">કેસમાં</string>
+    <string name="PKDMonth">પી.કે.ડી. મહિનો</string>
+    <string name="OldStck">ઓલ્ડ એસટીકે</string>
+    <string name="FreeStock">ફ્રી સ્ટોક</string>
+    <string name="SMPSTK">એસએમપી એસટીકે</string>
+    <string name="NoRsltFound">માફ કરશો !! \ n કોઈ પરિણામો મળ્યો નથી</string>
+    <string name="StockValue">સ્ટોક મૂલ્ય</string>
+
+    <string name="StockAsOn">સ્ટોક ઓન </string>
+    <string name="StckInCases">સ્ટોક એન્ટ્રી (કેસોમાં)</string>
+    <string name="genTermNoDataConnection">માહિતી</string>
+    <string name="AlertDialogNoButton">ના</string>
+    <string name="PleaseWaitMsg">મહેરબાની કરી રાહ જુવો ...</string>
+
+
+    <!--Add new store starts-->
+    <string name="AddNewStoreHeader">નવા આઉટલેટ ઉમેરો</string>
+    <string name="txtExit">બહાર નીકળો</string>
+    <string name="IsLocCorrect">નકશા પરનું સ્થાન તમને અનુસાર સાચું છે?</string>
+    <string name="RefreshLoc">જો તમે સ્ટોરમાં છો, તો કૃપા કરીને સ્ટોરમાંથી નીકળો અને પછી તમારા સ્થાનને અપડેટ કરવા માટે તાજું બટન ક્લિક કરો</string>
+    <string name="txtRefresh">તાજું કરો</string>
+    <string name="SubmitStrInfo">શું તમે સ્ટોરની માહિતી સબમિટ કરવા માંગો છો? \ n \ n</string>
+    <string name="DataSent">ડેટા મોકલ્યો</string>
+    <string name="DataSucc">ડેટા સફળતાપૂર્વક સબમિટ કરવામાં આવ્યો છે</string>
+    <string name="SameLocRestart">સ્થાન સમાન છે, કૃપા કરીને ઑકે બટન ક્લિક કર્યા પછી તમારા ફોનને પુનઃપ્રારંભ કરો.</string>
+    <string name="txtDone">થઈ ગયું</string>
+    <string name="txtNext">આગળ</string>
+    <string name="txtClickPhoto">કૃપા કરીને અન્ય ફોટો પર ક્લિક કરો, આ ફોટો લોડ થવામાં ભારે છે</string>
+    <string name="txtExitwithoutSave">સાચવો વગર બહાર નીકળો</string>
+    <string name="SaveandExit">સાચવો અને બહાર નીકળો</string>
+    <string name="Pleaseselectvalue">કિંમત પસંદ કરો</string>
+    <string name="PleaseFillNameToSave">કૃપા કરીને સાચવો માટે નામ ભરો</string>
+    <string name="SveDataBeforeExit">કૃપા કરીને ખાતરી કરો કે તમે બહાર નીકળતા પહેલાં ડેટાને સાચવ્યો છે?</string>
+    <string name="rtrvng_loc">તમારું વર્તમાન સ્થાન પુનઃપ્રાપ્ત કરી રહ્યું છે</string>
+    <string name="SaveData">ડેટા સાચવો</string>
+    <string name="Datawillbesaved">ડેટા સાચવવામાં આવશે</string>
+
+    <string name="DistributorLocation">ડિસ્ટ્રીબ્યુટર સ્થાન</string>
+    <string name="home">હોમ</string>
+    <string name="DistributorCheckInMsg">કૃપા કરીને પ્રથમ ડિસ્ટ્રીબ્યુટર ચેક ઇનની પુષ્ટિ કરો.</string>
+    <string name="NoPendingDataMsg">અપલોડ માટે કોઈ બાકી માહિતી નથી</string>
+
+
+
+
+
+
+
+    <string name="NoStoreSubmision">ભર્યા માટે કોઈ દુકાન નથી</string>
+    <string name="StoreOrderSelForCon">કોઈ સ્ટોર ઓર્ડર પુષ્ટિ માટે પસંદ થયેલ નથી.</string>
+    <string name="NoSTrOrdCancel">રદ માટે કોઈ દુકાનનો ઓર્ડર પસંદ કરવામાં આવ્યો નથી .</string>
+    <string name="MarkdOrder">તમે એક્ઝેક્યુશન / ડિલિશન માટે હુકમ માર્ક કર્યા છે, પરંતુ સબમિટ ન કર્યા, શું તમે ચાલુ રાખવા માંગો છો?</string>
+    <string name="WhileWeSubmt">જ્યારે અમે તમારો ડેટા સબમિટ કરીએ છીએ ...</string>
+    <string name="InvoiceHeader">ભરતિયું સ્ટોર પસંદગી</string>
+    <string name="SelDistrbtr">ડિસ્ટ્રીબ્યુટર પસંદ કરો</string>
+    <string name="launcActiSelectRut">રૂટ પસંદ કરો</string>
+    <string name="ExecuteOrders">એક્ઝિક્યુટ ઓર્ડર્સ</string>
+    <string name="CancelOrders">ઓર્ડર્સ રદ કરો</string>
+    <string name="SearchStore">શોધ દુકાન</string>
+
+
+    <string name="PleaseFill">ભરો કૃપા કરીને </string>
+    <string name="PleaseProvideProper">કૃપા કરીને યોગ્ય પ્રદાન કરો </string>
+    <string name="PleaseSelect">મહેરબાની કરી, પસંદ કરો</string>
+    <string name="PleaseClick">કૃપા કરીને ઓછામાં ઓછી એક ફોટો પર ક્લિક કરો </string>
+    <string name="STDAndLandline">એસટીડી કોડ અને લેન્ડલાઇન નંબર ભરો</string>
+    <string name="ProvideSTDAndLandline">કૃપા કરીને યોગ્ય એસટીડી કોડ અને લેન્ડલાઇન નંબર પ્રદાન કરો.</string>
+    <string name="OutletNametoSaveandExit">સાચવો અને બહાર નીકળો માટે આઉટલેટનું નામ ભરો</string>
+
+    <string name="ClickPhoto">ફોટો ક્લિક કરો</string>
+
+
+
+
+
+    <!--invoice sync master starts-->
+    <string name="genTermSyncErrornew">સમન્વયન ભૂલ!</string>
+    <string name="genTermSyncErrorFullMsg">સમન્વયન ભૂલ! \ n \ n તમારી ઇન્ટરનેટ કનેક્ટીવીટી અને amp; ફરીથી પ્રયત્ન કરો!</string>
+    <string name="SubmittingDelDetails">ડિલિવરી વિગતો સબમિટ કરવી ...</string>
+
+    <!--invoice sync master ends-->
+
+
+    <!--invoice product list starts-->
+    <string name="CancelOrder">શું તમે ખરેખર નીચેના સ્ટોર્સ માટે ઑર્ડર રદ કરવા માંગો છો: </string>
+    <string name="DelDetails">ડિલિવરી વિગતો</string>
+    <string name="prodlstCategoryName">કેટેગરી નામ:</string>
+    <string name="DistbtrName">ડિસ્ટ્રિબ્યુટર નામ: </string>
+    <string name="StoreName">સ્ટોરનું નામ:</string>
+    <string name="productlist_tblproduct">Product</string>
+    <string name="prodlstRate">દર</string>
+    <string name="prodlstOQty">O.Qty</string>
+    <string name="DelQty">ડેલ. ક્વિટી</string>
+    <string name="productlist_tblfqty">એફ. ક્વિ</string>
+    <string name="prodlstDvalue">ડી.વીલ</string>
+    <string name="prodlstAdditionalDiscount">વધારાની ડિસ્કાઉન્ટ</string>
+    <string name="AmountPrevDue">રકમ પહેલાનું કારણે: </string>
+    <string name="ExecuteOrder">ઑર્ડર ચલાવો</string>
+    <string name="txtCancelOrder">આદેશ રદ</string>
+    <string name="genTernStoreOrderInvoicesubmitConfirmAlert"><small>શું તમે એક્ઝેક્યુશન વિગતો સબમિટ કરવા માંગો છો?</small></string>
+    <!--invoice product list ends-->
+
+    <!--surbhi ends-->
+
+
+
+    <!--  Selection header starts -->
+    <string name="ChangeLanguage">ભાષા બદલો</string>
+    <string name="Language">ભાષા</string>
+    <string name="LanguageSelection">કૃપા કરી ભાષા પસંદ કરો</string>
+
+
+    <string name="genlocaldataMsg">ડેટા સ્થાનિક રૂપે સચવાયેલું છે, ઇન્ટરનેટને ઍક્સેસ કરી શકાય તે પછી તે સર્વર પર મોકલશે.</string>
+    <string name="LogoutMsg">શું તમે ખરેખર લૉગઆઉટ કરવા માંગો છો?</string>
+    <string name="reason_prompt">કૃપા કરીને કારણ પસંદ કરો</string>
+    <string name="category_prompt">શ્રેણી પસંદ કરો</string>
+    <!-- start of Internet Message -->
+    <string name="phone_nos">ફોન સંખ્યા</string>
+    <!-- End of Internet Message -->
+    <string name="spinner_route">રૂટ </string>
+    <string name="remarks">.,/- abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</string>
+    <string name="spinner_store_type">સ્ટોર પ્રકાર </string>
+    <string name="spinner_trade_channel">ટ્રેડ ચેનલ </string>
+    <string name="spinner_store_Category">દુકાન કેટેગરી </string>
+    <string name="spinner_retailer_sales_type">રિટેલર સેલ્સ પ્રકાર </string>
+    <string name="spinner_store_potential_type">સ્ટોપ સંભવિત પ્રકાર </string>
+    <string name="only_alpha_numeric_new">.- ,abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="only_character_Space_no_slash">.- abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
+    <string name="spinnerloc">ડિસ્ટ્રીબ્યુટર નામો </string>
+    <string name="spinnerarea">રુટ નામો </string>
+    <string name="spinnerstore">સ્ટોર પ્રકાર </string>
+    <string name="only_alpha_numeric">.- abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="nameValidation">. abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="syncAlertStoreQuotationOKMsg"><small>સ્ટોર ક્વોટેશન સબમિશન સફળ હતી</small></string>
+    <string name="syncAlertInvoiceOKMsg"><small>ડિલિવરી વિગતો સબમિટ!</small></string>
+    <string name="syncAlertErrMsg"><small>સમન્વયન સફળ થયું ન હતું. \ n કૃપા કરીને ફરી પ્રયાસ કરો</small></string>
+    <string name="syncAlertErrMsgDayEndOrChangeRoute"><small>ઇંટરનેટ કનેક્ટિવિટી બ્રેકડાઉનને કારણે, ઇન્વૉઇસેસ સબમિટ કરવામાં સક્ષમ નથી. \ n કૃપા કરીને ફરી પ્રયાસ કરો</small></string>
+    <string name="title_activity_store_selection">સ્ટોરની પસંદગી</string>
+    <string name="title_activity_last_visit_details">છેલ્લું વિઝિજ વિગતો</string>
+    <string name="title_activity_stores_summary">સ્ટોર્સ સારાંશ</string>
+    <string name="title_activity_return">સ્ટોક રિટર્ન્સ</string>
+    <string name="productlist_orderbooking">ઇન્વોઇસ બુકિંગ ફોર્મ</string>
+    <string name="productlist_returnbutton">ઉત્પાદન પાછા ફરો</string>
+    <string name="productlist_storebutton">સ્ટોર ફોટો</string>
+    <string name="productlist_currentproduct">વર્તમાન ઉત્પાદન</string>
+    <string name="productlist_sampleqty">નમૂનાનું જથ્થો</string>
+    <string name="productlist_samplehint">નમૂનાનું જથ્થો દાખલ કરો અહીં</string>
+    <string name="productlist_sampletotalhint">ુલ નમૂનાની રજૂઆત</string>
+    <string name="productlist_cramt">સી.આર. એમટી</string>
+    <string name="productlist_cradj">સી.આર. એડજે</string>
+    <string name="productlist_crbal">સી.આર. બાલ</string>
+    <string name="productlist_creditamount">ક્રેડિટ રકમ:</string>
+    <string name="productlist_productleveldiscount">ઉત્પાદન સ્તર ડિસ્કાઉન્ટ:</string>
+    <string name="productlist_freeqtytotal">ફ્રી Qty કુલ </string>
+    <string name="productlist_netinvoicevalue">નેટ ઇન્વોઇસ મૂલ્ય:</string>
+    <string name="productlist_invoiceaftdiscount">ડિસ્કાઉન્ટ પછી ઇનવોઇસ:</string>
+    <string name="productlist_taxamount">કર રકમ:</string>
+    <string name="productlist_grossinvoicevalue">કુલ ભરતિયું મૂલ્ય:</string>
+    <string name="productlist_noofcoupons">કુપન્સની સંખ્યા:</string>
+    <string name="productlist_totalcouponamount">કુલ કૂપન રકમ:</string>
+    <string name="productlist_amountprevdue">અગાઉની રકમ:</string>
+    <string name="productlist_amountoutstanding">ઉત્કૃષ્ટ રકમ:</string>
+    <string name="prodlstAmtCollected">એકત્રિત કરેલ રકમ:</string>
+    <string name="genTermSelectStoresPendingToComplete">શું તમે પસંદ કરેલ સ્ટોર ઇન્વૉઇસેસની પુષ્ટિ કરવા માટે ખાતરી કરો છો?</string>
+    <string name="genTermSelectStoresPendingToCancel">શું તમે પસંદ કરેલ સ્ટોર ઇન્વૉઇસેસને રદ કરવાનું છે?</string>
+    <string name="genTermSubmitSelectedInvoice">પસંદ કરેલી પુષ્ટિ કરો</string>
+    <string name="genTermSubmitCancelInvoiceList">ઠીક છે</string>
+    <string name="txtYes">હા</string>
+    <string name="txtNo">ના</string>
+    <string name="txtCancle">રદ કરો</string>
+    <string name="mysummary_back">પાછળ</string>
+    <string name="loc_not_found">સિસ્ટમ દ્વારા સ્થાન ચોક્કસપણે મળી શકશે નહીં, સ્ટોર સ્થાન વગર સાચવવામાં આવશે.આ પછીથી કરી શકાય છે</string>
+    <string name="second_msg_for_map">ફરી એક વાર તમારું સ્થાન મેળવવાનો પ્રયાસ કરો, જો સ્થાનને સિસ્ટમ મુજબ વ્યાજબી રીતે સચોટ સાબિત થયું હોય તો તે સાચવવામાં આવશે.</string>
+    <string name="third_msg_for_map">ડેટા વર્તમાન સ્થાન સાથે સચવાશે જે સાચી દેખાય છે ..</string>
+    <string name="title_activity_view_added_store">ઉમેરાયેલ દુકાન</string>
+    <string name="hello_world">હેલો વર્લ્ડ!</string>
+    <string name="title_activity_quotation">અવતરણ</string>
+    <string name="LastOrderDetails">છેલ્લું ઇન્વોઇસ વિગતો</string>
+
+    <string name="alertClickPic">સ્ટોરની ઓછામાં ઓછી એક ચીજ પર ક્લિક કરો.</string>
+    <string name="alertOtherReason">કૃપા કરીને અન્ય કારણ દાખલ કરો</string>
+
+    <!--new-->
+    <!--store selection-->
+    <string name="Route_prompt">રૂટ બદલો</string>
+
+
+    <!--All button Activity-->
+    <string name="Dashboard">ડેશબોર્ડ</string>
+    <string name="MarketVisit">માર્કેટ મુલાકાત</string>
+    <string name="Execution">અમલ</string>
+    <string name="StoreMapping">સ્ટોર મેપિંગ</string>
+    <string name="DistributorCheckIn">ડિસ્ટ્રીબ્યુટર ચેક ઇન</string>
+    <string name="DSMTracker">ડીએસએમ ટ્રેકર</string>
+    <string name="MapDistributor">નકશો ડિસ્ટ્રીબ્યુટર</string>
+    <string name="NoVisit">કોઈ મુલાકાત નથી</string>
+
+    <string name="NoStocks">પ્રોડક્ટ રીટર્ન કરવા માટે કોઈ સ્ટોક્સ નથી</string>
+    <string name="lastvisitdetails_stock">સ્ટોક</string>
+
+    <string name="DistributorDataSubmit">ડિસ્ટ્રીબ્યુટર ડેટા સફળતાપૂર્વક સબમિટ કરે છે</string>
 
 
     <!--newly added for store close activity-->
-    <string name="StrClosed">स्टोर बंद</string>
-    <string name="StrClosedHeader">स्टोर बंद सूचना</string>
-    <string name="StrClosedReason">स्टोर बंद रहने का कारण</string>
-    <string name="alertSaveMsg">कृपया यहाँ से जाने से पहले डेटा सुरक्षित करे नहीं तो परिवर्तन सहेज नहीं किए जाएंगे।</string>
-    <string name="alertAskSaveMsg">क्या आप डेटा को सुरक्षित करना चाहते हैं??</string>
+    <string name="overdueBal">ઓવરડ્યુ બેલેન્સ</string>
+    <string name="outstandingBal">બાકી સિલક</string>
 
-    <string name="clkStrClosePic">बंद स्टोर की तस्वीर क्लिक करें</string>
-    <string name="reason">कारण का चयन करें</string>
+    <string name="AlertDialogYesButton">હા</string>
+    <string name="StrClosed">સ્ટોર બંધ</string>
+    <string name="StrClosedHeader">સ્ટોર બંધ માહિતી</string>
+    <string name="store_call">સ્ટોર કૉલ</string>
+    <string name="StrClosedReason">સ્ટોર બંધ કારણ</string>
+    <string name="alertSaveMsg">છોડતા પહેલા ડેટા સાચવો અથવા પૂર્ણ કરવામાં આવેલ ફેરફારો સાચવવામાં આવશે નહીં.</string>
+    <string name="alertAskSaveMsg">શું તમે ડેટા સાચવવા માંગો છો?</string>
+
+    <string name="clkStrClosePic">દુકાન બંધ કરો પીક</string>
+    <string name="reason">કારણ પસંદ કરો</string>
     <!--newly added for store close activity ends-->
 
+    <string name="DistributorCheckInAlrady">તમે પહેલેથી ડિસ્ટ્રિબ્યુટર ચેક ઇન ફોર ટુડે કર્યું છે.</string>
+    <string name="VANStockTransfer">વેન સ્ટોક ટ્રાન્સફર</string>
+    <string name="VANStockStockOut">જથ્થો ખલાસ</string>
+    <string name="VANStockStockIn">સ્ટોક ઇન</string>
+    <string name="AlertVANStockStockOut">તમારી બજાર મુલાકાત શરૂ કરવા માટે કૃપા કરીને પ્રથમ સ્ટોક ભરો</string>
+    <string name="AlertVANStockStockOutWareHouse">તમારા પ્રારંભ કરવા માટે પ્રથમ સ્ટોક ભરો </string>
+    <string name="AlertVANStockStockValidate">કૃપા કરીને તમારા બજારની મુલાકાત શરૂ કરવા પહેલા વેરહાઉસ સ્ટોકની પુષ્ટિ કરો</string>
+    <string name="DayStart">દિવસનો પ્રારંભ</string>
+    <string name="Warehouse">વેરહાઉસ ચેક ઇન</string>
+    <string name="DayStartCheckIN">દિવસનો પ્રારંભ</string>
+    <string name="WarehouseStock">વેરહાઉસ સ્ટોક</string>
+    <string name="WarehouseDataSubmit">વેરહાઉસ ડેટા સફળતાપૂર્વક સબમિટ કરો</string>
+    <string name="strRemainingStockStatus">વેન સ્ટોક</string>
+    <string name="strDataLostIfNotSubmitted">ભરાયેલા ડેટા ખોવાઈ જશે જો સબમિટ નહીં?</string>
+    <string name="prodlstPurchaseAmtBeforeTax">કરવેરા પહેલાં:</string>
 
-    <string name="DistributorCheckInAlrady">आपने पहले से ही वितरक का चेक आज के लिए किया हुआ है </string>
-
-
- <string name="VANStockTransfer">वाहन स्टॉक ट्रान्सफर</string>
-    <string name="VANStockStockOut">स्टॉक से बाहर</string>
-    <string name="VANStockStockIn">स्टॉक दर्ज</string>
-    <string name="AlertVANStockStockOut">अपने बाज़ार की यात्रा शुरू करने के लिए पहले स्टॉक को भरें</string>
-
-    <string name="AlertVANStockStockOutWareHouse">अपना शुरू करने के लिए पहले स्टॉक आउट भरें </string>
-    <string name="DayStart">दिन शुरू</string>
-    <string name="internetslowMsggg">आपका डिवाइस डेटा कनेक्शन धीमा है</string>
-
-    <string name="ReadyStockOut">स्टॉक आउट</string>
-    <string name="ReadyStockIn">स्टॉक में</string>
-
-    <string name="Warehouse">गोदाम में चेक इन</string>
-    <string name="DayStartCheckIN">Day Start</string>
-    <string name="WarehouseStock">गोदाम स्टॉक</string>
-    <string name="WarehouseDataSubmit">गोदाम डेटा सफलतापूर्वक सबमिट हो चूका हैं</string>
-    <string name="currentStock">वर्तमान स्टॉक</string>
-    <string name="LastStock">अंतिम स्टॉक</string>
-    <string name="AlertVANStockStockValidate">कृपया अपना बाजार यात्रा शुरू करने के लिए पहले गोदाम स्टॉक की पुष्टि करें</string>
-
-    <string name="strRemainingStockStatus">Remaining Stock Status Report</string>
-    <string name="strDataLostIfNotSubmitted">The Filled data will be lost if not submitted?</string>
-    <string name="prodlstPurchaseAmtBeforeTax">In.Val Before Tax:</string>
-
+    <!--Collection Page-->
+    <string name="PaymentCollection">ચુકવણી સંગ્રહ</string>
+    <string name="PrvAmtOutStnding">ઉત્કૃષ્ટ અગાઉની રકમ: </string>
+    <string name="RefNochequeNoTrnNo">RefNo/chequeNo/TrnNo</string>
+    <string name="crntInvoice">વર્તમાન ઇન્વૉઇસ: </string>
+    <string name="minAmountDue">ન્યૂનતમ રકમ: </string>
+    <string name="TtlAmtOutStnding">કુલ ઉત્કૃષ્ટ: </string>
+    <string name="Amount">રકમ</string>
+    <string name="txtDate">તારીખ</string>
+    <string name="Bank">બેન્ક</string>
+    <string name="TotalAmount">કુલ રકમ:-</string>
+    <string name="DoneAndExit">પૂર્ણ થયું &amp; બહાર નીકળો</string>
+    <string name="BackButConfirm">શું તમે પાછા જવા પહેલાં તમારો ડેટા સાચવ્યો છે?</string>
+    <!-- Notification Page-->
+    <string name="txtLatestNotification">છેલ્લી 10 સૂચન</string>
+    <string name="txtMessage">સંદેશ</string>
+    <string name="txtBack">પાછળ</string>
 </resources>

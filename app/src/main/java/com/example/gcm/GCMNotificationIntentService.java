@@ -136,7 +136,8 @@ public class GCMNotificationIntentService extends IntentService
 				}
 				catch(Exception e)
 				{
-
+					String ex=e.getMessage();
+					String asdad="abhinav";
 				}
 
 
