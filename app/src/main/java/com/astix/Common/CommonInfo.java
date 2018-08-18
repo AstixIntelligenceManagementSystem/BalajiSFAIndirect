@@ -13,8 +13,8 @@ public class CommonInfo {
 	public static int CoverageAreaNodeID = 0;
 	public static int CoverageAreaNodeType = 0;
 	public static String DATABASE_NAME = "DbBalajiSFAApp";
-	public static int DATABASE_VERSIONID = 3;
-	public static String AppVersionID = "1.1";
+	public static int DATABASE_VERSIONID = 5;
+	public static String AppVersionID = "1.3";
 	public static int DayStartClick = 0;
 	public static int DistanceRange = 3000;
 	public static final String DistributorCheckInXMLFolder = "BalajiDistributorCheckInXML";

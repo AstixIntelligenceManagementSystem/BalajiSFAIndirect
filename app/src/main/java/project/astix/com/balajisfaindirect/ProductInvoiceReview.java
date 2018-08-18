@@ -783,15 +783,22 @@ public void loadPurchaseProductDefault()
 			mCustomKeyboardNum= new CustomKeyboard(this, R.id.keyboardviewNum, R.xml.num );
 			mCustomKeyboardNumWithoutDecimal= new CustomKeyboard(this, R.id.keyboardviewNumDecimal, R.xml.num_without_decimal );
 			txt_Lststock= (TextView) findViewById(R.id.txt_Lststock);
-			if(!TextUtils.isEmpty(lastStockDate))
+			/*if(!TextUtils.isEmpty(lastStockDate))
 			{
 				txt_Lststock.setText("Stk On "+lastStockDate);
 			}
 			else
 			{
 				txt_Lststock.setText("Last Stk NA");
+			}*/
+			if(!TextUtils.isEmpty(lastStockDate))
+			{
+				txt_Lststock.setText(getResources().getString(R.string.stkOn)+lastStockDate);
 			}
-
+			else
+			{
+				txt_Lststock.setText(getResources().getString(R.string.LastStk));
+			}
 			txt_TotalLineCount_Value=(TextView) findViewById(R.id.txt_TotalLineCount_Value);
 
 			txt_TotalInvoiceCount_Value=(TextView) findViewById(R.id.txt_TotalInvoiceCount_Value);

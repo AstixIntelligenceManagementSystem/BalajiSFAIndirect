@@ -39,7 +39,7 @@
 				android:layout_below="@id/txt_storeSummary"
 				android:layout_marginLeft="15dp"
 				android:layout_marginTop="10dp"
-				android:text="Store Details :"
+				android:text="@string/StoreDetails"
 				android:textSize="14sp"
 				android:textStyle="bold" />
 
@@ -218,7 +218,7 @@ android:visibility="gone"
 				android:layout_below="@id/rl_Salesperson"
 				android:layout_marginLeft="15dp"
 				android:layout_marginTop="10dp"
-				android:text="Last Visit Details :"
+				android:text="@string/LVDeatils"
 				android:textSize="14sp"
 				android:textStyle="bold" />
 
@@ -1222,7 +1222,7 @@ android:visibility="gone"
 				android:layout_below="@id/parentOfAllPaymentStructure"
 				android:layout_marginLeft="15dp"
 				android:layout_marginTop="10dp"
-				android:text="Previous Outstanding :"
+				android:text="@string/StorePreOut"
 				android:textSize="14sp"
 				android:textStyle="bold" />
 
@@ -1250,7 +1250,7 @@ android:visibility="gone"
 						android:focusable="true"
 						android:focusableInTouchMode="true"
 						android:gravity="center"
-						android:text="Total  :"
+						android:text="@string/StoreTot"
 						android:textColor="#000000"
 						android:textSize="12sp"/>
 

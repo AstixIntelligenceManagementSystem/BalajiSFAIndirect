@@ -697,7 +697,7 @@
                android:id="@+id/tvPrvAmtOutstandingNew"
                android:layout_width="0dp"
                android:layout_height="wrap_content"
-               android:text="Previous Outstanding Amount"
+               android:text="@string/PrevOutAmt"
                android:layout_weight="3"
                android:paddingTop="1dp"
                android:paddingBottom="1dp"

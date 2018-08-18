@@ -98,7 +98,18 @@
         android:text="@string/Execution"
         android:visibility="gone"
         />
-
+    <Button
+        android:id="@+id/btnChangeLanguage"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/alert_text_background"
+        android:textColor="#000000"
+        android:gravity="left|center_vertical"
+        android:drawableRight="@drawable/ic_right2"
+        android:textSize="14sp"
+        android:text="@string/ChangeLanguage"
+        android:visibility="visible"
+        />
     <Button
         android:id="@+id/btnTargetVsAchieved"
         android:layout_width="220dp"
@@ -157,18 +168,7 @@
         android:textSize="14sp"
         android:text="@string/DayEnd"
         android:visibility="visible"/>
-    <Button
-        android:id="@+id/btnChangeLanguage"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/alert_text_background"
-        android:textColor="#000000"
-        android:gravity="left|center_vertical"
-        android:drawableRight="@drawable/ic_right2"
-        android:textSize="14sp"
-        android:text="@string/ChangeLanguage"
-        android:visibility="gone"
-        />
+
     
 
 </LinearLayout>

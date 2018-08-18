@@ -34,7 +34,7 @@
 	android:textStyle="bold"
     android:shadowColor="#80FFFFFF" 
     android:textSize="18sp"
-    android:text="Payment Collection"/>
+    android:text="@string/paymentCollection"/>
 
  <ImageView
      android:id="@+id/img_return"
@@ -76,7 +76,7 @@
 
 			android:orientation="horizontal">
 			<TextView android:layout_width="0dp"
-				android:text="Previous Outstanding Amt. "
+				android:text="@string/PreOutAmt"
 				android:gravity="left|center"
 
 				android:id="@+id/tv_outstandingtext"
@@ -113,7 +113,7 @@
 
 			android:orientation="horizontal">
 			<TextView android:layout_width="0dp"
-				android:text="Current Invoice Value "
+				android:text="@string/CntInvVal"
 				android:gravity="left|center"
 				android:id="@+id/tv_crntInvoiceText"
 				android:focusable="true"
@@ -148,7 +148,7 @@
 
 			android:orientation="horizontal">
 			<TextView android:layout_width="0dp"
-				android:text="Total Outstanding "
+				android:text="@string/TotOut"
 				android:gravity="left|center"
 				android:id="@+id/tv_totOutstandingText"
 				android:focusable="true"
@@ -186,7 +186,7 @@
 
 			android:orientation="vertical">
 			<TextView android:layout_width="wrap_content"
-				android:text="Minimum amount to be collected for invoice submission:"
+				android:text="@string/MinAmtToColec"
 				android:gravity="left|center"
 				android:id="@+id/tv_minCollectiontext"
 				android:focusable="true"
@@ -225,7 +225,7 @@
 		 android:layout_width="wrap_content"
 		 android:layout_height="wrap_content"
 		 android:layout_margin="4dp"
-		 android:text="No Collection Today"
+		 android:text="@string/NoCollection"
 		 android:textColor="#A6004E"
 		 android:textSize="15sp"
 		 android:textStyle="bold" />
@@ -589,7 +589,7 @@
                               android:textColor="#000"
                               android:textSize="11sp"
                               android:layout_margin="5dp"
-                              android:text="Total Amount:-"/>
+                              android:text="@string/totAmt"/>
                            <TextView android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:textColor="#000"
@@ -646,7 +646,7 @@
 			android:layout_weight="1"
 			android:background="@drawable/custom_button"
 			android:gravity="center"
-			android:text="Print"
+			android:text="@string/Print"
 			android:visibility="visible"
 			android:textColor="#ffffff"
 			android:textSize="11sp"/>

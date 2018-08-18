@@ -849,11 +849,11 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 		txt_Lststock= (TextView) findViewById(R.id.txt_Lststock);
 		if(!TextUtils.isEmpty(lastStockDate))
 		{
-			txt_Lststock.setText("Stk On "+lastStockDate);
+			txt_Lststock.setText(getResources().getString(R.string.stkOn)+lastStockDate);
 		}
 		else
 		{
-			txt_Lststock.setText("Last Stk NA");
+			txt_Lststock.setText(getResources().getString(R.string.LastStk));
 		}
 		StoreVisitCode = dbengine.fnGetStoreVisitCode(storeID);
 		ImageView executionDetails_butn = (ImageView) findViewById(R.id.txt_execution_Details);

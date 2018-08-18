@@ -365,7 +365,7 @@ android:id="@+id/tblTolCntDetials"
                     android:paddingLeft="16dp"
                     android:paddingTop="1dp"
 
-                    android:text="Total Line Count"
+                    android:text="@string/totLineCnt"
                     android:textColor="#201359"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -402,7 +402,7 @@ android:id="@+id/tblTolCntDetials"
                     android:paddingLeft="16dp"
                     android:paddingTop="1dp"
 
-                    android:text="Total Invoice Qty"
+                    android:text="@string/totInvoiceQty"
                     android:textColor="#201359"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -634,7 +634,7 @@ android:id="@+id/llFullInvoiceDetails"
 
             android:background="@drawable/custom_button"
             android:gravity="center"
-            android:text="Collection"
+            android:text="@string/collection"
             android:textColor="#ffffff"
             android:textSize="14sp"
             />

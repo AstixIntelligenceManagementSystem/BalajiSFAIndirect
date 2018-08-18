@@ -5,44 +5,53 @@
     <!--<string name="app_name">Balaji SFA Test</string>-->
     <string name="app_name">Balaji SFA Dev</string>
 
-    <string name="StoreSale">स्टोर बिक्री </string>
-    <string name="InvoiceReview">चालान समीक्षा</string>
-    <string name="selectAtleastOneOption">आगे बढ़ने के लिए कम से कम एक विकल्प का चयन करें।</string>
-    <string name="selectAtleastOneOptionwithedittext">आगे बढ़ने के लिए पहले कारण निर्दिष्ट करें</string>
-    <string name="DayStartButtonText">दिन शुरू</string>
-    <string name="ExitButtonText">बाहर जाएं</string>
+    <string name="CollectionAlert1">જો આજે કોઈ સંગ્રહ નથી, તો કૃપા કરીને  \'કોઈ સંગ્રહ આજે \' પર ટિક કરો</string>
+    <string name="CollectionAlert2">
+એકત્રિત રકમ ન્યુનત્તમ સંગ્રહની રકમ કરતાં ઓછી છે, વર્તમાન ભરતિયું બનાવી શકાતું નથી.
+ઇન્વૉઇસ બંધ કરો અને વર્તમાન મુલાકાતમાંથી બહાર નીકળો.
+સંગ્રહ રકમ અપડેટ કરવા માટે અદ્યતન ચુકવણી પર ક્લિક કરો</string>
+    <string name="CollectionAlert3">કુલ જથ્થો પછી સંગ્રહની રકમ વધારે હોઈ શકતી નથી, વર્તમાન ભરતિયું બનાવી શકાતું નથી.
+ઇન્વૉઇસ બંધ કરો અને વર્તમાન મુલાકાતમાંથી બહાર નીકળો.
+સંગ્રહ રકમ અપડેટ કરવા માટે અદ્યતન ચુકવણી પર ક્લિક કરો.</string>
+
+    <string name="StoreSale"> દુકાન વેચાણ</string>
+    <string name="InvoiceReview">ભરતિયું સમીક્ષા</string>
+    <string name="selectAtleastOneOption">આગળ વધવા માટે ઓછામાં ઓછો એક વિકલ્પ પસંદ કરો. </string>
+    <string name="selectAtleastOneOptionwithedittext"> આગળ વધવા માટેનો પ્રથમ કારણ સ્પષ્ટ કરો </string>
+    <string name="DayStartButtonText">પ્રારંભ દિવસ </string>
+    <string name="ExitButtonText"> બહાર જાઓ </string>
     <string name="today_Notworking">ચલ્તુ નથિ</string>
 
-    <string name="stockAsOn">आज तक का स्टॉक</string>
-    <string name="verifyLocation">अगली पर क्लिक करने से पहले कृपया अपना स्थान सत्यापित करें.</string>
+    <string name="stockAsOn"> આજે સુધી સ્ટોક કરો </string>
+    <string name="verifyLocation"> કૃપા કરીને આગામી પર ક્લિક કરતાં પહેલાં તમારું સ્થાન ચકાસો.</string>
 
-    <string name="DSR_Profile">बाइकर प्रोफाइल</string>
-    <string name="Coverage_Area">कवरेज क्षेत्र</string>
-    <string name="Contact_No">संपर्क नंबर</string>
-    <string name="DOB">जन्म तिथि</string>
-
-
-    <string name="WareHouseMsgWithoutInvoiceNumber">Stock loaded/adjusted recently will reflect after few minutes.</string>
+    <string name="DSR_Profile"> બાઈકર પ્રોફાઇલ </string>
+    <string name="Coverage_Area"> કવરેજ વિસ્તાર </string>
+    <string name="Contact_No"> સંપર્ક નંબર </string>
+    <string name="DOB"> જન્મ તારીખ </string>
 
 
+    <string name="WareHouseMsgWithoutInvoiceNumber">તાજેતરમાં લોડ કરેલી / સમાયોજિત સ્ટોક થોડી મિનિટો પછી દેખાશે.</string>
 
 
 
-    <string name="genStoreListWhoseDataIsNotYetSubmitted">Following invoices are Not Submitted as Yet. Invoices only Saved but not Submitted now will be permanently lost.</string>
-    <string name="VanStock">Van Stock</string>
+
+
+    <string name="genStoreListWhoseDataIsNotYetSubmitted"> નીચેના ઇન્વૉઇસેસ હજી સુધી સબમિટ નથી થયા. માત્ર સાચવેલ ઇનવૉઇસેસ પરંતુ હજી સબમીટ કર્યા વગર કાયમી રૂપે હટાવવામાં આવશે.</string>
+    <string name="VanStock"> સ્ટોકમાંથી </string>
     <!--Splash screen starts here-->
 
     <!--Splash screen ends here-->
 
-    <string name="stockUploadStatusMsg">स्टॉक अपलोड स्थिति नहीं आ रही है</string>
+    <string name="stockUploadStatusMsg"> સ્ટોક અપલોડ સ્થિતિ આવતા નથી </string>
 
-    <string name="NoRouteAvailable">आपके डिवाइस के लिए कोई मार्ग उपलब्ध नहीं है</string>
+    <string name="NoRouteAvailable"> તમારા ઉપકરણ માટે કોઈ રસ્તો ઉપલબ્ધ નથી </string>
     <!--DSR_Registrion starts here-->
 
 
 
 
-    <string name="ValidatingMsg">सत्यापित किया जा रहा उपयोगकर्ता</string>
+    <string name="ValidatingMsg"> વપરાશકર્તા ચકાસાયેલ છે </string>
     <!--DSR_Registration ends here-->
 
 
@@ -59,7 +68,7 @@
     <!--Launcher Activity ends here-->
 
     <!--Common strings starts-->
-     <string name="genTermNoDataConnectionFullMsg">आपके डिवाइस में डेटा कनेक्शन नहीं है \n कृपया सुनिश्चित करें कि इंटरनेट को जारी रखने के लिए पहुंच योग्य है</string>
+    <string name="genTermNoDataConnectionFullMsg"> તમારા ઉપકરણ પાસે ડેટા કનેક્શન નથી. \n કૃપા કરીને ખાતરી કરો કે ઇન્ટરનેટ ચાલુ રાખવા માટે સુલભ છે </string>
 
 
 
@@ -72,18 +81,18 @@
 
 
     <!-- Day end menu header starts -->
-    <string name="DayEndMsg">क्या आप वाकई अपना दिन का दौरा खत्म करना चाहते हैं?  आपके सभी पिछले बिना -सबमिट किए गए ऑर्डर खो जाएंगे!</string>
-    <string name="txtEndingDay">आपके दिन की यात्रा समाप्त ...</string>
-    <string name="txtChangeRoute">मार्ग बदल रहा है ....</string>
-    <string name="txtSubmitQuoteDetail">कोटेशन विवरण जमा करना ...</string>
+    <string name="DayEndMsg"> શું તમે ખરેખર તમારી દિવસ-સફર સમાપ્ત કરવા માંગો છો? તમારા બધા ભૂતકાળમાં ન સચવાતા ઓર્ડર્સ ખોવાઈ જશે!</string>
+    <string name="txtEndingDay"> તમારા દિવસની મુસાફરી પૂરી થાય છે ...</string>
+    <string name="txtChangeRoute"> માર્ગ બદલાઈ રહ્યો છે ....</string>
+    <string name="txtSubmitQuoteDetail"> અવતરણ વિગતો સબમિટ કરી રહ્યું છે ...</string>
 
     <!-- Day end menu header ends -->
 
 
 
     <!-- Check DatabaseData Activity starts -->
-    <string name="txtTodaySubmitData">आज के जमा किए गए डेटा</string>
-    <string name="txtTodayInvoices">Today Invoices</string>
+    <string name="txtTodaySubmitData"> આજે રજૂ કરેલા ડેટા </string>
+    <string name="txtTodayInvoices"> આજે ઇનવૉઇસેસ </string>
     <!-- Check DatabaseData Activity starts -->
 
 
@@ -104,45 +113,45 @@
 
 
     <!-- LastVisitDetails Activity start -->
-    <string name="OwnerName">Owner Name :</string>
-    <string name="OwnerContact">Owner Contact :</string>
-    <string name="SalesPersonName">Sales Person Name :</string>
-    <string name="SalesPersonContact">Sales Person Contact :</string>
-    <string name="SalesPersonAddress">Sales Person Address :</string>
-    <string name="StoreCatType">Store Category Type :</string>
+    <string name="OwnerName"> માલીકનું નામ :</string>
+    <string name="OwnerContact"> માલિકનો સંપર્ક કરો:</string>
+    <string name="SalesPersonName"> સેલ્સ વ્યક્તિ નામ:</string>
+    <string name="SalesPersonContact"> સેલ્સ પર્સન સંપર્ક:</string>
+    <string name="SalesPersonAddress"> સેલ્સ વ્યક્તિ સરનામું:</string>
+    <string name="StoreCatType"> સ્ટોર કેટેગરી પ્રકાર:</string>
 
 
 
 
 
     <!--Distributor Check In First Activity starts here-->
-    <string name="LocalAreaMessage">स्थानीय क्षेत्र</string>
-    <string name="PinCodeMessage">पिन कोड</string>
-    <string name="CityMessage">शहर</string>
-    <string name="StateMessage">राज्य</string>
+    <string name="LocalAreaMessage"> સ્થાનિક વિસ્તાર </string>
+    <string name="PinCodeMessage"> ઝિપ કોડ </string>
+    <string name="CityMessage"> શહેર </string>
+    <string name="StateMessage"> રાજ્ય </string>
 
-    <string name="PleaseSelectDistributor">कृपया वितरक का चयन करें।</string>
-    <string name="PleaseFillAddress">कृपया पता मूल्य भरें</string>
-    <string name="PleaseFillProperAddress">कृपया सही पते को भरें</string>
-    <string name="PleaseFillPincode">कृपया पिनकोड को भरें</string>
-    <string name="PleaseFillPincodeAllDigits">पिन कोड का मान 6 अंकों से कम नहीं हो सकता।</string>
-    <string name="PleaseFillCity">कृपया शहर का नाम भरें</string>
-    <string name="PleaseFillState">कृपया राज्य का नाम भरें</string>
+    <string name="PleaseSelectDistributor">વિતરક પસંદ કરો. </string>
+    <string name="PleaseFillAddress">સરનામાં કિંમત દાખલ કરો </string>
+    <string name="PleaseFillProperAddress">કૃપા કરી સાચું સરનામું દાખલ કરો </string>
+    <string name="PleaseFillPincode">કૃપા કરીને પોસ્ટકોડ ભરો </string>
+    <string name="PleaseFillPincodeAllDigits"> ઝીપ કોડ મૂલ્ય 6 અંકોથી ઓછું હોઈ શકતું નથી </string>
+    <string name="PleaseFillCity">કૃપા કરીને શહેરનું નામ દાખલ કરો </string>
+    <string name="PleaseFillState">કૃપા કરીને રાજ્યનું નામ દાખલ કરો </string>
 
     <!--Distributor Check In First Activity starts here-->
 
     <!--All Button  Activity starts here-->
-    <string name="DayEndBeforeLogout">लॉगिंग आउट से पहले कृपया दिन का अंत करे</string>
+    <string name="DayEndBeforeLogout">લૉગ આઉટ કરતાં પહેલાં કૃપા કરીને દિવસ સમાપ્ત કરો </string>
 
     <!--All Button  Activity ends here-->
 
-    <string name="AlertDialogHeaderErrorMsg">त्रुटि</string>
-    <string name="distributorSubmitMessage">क्या आप वितरकों की जानकारी सबमिट करना चाहते हैं?</string>
+    <string name="AlertDialogHeaderErrorMsg">ભૂલ</string>
+    <string name="distributorSubmitMessage">શું તમે વિતરકો વિશે માહિતી સબમિટ કરવા માંગો છો?</string>
 
-    <string name="internetslowMsggg">आपका डिवाइस डेटा कनेक्शन धीमा है</string>
+    <string name="internetslowMsggg">તમારું ઉપકરણ ડેટા કનેક્શન ધીમું છે </string>
 
 
-    <string name="currentStock">वर्तमान स्टॉक</string>
+    <string name="currentStock">વર્તમાન સ્ટોક </string>
     <string name="LastStock">છેલ્લું સ્ટક એનએ</string>
 
 
@@ -686,16 +695,37 @@
     <string name="txtCancelOrder">આદેશ રદ</string>
     <string name="genTernStoreOrderInvoicesubmitConfirmAlert"><small>શું તમે એક્ઝેક્યુશન વિગતો સબમિટ કરવા માંગો છો?</small></string>
     <!--invoice product list ends-->
-
+    <string name="collection">સંગ્રહ</string>
+    <string name="Print">છાપો</string>
     <!--surbhi ends-->
+    <string name="AddEditStorePicture">સંપાદિત કરો/સ્ટોક ચિત્ર ઉમેરો</string>
+    <string name="paymentCollection">ચુકવણી સંગ્રહ</string>
 
 
+    <string name="PreOutAmt">બાકી રકમ.</string>
+    <string name="CntInvVal">વર્તમાન ઇન્વોઇસ મૂલ્ય</string>
+    <string name="TotOut">કુલ ઉત્કૃષ્ટ </string>
+    <string name="MinAmtToColec">ભરતિયું સબમિશન માટે એકત્રિત કરવામાં આવનારી ન્યૂનતમ રકમ:</string>
+    <string name="totAmt">કુલ રકમ:-</string>
+    <string name="NoCollection">કોઈ સંગ્રહ આજે</string>
+    <string name="AddStorePicture">સ્ટોક ચિત્ર ઉમેરો</string>
 
+    <string name="totLineCnt">કુલ રેખા ગણક</string>
+    <string name="totInvoiceQty">કુલ ઇન્વોઇસ Qty</string>
+    <string name="PrevOutAmt">ગત આઉટસોન્ડિંગ રકમ</string>
+
+    <string name="StoreDetails">સ્ટોર વિગતો:</string>
+    <string name="LVDeatils">છેલ્લા મુલાકાતની વિગતો:</string>
+    <string name="StorePreOut">ઉત્કૃષ્ટ:</string>
+    <string name="StoreTot">કુલ:</string>
+
+    <string name="ViewStorePicture">સ્ટોક ચિત્ર જુઓ</string>
     <!--  Selection header starts -->
     <string name="ChangeLanguage">ભાષા બદલો</string>
     <string name="Language">ભાષા</string>
     <string name="LanguageSelection">કૃપા કરી ભાષા પસંદ કરો</string>
-
+    <string name="stkOn">સ્ટક ઑન</string>
+    <string name="LastStk">છેલ્લું સ્ટેક</string>
 
     <string name="genlocaldataMsg">ડેટા સ્થાનિક રૂપે સચવાયેલું છે, ઇન્ટરનેટને ઍક્સેસ કરી શકાય તે પછી તે સર્વર પર મોકલશે.</string>
     <string name="LogoutMsg">શું તમે ખરેખર લૉગઆઉટ કરવા માંગો છો?</string>

@@ -4,6 +4,7 @@ package project.astix.com.balajisfaindirect;
 //import com.newrelic.agent.android.NewRelic;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -28,6 +30,9 @@ import android.text.Html;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.astix.Common.CommonInfo;
@@ -323,7 +328,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
 
         //  imei="354010084603910";
 
-         imei="911560353114284";
+         //imei="911560353114284";
 
       //  imei="352801088236109";
 
@@ -425,8 +430,43 @@ public class SplashScreen extends BaseActivity implements  TaskListner
         SharedPreferences.Editor ed;
 
         if(!sharedPreferences.contains("Language")){
-            setLanguage("en");
-            onCreateFunctionalityAllcode();
+            final Dialog dialogLanguage = new Dialog(SplashScreen.this);
+            dialogLanguage.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialogLanguage.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.WHITE));
+
+            dialogLanguage.setCancelable(false);
+            dialogLanguage.setContentView(R.layout.language_popup);
+
+            TextView textviewEnglish=(TextView) dialogLanguage.findViewById(R.id.textviewEnglish);
+            TextView textviewHindi=(TextView) dialogLanguage.findViewById(R.id.textviewHindi);
+            TextView textviewGujarati=(TextView) dialogLanguage.findViewById(R.id.textviewGujrati);
+            textviewEnglish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogLanguage.dismiss();
+                    setLanguage("en");
+                    onCreateFunctionalityAllcode();
+                }
+            });
+            textviewHindi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogLanguage.dismiss();
+                    setLanguage("hi");
+                    onCreateFunctionalityAllcode();
+                }
+            });
+            textviewGujarati.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogLanguage.dismiss();
+                    setLanguage("gu");
+                    onCreateFunctionalityAllcode();
+                }
+            });
+
+
+            dialogLanguage.show();
 /*
             android.app.AlertDialog.Builder dialog=new android.app.AlertDialog.Builder(SplashScreen.this);
             dialog.setTitle("Language");

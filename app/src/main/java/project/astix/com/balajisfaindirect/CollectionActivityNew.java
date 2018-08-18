@@ -1672,7 +1672,7 @@ ctx=this;
 
         if(ll_collectionMandatory.getVisibility()==View.VISIBLE && cb_collection.isChecked()==false && lnCollection.getVisibility()==View.VISIBLE && OverAllAmountCollected==0.0)
         {
-            showAlertSingleButtonError("If there is no Collection for today then  please Tick on 'No Collection Today' before click on Submit");
+            showAlertSingleButtonError(CollectionActivityNew.this.getResources().getString(R.string.CollectionAlert1));
 
             //Collected amount is less than the minimum collection amount , current invoice cannot be made.Click CANCEL & EXIT to close Invoice and exit current visit, Click on UPDATE PAYMENT to update Collection amount
 
@@ -1684,7 +1684,7 @@ ctx=this;
             //if(Math.ceil(OverAllAmountCollected) < Math.ceil(totOutstandingValue))
             {
                 // showAlertSingleButtonError("Collection Amount can not be less then "+MinCollectionvalue);
-                showAlertSingleAfterCostumValidationForAmountCollection("Collected amount is less than the minimum collection amount , current invoice cannot be made.\nClick CANCEL & EXIT to close Invoice and exit current visit. \nClick on UPDATE PAYMENT to update Collection amount.");
+                showAlertSingleAfterCostumValidationForAmountCollection(CollectionActivityNew.this.getResources().getString(R.string.CollectionAlert2));
                 return false;
             }
             else if(Math.ceil(OverAllAmountCollected)>=Math.ceil(MinCollectionvalue) && Math.ceil(OverAllAmountCollected)<=Math.ceil(OverAllAmountCollectedLimit))
@@ -1707,7 +1707,7 @@ ctx=this;
                 // showAlertSingleButtonError("Collection Amount can not be greater then "+OverAllAmountCollectedLimit);
                 // showAlertSingleAfterCostumValidationForAmountCollection("Collection amount exceeds then required and current Invoice can not be made, Click Cancel & Exit to close Invoice and Exit current visit, Click on Update Payment to update Collection amount.");
 
-                showAlertSingleAfterCostumValidationForAmountCollection("Collection amount can not be greater then total outstandings, current invoice cannot be made.\nClick CANCEL & EXIT to close Invoice and exit current visit. \nClick on UPDATE PAYMENT to update Collection amount.");
+                showAlertSingleAfterCostumValidationForAmountCollection(CollectionActivityNew.this.getResources().getString(R.string.CollectionAlert3));
 
                 //Collected amount is less than the minimum collection amount , current invoice cannot be made.Click CANCEL & EXIT to close Invoice and exit current visit, Click on UPDATE PAYMENT to update Collection amount
 

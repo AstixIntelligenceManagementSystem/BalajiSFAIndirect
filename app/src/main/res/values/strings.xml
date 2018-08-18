@@ -203,10 +203,35 @@
     <string name="SubmittingDataMsg">Submitting Data…</string>
     <string name="SubmittingPndngDataMsg">Submitting Pending Data…</string>
 
-
-
+<string name="CollectionAlert1">If there is no Collection for today then  please Tick on \'No Collection Today\' before click on Submit</string>
+    <string name="CollectionAlert2">Collected amount is less than the minimum collection amount , current invoice cannot be made.
+Click CANCEL &amp; EXIT to close Invoice and exit current visit.
+Click on UPDATE PAYMENT to update Collection amount.</string>
+    <string name="CollectionAlert3">Collection amount can not be greater then total outstandings, current invoice cannot be made.
+Click CANCEL &amp; EXIT to close Invoice and exit current visit.
+Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="ValidatingMsg">Validating User</string>
+<string name="collection">Collection</string>
+    <string name="Print">Print</string>
 
+    <string name="StoreDetails">Store Details :</string>
+    <string name="LVDeatils">Last Visit Details :</string>
+    <string name="StorePreOut">Previous Outstanding :</string>
+    <string name="StoreTot">Total  :</string>
+
+
+
+    <string name="PreOutAmt">Previous Outstanding Amt.</string>
+    <string name="CntInvVal">Current Invoice Value</string>
+    <string name="TotOut">Total Outstanding </string>
+    <string name="MinAmtToColec">Minimum amount to be collected for invoice submission:</string>
+    <string name="totAmt">Total Amount:-</string>
+    <string name="NoCollection">No Collection Today</string>
+    <string name="paymentCollection">Payment Collection</string>
+
+    <string name="totLineCnt">Total Line Count</string>
+    <string name="totInvoiceQty">Total Invoice Qty</string>
+    <string name="PrevOutAmt">Previous Outsanding Amount</string>
     <!--Launcher Activity ends here-->
 
 
@@ -671,8 +696,10 @@
     <!--invoice product list ends-->
 
     <!--surbhi ends-->
-
-
+    <string name="AddEditStorePicture">Edit/Add Stock Pic</string>
+    <string name="AddStorePicture">Add Stock Pic</string>
+    <string name="ViewStorePicture">View Stock Picture</string>
+    <string name="Gujarati">Gujarati</string>
     <!--  Selection header starts -->
     <string name="ChangeLanguage">Change Language</string>
     <string name="Language">Language</string>
@@ -689,7 +716,8 @@
     <string name="TargetVsAchieved">Target Vs Achieved</string>
     <string name="VersionNo">Version No-V</string>
     <string name="CheckTodayOrder">Check Today Invoice</string>
-
+    <string name="stkOn">Stk On</string>
+    <string name="LastStk">Last Stk</string>
 
     <!-- Selection header ends -->
 

@@ -70,6 +70,21 @@
                 android:layout_width="match_parent"
                 android:background="#b5b5b5"
                 android:layout_height="1dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:background="@drawable/language_row_backgrnd"
+                android:textColor="#000"
+                android:id="@+id/textviewGujrati"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/Gujarati"/>
+            <View
+                android:layout_width="match_parent"
+                android:background="#b5b5b5"
+                android:layout_height="1dp"/>
+
 
         </LinearLayout>
     </ScrollView>

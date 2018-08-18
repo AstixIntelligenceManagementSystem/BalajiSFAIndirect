@@ -196,7 +196,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
     public SimpleDateFormat currDateFormat;
     public String currSysDate;
 
-    LinearLayout ll_dsrTracker,ll_distrbtnMap,ll_DayEnd;
+    LinearLayout ll_dsrTracker,ll_changelagugae,ll_DayEnd;
     ImageView imgVw_logout;
 
     //report alert
@@ -481,7 +481,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
         ll_distrbtrCheckIn = (LinearLayout) findViewById(R.id.ll_distrbtrCheckIn);
         ll_execution = (LinearLayout) findViewById(R.id.ll_execution);
         ll_stockCheckOut= (LinearLayout) findViewById(R.id.ll_stockCheckOut);
-        ll_distrbtnMap = (LinearLayout) findViewById(R.id.ll_distrbtnMap);
+        ll_changelagugae = (LinearLayout) findViewById(R.id.ll_changelagugae);
         ll_dsrTracker = (LinearLayout) findViewById(R.id.ll_dsrTracker);
         ll_DayEnd = (LinearLayout) findViewById(R.id.ll_DayEnd);
         ll_warehose= (LinearLayout) findViewById(R.id.ll_warehose);
@@ -538,6 +538,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
       //  executionWorking();
        // noVisitWorking();
        // distributorMapWorking();
+        changelaguage();
         dayEndWorking();
 
         imgVw_logout=(ImageView) findViewById(R.id.imgVw_logout);
@@ -1436,17 +1437,17 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
 
 
-    void distributorMapWorking()
+    void changelaguage()
     {
-        ll_distrbtnMap.setOnClickListener(new View.OnClickListener()
+        ll_changelagugae.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                /*if(ll_distrbtnMap.isSelected())
-                    ll_distrbtnMap.setSelected(false);
+                /*if(ll_changelagugae.isSelected())
+                    ll_changelagugae.setSelected(false);
                 else
-                    ll_distrbtnMap.setSelected(true);*/
+                    ll_changelagugae.setSelected(true);*/
 
                // Intent intent=new Intent(AllButtonActivity.this,DistributorMapActivity.class);
                // startActivity(intent);
@@ -1460,6 +1461,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
                 TextView textviewEnglish=(TextView) dialogLanguage.findViewById(R.id.textviewEnglish);
                 TextView textviewHindi=(TextView) dialogLanguage.findViewById(R.id.textviewHindi);
+                TextView textviewGujrati=(TextView) dialogLanguage.findViewById(R.id.textviewGujrati);
 
                 textviewEnglish.setOnClickListener(new View.OnClickListener()
                 {
@@ -1477,7 +1479,14 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                         setLanguage("hi");
                     }
                 });
-
+                textviewGujrati.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
+                        dialogLanguage.dismiss();
+                        setLanguage("gu");
+                    }
+                });
                 dialogLanguage.show();
 
 

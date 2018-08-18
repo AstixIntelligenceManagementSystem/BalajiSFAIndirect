@@ -408,12 +408,13 @@ public void passIntentToProductOrderFilter(){
         if(hmapStockPhotoSection!=null && hmapStockPhotoSection.size()>0)
         {
             btnViewPic.setVisibility(View.VISIBLE);
-            btnClickPic.setText("Edit/Add Stock Pic");
+            //btnClickPic.setText("Edit/Add Stock Pic");
+            btnClickPic.setText(getResources().getString(R.string.AddEditStorePicture));
         }
         else
         {
             btnViewPic.setVisibility(View.GONE);
-            btnClickPic.setText("Add Stock Pic");
+            btnClickPic.setText(getResources().getString(R.string.AddStorePicture));
         }
 
         //dbengine.close();

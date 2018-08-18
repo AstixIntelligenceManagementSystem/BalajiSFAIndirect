@@ -3563,6 +3563,7 @@ else
 
 				 TextView textviewEnglish=(TextView) dialogLanguage.findViewById(R.id.textviewEnglish);
 				 TextView textviewHindi=(TextView) dialogLanguage.findViewById(R.id.textviewHindi);
+				 TextView textviewGujrati=(TextView) dialogLanguage.findViewById(R.id.textviewGujrati);
 
 				 textviewEnglish.setOnClickListener(new OnClickListener()
 				 {
@@ -3580,7 +3581,14 @@ else
 						 setLanguage("hi");
 					 }
 				 });
-
+				 textviewGujrati.setOnClickListener(new View.OnClickListener()
+				 {
+					 @Override
+					 public void onClick(View v) {
+						 dialogLanguage.dismiss();
+						 setLanguage("gu");
+					 }
+				 });
 				 dialogLanguage.show();
 
 
