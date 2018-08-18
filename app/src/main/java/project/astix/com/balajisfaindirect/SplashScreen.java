@@ -323,12 +323,12 @@ public class SplashScreen extends BaseActivity implements  TaskListner
 
         //  imei="354010084603910";
 
-        // imei="864449033669429";
+         imei="911560353114284";
 
       //  imei="352801088236109";
 
 
-       imei="354010084603910";  // paras imei like Godrej
+      // imei="354010084603910";  // paras imei like Godrej
         CommonInfo.imei = imei;
 
         if(dbengine.isDBOpen()==false)
@@ -1389,7 +1389,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
                             {
                                 chkFlgForErrorToCloseApp=1;
                                 Toast.makeText(getApplicationContext(),getResources().getString(R.string.routeNoAvail),Toast.LENGTH_SHORT).show();
-
+                                break;
                             }
 
                         }
@@ -1411,6 +1411,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
                             if(chkFlgForErrorToCloseApp==0)
                             {
                                 chkFlgForErrorToCloseApp=1;
+                                break;
                             }
 
                         }
@@ -1419,6 +1420,15 @@ public class SplashScreen extends BaseActivity implements  TaskListner
                     {
                         getRouteservice = getRouteservice.getCallspToGetReasonMasterForNoVisit(getApplicationContext(), fDate, imei);
 
+                        if(!newservice.director.toString().trim().equals("1"))
+                        {
+                            if(chkFlgForErrorToCloseApp==0)
+                            {
+                                chkFlgForErrorToCloseApp=1;
+                                break;
+                            }
+
+                        }
                     }
 
                     if(mm==5)
@@ -1433,6 +1443,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
                                 if(chkFlgForErrorToCloseApp==0)
                                 {
                                     chkFlgForErrorToCloseApp=1;
+                                    break;
                                 }
 
                             }
@@ -1450,6 +1461,15 @@ public class SplashScreen extends BaseActivity implements  TaskListner
                        /// getRouteservice = getRouteservice.fnGetIncentiveData(getApplicationContext(), fDate, imei);
 //getWarehouseMappingMstr
                         newservice = newservice.getWarehouseMappingMstr(getApplicationContext(), imei, fDate);
+                        if(!newservice.director.toString().trim().equals("1"))
+                        {
+                            if(chkFlgForErrorToCloseApp==0)
+                            {
+                                chkFlgForErrorToCloseApp=1;
+                                break;
+                            }
+
+                        }
 
                     }
                     if(mm==7)
@@ -1471,6 +1491,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
                             if (chkFlgForErrorToCloseApp == 0) {
                                 chkFlgForErrorToCloseApp = 1;
                                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.stockUploadStatusMsg), Toast.LENGTH_SHORT).show();
+                                    break;
                             }
                         }
                     }

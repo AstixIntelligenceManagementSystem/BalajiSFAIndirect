@@ -774,6 +774,7 @@ private InputFilter filter = new InputFilter() {
 				}
 				else
 				{
+					etCity.setText("Select");
 					etState.setText("Select");
 				}
 				//
@@ -5442,12 +5443,12 @@ public SpannableStringBuilder textWithMandatory(String text_Value)
 		 
 			public boolean validate()
 			{
-				/*boolean isStateCityValidate=fnValidateStateCity();
+				boolean isStateCityValidate=fnValidateStateCity();
 				if(!isStateCityValidate)
 				{
 					return isStateCityValidate;
 				}
-*/
+
 
 				for(Entry<String, Boolean> entry:hmapMustRqrdFiled.entrySet())
 				{
