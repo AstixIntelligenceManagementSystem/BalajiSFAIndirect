@@ -3630,6 +3630,10 @@ else
 						 new FullSyncDataNow(StoreSelection.this).execute();
 
 					 }
+					 else
+					 {
+						 showAlertSingleButtonError(getResources().getString(R.string.NoPendingDataMsg));
+					 }
 
 				 }
 				 else
