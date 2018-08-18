@@ -682,6 +682,7 @@
     <string name="DayEnd">Day End</string>
     <string name="Dsrmessage">Please update your personal details before doing day end activity</string>
     <string name="RefreshData">Refresh Data</string>
+    <string name="UploadPendingData">Upload Pending Data</string>
     <string name="RefreshDataMsg">Are you sure to refresh Data?</string>
     <string name="ChangeRoute">Change Route</string>
     <string name="Summary">Summary</string>

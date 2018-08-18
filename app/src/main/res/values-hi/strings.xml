@@ -637,6 +637,7 @@
     <string name="DayEnd">दिन की समाप्ति</string>
     <string name="Dsrmessage">कृपया दिन के अंत की गतिविधि करने से पहले अपने व्यक्तिगत डिटेल को अपडेट करें</string>
     <string name="RefreshData">डेटा रिफ्रेश करें</string>
+    <string name="UploadPendingData">लंबित डेटा अपलोड करें</string>
     <string name="RefreshDataMsg">क्या आप डेटा रीफ्रेश करना चाहते हैं?</string>
     <string name="ChangeRoute">मार्ग बदलें</string>
     <string name="Summary">सारांश</string>

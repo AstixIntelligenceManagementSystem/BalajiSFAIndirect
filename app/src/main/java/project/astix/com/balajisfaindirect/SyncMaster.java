@@ -986,6 +986,7 @@ public class SyncMaster extends Activity
 				{
 					 pDialogGetStores.setMessage(getResources().getString(R.string.txtSubmitQuoteDetail));
 					}
+
 				else if(DayStartActivity.flgDaySartWorking==1)
 				{
 					pDialogGetStores.setMessage(getResources().getString(R.string.submittingDayStart));
