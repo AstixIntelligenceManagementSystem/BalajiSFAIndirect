@@ -359,8 +359,8 @@ ctx=this;
 
 
         tv_totOutstandingValue=(TextView) findViewById(R.id.tv_totOutstandingValue);
-        //Double totOutstandingValue=cntAllOustandings+cntInvoceValue+cntTotInvoicesAmtAgainstStoreIrespectiveOfVisit-cntTotCollectionAmtAgainstStoreIrespectiveOfVisit;
-        Double totOutstandingValue=cntAllOustandings+cntInvoceValue-cntTotCollectionAmtAgainstStoreIrespectiveOfVisit;
+        Double totOutstandingValue=cntAllOustandings+cntInvoceValue+cntTotInvoicesAmtAgainstStoreIrespectiveOfVisit-cntTotCollectionAmtAgainstStoreIrespectiveOfVisit;
+        //Double totOutstandingValue=cntAllOustandings+cntInvoceValue-cntTotCollectionAmtAgainstStoreIrespectiveOfVisit;
         totOutstandingValue=Double.parseDouble(new DecimalFormat("##.##").format(totOutstandingValue));
         tv_totOutstandingValue.setText(" : "+String.format("%.2f", totOutstandingValue));
 

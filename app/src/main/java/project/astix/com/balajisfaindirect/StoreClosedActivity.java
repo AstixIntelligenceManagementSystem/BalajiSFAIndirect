@@ -272,7 +272,10 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
         {
             imei= CommonInfo.imei.trim();
         }
-
+        pm = (PowerManager) getSystemService(POWER_SERVICE);
+        wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
+                | PowerManager.ACQUIRE_CAUSES_WAKEUP
+                | PowerManager.ON_AFTER_RELEASE, "INFO");
 
         long syncTIMESTAMP = System.currentTimeMillis();
         Date dateobj = new Date(syncTIMESTAMP);
@@ -627,10 +630,7 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
     {
         appLocationService = new AppLocationService();
 
-        pm = (PowerManager) getSystemService(POWER_SERVICE);
-        wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
-                | PowerManager.ACQUIRE_CAUSES_WAKEUP
-                | PowerManager.ON_AFTER_RELEASE, "INFO");
+
         wl.acquire();
 
         pDialog2STANDBY = ProgressDialog.show(StoreClosedActivity.this, getText(R.string.genTermPleaseWaitNew), getText(R.string.rtrvng_loc), true);
