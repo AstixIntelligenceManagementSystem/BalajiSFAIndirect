@@ -31736,6 +31736,36 @@ String fetchdate=fnGetDateTimeString();
             return listImageDetails;
         }
     }
+
+
+    public static ArrayList<String> getStoreClosedImages(int sStat)
+    {
+        //open();
+        ArrayList<String> listImageDetails=new ArrayList<String>();
+        try
+        {
+            Cursor cursor=db.rawQuery("Select StoreID,PDAPhotoPath,PhotoName from tblStoreClosedPhotoDetail where Sstat='"+sStat+"'", null);
+
+            if(cursor.getCount()>0)
+            {
+                if(cursor.moveToFirst())
+                {
+                    for(int i=0;i<cursor.getCount();i++)
+                    {
+                        listImageDetails.add(cursor.getString(0)+"^"+cursor.getString(1)+"^"+cursor.getString(2));
+                        cursor.moveToNext();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        finally
+        {
+            //  close();
+            return listImageDetails;
+        }
+    }
     public static void updateSSttImage(String imageName,int sStat)
     {
         //open();

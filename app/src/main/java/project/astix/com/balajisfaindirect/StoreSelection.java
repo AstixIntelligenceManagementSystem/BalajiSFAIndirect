@@ -5228,6 +5228,30 @@ else
 					}
 				}
 
+
+				ArrayList<String> listImageStoreClosed=new ArrayList<String>();
+
+				listImageStoreClosed=dbengine.getStoreClosedImages(5);
+
+				if(listImageStoreClosed!=null && listImageStoreClosed.size()>0)
+				{
+					for(String imageDetail:listImageStoreClosed)
+					{
+						String tempIdImage=imageDetail.split(Pattern.quote("^"))[0].toString();
+						String imagePath=imageDetail.split(Pattern.quote("^"))[1].toString();
+						String imageName=imageDetail.split(Pattern.quote("^"))[2].toString();
+						String file_dj_path = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.ImagesFolder+"/"+imageName;
+						File fImage = new File(file_dj_path);
+						if (fImage.exists())
+						{
+							uploadImage(imagePath, imageName, tempIdImage);
+						}
+
+
+
+					}
+				}
+
 			}
 			catch (Exception e)
 			{

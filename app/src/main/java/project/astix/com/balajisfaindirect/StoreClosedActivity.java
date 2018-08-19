@@ -80,6 +80,7 @@ import java.util.regex.Pattern;
 
 public class StoreClosedActivity extends BaseActivity implements LocationListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,DeletePic{
 
+    DatabaseAssistant DA = new DatabaseAssistant(this);
     private static final String TAG = "LocationActivity";
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
@@ -464,6 +465,34 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
                             System.out.println("SAVING..."+storeID+"-"+clickedDateTime+"-"+photoName+"-"+photoPath);
                         }
 
+
+
+
+                        String presentRoute=helperDb.GetActiveRouteID();
+
+                        SimpleDateFormat df1 = new SimpleDateFormat("dd.MM.yyyy.HH.mm.ss",Locale.ENGLISH);
+
+                       String newfullFileName=imei+"."+presentRoute+"."+df1.format(dateobj);
+                        try {
+                            File OrderXMLFolder = new File(Environment.getExternalStorageDirectory(), CommonInfo.OrderXMLFolder);
+
+                            if (!OrderXMLFolder.exists())
+                            {
+                                OrderXMLFolder.mkdirs();
+
+                            }
+                            String routeID=helperDb.GetActiveRouteIDSunil();
+                            DA.open();
+                            DA.export(CommonInfo.DATABASE_NAME, newfullFileName,routeID);
+                            DA.close();
+                            helperDb.savetbl_XMLfiles(newfullFileName, "3","1");
+                            helperDb.UpdateXMLCreatedFilesTablesFlag(5);
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+
+                        }
+
                         Intent in = new Intent(StoreClosedActivity.this, StoreSelection.class);
                         in.putExtra("imei", imei);
                         in.putExtra("userDate", date);
@@ -497,6 +526,32 @@ public class StoreClosedActivity extends BaseActivity implements LocationListene
 
                         helperDb.upDateCloseStoreReason(storeID,drpdwnSelectedID,drpdwnSelectedValue,StoreVisitCode);
                         System.out.println("SAVING UPDATE..."+storeID+"-"+drpdwnSelectedID+"-"+drpdwnSelectedValue);
+
+
+                        String presentRoute=helperDb.GetActiveRouteID();
+
+                        SimpleDateFormat df1 = new SimpleDateFormat("dd.MM.yyyy.HH.mm.ss",Locale.ENGLISH);
+
+                        String newfullFileName=imei+"."+presentRoute+"."+df1.format(dateobj);
+                        try {
+                            File OrderXMLFolder = new File(Environment.getExternalStorageDirectory(), CommonInfo.OrderXMLFolder);
+
+                            if (!OrderXMLFolder.exists())
+                            {
+                                OrderXMLFolder.mkdirs();
+
+                            }
+                            String routeID=helperDb.GetActiveRouteIDSunil();
+                            DA.open();
+                            DA.export(CommonInfo.DATABASE_NAME, newfullFileName,routeID);
+                            DA.close();
+                            helperDb.savetbl_XMLfiles(newfullFileName, "3","1");
+                            helperDb.UpdateXMLCreatedFilesTablesFlag(5);
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+
+                        }
 
                         Intent in = new Intent(StoreClosedActivity.this, StoreSelection.class);
                         in.putExtra("imei", imei);

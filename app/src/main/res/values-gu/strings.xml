@@ -719,6 +719,10 @@
     <string name="StorePreOut">ઉત્કૃષ્ટ:</string>
     <string name="StoreTot">કુલ:</string>
 
+    <string name="UploadPendingData">બાકી ડેટા અપલોડ કરો</string>
+
+
+
     <string name="ViewStorePicture">સ્ટોક ચિત્ર જુઓ</string>
     <!--  Selection header starts -->
     <string name="ChangeLanguage">ભાષા બદલો</string>
