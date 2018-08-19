@@ -2181,6 +2181,7 @@ ctx=this;
                             dbengine.deleteOldStoreInvoice(storeID,strGlobalOrderID,TmpInvoiceCodePDA);
                             dbengine.deleteStoreRecordFromtblStorePurchaseDetailsFromProductTrsaction(storeID,strGlobalOrderID,TmpInvoiceCodePDA);
                             dbengine.UpdateStoreVisitMStrTable(storeID,3,StoreVisitCode);
+                            dbengine.fnupdatetblDeliveryNoteNumber();
 
 
 
@@ -3314,6 +3315,7 @@ ctx=this;
         String custAddress= arrListStoreData.get(1);//"B-166/48 GANDHI  TRAFFIC CHAURAHA MISSION ROAD  ";
         String custStateCityPin=arrListStoreData.get(3)+", "+arrListStoreData.get(2)+", "+arrListStoreData.get(4);//"BHADOHI, UTTARPRADESH,210205";
         int delNo=dbengine.fnGettblDeliveryNoteNumber();
+        delNo=delNo+1;
         String deliveryNumber=""+delNo;//"12345678900";
 
         long  syncTIMESTAMP = System.currentTimeMillis();

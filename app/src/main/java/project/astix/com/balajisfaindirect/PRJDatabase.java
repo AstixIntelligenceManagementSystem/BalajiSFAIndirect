@@ -34562,14 +34562,25 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
                         // arrTaxWisePrdctDtlt.add(cursor21.getString(0));
                         ArrayList arrTaxWisePrdctDtlt=new ArrayList<String>();
                         Double TaxSum=Double.parseDouble(cursor21.getString(1).toString());
+
+                        if(TaxSum>0.0)
+                        {
+                            TaxSum=TaxSum/2.0;
+                        }
+
                         TaxSum=Double.parseDouble(new DecimalFormat("##.##").format(TaxSum));
                         arrTaxWisePrdctDtlt.add(""+TaxSum);
 
                         Double TaxRateToShow=Double.parseDouble(cursor21.getString(0).toString());
+
+                        if(TaxRateToShow>0.0)
+                        {
+                            TaxRateToShow=TaxRateToShow/2.0;
+                        }
                         TaxRateToShow=Double.parseDouble(new DecimalFormat("##.##").format(TaxRateToShow));
 
-
-                        hmapTaxWisePrdctDtlt.put(""+TaxRateToShow+"% Tax",arrTaxWisePrdctDtlt);
+                        hmapTaxWisePrdctDtlt.put("CGST "+TaxRateToShow+"%",arrTaxWisePrdctDtlt);
+                        hmapTaxWisePrdctDtlt.put("SGST "+TaxRateToShow+"%",arrTaxWisePrdctDtlt);
                         cursor21.moveToNext();
                     }
                 }
