@@ -3094,12 +3094,12 @@ ctx=this;
         Double cntAllOustandings=dbengine.fetch_Store_AllOustandings(storeID);
         cntAllOustandings=Double.parseDouble(new DecimalFormat("##.##").format(cntAllOustandings));
 
-        arrCollectionDetailsForPrint.add(""+outstandingvalue);
-        arrCollectionDetailsForPrint.add(""+cntInvoceValue);
-        arrCollectionDetailsForPrint.add(""+curntCol);
+        arrCollectionDetailsForPrint.add(""+ String.format("%.2f", outstandingvalue));
+        arrCollectionDetailsForPrint.add(""+String.format("%.2f", cntInvoceValue));
+        arrCollectionDetailsForPrint.add(""+String.format("%.2f", curntCol));
         Double fnOutStand=outstandingvalue+cntInvoceValue-curntCol;
         fnOutStand=Double.parseDouble(new DecimalFormat("##.##").format(fnOutStand));
-        arrCollectionDetailsForPrint.add(""+fnOutStand);
+        arrCollectionDetailsForPrint.add(""+String.format("%.2f", fnOutStand));
 
         return arrCollectionDetailsForPrint;
     }
@@ -3297,6 +3297,7 @@ ctx=this;
         LinkedHashMap<String,ArrayList<String>> hmapInvoiceRecodsToPrint=arrAllPrintResult.get(2);
         LinkedHashMap<String,ArrayList<String>> hmapTotalBfrAftrTaxVal=arrAllPrintResult.get(3);
         LinkedHashMap<String,ArrayList<String>> hmapTaxWisePrdctDtlt=arrAllPrintResult.get(4);
+        LinkedHashMap<String,ArrayList<String>> hmapOverAllProductOrderQtyValue=arrAllPrintResult.get(5);
 
         //ware house details starts
         ArrayList<String> arrListWarehouse=  hmapWareHouseDetails.get("WarehouseDetails");
@@ -3324,6 +3325,15 @@ ctx=this;
         //Store details ends
 
         String data="";
+        String TotalQty="0";
+        String TotalValue="0.00";
+        ArrayList<String>  arrOverAllProductOrderQtyValue= hmapOverAllProductOrderQtyValue.get("OverAllProductOrderQtyValue");
+        if((arrOverAllProductOrderQtyValue!=null) &&(arrOverAllProductOrderQtyValue.size()>0) ){
+            TotalQty=arrOverAllProductOrderQtyValue.get(0);
+            TotalValue=arrOverAllProductOrderQtyValue.get(1);
+
+        }
+
 
         //loop for product
         //Product details Starts
@@ -3371,7 +3381,7 @@ ctx=this;
                     for(int j=0;j<itemDesc21Digit.length;j++){
                         String itemDscr2=  itemDesc21Digit[j];
                         if(j==0){
-                            data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr2, rate, taxRate, Qty,ValueText);
+                            data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr2,String.format("%.2f", rate), taxRate, Qty,String.format("%.2f", ValueText));
                         }
                         else{
                             data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", "",itemDscr2, "", "", "","");
@@ -3380,12 +3390,12 @@ ctx=this;
                     }
                 }
                 else{
-                    data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, rate, taxRate, Qty,ValueText);
+                    data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, String.format("%.2f", rate), taxRate, Qty,String.format("%.2f", ValueText));
                 }
 
             }
             else{
-                data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, rate, taxRate, Qty,ValueText);
+                data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, String.format("%.2f", rate), taxRate, Qty,String.format("%.2f", ValueText));
             }
 
 
@@ -3416,12 +3426,18 @@ ctx=this;
             String tax=taxPercent;//"5% Tax";
             double taxAmount=Double.parseDouble(arrTaxValue.get(0));//"20.00";
             totalTaxValue=totalTaxValue+taxAmount;
+            if(hmapTaxWisePrdctDtlt.size()>1){
+                taxData = taxData +"\n"+ String.format("%1$-11s %2$-21s %3$9s %4$3s %5$13s %6$3s",  "", tax, "","",String.format("%.2f", taxAmount), "");
+            }
+            else{
+                taxData = taxData +"\n"+  String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", tax, "","","", String.format("%.2f", taxAmount));
+            }
 
-            taxData = taxData +"\n"+ String.format("%1$-11s %2$-21s %3$9s %4$3s %5$13s %6$3s",  "", tax, "","",taxAmount, "");
+
 
         }
 
-        String totalTax=""+totalTaxValue;//"40.00";
+        String totalTax=""+String.format("%.2f", totalTaxValue);//"40.00";
         if(hmapTaxWisePrdctDtlt.size()>1){
             taxData = taxData +"\n"+ String.format("%1$-11s %2$-21s %3$9s %4$3s %5$13s %6$3s",  "", "Tax Value", "","",totalTax, "");
         }
@@ -3439,9 +3455,9 @@ ctx=this;
         String BILL = "";
         BILL = BILL + "\n"+
                 "-----------------------------------------------------------------\n" +
-                "                           "+shopName+"                          \n" +
-                ""+shopAddress+"      \n " +
-                ""+ placeOfSuppllyAddress+"  \n";
+                "                          "+shopName+"                           \n" +
+                ""+shopAddress+"      \n" +
+                ""+ placeOfSuppllyAddress+" \n";
         BILL = BILL
                 + "Phone: "+ phoneNumber+ "  GSTIN. No.:"+ gstNumber+" \n";
         BILL = BILL
@@ -3479,16 +3495,19 @@ ctx=this;
         BILL = BILL + "\n";
         BILL = BILL
                 + "-----------------------------------------------------------------\n";
+        BILL = BILL + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", "","Total               ", "", "", TotalQty,TotalValue);
+        BILL = BILL
+                + "-----------------------------------------------------------------\n";
         BILL = BILL
                 + "                           Tax Details                            \n";
 
         BILL = BILL
                 + "-----------------------------------------------------------------\n";
-        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Value Before Tax", "","","", valueBeforeTax);
+        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Value Before Tax", "","","",String.format("%.2f", valueBeforeTax) );
 
         BILL=BILL+taxData;
         BILL = BILL + "\n";
-        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Value After Tax", "","","", valueAfterTax);
+        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Value After Tax", "","","",String.format("%.2f", valueAfterTax) );
         BILL = BILL + "\n";
         BILL = BILL
                 + "-----------------------------------------------------------------\n";
