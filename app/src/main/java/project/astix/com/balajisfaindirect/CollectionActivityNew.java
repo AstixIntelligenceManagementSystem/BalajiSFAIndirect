@@ -3289,6 +3289,7 @@ ctx=this;
         };
         t.start();
     }
+
     public String MakePrintRecipt(){
 
         LinkedHashMap<String,ArrayList<String>>hmapWareHouseDetails=arrAllPrintResult.get(0);
@@ -3324,7 +3325,7 @@ ctx=this;
 
         String data="";
 
-       //loop for product
+        //loop for product
         //Product details Starts
         int i=1;
         for(Map.Entry<String,ArrayList<String>> entry:hmapInvoiceRecodsToPrint.entrySet())
@@ -3337,6 +3338,8 @@ ctx=this;
             String HSNCode=arrProductInvoiceDetailsForPrint.get(0);//"00000"+i;
             String itemDscr=arrProductInvoiceDetailsForPrint.get(1).toString().trim();//"item-11111133"+i;
             itemDscr= itemDscr .replace(Html.fromHtml("&nbsp;"),"");
+
+
            /* Spanned itemDscr1=  Html.fromHtml(itemDscr);// itemDscr.replace("   ","");
             itemDscr=  itemDscr.replace("  ","");*/
 
@@ -3361,8 +3364,31 @@ ctx=this;
             if(!arrProductInvoiceDetailsForPrint.get(5).toString().trim().equals("")){
                 ValueText=Double.parseDouble(arrProductInvoiceDetailsForPrint.get(5).toString().trim());//""+"500.0"+i;
             }
+            if(itemDscr.length()>21){
+                itemDscr=  insertPeriodically(itemDscr,"^$",21);
+                if(itemDscr.contains("^$")){
+                    String[] itemDesc21Digit=itemDscr.split(Pattern.quote("^$"));
+                    for(int j=0;j<itemDesc21Digit.length;j++){
+                        String itemDscr2=  itemDesc21Digit[j];
+                        if(j==0){
+                            data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr2, rate, taxRate, Qty,ValueText);
+                        }
+                        else{
+                            data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", "",itemDscr2, "", "", "","");
+                        }
 
-            data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, rate, taxRate, Qty,ValueText);
+                    }
+                }
+                else{
+                    data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, rate, taxRate, Qty,ValueText);
+                }
+
+            }
+            else{
+                data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, rate, taxRate, Qty,ValueText);
+            }
+
+
 
         }
         //Product details Ends
@@ -3615,6 +3641,27 @@ ctx=this;
         }
         setResult(RESULT_CANCELED);
         finish();
+    }
+
+    public  String insertPeriodically(
+            String text, String insert, int period)
+    {
+        StringBuilder builder = new StringBuilder(
+                text.length() + insert.length() * (text.length()/period)+1);
+
+        int index = 0;
+        String prefix = "";
+        while (index < text.length())
+        {
+            // Don't put the insert in the very first iteration.
+            // This is easier than appending it *after* each substring
+            builder.append(prefix);
+            prefix = insert;
+            builder.append(text.substring(index,
+                    Math.min(index + period, text.length())));
+            index += period;
+        }
+        return builder.toString();
     }
     //Printer functions start here----------------------------------------------------------------
 }

@@ -34309,11 +34309,18 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
 
         //--------------Store Invoice Tax wise Product Details  Ends Here--------------------------------
 
+        //--------------Store Invoice  Tax wise Product Details Starts Here--------------------------------
+
+        LinkedHashMap<String,ArrayList<String>> hmapOverAllProductOrderQtyValue=fnGetOverAllProductOrderQtyValue(StoreID,VisitCode);
+
+        //--------------Store Invoice Tax wise Product Details  Ends Here--------------------------------
+
         arrResult.add(hmapWareHouseDetails);
         arrResult.add(hmapStoreBasicDetails);
         arrResult.add(hmapInvoiceRecodsToPrint);
         arrResult.add(hmapTotalBfrAftrTaxVal);
         arrResult.add(hmapTaxWisePrdctDtlt);
+        arrResult.add(hmapOverAllProductOrderQtyValue);
         return arrResult;
     }
 
@@ -34644,6 +34651,37 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
             }
             return gstNo;
 
+        }
+    }
+
+    public static LinkedHashMap<String,ArrayList<String>> fnGetOverAllProductOrderQtyValue(String StoreID,String StoreVisitCode)
+    {
+        LinkedHashMap<String,ArrayList<String>> hmapOverAllProductOrderQtyValue=new LinkedHashMap<String,ArrayList<String>>();
+        // ArrayList<String> arrTaxWisePrdctDtlt=new ArrayList<String>();
+        Cursor cursor21=null;
+        try {
+            cursor21 = db.rawQuery("Select ifnull(Sum(tblTmpInvoiceDetails.OrderQty),'0') AS OrderQtyCount,ifnull(Sum(tblTmpInvoiceDetails.LineValAftrTxAftrDscnt),'0.00') AS LineValAftrTxAftrDscntValue from tblTmpInvoiceDetails inner join tblTmpInvoiceHeader on tblTmpInvoiceDetails.TmpInvoiceCodePDA=tblTmpInvoiceHeader.TmpInvoiceCodePDA where tblTmpInvoiceDetails.StoreID='"+StoreID+"' AND tblTmpInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblTmpInvoiceDetails.OrderQty>0", null);
+            if(cursor21.getCount()>0)
+            {
+                if (cursor21.moveToFirst())
+                {
+                        ArrayList arrOverAllProductOrderQtyValue=new ArrayList<String>();
+                        Double AllProductOrderQty=Double.parseDouble(cursor21.getString(0).toString());
+                        AllProductOrderQty=Double.parseDouble(new DecimalFormat("##.##").format(AllProductOrderQty));
+                        arrOverAllProductOrderQtyValue.add(""+AllProductOrderQty);
+
+                        Double AllProductOrderValue=Double.parseDouble(cursor21.getString(1).toString());
+                        AllProductOrderValue=Double.parseDouble(new DecimalFormat("##.##").format(AllProductOrderValue));
+                        arrOverAllProductOrderQtyValue.add(""+AllProductOrderValue);
+
+                        hmapOverAllProductOrderQtyValue.put("OverAllProductOrderQtyValue",arrOverAllProductOrderQtyValue);                }
+                }
+            return hmapOverAllProductOrderQtyValue;
+        } finally {
+            if(cursor21!=null)
+            {
+                cursor21.close();
+            }
         }
     }
 }
