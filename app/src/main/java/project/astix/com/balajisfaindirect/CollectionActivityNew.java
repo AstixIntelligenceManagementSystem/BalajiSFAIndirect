@@ -3315,7 +3315,6 @@ ctx=this;
         String custAddress= arrListStoreData.get(1);//"B-166/48 GANDHI  TRAFFIC CHAURAHA MISSION ROAD  ";
         String custStateCityPin=arrListStoreData.get(3)+", "+arrListStoreData.get(2)+", "+arrListStoreData.get(4);//"BHADOHI, UTTARPRADESH,210205";
         int delNo=dbengine.fnGettblDeliveryNoteNumber();
-        delNo=delNo+1;
         String deliveryNumber=""+delNo;//"12345678900";
 
         long  syncTIMESTAMP = System.currentTimeMillis();
@@ -3352,17 +3351,17 @@ ctx=this;
             itemDscr= itemDscr .replace(Html.fromHtml("&nbsp;"),"");
 
 
-           /* Spanned itemDscr1=  Html.fromHtml(itemDscr);// itemDscr.replace("   ","");
-            itemDscr=  itemDscr.replace("  ","");*/
+       /* Spanned itemDscr1=  Html.fromHtml(itemDscr);// itemDscr.replace("   ","");
+        itemDscr=  itemDscr.replace("  ","");*/
 
-           /* if(itemDscr.contains("  ") || itemDscr.contains("   ")){
-                if(itemDscr.contains("  ") ){
-                    itemDscr=  itemDscr.replace("  ","");
-                }
-                if(itemDscr.contains("   ")){
-                    itemDscr=   itemDscr.replace("   ","");
-                }
-            }*/
+       /* if(itemDscr.contains("  ") || itemDscr.contains("   ")){
+            if(itemDscr.contains("  ") ){
+                itemDscr=  itemDscr.replace("  ","");
+            }
+            if(itemDscr.contains("   ")){
+                itemDscr=   itemDscr.replace("   ","");
+            }
+        }*/
             //String rate="\u20B9"+"50.00"+i;
             double rate=0.0;
             double ValueText=0.0;
@@ -3486,18 +3485,19 @@ ctx=this;
         BILL = BILL + "\n";
         BILL = BILL
                 + "-----------------------------------------------------------------";
-       /* BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$7s", "01 111111","item-111111", "\u20B9"+"50", "6%", "10","200.00");
+   /* BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$7s", "01 111111","item-111111", "\u20B9"+"50", "6%", "10","200.00");
 
-        BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$5s", "01 111111","item-11", "\u20B9"+"50", "6%", "10","₹200.00");
-        BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$5s", "01 111111","item-111111333", "\u20B9"+"50", "6%", "10","200.00");
-        BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$5s", "01 111111","item-111455555555", "\u20B9"+"50", "6%", "10","200.00");
-        */
+    BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$5s", "01 111111","item-11", "\u20B9"+"50", "6%", "10","₹200.00");
+    BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$5s", "01 111111","item-111111333", "\u20B9"+"50", "6%", "10","200.00");
+    BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$5s", "01 111111","item-111455555555", "\u20B9"+"50", "6%", "10","200.00");
+    */
         BILL = BILL +data;
 
         BILL = BILL + "\n";
         BILL = BILL
                 + "-----------------------------------------------------------------\n";
         BILL = BILL + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", "","Total               ", "", "", TotalQty,TotalValue);
+        BILL = BILL + "\n";
         BILL = BILL
                 + "-----------------------------------------------------------------\n";
         BILL = BILL
