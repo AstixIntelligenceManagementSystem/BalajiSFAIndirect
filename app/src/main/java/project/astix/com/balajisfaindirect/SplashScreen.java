@@ -330,7 +330,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
 
          //imei="911560353114284";
 
-      //  imei="352801088236109";
+       imei="352801088236109";
 
 
       // imei="354010084603910";  // paras imei like Godrej
@@ -1723,7 +1723,11 @@ public class SplashScreen extends BaseActivity implements  TaskListner
 
         if(flgPersonTodaysAtt==0)
         {
-            Intent intent=new Intent(this,DayStartActivity.class);
+           /* Intent intent=new Intent(this,DayStartActivity.class);
+            startActivity(intent);
+            finish();*/
+            Intent intent=new Intent(SplashScreen.this,DSR_Registration.class);
+            intent.putExtra("IntentFrom", "SPLASH");
             startActivity(intent);
             finish();
         }

@@ -207,9 +207,7 @@
     <string name="CollectionAlert2">Collected amount is less than the minimum collection amount , current invoice cannot be made.
 Click CANCEL &amp; EXIT to close Invoice and exit current visit.
 Click on UPDATE PAYMENT to update Collection amount.</string>
-    <string name="CollectionAlert3">Collection amount can not be greater then total outstandings, current invoice cannot be made.
-Click CANCEL &amp; EXIT to close Invoice and exit current visit.
-Click on UPDATE PAYMENT to update Collection amount.</string>
+    <string name="CollectionAlert3">You are collecting more the total outstanding. If this is correct click yes to continue else click cancel to go back and correct amount.</string>
     <string name="ValidatingMsg">Validating User</string>
 <string name="collection">Collection</string>
     <string name="Print">Print</string>

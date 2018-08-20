@@ -431,8 +431,11 @@ public class DSR_Registration extends AppCompatActivity implements DatePickerDia
                 startActivity(i);
                 finish();*/
 
-                Intent i=new Intent(DSR_Registration.this,AllButtonActivity.class);
+              /*  Intent i=new Intent(DSR_Registration.this,AllButtonActivity.class);
                 startActivity(i);
+                finish();*/
+                Intent intent=new Intent(DSR_Registration.this,DayStartActivity.class);
+                startActivity(intent);
                 finish();
 
 
@@ -1736,7 +1739,8 @@ public class DSR_Registration extends AppCompatActivity implements DatePickerDia
             String SelfieName=   PersonNameAndFlgRegistered.split(Pattern.quote("^"))[4];
             String SelfieNameURL=   PersonNameAndFlgRegistered.split(Pattern.quote("^"))[5];
             String SalesAreaName=   PersonNameAndFlgRegistered.split(Pattern.quote("^"))[6];
-
+            userNodeIdGlobal=   PersonNameAndFlgRegistered.split(Pattern.quote("^"))[7];
+            userNodetypeGlobal=   PersonNameAndFlgRegistered.split(Pattern.quote("^"))[8];
 
 
 
@@ -2209,6 +2213,8 @@ public class DSR_Registration extends AppCompatActivity implements DatePickerDia
                     LL_banner_image.setVisibility(View.GONE);
                     Submit_btn.setVisibility(View.VISIBLE);
                     BtnCancel.setVisibility(View.VISIBLE);
+                    userNodeIdGlobal="0";
+                    userNodetypeGlobal="0";
 
                 }
                 if(flag.equals("1"))

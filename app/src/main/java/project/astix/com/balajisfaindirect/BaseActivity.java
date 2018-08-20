@@ -222,7 +222,22 @@ public class BaseActivity extends Activity
                     }
                 }).create().show();
     }
-
+    public void showInfoSingleButtonError(String msg)
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.AlertDialogHeaderErrorMsg))
+                .setMessage(msg)
+                .setCancelable(false)
+                .setIcon(R.drawable.info_ico)
+                .setPositiveButton(getResources().getString(R.string.AlertDialogOkButton), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        dialogInterface.dismiss();
+                    }
+                }).create().show();
+    }
     public String[] changeHmapToArrayKey(HashMap hmap)
     {
         String[] stringArray=new String[hmap.size()];

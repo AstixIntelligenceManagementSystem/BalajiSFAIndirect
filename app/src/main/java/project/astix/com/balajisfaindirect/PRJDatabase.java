@@ -19182,21 +19182,21 @@ public class PRJDatabase
         }
     }*/
 
-    public static String fnGetPersonNameAndFlgRegistered()
+    public String fnGetPersonNameAndFlgRegistered()
     {
         String PersonNameAndFlgRegistered="0";
-        //open();
+       // open();
 
         try {
 
 
-            Cursor cursor = db.rawQuery("SELECT  PersonName,FlgRegistered,ContactNo,DOB,SelfieName,SelfieNameURL,SalesAreaName from tblUserAuthenticationMstr   ", null);// Where PNodeID='"+TSIID+"'
+            Cursor cursor = db.rawQuery("SELECT  PersonName,FlgRegistered,ContactNo,DOB,SelfieName,SelfieNameURL,SalesAreaName,PersonNodeID,PersonNodeType from tblUserAuthenticationMstr   ", null);// Where PNodeID='"+TSIID+"'
             if(cursor.getCount()>0)
             {
                 if (cursor.moveToFirst())
                 {
                     for (int i = 0; i <= (cursor.getCount() - 1); i++) {
-                        PersonNameAndFlgRegistered=(String) cursor.getString(0).toString()+"^"+(String) cursor.getString(1).toString()+"^"+(String) cursor.getString(2).toString()+"^"+(String) cursor.getString(3).toString()+"^"+(String) cursor.getString(4).toString()+"^"+(String) cursor.getString(5).toString()+"^"+(String) cursor.getString(6).toString();
+                        PersonNameAndFlgRegistered=(String) cursor.getString(0).toString()+"^"+(String) cursor.getString(1).toString()+"^"+(String) cursor.getString(2).toString()+"^"+(String) cursor.getString(3).toString()+"^"+(String) cursor.getString(4).toString()+"^"+(String) cursor.getString(5).toString()+"^"+(String) cursor.getString(6).toString()+"^"+(String) cursor.getString(7).toString()+"^"+(String) cursor.getString(8).toString();
 
                         cursor.moveToNext();
                     }
@@ -19211,7 +19211,7 @@ public class PRJDatabase
         finally
         {
 
-           // close();
+            //close();
             return PersonNameAndFlgRegistered;
         }
     }

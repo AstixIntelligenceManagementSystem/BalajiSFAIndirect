@@ -3640,7 +3640,7 @@ else
 					 }
 					 else
 					 {
-						 showAlertSingleButtonError(getResources().getString(R.string.NoPendingDataMsg));
+						 showInfoSingleButtonError(getResources().getString(R.string.NoPendingDataMsg));
 					 }
 
 				 }

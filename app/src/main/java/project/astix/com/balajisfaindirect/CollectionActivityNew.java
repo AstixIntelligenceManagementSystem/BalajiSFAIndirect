@@ -106,6 +106,7 @@ public class CollectionActivityNew extends BaseActivity  implements DatePickerDi
     private BluetoothSocket mBluetoothSocket;
     BluetoothDevice mBluetoothDevice;
     int aletrDialogFlag=0;
+    public  boolean rstl=false;
     //Bluetooth end
     ArrayList<LinkedHashMap<String,ArrayList<String>>> arrAllPrintResult;
 
@@ -1707,11 +1708,11 @@ ctx=this;
                 // showAlertSingleButtonError("Collection Amount can not be greater then "+OverAllAmountCollectedLimit);
                 // showAlertSingleAfterCostumValidationForAmountCollection("Collection amount exceeds then required and current Invoice can not be made, Click Cancel & Exit to close Invoice and Exit current visit, Click on Update Payment to update Collection amount.");
 
-                showAlertSingleAfterCostumValidationForAmountCollection(CollectionActivityNew.this.getResources().getString(R.string.CollectionAlert3));
-
+               boolean rst=   showWarningAlertIfCollectionsGraterThenTotalOutStandings(CollectionActivityNew.this.getResources().getString(R.string.CollectionAlert3));
+                return rst;
                 //Collected amount is less than the minimum collection amount , current invoice cannot be made.Click CANCEL & EXIT to close Invoice and exit current visit, Click on UPDATE PAYMENT to update Collection amount
 
-                return false;
+                //return false;
             }
 
         }
@@ -1929,6 +1930,68 @@ ctx=this;
 
     }
 
+
+    public boolean showWarningAlertIfCollectionsGraterThenTotalOutStandings(String msg)
+    {
+        rstl=false;
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CollectionActivityNew.this);
+        alertDialog.setTitle("Validation");
+        alertDialog.setIcon(R.drawable.error_ico);
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage(msg);
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
+                dialog.dismiss();
+                rstl= true;
+
+            }
+        });
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
+                dialog.dismiss();
+                rstl=false;
+                /*Intent ide=new Intent(CollectionActivityNew.this,ProductOrderReview.class);
+                ide.putExtra("SN", SN);
+                ide.putExtra("storeID", storeID);
+                ide.putExtra("imei", imei);
+                ide.putExtra("userdate", date);
+                ide.putExtra("pickerDate", pickerDate);
+                ide.putExtra("flgOrderType", flgOrderType);
+                ide.putExtra("OrderPDAID", strGlobalOrderID);
+
+                startActivity(ide);
+                finish();*/
+
+                /*if(flgFromPlace==2) {
+                    Intent ide = new Intent(CollectionActivityNew.this, ProductOrderReview.class);
+                    ide.putExtra("SN", SN);
+                    ide.putExtra("storeID", storeID);
+                    ide.putExtra("imei", imei);
+                    ide.putExtra("userdate", date);
+                    ide.putExtra("pickerDate", pickerDate);
+                    ide.putExtra("flgOrderType", flgOrderType);
+                    ide.putExtra("OrderPDAID", strGlobalOrderID);
+                    startActivity(ide);
+                    finish();
+                }
+                if(flgFromPlace==1) {
+                    Intent ide = new Intent(CollectionActivityNew.this, ProductInvoiceReview.class);
+                    ide.putExtra("SN", SN);
+                    ide.putExtra("storeID", storeID);
+                    ide.putExtra("imei", imei);
+                    ide.putExtra("userdate", date);
+                    ide.putExtra("pickerDate", pickerDate);
+                    ide.putExtra("flgOrderType", flgOrderType);
+                    ide.putExtra("OrderPDAID", strGlobalOrderID);
+                    startActivity(ide);
+                    finish();
+                }*/
+            }
+        });
+
+        alertDialog.show();
+            return rstl;
+    }
     public void SetDataToLayout(String collectionDataString){
         String paymentMode=collectionDataString.split(Pattern.quote("^"))[0];
         String PaymentModeID=collectionDataString.split(Pattern.quote("^"))[1];
@@ -3302,6 +3365,7 @@ ctx=this;
 
         //ware house details starts
         ArrayList<String> arrListWarehouse=  hmapWareHouseDetails.get("WarehouseDetails");
+
         String shopName=arrListWarehouse.get(0);
         String shopAddress=arrListWarehouse.get(2);//",GT ROAD, NEAR STATE BANK, GOPIGANJ BHADOHI"
         String placeOfSuppllyAddress=arrListWarehouse.get(3)+", "+arrListWarehouse.get(1)+", "+arrListWarehouse.get(4);//"BHADOHI, UTTARPRADESH,221409 ";
@@ -3313,8 +3377,27 @@ ctx=this;
         ArrayList<String> arrListStoreData=  hmapStoreBasicDetails.get("StoreDetails");
         String custName=arrListStoreData.get(0);//"CHANCHAL PAN";
         String custAddress= arrListStoreData.get(1);//"B-166/48 GANDHI  TRAFFIC CHAURAHA MISSION ROAD  ";
+        if(custAddress.length()>50){
+            custAddress=  insertPeriodically(custAddress,"^$",50);
+            String[] custAddress50Digit=custAddress.split(Pattern.quote("^$"));
+            StringBuilder stringBuilder=new StringBuilder();
+
+            for(int j=0;j<custAddress50Digit.length;j++){
+                String addersss=  custAddress50Digit[j];
+                stringBuilder.append(addersss);
+
+                if((j+1)==custAddress50Digit.length){
+                    //means in last line dont add \n beacause it will create more space
+                }
+                else{
+                    stringBuilder.append("\n");
+                }
+            }
+            custAddress=stringBuilder.toString();
+        }
         String custStateCityPin=arrListStoreData.get(3)+", "+arrListStoreData.get(2)+", "+arrListStoreData.get(4);//"BHADOHI, UTTARPRADESH,210205";
         int delNo=dbengine.fnGettblDeliveryNoteNumber();
+        delNo=delNo+1;
         String deliveryNumber=""+delNo;//"12345678900";
 
         long  syncTIMESTAMP = System.currentTimeMillis();
