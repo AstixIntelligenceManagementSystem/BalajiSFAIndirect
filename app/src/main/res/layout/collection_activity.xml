@@ -646,7 +646,7 @@
 			android:layout_weight="1"
 			android:background="@drawable/custom_button"
 			android:gravity="center"
-			android:text="@string/Print"
+			android:text="@string/PrintSubmit"
 			android:visibility="visible"
 			android:textColor="#ffffff"
 			android:textSize="11sp"/>

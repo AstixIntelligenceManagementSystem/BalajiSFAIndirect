@@ -725,7 +725,7 @@
 
 
 
-
+    <string name="PrintSubmit">प्रिंट करें &amp; जमा करें</string>
     <!--Distributor Check In First Activity starts here-->
     <string name="LocalAreaMessage">स्थानीय क्षेत्र</string>
     <string name="PinCodeMessage">पिन कोड</string>

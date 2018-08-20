@@ -94,6 +94,7 @@ public class CollectionActivityNew extends BaseActivity  implements DatePickerDi
         GoogleApiClient.OnConnectionFailedListener,InterfaceClass,View.OnFocusChangeListener,Runnable
 {
     //Bluetooth Code
+    public int flgOnlySubmitOrPrint=0;
     private CoundownClass countDownTimer;
     //protected static final String TAG = "TAG";
     private static final int REQUEST_CONNECT_DEVICE = 1;
@@ -264,7 +265,7 @@ Double OverAllAmountCollected=0.0;
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.collection_activity);
-ctx=this;
+        ctx=this;
         StoreSelection.flgChangeRouteOrDayEnd=0;
         locationManager=(LocationManager) this.getSystemService(LOCATION_SERVICE);
 
@@ -1312,8 +1313,10 @@ ctx=this;
                /* ArrayList<String> arrResult=  dbengine.fnFetch_tblWarehouseMstr();
                 arrAllPrintResult= dbengine.fnFetch_InvoiceReportForPrint(StoreVisitCode,storeID, Integer.parseInt(arrResult.get(0)),Integer.parseInt(arrResult.get(1)));
                 MakePrintRecipt();*/
+                fnCallSaveDataFromTempToPermanetWithPrint("Do you want to submit visit data without and print Invoice");
 
-                PrintALlFuctionality();
+
+
             }
         });
         Done_btn=(Button) findViewById(R.id.Done_btn);
@@ -1329,39 +1332,50 @@ ctx=this;
 
                }
                else {*/
+                fnCallSaveDataFromTempToPermanetWithoutPrint("Do you want to submit visit data without printing Invoice");
 
-                   if (validate() && validateCollectionAmt()) {
+              // }
+            }
+        });
 
-                       AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-                               CollectionActivityNew.this);
-                       alertDialog.setTitle("Information");
 
-                       alertDialog.setCancelable(false);
-                       alertDialog.setMessage("Do you want to submit visit data ");
-                       alertDialog.setPositiveButton("Yes",
-                               new DialogInterface.OnClickListener() {
-                                   public void onClick(DialogInterface dialog,
-                                                       int which) {
-                                       dialog.dismiss();
+    }
 
-                                       saveDataToDatabase();
+
+    public void fnCallSaveDataFromTempToPermanetWithoutPrint(String msgForAlert)
+    {
+        if (validate() && validateCollectionAmt()) {
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+                    CollectionActivityNew.this);
+            alertDialog.setTitle("Information");
+
+            alertDialog.setCancelable(false);
+            alertDialog.setMessage(msgForAlert);
+            alertDialog.setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            dialog.dismiss();
+
+                            saveDataToDatabase();
                                       /* FullSyncDataNow task = new FullSyncDataNow(CollectionActivityNew.this);
                                        task.execute();*/
 
 
-                                       butClickForGPS=3;
-                                       //dbengine.open();
-                                       if ((dbengine.PrevLocChk(storeID.trim(),StoreVisitCode)) )
-                                       {
-                                           //dbengine.close();
+                            butClickForGPS=3;
+                            //dbengine.open();
+                            if ((dbengine.PrevLocChk(storeID.trim(),StoreVisitCode)) )
+                            {
+                                //dbengine.close();
 
-                                           FullSyncDataNow task = new FullSyncDataNow(CollectionActivityNew.this);
-                                           task.execute();
-                                       }
-                                       else
-                                       {
-                                           //dbengine.close();
-                                         appLocationService=new AppLocationService();
+                                FullSyncDataNow task = new FullSyncDataNow(CollectionActivityNew.this);
+                                task.execute();
+                            }
+                            else
+                            {
+                                //dbengine.close();
+                                appLocationService=new AppLocationService();
 
 								/* pm = (PowerManager) getSystemService(POWER_SERVICE);
 								   wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
@@ -1370,60 +1384,89 @@ ctx=this;
 							        wl.acquire();*/
 
 
-                                           pDialog2STANDBY=ProgressDialog.show(CollectionActivityNew.this,getText(R.string.genTermPleaseWaitNew) ,getText(R.string.genTermRetrivingLocation), true);
-                                           pDialog2STANDBY.setIndeterminate(true);
+                                pDialog2STANDBY=ProgressDialog.show(CollectionActivityNew.this,getText(R.string.genTermPleaseWaitNew) ,getText(R.string.genTermRetrivingLocation), true);
+                                pDialog2STANDBY.setIndeterminate(true);
 
-                                           pDialog2STANDBY.setCancelable(false);
-                                           pDialog2STANDBY.show();
+                                pDialog2STANDBY.setCancelable(false);
+                                pDialog2STANDBY.show();
 
-                                           if(isGooglePlayServicesAvailable()) {
-                                               createLocationRequest();
+                                if(isGooglePlayServicesAvailable()) {
+                                    createLocationRequest();
 
-                                               mGoogleApiClient = new GoogleApiClient.Builder(CollectionActivityNew.this)
-                                                       .addApi(LocationServices.API)
-                                                       .addConnectionCallbacks(CollectionActivityNew.this)
-                                                       .addOnConnectionFailedListener(CollectionActivityNew.this)
-                                                       .build();
-                                               mGoogleApiClient.connect();
-                                           }
-                                           //startService(new Intent(DynamicActivity.this, AppLocationService.class));
-                                           startService(new Intent(CollectionActivityNew.this, AppLocationService.class));
-                                           Location nwLocation=appLocationService.getLocation(locationManager,LocationManager.GPS_PROVIDER,location);
-                                           Location gpsLocation=appLocationService.getLocation(locationManager,LocationManager.NETWORK_PROVIDER,location);
-                                           countDownTimer2 = new CoundownClass2(startTime, interval);
-                                           countDownTimer2.start();
-
-
-                                          // LocationRetreivingGlobal llaaa=new LocationRetreivingGlobal();
-                                          // llaaa.locationRetrievingAndDistanceCalculating(CollectionActivityNew.this,false,20);
+                                    mGoogleApiClient = new GoogleApiClient.Builder(CollectionActivityNew.this)
+                                            .addApi(LocationServices.API)
+                                            .addConnectionCallbacks(CollectionActivityNew.this)
+                                            .addOnConnectionFailedListener(CollectionActivityNew.this)
+                                            .build();
+                                    mGoogleApiClient.connect();
+                                }
+                                //startService(new Intent(DynamicActivity.this, AppLocationService.class));
+                                startService(new Intent(CollectionActivityNew.this, AppLocationService.class));
+                                Location nwLocation=appLocationService.getLocation(locationManager,LocationManager.GPS_PROVIDER,location);
+                                Location gpsLocation=appLocationService.getLocation(locationManager,LocationManager.NETWORK_PROVIDER,location);
+                                countDownTimer2 = new CoundownClass2(startTime, interval);
+                                countDownTimer2.start();
 
 
-                                       }
+                                // LocationRetreivingGlobal llaaa=new LocationRetreivingGlobal();
+                                // llaaa.locationRetrievingAndDistanceCalculating(CollectionActivityNew.this,false,20);
+
+
+                            }
 
 
 
-                                   }
-                               });
-                       alertDialog.setNegativeButton("No",
-                               new DialogInterface.OnClickListener() {
-                                   public void onClick(DialogInterface dialog,
-                                                       int which) {
-                                       dialog.dismiss();
-                                   }
-                               });
+                        }
+                    });
+            alertDialog.setNegativeButton("No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            dialog.dismiss();
+                        }
+                    });
 
-                       // Showing Alert Message
-                       alertDialog.show();
-
-
-                   }
-              // }
-            }
-        });
+            // Showing Alert Message
+            alertDialog.show();
 
 
+        }
     }
 
+
+
+    public void fnCallSaveDataFromTempToPermanetWithPrint(String msgForAlert)
+    {
+        if (validate() && validateCollectionAmt()) {
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(CollectionActivityNew.this);
+            alertDialog.setTitle("Information");
+
+            alertDialog.setCancelable(false);
+            alertDialog.setMessage(msgForAlert);
+            alertDialog.setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            dialog.dismiss();
+                            PrintALlFuctionality();
+
+                        }
+                    });
+            alertDialog.setNegativeButton("No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+            // Showing Alert Message
+            alertDialog.show();
+
+
+        }
+    }
     public void saveDataToDatabase()
     {
         String paymentModeFirstString="Cash";
@@ -2364,6 +2407,27 @@ ctx=this;
             }
             try
             {
+                if(flgOnlySubmitOrPrint==1)
+                {
+                    //dbengine.open();
+                    ArrayList<String> arrResult=  dbengine.fnFetch_tblWarehouseMstr();
+                    // dbengine.close();
+                    arrAllPrintResult=null;
+                    if((arrResult!=null) && (arrResult.size()>0)){
+                        arrAllPrintResult= dbengine.fnFetch_InvoiceReportForPrint(StoreVisitCode,storeID, Integer.parseInt(arrResult.get(0)),Integer.parseInt(arrResult.get(1)));
+                        if((arrAllPrintResult!=null) && (arrAllPrintResult.size()>0)){
+                            PrintAll_Code();
+                        }
+                        else{
+                            Toast.makeText(CollectionActivityNew.this, "All print data is blank", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    else{
+                        Toast.makeText(CollectionActivityNew.this, "NodeID Blank", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
                 StoreSelection.flgChangeRouteOrDayEnd=0;
                 DayStartActivity.flgDaySartWorking=0;
                 String presentRoute = dbengine.GetActiveRouteID();
@@ -3171,38 +3235,25 @@ ctx=this;
     //Printer functions start here----------------------------------------------------------------
     public void PrintALlFuctionality(){
         {
+
             if(mBluetoothAdapter==null){
                 mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             }
             if (!mBluetoothAdapter.isEnabled()) {
 
-
+                flgOnlySubmitOrPrint=0;
                 aletrDialogFlag=1;
                 AlertDialogCommonFunction("Bluetooth Printer is not connected.Do you want to  connect to Printer? ");
 
             }
             else{
                 if((mBluetoothSocket != null) && (mBluetoothSocket.isConnected())){
-                    //dbengine.open();
-                    ArrayList<String> arrResult=  dbengine.fnFetch_tblWarehouseMstr();
-                   // dbengine.close();
-                    arrAllPrintResult=null;
-                    if((arrResult!=null) && (arrResult.size()>0)){
-                        arrAllPrintResult= dbengine.fnFetch_InvoiceReportForPrint(StoreVisitCode,storeID, Integer.parseInt(arrResult.get(0)),Integer.parseInt(arrResult.get(1)));
-                        if((arrAllPrintResult!=null) && (arrAllPrintResult.size()>0)){
-                            PrintAll_Code();
-                        }
-                        else{
-                            Toast.makeText(CollectionActivityNew.this, "All print data is blank", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    else{
-                        Toast.makeText(CollectionActivityNew.this, "NodeID Blank", Toast.LENGTH_SHORT).show();
-                    }
+                    flgOnlySubmitOrPrint=1;
+                    //Abhinav Will first transer the data from tem to Permanent table and then call for Print
 
                 }
                 else{
+                    flgOnlySubmitOrPrint=0;
                     aletrDialogFlag=2;
                     AlertDialogCommonFunction("Bluetooth Printer is not connected.Do you want to connect to Printer");
 
@@ -3396,8 +3447,8 @@ ctx=this;
             custAddress=stringBuilder.toString();
         }
         String custStateCityPin=arrListStoreData.get(3)+", "+arrListStoreData.get(2)+", "+arrListStoreData.get(4);//"BHADOHI, UTTARPRADESH,210205";
-        int delNo=dbengine.fnGettblDeliveryNoteNumber();
-        delNo=delNo+1;
+        String delNo=dbengine.fnGetExistingInvoiceNumberAgainstInvoiceNumebr(storeID,StoreVisitCode);//dbengine.fnGettblDeliveryNoteNumber();
+        //delNo=delNo+1;
         String deliveryNumber=""+delNo;//"12345678900";
 
         long  syncTIMESTAMP = System.currentTimeMillis();
@@ -3696,6 +3747,67 @@ ctx=this;
                 countDownTimer.cancel();
             }
             Toast.makeText(CollectionActivityNew.this, "DeviceConnected", Toast.LENGTH_SHORT).show();
+
+            saveDataToDatabase();
+                                      /* FullSyncDataNow task = new FullSyncDataNow(CollectionActivityNew.this);
+                                       task.execute();*/
+
+
+            butClickForGPS=3;
+
+
+            //dbengine.open();
+            if ((dbengine.PrevLocChk(storeID.trim(),StoreVisitCode)) )
+            {
+                //dbengine.close();
+
+                FullSyncDataNow task = new FullSyncDataNow(CollectionActivityNew.this);
+                task.execute();
+            }
+            else
+            {
+                //dbengine.close();
+                appLocationService=new AppLocationService();
+
+								/* pm = (PowerManager) getSystemService(POWER_SERVICE);
+								   wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
+							                | PowerManager.ACQUIRE_CAUSES_WAKEUP
+							                | PowerManager.ON_AFTER_RELEASE, "INFO");
+							        wl.acquire();*/
+
+
+                pDialog2STANDBY=ProgressDialog.show(CollectionActivityNew.this,getText(R.string.genTermPleaseWaitNew) ,getText(R.string.genTermRetrivingLocation), true);
+                pDialog2STANDBY.setIndeterminate(true);
+
+                pDialog2STANDBY.setCancelable(false);
+                pDialog2STANDBY.show();
+
+                if(isGooglePlayServicesAvailable()) {
+                    createLocationRequest();
+
+                    mGoogleApiClient = new GoogleApiClient.Builder(CollectionActivityNew.this)
+                            .addApi(LocationServices.API)
+                            .addConnectionCallbacks(CollectionActivityNew.this)
+                            .addOnConnectionFailedListener(CollectionActivityNew.this)
+                            .build();
+                    mGoogleApiClient.connect();
+                }
+                //startService(new Intent(DynamicActivity.this, AppLocationService.class));
+                startService(new Intent(CollectionActivityNew.this, AppLocationService.class));
+                Location nwLocation=appLocationService.getLocation(locationManager,LocationManager.GPS_PROVIDER,location);
+                Location gpsLocation=appLocationService.getLocation(locationManager,LocationManager.NETWORK_PROVIDER,location);
+                countDownTimer2 = new CoundownClass2(startTime, interval);
+                countDownTimer2.start();
+
+
+                // LocationRetreivingGlobal llaaa=new LocationRetreivingGlobal();
+                // llaaa.locationRetrievingAndDistanceCalculating(CollectionActivityNew.this,false,20);
+
+
+            }
+
+
+
         }
     };
 

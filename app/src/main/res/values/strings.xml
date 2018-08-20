@@ -212,6 +212,8 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
 <string name="collection">Collection</string>
     <string name="Print">Print</string>
 
+    <string name="PrintSubmit">Print &amp; Submit</string>
+
     <string name="StoreDetails">Store Details :</string>
     <string name="LVDeatils">Last Visit Details :</string>
     <string name="StorePreOut">Previous Outstanding :</string>

@@ -700,6 +700,10 @@
     <string name="paymentCollection">ચુકવણી સંગ્રહ</string>
 
 
+    <string name="PrintSubmit">પ્રિન્ટ કરો &amp; સબમિટ કરો</string>
+
+
+
     <string name="PreOutAmt">બાકી રકમ.</string>
     <string name="CntInvVal">વર્તમાન ઇન્વોઇસ મૂલ્ય</string>
     <string name="TotOut">કુલ ઉત્કૃષ્ટ </string>

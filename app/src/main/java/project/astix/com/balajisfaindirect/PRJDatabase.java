@@ -34484,7 +34484,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
 
         Cursor cursor21=null;
         try {
-            cursor21 = db.rawQuery("SELECT tblTmpInvoiceDetails.ProdID,ifnull(tblProductList.HSNCode,'') AS HSNCode,ifnull(tblTmpInvoiceDetails.ProductShortName,'NA') AS ProductShortName,ifnull(tblTmpInvoiceDetails.ProductPrice,'0') AS ProductPrice,ifnull(tblProductSegementMap.VatTax,'0') AS VatTax,ifnull(tblTmpInvoiceDetails.OrderQty,'0') AS OrderQty,ifnull(tblTmpInvoiceDetails.LineValAftrTxAftrDscnt,'0') AS OrdValue FROM tblTmpInvoiceDetails inner join tblProductSegementMap on tblTmpInvoiceDetails.ProdID=tblProductSegementMap.ProductID inner join tblProductList on tblProductList.ProductID=tblTmpInvoiceDetails.ProdID inner join tblTmpInvoiceHeader on tblTmpInvoiceHeader.TmpInvoiceCodePDA=tblTmpInvoiceDetails.TmpInvoiceCodePDA Where tblTmpInvoiceHeader.StoreID='"+StoreID+"' AND tblTmpInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblTmpInvoiceDetails.OrderQty>0", null);
+            cursor21 = db.rawQuery("SELECT tblInvoiceDetails.ProdID,ifnull(tblProductList.HSNCode,'') AS HSNCode,ifnull(tblInvoiceDetails.ProductShortName,'NA') AS ProductShortName,ifnull(tblInvoiceDetails.ProductPrice,'0') AS ProductPrice,ifnull(tblProductSegementMap.VatTax,'0') AS VatTax,ifnull(tblInvoiceDetails.OrderQty,'0') AS OrderQty,ifnull(tblInvoiceDetails.LineValAftrTxAftrDscnt,'0') AS OrdValue FROM tblInvoiceDetails inner join tblProductSegementMap on tblInvoiceDetails.ProdID=tblProductSegementMap.ProductID inner join tblProductList on tblProductList.ProductID=tblInvoiceDetails.ProdID inner join tblInvoiceHeader on tblInvoiceHeader.InvoiceNumber=tblInvoiceDetails.InvoiceNumber Where tblInvoiceHeader.StoreID='"+StoreID+"' AND tblInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblInvoiceDetails.OrderQty>0", null);
             if(cursor21.getCount()>0)
             {
                 if (cursor21.moveToFirst())
@@ -34521,7 +34521,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         // ArrayList<String> arrTaxWisePrdctDtlt=new ArrayList<String>();
         Cursor cursor21=null;
         try {
-            cursor21 = db.rawQuery("Select tblTmpInvoiceHeader.TotalBeforeTaxDis,tblTmpInvoiceHeader.InvoiceVal from tblTmpInvoiceHeader where tblTmpInvoiceHeader.StoreID='"+StoreID+"' AND tblTmpInvoiceHeader.StoreVisitCode='"+storeVisitCode+"'"
+            cursor21 = db.rawQuery("Select tblInvoiceHeader.TotalBeforeTaxDis,tblInvoiceHeader.InvoiceVal from tblInvoiceHeader where tblInvoiceHeader.StoreID='"+StoreID+"' AND tblInvoiceHeader.StoreVisitCode='"+storeVisitCode+"'"
                     , null);
             if(cursor21.getCount()>0)
             {
@@ -34552,7 +34552,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         // ArrayList<String> arrTaxWisePrdctDtlt=new ArrayList<String>();
         Cursor cursor21=null;
         try {
-            cursor21 = db.rawQuery("Select DISTINCT tblProductSegementMap.VatTax,CASE WHEN ifnull(Sum(tblTmpInvoiceDetails.LineValAftrTxAftrDscnt-tblTmpInvoiceDetails.LineValBfrTxAftrDscnt),'0.0')=0 THEN '0.0' ELSE ifnull(Sum(tblTmpInvoiceDetails.LineValAftrTxAftrDscnt-tblTmpInvoiceDetails.LineValBfrTxAftrDscnt),'0.0') END AS TaxAmtPercent from tblProductSegementMap inner join tblTmpInvoiceDetails On tblProductSegementMap.ProductID=tblTmpInvoiceDetails.ProdID inner join tblTmpInvoiceHeader on tblTmpInvoiceHeader.TmpInvoiceCodePDA=tblTmpInvoiceDetails.TmpInvoiceCodePDA where tblTmpInvoiceDetails.StoreID='"+StoreID+"' AND tblTmpInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblTmpInvoiceDetails.OrderQty>0 group by tblProductSegementMap.VatTax Order by tblProductSegementMap.VatTax ASC", null);
+            cursor21 = db.rawQuery("Select DISTINCT tblProductSegementMap.VatTax,CASE WHEN ifnull(Sum(tblInvoiceDetails.LineValAftrTxAftrDscnt-tblInvoiceDetails.LineValBfrTxAftrDscnt),'0.0')=0 THEN '0.0' ELSE ifnull(Sum(tblInvoiceDetails.LineValAftrTxAftrDscnt-tblInvoiceDetails.LineValBfrTxAftrDscnt),'0.0') END AS TaxAmtPercent from tblProductSegementMap inner join tblInvoiceDetails On tblProductSegementMap.ProductID=tblInvoiceDetails.ProdID inner join tblInvoiceHeader on tblInvoiceHeader.InvoiceNumber=tblInvoiceDetails.InvoiceNumber where tblInvoiceDetails.StoreID='"+StoreID+"' AND tblInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblInvoiceDetails.OrderQty>0 group by tblProductSegementMap.VatTax Order by tblProductSegementMap.VatTax ASC", null);
             if(cursor21.getCount()>0)
             {
                 if (cursor21.moveToFirst())
@@ -34731,7 +34731,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
        // ArrayList<String> arrTaxWisePrdctDtlt=new ArrayList<String>();
        Cursor cursor21=null;
        try {
-           cursor21 = db.rawQuery("Select ifnull(Sum(tblTmpInvoiceDetails.OrderQty),'0') AS OrderQtyCount,ifnull(Sum(tblTmpInvoiceDetails.LineValAftrTxAftrDscnt),'0.00') AS LineValAftrTxAftrDscntValue from tblTmpInvoiceDetails inner join tblTmpInvoiceHeader on tblTmpInvoiceDetails.TmpInvoiceCodePDA=tblTmpInvoiceHeader.TmpInvoiceCodePDA where tblTmpInvoiceDetails.StoreID='"+StoreID+"' AND tblTmpInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblTmpInvoiceDetails.OrderQty>0", null);
+           cursor21 = db.rawQuery("Select ifnull(Sum(tblInvoiceDetails.OrderQty),'0') AS OrderQtyCount,ifnull(Sum(tblInvoiceDetails.LineValAftrTxAftrDscnt),'0.00') AS LineValAftrTxAftrDscntValue from tblInvoiceDetails inner join tblTmpInvoiceHeader on tblInvoiceDetails.InvoiceNumber=tblInvoiceHeader.InvoiceNumber where tblInvoiceDetails.StoreID='"+StoreID+"' AND tblInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblInvoiceDetails.OrderQty>0", null);
            if(cursor21.getCount()>0)
            {
                if (cursor21.moveToFirst())
@@ -34755,6 +34755,29 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
            }
        }
    }
+
+
+
+    public static String fnGetExistingInvoiceNumberAgainstInvoiceNumebr (String StoreID,String StoreVisitCode)
+    {
+        //open();
+        Cursor cursorE2 = db.rawQuery("SELECT InvoiceNumber FROM tblInvoiceHeader WHERE StoreID='" + StoreID + "' AND StoreVisitCode='"+StoreVisitCode+"'", null);
+        String InvoiceNumber = "0";
+        try {
+            if(cursorE2.getCount()>0)
+            {
+                if (cursorE2.moveToFirst()) {
+                    InvoiceNumber = cursorE2.getString(0).toString();
+                }
+            }
+        } finally {
+            if(cursorE2!=null) {
+                cursorE2.close();
+            }
+            // close();
+        }
+        return InvoiceNumber;
+    }
 }
 
 
