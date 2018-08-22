@@ -3543,27 +3543,27 @@ Double OverAllAmountCollected=0.0;
                 ValueText=Double.parseDouble(arrProductInvoiceDetailsForPrint.get(5).toString().trim());//""+"500.0"+i;
             }
             if(itemDscr.length()>21){
-                itemDscr=  insertPeriodically(itemDscr,"^$",21);
+                itemDscr=  insertPeriodically(itemDscr,"^$",19);
                 if(itemDscr.contains("^$")){
                     String[] itemDesc21Digit=itemDscr.split(Pattern.quote("^$"));
                     for(int j=0;j<itemDesc21Digit.length;j++){
                         String itemDscr2=  itemDesc21Digit[j];
                         if(j==0){
-                            data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr2,String.format("%.2f", rate), taxRate, Qty,String.format("%.2f", ValueText));
+                            data = data + "\n" + String.format("%1$-11s %2$-19s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr2,String.format("%.2f", rate), taxRate, Qty,String.format("%.2f", ValueText));
                         }
                         else{
-                            data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", "",itemDscr2, "", "", "","");
+                            data = data + "\n" + String.format("%1$-11s %2$-19s %3$9s %4$5s %5$5s %6$9s", "",itemDscr2, "", "", "","");
                         }
 
                     }
                 }
                 else{
-                    data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, String.format("%.2f", rate), taxRate, Qty,String.format("%.2f", ValueText));
+                    data = data + "\n" + String.format("%1$-11s %2$-19s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, String.format("%.2f", rate), taxRate, Qty,String.format("%.2f", ValueText));
                 }
 
             }
             else{
-                data = data + "\n" + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, String.format("%.2f", rate), taxRate, Qty,String.format("%.2f", ValueText));
+                data = data + "\n" + String.format("%1$-11s %2$-19s %3$9s %4$5s %5$5s %6$9s", sr+HSNCode,itemDscr, String.format("%.2f", rate), taxRate, Qty,String.format("%.2f", ValueText));
             }
 
 
@@ -3603,10 +3603,10 @@ Double OverAllAmountCollected=0.0;
             double taxAmount=Double.parseDouble(arrTaxValue.get(0));//"20.00";
             totalTaxValue=totalTaxValue+taxAmount;
             if(hmapTaxWisePrdctDtlt.size()>1){
-                taxData = taxData +"\n"+ String.format("%1$-11s %2$-21s %3$9s %4$3s %5$13s %6$3s",  "", tax, "","",String.format("%.2f", taxAmount), "");
+                taxData = taxData +"\n"+ String.format("%1$-11s %2$-19s %3$9s %4$3s %5$13s %6$3s",  "", tax, "","",String.format("%.2f", taxAmount), "");
             }
             else{
-                taxData = taxData +"\n"+  String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", tax, "","","", String.format("%.2f", taxAmount));
+                taxData = taxData +"\n"+  String.format("%1$-11s %2$-19s %3$9s %4$3s %5$3s %6$13s",  "", tax, "","","", String.format("%.2f", taxAmount));
             }
 
 
@@ -3615,7 +3615,7 @@ Double OverAllAmountCollected=0.0;
 
         String totalTax=""+String.format("%.2f", totalTaxValue);//"40.00";
         if(hmapTaxWisePrdctDtlt.size()>1){
-            taxData = taxData +"\n"+ String.format("%1$-11s %2$-21s %3$9s %4$3s %5$13s %6$3s",  "", "Tax Value", "","",totalTax, "");
+            taxData = taxData +"\n"+ String.format("%1$-11s %2$-19s %3$9s %4$3s %5$13s %6$3s",  "", "Tax Value", "","",totalTax, "");
         }
         //Tax details Ends
         //loop for tax end
@@ -3645,21 +3645,21 @@ Double OverAllAmountCollected=0.0;
 
         String BILL = "";
         BILL = BILL
-                + "-----------------------------------------------------------------\n";
+                + "---------------------------------------------------------------\n";
         BILL = BILL
                 + INVOICE_HEADER+"\n";
         BILL = BILL
-                 +"-----------------------------------------------------------------\n" +
-                "                          "+shopName+"                           \n" +
-                ""+shopAddress+"      \n";
+                 +"---------------------------------------------------------------\n" +
+                  ""+shopName+"\n" +
+                ""+shopAddress+"\n";
                // ""+ placeOfSuppllyAddress+" \n";
         BILL = BILL
                 + "Phone: "+ phoneNumber+ "  GSTIN. No.:"+ gstNumber+" \n";
         BILL = BILL
-                + "-----------------------------------------------------------------\n";
+                + "---------------------------------------------------------------\n";
 
         BILL = BILL
-                + "                          "+custName+"                            \n";
+                + ""+custName+"\n";
         BILL = BILL
                 + ""+custAddress+"\n";
        // BILL = BILL + ""+custStateCityPin+"\n";
@@ -3673,13 +3673,13 @@ Double OverAllAmountCollected=0.0;
        // BILL = BILL + "Register under composite scheme? "+ compositeScheme+"\n";
 
         BILL = BILL
-                + "-----------------------------------------------------------------\n";
+                + "---------------------------------------------------------------\n";
 
 
-        BILL = BILL + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", "Sr HSNCode","Item Descr", "Rate ", "TaxRt", "Qty","Value");
+        BILL = BILL + String.format("%1$-11s %2$-19s %3$9s %4$5s %5$5s %6$9s", "Sr HSNCode","Item Descr", "Rate ", "TaxRt", "Qty","Value");
         BILL = BILL + "\n";
         BILL = BILL
-                + "-----------------------------------------------------------------";
+                + "---------------------------------------------------------------";
    /* BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$7s", "01 111111","item-111111", "\u20B9"+"50", "6%", "10","200.00");
 
     BILL = BILL + "\n" + String.format("%1$-12s %2$-25s %3$6s %4$5s %5$4s %6$5s", "01 111111","item-11", "\u20B9"+"50", "6%", "10","₹200.00");
@@ -3690,32 +3690,32 @@ Double OverAllAmountCollected=0.0;
 
         BILL = BILL + "\n";
         BILL = BILL
-                + "-----------------------------------------------------------------\n";
-        BILL = BILL + String.format("%1$-11s %2$-21s %3$9s %4$5s %5$5s %6$9s", "","Total               ", "", "", TotalQty,TotalValue);
+                + "---------------------------------------------------------------\n";
+        BILL = BILL + String.format("%1$-11s %2$-19s %3$9s %4$5s %5$5s %6$9s", "","Total               ", "", "", TotalQty,TotalValue);
         BILL = BILL + "\n";
         BILL = BILL
-                + "-----------------------------------------------------------------\n";
+                + "---------------------------------------------------------------\n";
         BILL = BILL
                 + "                           Tax Details                            \n";
 
         BILL = BILL
-                + "-----------------------------------------------------------------\n";
-        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Value Before Tax", "","","",String.format("%.2f", valueBeforeTax) );
+                + "---------------------------------------------------------------\n";
+        BILL = BILL  + String.format("%1$-11s %2$-19s %3$9s %4$3s %5$3s %6$13s",  "", "Value Before Tax", "","","",String.format("%.2f", valueBeforeTax) );
 
         BILL=BILL+taxData;
         BILL = BILL + "\n";
-        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Value After Tax", "","","",String.format("%.2f", valueAfterTax) );
+        BILL = BILL  + String.format("%1$-11s %2$-19s %3$9s %4$3s %5$3s %6$13s",  "", "Value After Tax", "","","",String.format("%.2f", valueAfterTax) );
         BILL = BILL + "\n";
-        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Rounding Off", "","","",String.format("%.2f", roundingOff) );
+        BILL = BILL  + String.format("%1$-11s %2$-19s %3$9s %4$3s %5$3s %6$13s",  "", "Rounding Off", "","","",String.format("%.2f", roundingOff) );
         BILL = BILL + "\n";
-        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Net Value", "","","",String.format("%.2f", netValue) );
+        BILL = BILL  + String.format("%1$-11s %2$-19s %3$9s %4$3s %5$3s %6$13s",  "", "Net Value", "","","",String.format("%.2f", netValue) );
         BILL = BILL + "\n";
       /*  BILL = BILL
-                + "-----------------------------------------------------------------\n";
+                + "---------------------------------------------------------------\n";
         BILL = BILL
                 + "                       OutStanding(s) Details                    \n";
         BILL = BILL
-                + "-----------------------------------------------------------------\n";
+                + "---------------------------------------------------------------\n";
 
         BILL = BILL +"\n" + String.format("%1$-8s %2$-24s %3$9s %4$3s %5$3s %6$13s",  "", "Previous OutStanding(s)", "","","", PreviousOutStandings);
         BILL = BILL +"\n" + String.format("%1$-8s %2$-24s %3$9s %4$3s %5$3s %6$13s",  "", "Current Invoice", "","","", currentInvoice);
@@ -3723,16 +3723,16 @@ Double OverAllAmountCollected=0.0;
         BILL = BILL +"\n" + String.format("%1$-8s %2$-24s %3$9s %4$3s %5$3s %6$13s",  "", "Current OutStanding(s)", "","","", currentOutStanding);
         BILL = BILL + "\n";*/
         BILL = BILL
-                + "-----------------------------------------------------------------\n";
+                + "---------------------------------------------------------------\n";
         BILL = BILL
                 + "SALESMAN NAME:"+ salesman_name+ "\n";
         BILL = BILL
                 + "SALESMAN MOBILE NO:"+ salesman_mob_no+ " SALESMAN SIGN:______\n";
 
         BILL = BILL
-                + "                           *Thank You*                            \n";
+                + "*Thank You*\n";
         BILL = BILL
-                + "-----------------------------------------------------------------\n";
+                + "---------------------------------------------------------------\n";
         BILL = BILL + "";
         System.out.println("SHIVAMJAYSAWAL"+BILL);
         return BILL;
