@@ -10,10 +10,7 @@
     android:background="@drawable/custom_header_color"
     android:paddingLeft="16dp"
   android:layout_alignParentTop="true"
-    
-   
     android:id="@+id/rtv_hdr">
-    
     <ImageView 
     android:id="@+id/btn_bck"
     android:layout_width="wrap_content"
@@ -30,15 +27,12 @@
    android:paddingLeft="10dp"
  	android:layout_centerInParent="true"
     android:gravity="center_horizontal|left"
-     
 	android:textStyle="bold"
     android:shadowColor="#80FFFFFF" 
     android:textSize="18sp"
     android:text="@string/paymentCollection"/>
-
  <ImageView
      android:id="@+id/img_return"
-     
      android:layout_toRightOf="@+id/order_detail"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
@@ -47,7 +41,6 @@
      android:src="@drawable/return_order"
      android:layout_marginLeft="30dp"
      android:visibility="gone" />
-
 </RelativeLayout>
 
 	<ScrollView

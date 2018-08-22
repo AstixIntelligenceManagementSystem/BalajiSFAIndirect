@@ -94,7 +94,7 @@ public class CollectionActivityNew extends BaseActivity  implements DatePickerDi
         GoogleApiClient.OnConnectionFailedListener,InterfaceClass,View.OnFocusChangeListener,Runnable
 {
     //Bluetooth Code
-    public int flgOnlySubmitOrPrint=0;
+
     private CoundownClass countDownTimer;
     //protected static final String TAG = "TAG";
     private static final int REQUEST_CONNECT_DEVICE = 1;
@@ -108,6 +108,7 @@ public class CollectionActivityNew extends BaseActivity  implements DatePickerDi
     BluetoothDevice mBluetoothDevice;
     int aletrDialogFlag=0;
     public  boolean rstl=false;
+    public int flgOnlySubmitOrPrint=0;
     //Bluetooth end
     ArrayList<LinkedHashMap<String,ArrayList<String>>> arrAllPrintResult;
 
