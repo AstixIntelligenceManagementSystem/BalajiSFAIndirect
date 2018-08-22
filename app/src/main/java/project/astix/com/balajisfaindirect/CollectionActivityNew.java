@@ -1311,10 +1311,10 @@ Double OverAllAmountCollected=0.0;
         btn_print.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* ArrayList<String> arrResult=  dbengine.fnFetch_tblWarehouseMstr();
+                /*ArrayList<String> arrResult=  dbengine.fnFetch_tblWarehouseMstr();
                 arrAllPrintResult= dbengine.fnFetch_InvoiceReportForPrint(StoreVisitCode,storeID, Integer.parseInt(arrResult.get(0)),Integer.parseInt(arrResult.get(1)));
                 MakePrintRecipt();*/
-                fnCallSaveDataFromTempToPermanetWithPrint("Do you want to submit visit data without and print Invoice");
+               fnCallSaveDataFromTempToPermanetWithPrint("Do you want to submit visit data and print Invoice");
 
 
 
@@ -1684,6 +1684,9 @@ Double OverAllAmountCollected=0.0;
         Double MinCollectionvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
         MinCollectionvalue=Double.parseDouble(new DecimalFormat("##.##").format(MinCollectionvalue));
 
+       /* Double cntAllOustandings=dbengine.fetch_Store_AllOustandings(storeID);
+        cntAllOustandings=Double.parseDouble(new DecimalFormat("##.##").format(cntAllOustandings));
+*/
 
        /* Double cntInvoceValue=dbengine.fetch_Store_InvValAmount(storeID,TmpInvoiceCodePDA);
         cntInvoceValue=Double.parseDouble(new DecimalFormat("##.##").format(cntInvoceValue));
@@ -1732,7 +1735,7 @@ Double OverAllAmountCollected=0.0;
                 showAlertSingleAfterCostumValidationForAmountCollection(CollectionActivityNew.this.getResources().getString(R.string.CollectionAlert2));
                 return false;
             }
-            else if(Math.ceil(OverAllAmountCollected)>=Math.ceil(MinCollectionvalue) && Math.ceil(OverAllAmountCollected)<=Math.ceil(OverAllAmountCollectedLimit))
+            else if(Math.ceil(OverAllAmountCollected)>=Math.ceil(MinCollectionvalue))// && Math.ceil(OverAllAmountCollected)<=Math.ceil(OverAllAmountCollectedLimit))
             //else if(Math.ceil(OverAllAmountCollected)>=Math.ceil(totOutstandingValue) && Math.ceil(OverAllAmountCollected)<=Math.ceil(OverAllAmountCollectedLimit))
             //else if(Math.ceil(OverAllAmountCollected)>=Math.ceil(totOutstandingValue) && Math.ceil(OverAllAmountCollected)<=Math.ceil(OverAllAmountCollectedLimit))
             {
@@ -3417,12 +3420,34 @@ Double OverAllAmountCollected=0.0;
 
         //ware house details starts
         ArrayList<String> arrListWarehouse=  hmapWareHouseDetails.get("WarehouseDetails");
+        String INVOICE_HEADER="";
 
         String shopName=arrListWarehouse.get(0);
         String shopAddress=arrListWarehouse.get(2);//",GT ROAD, NEAR STATE BANK, GOPIGANJ BHADOHI"
         String placeOfSuppllyAddress=arrListWarehouse.get(3)+", "+arrListWarehouse.get(1)+", "+arrListWarehouse.get(4);//"BHADOHI, UTTARPRADESH,221409 ";
         String phoneNumber=arrListWarehouse.get(5);//"9716082084";
+        if(phoneNumber.equals("0")){
+            phoneNumber="";
+        }
         String gstNumber=arrListWarehouse.get(6);//"1231222ASSSMM99";
+        if(shopAddress.length()>50){
+            shopAddress=  insertPeriodically(shopAddress,"^$",50);
+            String[] shopAddress50Digit=shopAddress.split(Pattern.quote("^$"));
+            StringBuilder stringBuilder=new StringBuilder();
+
+            for(int j=0;j<shopAddress50Digit.length;j++){
+                String addersss=  shopAddress50Digit[j];
+                stringBuilder.append(addersss);
+
+                if((j+1)==shopAddress50Digit.length){
+                    //means in last line dont add \n beacause it will create more space
+                }
+                else{
+                    stringBuilder.append("\n");
+                }
+            }
+            shopAddress=stringBuilder.toString();
+        }
         //ware house details ends
 
         //Store details starts
@@ -3451,6 +3476,7 @@ Double OverAllAmountCollected=0.0;
         String delNo=dbengine.fnGetExistingInvoiceNumberAgainstInvoiceNumebr(storeID,StoreVisitCode);//dbengine.fnGettblDeliveryNoteNumber();
         //delNo=delNo+1;
         String deliveryNumber=""+delNo;//"12345678900";
+        String gstNumberCustomer=arrListStoreData.get(6);
 
         long  syncTIMESTAMP = System.currentTimeMillis();
         Date dateobj = new Date(syncTIMESTAMP);
@@ -3458,6 +3484,12 @@ Double OverAllAmountCollected=0.0;
         String currentDateTime = df.format(dateobj);
         String date=currentDateTime;//"09-Aug-2018-10:45:17 AM";
         String compositeScheme=arrListWarehouse.get(7);//"No";//or yes
+        if(compositeScheme.equals("No")){
+            INVOICE_HEADER="TAX INVOICE";
+        }
+        if(compositeScheme.equals("Yes")){
+            INVOICE_HEADER="BILL OF SUPPLY";
+        }
         //Store details ends
 
         String data="";
@@ -3543,11 +3575,19 @@ Double OverAllAmountCollected=0.0;
         ArrayList<String> arrTaxWisePrdctDtlt=  hmapTotalBfrAftrTaxVal.get("TotalInvoiceBeforeAfterTax");
         double valueBeforeTax=0.0;
         double valueAfterTax=0.0;
+        double roundingOff=0.0;
+        double netValue=0.0;
         if(!arrTaxWisePrdctDtlt.get(0).equals("")){
             valueBeforeTax=Double.parseDouble(arrTaxWisePrdctDtlt.get(0));//"1000.00";
         }
         if(!arrTaxWisePrdctDtlt.get(1).equals("")){
             valueAfterTax=Double.parseDouble(arrTaxWisePrdctDtlt.get(1));//"1040.00";
+        }
+        if(!arrTaxWisePrdctDtlt.get(2).equals("")){
+            roundingOff=Double.parseDouble(arrTaxWisePrdctDtlt.get(2));//"1040.00";
+        }
+        if(!arrTaxWisePrdctDtlt.get(3).equals("")){
+            netValue=Double.parseDouble(arrTaxWisePrdctDtlt.get(3));//"1040.00";
         }
 
 
@@ -3587,13 +3627,32 @@ Double OverAllAmountCollected=0.0;
         String collection=arrCollectionDetailsForPrint.get(2);//"500.00";
         String currentOutStanding=arrCollectionDetailsForPrint.get(3);//"750.00";
         //OutStandingsDetails Ends here
+        //SalesMan Details
+        String salesman_mob_no="";
+        String salesman_name="";
+        String PersonNameAndFlgRegistered="0";
+        PersonNameAndFlgRegistered=  dbengine.fnGetPersonNameAndFlgRegistered();
+        if(!PersonNameAndFlgRegistered.equals("0")){
+            salesman_name=PersonNameAndFlgRegistered.split(Pattern.quote("^"))[0];
+            salesman_mob_no=PersonNameAndFlgRegistered.split(Pattern.quote("^"))[2];
+            if(salesman_mob_no.equals("0")){
+                salesman_mob_no="";
+            }
+
+        }
+
+        //End here
 
         String BILL = "";
-        BILL = BILL + "\n"+
-                "-----------------------------------------------------------------\n" +
+        BILL = BILL
+                + "-----------------------------------------------------------------\n";
+        BILL = BILL
+                + INVOICE_HEADER+"\n";
+        BILL = BILL
+                 +"-----------------------------------------------------------------\n" +
                 "                          "+shopName+"                           \n" +
-                ""+shopAddress+"      \n" +
-                ""+ placeOfSuppllyAddress+" \n";
+                ""+shopAddress+"      \n";
+               // ""+ placeOfSuppllyAddress+" \n";
         BILL = BILL
                 + "Phone: "+ phoneNumber+ "  GSTIN. No.:"+ gstNumber+" \n";
         BILL = BILL
@@ -3603,14 +3662,15 @@ Double OverAllAmountCollected=0.0;
                 + "                          "+custName+"                            \n";
         BILL = BILL
                 + ""+custAddress+"\n";
+       // BILL = BILL + ""+custStateCityPin+"\n";
         BILL = BILL
-                + ""+custStateCityPin+"\n";
+                + "INVOICE  NO: "+ deliveryNumber+ "\n";
         BILL = BILL
-                + "DELIVERY  NO: "+ deliveryNumber+ "\n";
+                + "GST  NO: "+ gstNumberCustomer+ "\n";
         BILL = BILL
-                + "DATE:  "+ date+ "\n";
+                + "INVOICE DATE & Time:  "+ date+ "\n";
 
-        BILL = BILL + "Register under composite scheme? "+ compositeScheme+"\n";
+       // BILL = BILL + "Register under composite scheme? "+ compositeScheme+"\n";
 
         BILL = BILL
                 + "-----------------------------------------------------------------\n";
@@ -3646,7 +3706,11 @@ Double OverAllAmountCollected=0.0;
         BILL = BILL + "\n";
         BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Value After Tax", "","","",String.format("%.2f", valueAfterTax) );
         BILL = BILL + "\n";
-        BILL = BILL
+        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Rounding Off", "","","",String.format("%.2f", roundingOff) );
+        BILL = BILL + "\n";
+        BILL = BILL  + String.format("%1$-11s %2$-21s %3$9s %4$3s %5$3s %6$13s",  "", "Net Value", "","","",String.format("%.2f", netValue) );
+        BILL = BILL + "\n";
+      /*  BILL = BILL
                 + "-----------------------------------------------------------------\n";
         BILL = BILL
                 + "                       OutStanding(s) Details                    \n";
@@ -3657,9 +3721,13 @@ Double OverAllAmountCollected=0.0;
         BILL = BILL +"\n" + String.format("%1$-8s %2$-24s %3$9s %4$3s %5$3s %6$13s",  "", "Current Invoice", "","","", currentInvoice);
         BILL = BILL +"\n" + String.format("%1$-8s %2$-24s %3$9s %4$3s %5$3s %6$13s",  "", "Collection", "","","", collection);
         BILL = BILL +"\n" + String.format("%1$-8s %2$-24s %3$9s %4$3s %5$3s %6$13s",  "", "Current OutStanding(s)", "","","", currentOutStanding);
-        BILL = BILL + "\n";
+        BILL = BILL + "\n";*/
         BILL = BILL
                 + "-----------------------------------------------------------------\n";
+        BILL = BILL
+                + "SALESMAN NAME:"+ salesman_name+ "\n";
+        BILL = BILL
+                + "SALESMAN MOBILE NO:"+ salesman_mob_no+ " SALESMAN SIGN:______\n";
 
         BILL = BILL
                 + "                           *Thank You*                            \n";
@@ -3747,6 +3815,7 @@ Double OverAllAmountCollected=0.0;
             if((countDownTimer!=null)){
                 countDownTimer.cancel();
             }
+            flgOnlySubmitOrPrint=1;
             Toast.makeText(CollectionActivityNew.this, "DeviceConnected", Toast.LENGTH_SHORT).show();
 
             saveDataToDatabase();

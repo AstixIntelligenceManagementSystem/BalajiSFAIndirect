@@ -485,9 +485,9 @@ public class ServiceWorker
 						}
 					}
 
-					if(!element.getElementsByTagName("GSTNumber").equals(null))
+					if(!element.getElementsByTagName("TaxNumber").equals(null))
 					{
-						NodeList GSTNumberNode = element.getElementsByTagName("GSTNumber");
+						NodeList GSTNumberNode = element.getElementsByTagName("TaxNumber");
 						Element     line = (Element) GSTNumberNode.item(0);
 						if(GSTNumberNode.getLength()>0)
 						{

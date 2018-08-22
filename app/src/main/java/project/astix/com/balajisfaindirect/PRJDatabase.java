@@ -34359,7 +34359,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
     {
         ArrayList<String> arrWareHouseDetails=new ArrayList<String>();
         try {
-            Cursor cursor2 = db.rawQuery("SELECT Descr,ifnull(State,'') AS State,ifnull(Address,'') AS Address,ifnull(City,'') AS City,ifnull(PinCode,'') AS PinCode,ifnull(PhoneNo,'NA') AS PhoneNo,ifnull(TaxNumber,'NA') AS TaxNumber FROM tblWarehouseMstr Where NodeID="+WarehouseNodeID+" and NodeType="+WarehouseNodeType, null);
+            Cursor cursor2 = db.rawQuery("SELECT Descr,ifnull(State,'') AS State,ifnull(Address,'') AS Address,ifnull(City,'') AS City,ifnull(PinCode,'') AS PinCode,ifnull(PhoneNo,'NA') AS PhoneNo,ifnull(TaxNumber,'Not Registered') AS TaxNumber FROM tblWarehouseMstr Where NodeID="+WarehouseNodeID+" and NodeType="+WarehouseNodeType, null);
 
             if(cursor2.getCount()>0)
             {
@@ -34455,7 +34455,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         Cursor cursor2=null;
         ArrayList<String> arrStoreDetails=new ArrayList<String>();
         try {
-            cursor2 = db.rawQuery("SELECT StoreName,ifnull(StoreAddress,'') AS StoreAddress,ifnull(StoreState,'') AS StoreState,ifnull(StoreCity,'') AS StoreCity,ifnull(StorePinCode,'') AS StorePinCode,ifnull(StoreContactNo,'') AS StoreContactNo,ifnull(GSTNumber,'NA') AS GSTNumber FROM tblStoreList Where StoreID='"+StoreID+"'", null);
+            cursor2 = db.rawQuery("SELECT StoreName,ifnull(StoreAddress,'') AS StoreAddress,ifnull(StoreState,'') AS StoreState,ifnull(StoreCity,'') AS StoreCity,ifnull(StorePinCode,'') AS StorePinCode,ifnull(StoreContactNo,'') AS StoreContactNo,ifnull(GSTNumber,'Not Registered') AS GSTNumber FROM tblStoreList Where StoreID='"+StoreID+"'", null);
             if(cursor2.getCount()>0)
             {
                 if (cursor2.moveToFirst())
@@ -34467,7 +34467,13 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
                     arrStoreDetails.add(cursor2.getString(3));
                     arrStoreDetails.add(cursor2.getString(4));
                     arrStoreDetails.add(cursor2.getString(5));
-                    arrStoreDetails.add(cursor2.getString(6));
+                    if(cursor2.getString(6).toString().equals("NA") || cursor2.getString(6).toString().equals("0"))
+                    {
+                        arrStoreDetails.add("Not Registered");
+                    }
+                    else {
+                        arrStoreDetails.add(cursor2.getString(6));
+                    }
                 }
             }
             hmapStoreBasicDetails.put("StoreDetails",arrStoreDetails);
@@ -34514,7 +34520,16 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         }
     }
 
-
+    private static int round(double d){
+        double dAbs = Math.abs(d);
+        int i = (int) dAbs;
+        double result = dAbs - (double) i;
+        if(result<0.5){
+            return d<0 ? -i : i;
+        }else{
+            return d<0 ? -(i+1) : i+1;
+        }
+    }
 
     public static LinkedHashMap<String,ArrayList<String>> fnGetTotalBfrAftrTaxVal(String StoreID,String storeVisitCode)
     {
@@ -34534,6 +34549,25 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
                     arrTaxWisePrdctDtlt.add(cursor21.getString(0));
                     arrTaxWisePrdctDtlt.add(cursor21.getString(1));
 
+                    Double cntInVal=Double.parseDouble(cursor21.getString(1));
+                    cntInVal=Double.parseDouble(new DecimalFormat("##.##").format(cntInVal));
+
+                    int roundAmt= round(cntInVal);
+                    Double cntroundAmt=Double.parseDouble(""+roundAmt);
+
+                    Double roundOfVal=0.00;
+                    if(cntInVal>cntroundAmt)
+                    {
+                        roundOfVal=cntInVal-cntroundAmt;
+                    }
+                    if(cntInVal<cntroundAmt)
+                    {
+                        roundOfVal=cntroundAmt-cntInVal;
+                    }
+                    roundOfVal=Double.parseDouble(new DecimalFormat("##.##").format(roundOfVal));
+                    arrTaxWisePrdctDtlt.add(""+roundOfVal);
+
+                    arrTaxWisePrdctDtlt.add(""+cntroundAmt);
                     hmapTotalBfrAftrTaxVal.put("TotalInvoiceBeforeAfterTax",arrTaxWisePrdctDtlt);
 
                 }
@@ -34703,7 +34737,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
        // ArrayList<String> arrTaxWisePrdctDtlt=new ArrayList<String>();
        Cursor cursor21=null;
        try {
-           cursor21 = db.rawQuery("Select ifnull(Sum(tblInvoiceDetails.OrderQty),'0') AS OrderQtyCount,ifnull(Sum(tblInvoiceDetails.LineValAftrTxAftrDscnt),'0.00') AS LineValAftrTxAftrDscntValue from tblInvoiceDetails inner join tblTmpInvoiceHeader on tblInvoiceDetails.InvoiceNumber=tblInvoiceHeader.InvoiceNumber where tblInvoiceDetails.StoreID='"+StoreID+"' AND tblInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblInvoiceDetails.OrderQty>0", null);
+           cursor21 = db.rawQuery("Select ifnull(Sum(tblInvoiceDetails.OrderQty),'0') AS OrderQtyCount,ifnull(Sum(tblInvoiceDetails.LineValAftrTxAftrDscnt),'0.00') AS LineValAftrTxAftrDscntValue from tblInvoiceDetails inner join tblInvoiceHeader on tblInvoiceDetails.InvoiceNumber=tblInvoiceHeader.InvoiceNumber where tblInvoiceDetails.StoreID='"+StoreID+"' AND tblInvoiceHeader.StoreVisitCode='"+StoreVisitCode+"' AND tblInvoiceDetails.OrderQty>0", null);
            if(cursor21.getCount()>0)
            {
                if (cursor21.moveToFirst())
@@ -34733,13 +34767,14 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
     public static String fnGetExistingInvoiceNumberAgainstInvoiceNumebr (String StoreID,String StoreVisitCode)
     {
         //open();
+        LinkedHashMap<String,String>hmapInvoiceCaptionPrefixAndSuffix=fetch_InvoiceCaptionPrefixAndSuffix();
         Cursor cursorE2 = db.rawQuery("SELECT InvoiceNumber FROM tblInvoiceHeader WHERE StoreID='" + StoreID + "' AND StoreVisitCode='"+StoreVisitCode+"'", null);
         String InvoiceNumber = "0";
         try {
             if(cursorE2.getCount()>0)
             {
                 if (cursorE2.moveToFirst()) {
-                    InvoiceNumber = cursorE2.getString(0).toString();
+                    InvoiceNumber = hmapInvoiceCaptionPrefixAndSuffix.get("INVPrefix")+"-"+cursorE2.getString(0).toString()+"/"+hmapInvoiceCaptionPrefixAndSuffix.get("INVSuffix");
                 }
             }
         } finally {
