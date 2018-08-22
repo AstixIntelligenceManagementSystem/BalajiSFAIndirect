@@ -3542,7 +3542,7 @@ Double OverAllAmountCollected=0.0;
             if(!arrProductInvoiceDetailsForPrint.get(5).toString().trim().equals("")){
                 ValueText=Double.parseDouble(arrProductInvoiceDetailsForPrint.get(5).toString().trim());//""+"500.0"+i;
             }
-            if(itemDscr.length()>21){
+            if(itemDscr.length()>19){
                 itemDscr=  insertPeriodically(itemDscr,"^$",19);
                 if(itemDscr.contains("^$")){
                     String[] itemDesc21Digit=itemDscr.split(Pattern.quote("^$"));
