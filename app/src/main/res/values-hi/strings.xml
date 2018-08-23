@@ -1,9 +1,9 @@
 <resources>
 
-    <!--<string name="app_name">Balaji SFA</string>-->
+    <string name="app_name">Balaji SFA</string>
     <!-- <string name="app_name">Balaji SFA Stagging</string>-->
     <!--<string name="app_name">Balaji SFA Test</string>-->
-    <string name="app_name">Balaji SFA Dev</string>
+   <!-- <string name="app_name">Balaji SFA Dev</string>-->
     <string name="RqrdQty">आवश्यक मात्रा : </string>
     <string name="StoreSale">स्टोर बिक्री </string>
     <string name="InvoiceReview">चालान समीक्षा</string>
