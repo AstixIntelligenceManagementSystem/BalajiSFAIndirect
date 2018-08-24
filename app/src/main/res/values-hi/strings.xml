@@ -20,6 +20,8 @@
     <string name="stockAsOn">आज तक का स्टॉक</string>
     <string name="verifyLocation">अगली पर क्लिक करने से पहले कृपया अपना स्थान सत्यापित करें.</string>
 
+
+
     <string name="DSR_Profile">डीएसआर प्रोफाइल</string>
     <string name="Coverage_Area">कवरेज क्षेत्र</string>
     <string name="Contact_No">संपर्क नंबर</string>
@@ -834,5 +836,16 @@
     <string name="strRemainingStockStatus">शेष स्टॉक स्थिति रिपोर्ट</string>
     <string name="strDataLostIfNotSubmitted">जमा नहीं होने पर भरा डेटा खो जाएगा?</string>
     <string name="prodlstPurchaseAmtBeforeTax">टैक्स से पहले वैल्यू:</string>
+
+
+
+    <string name="StockRequest">स्टॉक अनुरोध</string>
+
+    <string name="StockinVan">वैन में स्टॉक</string>
+    <string name="ReqStock">आवश्यक स्टॉक</string>
+    <string name="fnlStk">अंतिम स्टॉक</string>
+    <string name="uom">UOM</string>
+    <string name="AlertVANStockForRqstStk">कृपया एक और स्टॉक अनुरोध रखने के लिए पहले वेयरहाउस स्टॉक की पुष्टि करें।</string>
+    <string name="AlertDialogRequstionStock">स्टॉक अनुरोध रखने में त्रुटि!</string>
 
 </resources>

@@ -1089,6 +1089,8 @@ public class ServiceWorker
 					String flgPersonTodaysAtt="0";
 					int PersonNodeID=0;
 					int PersonNodeType=0;
+					int CoverageNodeId=0;
+					int CoverageNodeType=0;
 					String ContactNo="0";
 					String DOB="0";
 					String SelfieName="0";
@@ -1149,12 +1151,29 @@ public class ServiceWorker
 						PersonNodeID=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
 					}
 
+
 					NodeList SONodeTypeNode = element.getElementsByTagName("PersonNodeType");
 					line = (Element) SONodeTypeNode.item(0);
 					if(SONodeTypeNode.getLength()>0)
 					{
 						PersonNodeType=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
 					}
+
+					NodeList CoverageNodeIdNode = element.getElementsByTagName("CoverageAreaNodeID");
+					line = (Element) CoverageNodeIdNode.item(0);
+					if(CoverageNodeIdNode.getLength()>0)
+					{
+						CoverageNodeId=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+					}
+
+
+					NodeList CoverageNodeTypeNode = element.getElementsByTagName("CoverageAreaNodeType");
+					line = (Element) CoverageNodeTypeNode.item(0);
+					if(CoverageNodeTypeNode.getLength()>0)
+					{
+						CoverageNodeType=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+					}
+
 					if(!element.getElementsByTagName("ContactNo").equals(null))
 					{
 						NodeList ContactNode = element.getElementsByTagName("ContactNo");
@@ -1222,7 +1241,7 @@ public class ServiceWorker
 
 					dbengine.savetblUserAuthenticationMstr(flgUserAuthenticated,PersonName,FlgRegistered,
 							flgAppStatus,DisplayMessage,flgValidApplication,MessageForInvalid,flgPersonTodaysAtt,
-							PersonNodeID,PersonNodeType,ContactNo,DOB,SelfieName,SelfieNameURL,SalesAreaName);
+							PersonNodeID,PersonNodeType,ContactNo,DOB,SelfieName,SelfieNameURL,SalesAreaName,CoverageNodeId,CoverageNodeType);
 
 				}
 
@@ -6784,6 +6803,145 @@ String RouteType="0";
 				dbengine.savetblPriceApplyType(DiscountLevelType,cutoffvalue);
 			}
 
+			NodeList tblUOMMaster = doc.getElementsByTagName("tblUOMMaster");
+			for (int i = 0; i < tblUOMMaster.getLength(); i++)
+			{
+
+
+				int BUomId=0;
+				String BUOMName="NA";
+				int flgRetailUnit=0;
+
+
+
+				Element element = (Element) tblUOMMaster.item(i);
+
+				if(!element.getElementsByTagName("BUOMID").equals(null))
+				{
+
+					NodeList BUomIdNode = element.getElementsByTagName("BUOMID");
+					Element     line = (Element) BUomIdNode.item(0);
+
+					if(BUomIdNode.getLength()>0)
+					{
+
+						BUomId=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+					}
+				}
+
+				if(!element.getElementsByTagName("BUOMName").equals(null))
+				{
+
+					NodeList BUOMNameNode = element.getElementsByTagName("BUOMName");
+					Element     line = (Element) BUOMNameNode.item(0);
+
+					if(BUOMNameNode.getLength()>0)
+					{
+
+						BUOMName=xmlParser.getCharacterDataFromElement(line);
+
+					}
+				}
+				if(!element.getElementsByTagName("flgRetailUnit").equals(null))
+				{
+
+					NodeList flgRetailUnitNode = element.getElementsByTagName("flgRetailUnit");
+					Element     line = (Element) flgRetailUnitNode.item(0);
+
+					if(flgRetailUnitNode.getLength()>0)
+					{
+
+						flgRetailUnit=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+					}
+				}
+
+
+				dbengine.insertUOMMstr(BUomId,BUOMName,flgRetailUnit);
+			}
+
+
+
+			NodeList tblUOMMapping = doc.getElementsByTagName("tblUOMMapping");
+			for (int i = 0; i < tblUOMMapping.getLength(); i++)
+			{
+
+				int NodeId=0;
+				int NodeType=0;
+				int BaseUomId=0;
+				int PackUomId=0;
+				Double relConverionUnit=0.0;
+
+
+
+				Element element = (Element) tblUOMMapping.item(i);
+
+				if(!element.getElementsByTagName("NodeID").equals(null))
+				{
+
+					NodeList NodeIDNode = element.getElementsByTagName("NodeID");
+					Element     line = (Element) NodeIDNode.item(0);
+
+					if(NodeIDNode.getLength()>0)
+					{
+
+						NodeId=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+					}
+				}
+				if(!element.getElementsByTagName("NodeType").equals(null))
+				{
+
+					NodeList NodeTypeNode = element.getElementsByTagName("NodeType");
+					Element     line = (Element) NodeTypeNode.item(0);
+
+					if(NodeTypeNode.getLength()>0)
+					{
+
+						NodeType=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+					}
+				}
+
+				if(!element.getElementsByTagName("BaseUOMID").equals(null))
+				{
+
+					NodeList BaseUOMIDNode = element.getElementsByTagName("BaseUOMID");
+					Element     line = (Element) BaseUOMIDNode.item(0);
+
+					if(BaseUOMIDNode.getLength()>0)
+					{
+
+						BaseUomId=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+					}
+				}
+
+				if(!element.getElementsByTagName("PackUOMID").equals(null))
+				{
+
+					NodeList PackUOMIDNode = element.getElementsByTagName("PackUOMID");
+					Element     line = (Element) PackUOMIDNode.item(0);
+
+					if(PackUOMIDNode.getLength()>0)
+					{
+
+						PackUomId=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+
+					}
+				}
+				if(!element.getElementsByTagName("RelConversionUnits").equals(null))
+				{
+
+					NodeList RelConversionUnitsNode = element.getElementsByTagName("RelConversionUnits");
+					Element     line = (Element) RelConversionUnitsNode.item(0);
+
+					if(RelConversionUnitsNode.getLength()>0)
+					{
+
+						relConverionUnit=Double.parseDouble(xmlParser.getCharacterDataFromElement(line));
+					}
+				}
+
+
+				dbengine.insertUOMMapping(NodeId,NodeType,BaseUomId,PackUomId,relConverionUnit);
+			}
 
 			//dbengine.close();;
 
@@ -20724,6 +20882,141 @@ int flgProcessedInvoice=0;
 			return setmovie;
 		}
 	}
+
+
+	public ServiceWorker getConfirmtionRqstStock(Context ctx,String RqstdStk,String uuid,String CoverageAreaNodeID,String coverageAreaNodeType)
+	{
+		this.context = ctx;
+		PRJDatabase dbengine = new PRJDatabase(context);
+
+		decimalFormat.applyPattern(pattern);
+
+		int chkTblStoreListContainsRow=1;
+		StringReader read;
+		InputSource inputstream;
+		final String SOAP_ACTION = "http://tempuri.org/fnSpVanStockRequestSave";
+		final String METHOD_NAME = "fnSpVanStockRequestSave";
+		final String NAMESPACE = "http://tempuri.org/";
+		final String URL = UrlForWebService;
+		//Create request
+		SoapObject table = null; // Contains table of dataset that returned
+		// through SoapObject
+		SoapObject client = null; // Its the client petition to the web service
+		SoapObject tableRow = null; // Contains row of table
+		SoapObject responseBody = null; // Contains XML content of dataset
+
+		//SoapObject param
+		HttpTransportSE transport = null; // That call webservice
+		SoapSerializationEnvelope sse = null;
+
+		sse = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+
+		sse.dotNet = true;
+		HttpTransportSE androidHttpTransport = new HttpTransportSE(URL,timeout);
+
+		ServiceWorker setmovie = new ServiceWorker();
+		Date currDate= new Date();
+		SimpleDateFormat currDateFormat = new SimpleDateFormat("dd-MMM-yyyy",Locale.ENGLISH);
+
+		currSysDate = currDateFormat.format(currDate).toString();
+		String crntDate = currSysDate.trim().toString();
+		try {
+			client = new SoapObject(NAMESPACE, METHOD_NAME);
+
+
+					client.addProperty("bydate", crntDate);
+			client.addProperty("IMEINo", uuid.toString());
+			client.addProperty("CoverageAreaNodeID", CoverageAreaNodeID);
+
+			client.addProperty("coverageAreaNodeType", coverageAreaNodeType);
+			client.addProperty("Prdvalues", RqstdStk);
+
+
+			sse.setOutputSoapObject(client);
+
+			sse.bodyOut = client;
+
+			androidHttpTransport.call(SOAP_ACTION, sse);
+
+			responseBody = (SoapObject)sse.bodyIn;
+			// This step: get file XML
+			//responseBody = (SoapObject) sse.getResponse();
+			int totalCount = responseBody.getPropertyCount();
+
+			// // System.out.println("Kajol 2 :"+totalCount);
+			String resultString=androidHttpTransport.responseDump;
+
+			String name=responseBody.getProperty(0).toString();
+
+			XMLParser xmlParser = new XMLParser();
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			InputSource is = new InputSource();
+			is.setCharacterStream(new StringReader(name));
+			Document doc = db.parse(is);
+
+			//dbengine.open();
+
+
+
+
+			NodeList tblDistributorListForSONode = doc.getElementsByTagName("tblflgRequestStockAccepted");
+			for (int i = 0; i < tblDistributorListForSONode.getLength(); i++)
+			{
+
+				String VanLoadUnLoadCycID="0";
+				String flgRequestAccept="0";
+
+
+				Element element = (Element) tblDistributorListForSONode.item(i);
+				if(!element.getElementsByTagName("VanLoadUnLoadCycID").equals(null))
+				{
+					NodeList VanLoadUnLoadCycIDNode = element.getElementsByTagName("VanLoadUnLoadCycID");
+					Element     line = (Element) VanLoadUnLoadCycIDNode.item(0);
+					if (VanLoadUnLoadCycIDNode.getLength()>0)
+					{
+						VanLoadUnLoadCycID=xmlParser.getCharacterDataFromElement(line);
+					}
+				}
+				if(!element.getElementsByTagName("flgRequestAccept").equals(null))
+				{
+					NodeList flgRequestAcceptNode = element.getElementsByTagName("flgRequestAccept");
+					Element     line = (Element) flgRequestAcceptNode.item(0);
+					if (flgRequestAcceptNode.getLength()>0)
+					{
+						flgRequestAccept=xmlParser.getCharacterDataFromElement(line);
+						if(flgRequestAccept.equals("1"))
+						{
+							setmovie.director = "1";
+							break;
+						}
+						else
+						{
+							setmovie.director = "0";
+							break;
+						}
+					}
+				}
+
+			}
+
+
+
+
+			//dbengine.close();
+			return setmovie;
+
+		} catch (Exception e) {
+			//setmovie.exceptionCode=e.getCause().getMessage();
+			setmovie.director = e.toString();
+			setmovie.movie_name = e.toString();
+			//dbengine.close();
+
+			return setmovie;
+		}
+	}
+
+
 
 
 

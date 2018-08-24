@@ -196,7 +196,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
     public SimpleDateFormat currDateFormat;
     public String currSysDate;
 
-    LinearLayout ll_dsrTracker,ll_changelagugae,ll_DayEnd;
+    LinearLayout ll_dsrTracker,ll_changelagugae,ll_DayEnd,ll_StkRqst;
     ImageView imgVw_logout;
 
     //report alert
@@ -485,6 +485,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
         ll_dsrTracker = (LinearLayout) findViewById(R.id.ll_dsrTracker);
         ll_DayEnd = (LinearLayout) findViewById(R.id.ll_DayEnd);
         ll_warehose= (LinearLayout) findViewById(R.id.ll_warehose);
+        ll_StkRqst= (LinearLayout) findViewById(R.id.ll_StkRqst);
         imageView551= (ImageView) findViewById(R.id.imageView551);
         if(dbengine.flgConfirmedWareHouse()==0)
         {
@@ -533,6 +534,15 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
         storeValidationWorking();
         stockOutWorking();
         wareHouseWorking();
+
+        ll_StkRqst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new GetRqstStockForDay(AllButtonActivity.this).execute();
+
+
+            }
+        });
        // distributorCheckInWorking();
         //distributorStockWorking();
       //  executionWorking();
@@ -610,6 +620,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             }
         });
     }
+
 
     void dayEndWorking()
     {
@@ -3929,12 +3940,12 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                     if(mm==2)
                     {
 
-                      newservice = newservice.getallProduct(getApplicationContext(), fDate, imei, rID,RouteType);
+                     /* newservice = newservice.getallProduct(getApplicationContext(), fDate, imei, rID,RouteType);
                         if(newservice.flagExecutedServiceSuccesfully!=2)
                         {
                             serviceException=true;
                             break;
-                        }
+                        }*/
                     }
                     if(mm==3)
                     {
@@ -5248,4 +5259,109 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                     }
                 }).create().show();
     }
+
+
+    private class GetRqstStockForDay extends AsyncTask<Void, Void, Void>
+    {
+
+        int flgStockOut=0;
+        public GetRqstStockForDay(AllButtonActivity activity)
+        {
+
+        }
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+
+
+
+            // Base class method for Creating ProgressDialog
+            showProgress(getResources().getString(R.string.RetrivingDataMsg));
+
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... args)
+        {
+
+
+            try
+            {
+
+                String RouteType="0";
+
+                for(int mm = 1; mm < 2  ; mm++)
+                {
+
+
+
+                    // System.out.println("Excecuted function : "+newservice.flagExecutedServiceSuccesfully);
+                    if (mm == 1) {
+                        newservice = newservice.fnGetStockUploadedStatus(getApplicationContext(), fDate, imei);
+
+                        if (!newservice.director.toString().trim().equals("1")) {
+                            chkFlgForErrorToCloseApp = 1;
+                            serviceException = true;
+                            break;
+
+                        }
+                    }
+
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                Log.i("SvcMgr", "Service Execution Failed!", e);
+            }
+            finally
+            {
+                Log.i("SvcMgr", "Service Execution Completed...");
+            }
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+
+            dismissProgress();   // Base class method for dismissing ProgressDialog
+
+           int flgStockRqst = dbengine.fetchtblStockUploadedStatusForRqstStatus();
+            //  flgStockOut=1;
+            if(serviceException)
+            {
+                serviceException=false;
+                showAlertStockOut("Error","Error While Retrieving Data.");
+                // showAlertException(getResources().getString(R.string.txtError),getResources().getString(R.string.txtErrorRetrievingData));
+                //    Toast.makeText(AllButtonActivity.this,"Please fill Stock out first for starting your market visit.",Toast.LENGTH_SHORT).show();
+                //  showSyncError();
+            }
+
+            else if (flgStockRqst == 0 || flgStockRqst == 2) {
+              Intent intent=new Intent(AllButtonActivity.this,StockRequestActivity.class);
+                    startActivity(intent);
+                    finish();
+
+
+            }
+           else
+            {
+
+                    showAlertStockOut(getResources().getString(R.string.genTermNoDataConnection),getResources().getString(R.string.AlertVANStockForRqstStk));
+
+            }
+
+
+
+        }
+    }
+
 }

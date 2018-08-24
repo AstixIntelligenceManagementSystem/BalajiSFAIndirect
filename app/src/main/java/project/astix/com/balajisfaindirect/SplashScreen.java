@@ -330,7 +330,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
 
          //imei="911560353114284";
 
-       //imei="352801088236109";
+      // imei="352801088236109";
 
 
       // imei="354010084603910";  // paras imei like Godrej
@@ -1436,6 +1436,14 @@ public class SplashScreen extends BaseActivity implements  TaskListner
                     }
                     if(mm==2)
                     {
+                        String rID=dbengine.GetActiveRouteID();
+                        String RouteType=dbengine.FetchRouteType(rID);
+                        newservice = newservice.getallProduct(getApplicationContext(), fDate, imei, rID,RouteType);
+                        if(newservice.flagExecutedServiceSuccesfully!=2)
+                        {
+                            chkFlgForErrorToCloseApp=1;
+                            break;
+                        }
                         //Commented For Now By Abhinav On 24-Apr-2018
 
                        // getRouteservice = getRouteservice.getAvailbNotification(getApplicationContext(),imei,fDate);
@@ -1580,7 +1588,8 @@ public class SplashScreen extends BaseActivity implements  TaskListner
             }
             catch (Exception e)
             {
-
+                chkFlgForErrorToCloseApp=1;
+                System.out.println("error = "+ e.toString());
             }
             finally
             {

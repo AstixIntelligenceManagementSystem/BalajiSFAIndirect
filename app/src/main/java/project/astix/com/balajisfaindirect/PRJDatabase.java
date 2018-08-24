@@ -42,6 +42,16 @@ public class PRJDatabase
     private static final String TABLE_tblWarehouseMstr = "tblWarehouseMstr";
     private static final String DATABASE_CREATE_TABLE_tblWarehouseMstr = "create table tblWarehouseMstr(NodeID int null,NodeType int null,Descr text null,latCode text null,LongCode text null,flgMapped int null,Address text null,State text null,City text null,PinCode text null,PhoneNo text null,TaxNumber text null);";
 
+    private static final String TABLE_tblUOMMstr = "tblUOMMaster";
+    private static final String DATABASE_CREATE_TABLE_tblUOMMstr = "create table tblUOMMaster(UOMId int null,UOM text null,flgBaseUnit int null);";
+
+    private static final String TABLE_tblUOMMapping = "tblUOMMapping";
+    private static final String DATABASE_CREATE_TABLE_tblUOMMapping = "create table tblUOMMapping(NodeId int null,NodeType int null,BaseUnitID int null,PackUnitId int null,BaseValue real null);";
+
+    private static final String TABLE_tbl_StockRqst = "tblStockRqst";
+    private static final String DATABASE_CREATE_TABLE_tblStockReq = "create table tblStockRqst(ProductID int null,ReqStock int null,dfltUOMId int null,SlctdUOMID int null);";
+
+
     private static final String DATABASE_TABLE_tblUserName = "tblUserName";
     private static final String DATABASE_TABLE_tblStoreCountDetails = "tblStoreCountDetails";
     private static final String DATABASE_TABLE_tblPreAddedStores = "tblPreAddedStores";
@@ -170,7 +180,7 @@ public class PRJDatabase
     private static final String DATABASE_CREATE_TABLE_236 = "create table tblTargetVsAchievedNote (MsgToDisplay text null);";
     // Tables Data Coming at Splash Screen Starts
     private static final String TABLE_tblUserAuthenticationMstr_Define = "tblUserAuthenticationMstr";
-    private static final String TABLE_tblUserAuthenticationMstr_Definition = "create table tblUserAuthenticationMstr (flgUserAuthenticated text null,PersonName text null,PersonNodeID integer null,PersonNodeType integer null,FlgRegistered text null,flgAppStatus text null,DisplayMessage text null,flgValidApplication text null,MessageForInvalid text null,flgPersonTodaysAtt text null,ContactNo text null,DOB text null,SelfieName text null,SelfieNameURL text null,SalesAreaName text null);";
+    private static final String TABLE_tblUserAuthenticationMstr_Definition = "create table tblUserAuthenticationMstr (flgUserAuthenticated text null,PersonName text null,PersonNodeID integer null,PersonNodeType integer null,FlgRegistered text null,flgAppStatus text null,DisplayMessage text null,flgValidApplication text null,MessageForInvalid text null,flgPersonTodaysAtt text null,ContactNo text null,DOB text null,SelfieName text null,SelfieNameURL text null,SalesAreaName text null,CoverageNodeId int null,CoverageNodeType int null);";
 
    // private static final String TABLE_tblUserAuthenticationMstr_Definition = "create table tblUserAuthenticationMstr (flgUserAuthenticated text null,PersonName text null,FlgRegistered text null,PersonNodeID text null,PersonNodeType text null,flgPersonTodaysAtt text null);";
     private static final String TABLE_tblBloodGroup_Define = "tblBloodGroup";
@@ -448,7 +458,7 @@ public class PRJDatabase
     private static final String DATABASE_CREATE_TABLE_234 = "create table tblAllSummary (AutoId int not null,Measures text null," +
             "TodaysSummary text null,MTDSummary text null);";
     private static final String DATABASE_CREATE_TABLE_11 = "create table tblPdaDate (PdaDate text null);";
-    private static final String DATABASE_CREATE_TABLE_12 = "create table tblDayStartEndDetails (IMEINo text null,SyncTime text null,RouteID text null,EndTime text null,DayEndFlag int null,ChangeRouteFlg int null,ForDate text null,AppVersionID string null,Sstat int null);";//,AppVersionID int null//, VersionNo string null
+    private static final String DATABASE_CREATE_TABLE_12 = "create table tblDayStartEndDetails (IMEINo text null,SyncTime text null,RouteID text null,EndTime text null,DayEndFlag int null,ChangeRouteFlg int null,ForDate text null,AppVersionID string null,Sstat int null,CycleId text null);";//,AppVersionID int null//, VersionNo string null
     private static final String DATABASE_CREATE_TABLE_13 = "create table tblStoreList(IMEINumber text null,AutoIdStore INTEGER PRIMARY KEY AUTOINCREMENT not null,StoreID text not null, StoreName string not null,OwnerName text null,StoreContactNo text null,StoreAddress text null,StoreType string not null,chainID integer null,StoreLatitude real not null, StoreLongitude real not null, LastVisitDate string not null, LastTransactionDate string not null, Sstat integer not null,ISNewStore int null,StoreRouteID int null,RouteNodeType int null,StoreCatNodeId int null,PaymentStage text null,flgHasQuote int null,flgAllowQuotation int null,flgGSTCapture text null,flgGSTCompliance text null,GSTNumber text null,flgGSTRecordFromServer int null,DistanceNear int null,flgStoreOrder int null,StoreCity text null,StorePinCode text not null,StoreState text null,OutStanding float null,OverDue float null,DBR text null,flgRuleTaxVal integer null,flgTransType integer null,StoreCatType text null,IsNewStoreDataCompleteSaved int null,StoreClose int null,SalesPersonName text null,SalesPersonContact text null,IsComposite int null,StoreStateID int null,StoreCityID int null);";//
     private static final String DATABASE_CREATE_TABLE_14 = "create table tblProductList(CategoryID text  null,ProductID text  null, ProductShortName text  null, DisplayUnit text null, CalculateKilo real  null,ProductMRP real null, ProductRLP real null, ProductTaxAmount real null, KGLiter string null,RetMarginPer real null,VatTax real null,StandardRate real null,StandardRateBeforeTax real null,StandardTax real null,CatOrdr int null,PrdOrdr int null,StoreCatNodeId int null,SearchField text null,ManufacturerID int null,RptUnitName text null,PerbaseUnit text null,HSNCode text null);";
     private static final String DATABASE_CREATE_TABLE_ProductSegementMap = "create table tblProductSegementMap(ProductID text  null,ProductMRP real not null, ProductRLP real not null, ProductTaxAmount real not null,RetMarginPer real null,VatTax real null,StandardRate real null,StandardRateBeforeTax real null,StandardTax real null,BusinessSegmentId int null,flgPriceAva int null,flgWholeSellApplicable int null,PriceRangeWholeSellApplicable real null,StandardRateWholeSale real null,StandardRateBeforeTaxWholeSell real null,StandardTaxWholeSale real null);";
@@ -4632,6 +4642,15 @@ public class PRJDatabase
             values.put("DayEndFlag", 0);
             values.put("ChangeRouteFlg", 1);
         }
+        int cycleId=fetchtblVanCycleId();
+        if(cycleId!=-1)
+        {
+            values.put("CycleId",String.valueOf(cycleId));
+        }
+        else
+        {
+            values.put("CycleId","0");
+        }
 
         int affected = db.update("tblDayStartEndDetails", values, "RouteID=?",
                 new String[] { ""+rID });
@@ -5071,6 +5090,8 @@ public class PRJDatabase
         db.execSQL("DELETE FROM tblProductList");
         db.execSQL("DELETE FROM tblProductSegementMap");
         db.execSQL("DELETE FROM tblPriceApplyType");
+        db.execSQL("Delete From tblUOMMaster");
+        db.execSQL("Delete From tblUOMMapping");
     }
 
     public static void Delete_tblLastOutstanding_for_refreshData()
@@ -19043,7 +19064,7 @@ public class PRJDatabase
                                               String MessageForInvalid,String flgPersonTodaysAtt,
                                               int PersonNodeID,int PersonNodeType,
                                               String ContactNo,String DOB,String SelfieName,
-                                              String SelfieNameURL,String SalesAreaName)
+                                              String SelfieNameURL,String SalesAreaName,int CoverageNodeId,int CoverageNodeType)
     {
 
         ContentValues initialValues = new ContentValues();
@@ -19065,6 +19086,8 @@ public class PRJDatabase
         initialValues.put("SelfieName", SelfieName.trim());
         initialValues.put("SelfieNameURL", SelfieNameURL);
         initialValues.put("SalesAreaName", SalesAreaName);
+        initialValues.put("CoverageNodeId", CoverageNodeId);
+        initialValues.put("CoverageNodeType", CoverageNodeType);
 
 
 
@@ -32425,6 +32448,10 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
 
             try
             {
+                db.execSQL(DATABASE_CREATE_TABLE_tblUOMMstr);
+                db.execSQL(DATABASE_CREATE_TABLE_tblUOMMapping);
+                db.execSQL(DATABASE_CREATE_TABLE_tblStockReq);
+
                 db.execSQL(DATABASE_CREATE_TABLE_tblDeliveryNoteNumber);
                 db.execSQL(DATABASE_CREATE_TABLE_tblWarehouseMstr);
                 db.execSQL(DATABASE_CREATE_TABLE_tblStoreCheckInPic);
@@ -32698,6 +32725,10 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             try
             {
+                db.execSQL("DROP TABLE IF EXISTS tblUOMMaster");
+                db.execSQL("DROP TABLE IF EXISTS tblUOMMapping");
+                db.execSQL("DROP TABLE IF EXISTS tblStockRqst");
+
                 db.execSQL("DROP TABLE IF EXISTS tblDeliveryNoteNumber");
                 db.execSQL("DROP TABLE IF EXISTS tblWarehouseMstr");
                 db.execSQL("DROP TABLE IF EXISTS tblStoreCheckInPic");
@@ -34785,6 +34816,412 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         }
         return InvoiceNumber;
     }
+
+
+
+
+    public static LinkedHashMap<String, String> fetch_Store_Req()
+    {
+
+        //open();
+        LinkedHashMap<String, String> hmapCatgry = new LinkedHashMap<String, String>();
+//tblDistributorStock(PrdctId text null,StockQntty text null,DistributorNodeIdNodeType text null,SKUName text null,OpeningStock text null,TodaysAddedStock text null,CycleAddedStock text null,NetSalesQty text null,TodaysUnloadStk text null,CycleUnloadStk text null,CategoryID text null);";
+        Cursor cursor= db.rawQuery("Select DISTINCT S.PrdctId,S.SKUName,S.StockQntty-ifnull(D.OrderQty,0) AS StockAvailable from tblDistributorStock S left outer join (SELECT ID.ProdID,SUM(ID.OrderQty) OrderQty FROM tblInvoiceHeader AS I INNER JOIN tblInvoiceDetails AS ID ON ID.InvoiceNumber=I.InvoiceNumber  WHERE I.flgProcessedInvoice=0 GROUP BY ID.ProdID) D ON D.ProdID=S.PrdctId", null);
+
+//Cursor cur=db.rawQuery("Select PrdctId,OriginalStock from tblDistributorStock where DistributorNodeIdNodeType='"+distId+"'",null);
+        //  Cursor	cursor = db.rawQuery("SELECT Distinct ProductShortName,IFNULL(StockQntty,0),IFNULL(OriginalStock,0) from tblDistributorStock inner join tblProductList on tblDistributorStock.PrdctId=tblProductList.ProductID", null); //order by AutoIdOutlet Desc
+//Cursor	cursor = db.rawQuery("SELECT tblStoreList.StoreID, tblStoreList.StoreName, IFNULL(tblTmpInvoiceHeader.InvoiceVal,0) FROM tblStoreList left outer join tblTmpInvoiceHeader on tblStoreList.StoreID=tblTmpInvoiceHeader.StoreID", null); //order by AutoIdOutlet Desc
+        try
+        {
+            if(cursor.getCount()>0)
+            {
+                if (cursor.moveToFirst())
+                {
+
+                    for (int i = 0; i <= (cursor.getCount() - 1); i++)
+                    {
+                        //hmapCatgry.put(cursor.getString(0).toString(),cursor.getString(1).toString() + "( Order Value:-"+cursor.getString(2).toString()+")");
+                        // hmapCatgry.put((i+1)+")  "+cursor.getString(0).toString(), "[Stock Left: "+cursor.getString(2).toString()+"]");//[Stock Loaded:->"+cursor.getString(1).toString()+ "]
+                        hmapCatgry.put(cursor.getString(0)+"^"+cursor.getString(1), cursor.getString(2));//[Stock Loaded:->"+cursor.getString(1).toString()+ "]
+
+                        cursor.moveToNext();
+                    }
+                }
+
+            }
+
+            else
+            {
+                hmapCatgry.put("No Stock", "0");
+            }
+            return hmapCatgry;
+        }
+        finally
+        {
+            if(cursor!=null) {
+                cursor.close();
+            }
+            //close();
+        }
+    }
+
+    public static LinkedHashMap<String, String> fetch_Store_Req_Prdct()
+    {
+
+        //open();
+        LinkedHashMap<String, String> hmapCatgry = new LinkedHashMap<String, String>();
+//tblDistributorStock(PrdctId text null,StockQntty text null,DistributorNodeIdNodeType text null,SKUName text null,OpeningStock text null,TodaysAddedStock text null,CycleAddedStock text null,NetSalesQty text null,TodaysUnloadStk text null,CycleUnloadStk text null,CategoryID text null);";
+        Cursor cursor= db.rawQuery("Select ProductID,ProductShortName from tblProductList", null);
+
+//Cursor cur=db.rawQuery("Select PrdctId,OriginalStock from tblDistributorStock where DistributorNodeIdNodeType='"+distId+"'",null);
+        //  Cursor	cursor = db.rawQuery("SELECT Distinct ProductShortName,IFNULL(StockQntty,0),IFNULL(OriginalStock,0) from tblDistributorStock inner join tblProductList on tblDistributorStock.PrdctId=tblProductList.ProductID", null); //order by AutoIdOutlet Desc
+//Cursor	cursor = db.rawQuery("SELECT tblStoreList.StoreID, tblStoreList.StoreName, IFNULL(tblTmpInvoiceHeader.InvoiceVal,0) FROM tblStoreList left outer join tblTmpInvoiceHeader on tblStoreList.StoreID=tblTmpInvoiceHeader.StoreID", null); //order by AutoIdOutlet Desc
+        try
+        {
+            if(cursor.getCount()>0)
+            {
+                if (cursor.moveToFirst())
+                {
+
+                    for (int i = 0; i <= (cursor.getCount() - 1); i++)
+                    {
+                        //hmapCatgry.put(cursor.getString(0).toString(),cursor.getString(1).toString() + "( Order Value:-"+cursor.getString(2).toString()+")");
+                        // hmapCatgry.put((i+1)+")  "+cursor.getString(0).toString(), "[Stock Left: "+cursor.getString(2).toString()+"]");//[Stock Loaded:->"+cursor.getString(1).toString()+ "]
+                        hmapCatgry.put(cursor.getString(0),cursor.getString(1));//[Stock Loaded:->"+cursor.getString(1).toString()+ "]
+
+                        cursor.moveToNext();
+                    }
+                }
+
+            }
+
+            else
+            {
+                hmapCatgry.put("No Stock", "0");
+            }
+            return hmapCatgry;
+        }
+        finally
+        {
+            if(cursor!=null) {
+                cursor.close();
+            }
+            //close();
+        }
+    }
+
+    public static void insertUOMMstr(int UOMId,String UOM,int flgBaseUnit)
+    {
+
+        ContentValues values=new ContentValues();
+        values.put("UOMId",UOMId);
+        values.put("UOM",UOM);
+        values.put("flgBaseUnit",flgBaseUnit);
+        db.insert(TABLE_tblUOMMstr,null,values);
+    }
+    public static void insertUOMMapping(int nodeId,int nodeType,int BaseUnitID,int PackUnitId,Double BaseValue)
+    {
+
+        ContentValues values=new ContentValues();
+        values.put("NodeId",nodeId);
+        values.put("NodeType",nodeType);
+        values.put("BaseUnitID",BaseUnitID);
+        values.put("PackUnitId",PackUnitId);
+        values.put("BaseValue",BaseValue);
+        db.insert(TABLE_tblUOMMapping,null,values);
+    }
+
+
+
+    public static ArrayList<LinkedHashMap<String,String>> getUOMMstrForRqstStock()
+    {
+       // open();
+        ArrayList<LinkedHashMap<String,String>> listUOMMstr=new ArrayList<LinkedHashMap<String,String>>();
+        LinkedHashMap<String,String> hmapUOMMstrNameId=new LinkedHashMap<String,String>();
+        LinkedHashMap<String,String> hmapUOMMstrIdName=new LinkedHashMap<String,String>();
+        Cursor cur=null;
+
+        try {
+            cur=db.rawQuery("Select UOM,UOMId from tblUOMMaster",null);
+            if(cur.getCount()>0)
+            {
+                if(cur.moveToFirst())
+                {
+                    for(int i=0;i<cur.getCount();i++)
+                    {
+                        hmapUOMMstrNameId.put(cur.getString(0).trim(),cur.getString(1));
+                        hmapUOMMstrIdName.put(cur.getString(1).trim(),cur.getString(0));
+                        cur.moveToNext();
+                    }
+                    listUOMMstr.add(hmapUOMMstrNameId);
+                    listUOMMstr.add(hmapUOMMstrIdName);
+                }
+            }
+        }catch(Exception e)
+        {
+            System.out.println("Error = "+e.toString());
+        }
+        finally
+        {
+            if(cur!=null)
+            {
+                cur.close();
+            }
+           // close();
+        }
+        return listUOMMstr;
+    }
+
+
+    public static int getBaseUOMId()
+    {
+       // open();
+       int baseUomId=0;
+        Cursor cur=null;
+
+        try {
+            cur=db.rawQuery("Select UOMId from tblUOMMaster where flgBaseUnit=1",null);
+            if(cur.getCount()>0)
+            {
+                if(cur.moveToFirst())
+                {
+
+                    baseUomId=Integer.parseInt(cur.getString(0));
+
+                }
+            }
+        }catch(Exception e)
+        {
+            System.out.println("Error = "+e.toString());
+        }
+        finally
+        {
+            if(cur!=null)
+            {
+                cur.close();
+            }
+          //  close();
+        }
+        return baseUomId;
+    }
+
+    public static LinkedHashMap<String,String> getBaseUOMCalcValue(int baseUOMID)
+    {
+        // open();
+        LinkedHashMap<String,String> hmapUOMMstrPrdtWise=new LinkedHashMap<String,String>();
+        Cursor cur=null;
+
+        try {
+            cur=db.rawQuery("Select NodeId||'^'||PackUnitId As prdId_packId,BaseValue from tblUOMMapping where BaseUnitID="+baseUOMID+"  Order by NodeId",null);
+            if(cur.getCount()>0)
+            {
+                if(cur.moveToFirst())
+                {
+
+
+                    for(int i=0;i<cur.getCount();i++)
+                    {
+
+                        hmapUOMMstrPrdtWise.put(cur.getString(0),cur.getString(1));
+
+                        cur.moveToNext();
+                    }
+                }
+            }
+        }catch(Exception e)
+        {
+            System.out.println("Error = "+e.toString());
+        }
+        finally
+        {
+            if(cur!=null)
+            {
+                cur.close();
+            }
+
+        }
+        return hmapUOMMstrPrdtWise;
+    }
+
+
+
+    public static LinkedHashMap<String,ArrayList<String>> getPrdctMpngWithUOM()
+    {
+        // open();
+        LinkedHashMap<String,ArrayList<String>> hmapUOMMstrPrdtWise=new LinkedHashMap<String,ArrayList<String>>();
+        Cursor cur=null;
+
+        try {
+            cur=db.rawQuery("Select NodeId,BaseUnitID,PackUnitId from tblUOMMapping Order by NodeId",null);
+            if(cur.getCount()>0)
+            {
+                if(cur.moveToFirst())
+                {
+                    ArrayList<String> listUOM=new ArrayList<String>();
+                    String prdctId="0",prvsPrdctId="0";
+                    for(int i=0;i<cur.getCount();i++)
+                    {
+                        prdctId=cur.getString(0);
+                        if(i==0)
+                        {
+                            prvsPrdctId=prdctId;
+                            //listUOM.add(cur.getString(1));
+                            listUOM.add(cur.getString(2));
+                        }
+                        else
+                        {
+                            if(prvsPrdctId.equals(prdctId))
+                            {
+                                listUOM.add(cur.getString(2));
+                            }
+                            else
+                            {
+                                hmapUOMMstrPrdtWise.put(prvsPrdctId,listUOM);
+                                listUOM=new ArrayList<String>();
+                                prvsPrdctId=prdctId;
+                               // listUOM.add(cur.getString(1));
+                                listUOM.add(cur.getString(2));
+                            }
+                        }
+                        if(i==(cur.getCount()-1))
+                        {
+                            hmapUOMMstrPrdtWise.put(prvsPrdctId,listUOM);
+                        }
+
+                       // hmapUOMMstr.put(cur.getString(0).trim(),cur.getInt(1));
+                        cur.moveToNext();
+                    }
+                }
+            }
+        }catch(Exception e)
+        {
+            System.out.println("Error = "+e.toString());
+        }
+        finally
+        {
+            if(cur!=null)
+            {
+                cur.close();
+            }
+
+        }
+        return hmapUOMMstrPrdtWise;
+    }
+
+    public static void insertStockReq(int prdctId,int reqStock,int dfltUOMId,int slctdUOMId)
+    {
+
+
+        ContentValues values=new ContentValues();
+        values.put("ProductID",prdctId);
+        values.put("ReqStock",reqStock);
+        values.put("dfltUOMId",dfltUOMId);
+        values.put("SlctdUOMID",slctdUOMId);
+        db.insert(TABLE_tbl_StockRqst,null,values);
+    }
+
+    public static void deletePrvsStkRqst()
+    {
+        db.execSQL("Delete from tblStockRqst");
+    }
+    public static LinkedHashMap<String,String> getStockReq()
+    {
+        // open();
+        LinkedHashMap<String,String> hmapStockReqData=new LinkedHashMap<String,String>();
+        Cursor cur=null;
+
+        try {
+            cur=db.rawQuery("Select ProductID,ReqStock,SlctdUOMID from tblStockRqst",null);
+            if(cur.getCount()>0)
+            {
+                if(cur.moveToFirst())
+                {
+                    for(int i=0;i<cur.getCount();i++)
+                    {
+                        hmapStockReqData.put(cur.getString(0).trim(),cur.getString(1));
+                        cur.moveToNext();
+                    }
+                }
+            }
+        }catch(Exception e)
+        {
+            System.out.println("Error = "+e.toString());
+        }
+        finally
+        {
+            if(cur!=null)
+            {
+                cur.close();
+            }
+            // close();
+        }
+        return hmapStockReqData;
+    }
+
+
+
+
+    public static int fetchtblStockUploadedStatusForRqstStatus()
+    {
+        //open();
+        int retVal=0;
+        try
+        {
+            Cursor cur=db.rawQuery("Select StatusID from tblStockUploadedStatus",null);
+            if(cur.getCount()>0)
+            {
+                if(cur.moveToFirst())
+                {
+                    for(int i=0;i<cur.getCount();i++)
+                    {
+                        retVal=Integer.parseInt(cur.getString(0));
+                        cur.moveToNext();
+                    }
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error getOtherReason = "+e.toString());
+        }
+        finally
+        {
+            //close();
+            return retVal;
+        }
+    }
+    public static String fngetSalesPersonCvrgIdCvrgNdTyp()
+    {
+        String abcd="0^0";
+        Cursor cursor=null;
+        try
+        {
+            //open();
+            cursor = db.rawQuery("SELECT CoverageNodeId,CoverageNodeType from tblUserAuthenticationMstr", null);
+            if(cursor.getCount()>0)
+            {
+                if (cursor.moveToFirst())
+                {
+                    for (int i = 0; i <= (cursor.getCount() - 1); i++)
+                    {
+                        abcd=cursor.getString(0)+"^"+cursor.getString(1);
+                        cursor.moveToNext();
+                    }
+                }
+            }
+        }catch(Exception e)
+        { e.printStackTrace();}
+        finally
+        {
+            if(cursor != null)
+            {
+                cursor.close();
+            }
+            //close();
+            return abcd;
+        }
+    }
+
 }
 
 

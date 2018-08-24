@@ -20,6 +20,8 @@
     <string name="ExitButtonText"> બહાર જાઓ </string>
     <string name="today_Notworking">ચલ્તુ નથિ</string>
 
+
+
     <string name="stockAsOn"> આજે સુધી સ્ટોક કરો </string>
     <string name="verifyLocation"> કૃપા કરીને આગામી પર ક્લિક કરતાં પહેલાં તમારું સ્થાન ચકાસો.</string>
 
@@ -862,6 +864,8 @@
     <string name="RefNochequeNoTrnNo">RefNo/chequeNo/TrnNo</string>
     <string name="crntInvoice">વર્તમાન ઇન્વૉઇસ: </string>
     <string name="minAmountDue">ન્યૂનતમ રકમ: </string>
+    <string name="AlertDialogRequstionStock">સ્ટોક વિનંતી મૂકીને ભૂલ!</string>
+
     <string name="TtlAmtOutStnding">કુલ ઉત્કૃષ્ટ: </string>
     <string name="Amount">રકમ</string>
     <string name="txtDate">તારીખ</string>
@@ -873,4 +877,14 @@
     <string name="txtLatestNotification">છેલ્લી 10 સૂચન</string>
     <string name="txtMessage">સંદેશ</string>
     <string name="txtBack">પાછળ</string>
+
+    <string name="StockRequest">સ્ટોક વિનંતી</string>
+
+    <string name="StockinVan">વેન સ્ટોક</string>
+    <string name="ReqStock">આવશ્યક સ્ટોક</string>
+    <string name="fnlStk">અંતિમ સ્ટોક</string>
+    <string name="uom">UOM</string>
+    <string name="AlertVANStockForRqstStk">અન્ય સ્ટોક વિનંતીને મૂકવા માટે કૃપા કરીને વેરહાઉસ સ્ટોકની પુષ્ટિ કરો.</string>
+
+
 </resources>
