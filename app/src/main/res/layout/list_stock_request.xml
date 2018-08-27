@@ -2,7 +2,7 @@
  <LinearLayout 
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	
-   
+   	android:id="@+id/ll_Parent"
        android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -32,33 +32,6 @@
 			 android:textColor="#000000"
 			 android:textSize="14sp"
 			android:layout_weight="2"/>
-
-		<TextView
-			android:id="@+id/tvOpnStk"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:text="0"
-			android:padding="1dp"
-			android:layout_marginLeft="2dp"
-			android:gravity="center"
-			android:textColor="@color/colorPrimary"
-			android:background="@drawable/edit_text_bg"
-			android:textSize="14sp"
-			android:layout_weight="1"/>
-		<EditText
-			android:id="@+id/tvReqStk"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-
-			android:padding="1dp"
-			android:layout_marginLeft="2dp"
-			android:gravity="center"
-			android:textColor="@color/colorPrimary"
-			android:textSize="14sp"
-			android:inputType="number"
-			android:background="@drawable/edit_text_diable_bg_transprent"
-
-			android:layout_weight="1"/>
 		<TextView
 			android:id="@+id/tvUOM"
 			android:layout_width="0dp"
@@ -72,6 +45,48 @@
 			android:background="@drawable/edit_text_bg"
 			android:textSize="14sp"
 			android:layout_weight="1"/>
+
+		<TextView
+			android:id="@+id/tvOpnStk"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:text="0"
+			android:padding="1dp"
+			android:layout_marginLeft="2dp"
+			android:gravity="center"
+			android:textColor="@color/colorPrimary"
+			android:background="@drawable/edit_text_diable_bg_transprent"
+			android:textSize="14sp"
+			android:layout_weight="1"/>
+		<TextView
+			android:id="@+id/tvExpSales"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:text="0"
+			android:padding="1dp"
+			android:layout_marginLeft="2dp"
+			android:gravity="center"
+			android:textColor="@color/colorPrimary"
+			android:background="@drawable/edit_text_diable_bg_transprent"
+			android:textSize="14sp"
+			android:layout_weight="1"/>
+		<TextView
+			android:id="@+id/tvReqStk"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:drawableRight="@drawable/dropdown1"
+			android:padding="1dp"
+			android:layout_marginLeft="2dp"
+			android:gravity="center"
+			android:text="0"
+			android:textColor="@color/colorPrimary"
+			android:textSize="12sp"
+			android:inputType="number"
+			android:background="@drawable/edit_text_bg"
+
+
+			android:layout_weight="1"/>
+
 		<TextView
 			android:id="@+id/tvFnlStock"
 			android:layout_width="0dp"
@@ -81,7 +96,7 @@
 			android:gravity="center"
 			android:layout_marginLeft="2dp"
 			android:textColor="@color/colorPrimary"
-			android:background="@drawable/edit_text_bg"
+			android:background="@drawable/edit_text_diable_bg_transprent"
 			android:textSize="14sp"
 			android:layout_weight="1"/>
 		    

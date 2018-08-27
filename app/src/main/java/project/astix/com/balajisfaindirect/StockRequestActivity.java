@@ -12,13 +12,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,9 +36,14 @@ import android.widget.Toast;
 
 import com.astix.Common.CommonInfo;
 
+import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -50,6 +62,7 @@ public class StockRequestActivity extends BaseActivity {
     LinkedHashMap<String, String> hmapUOMMstrIdName=new LinkedHashMap<String, String>();
     LinkedHashMap<String, String> hmapBaseUOMCalcValue=new LinkedHashMap<String, String>();
     LinkedHashMap<String,ArrayList<String>> hmapUOMPrdctWise;
+    LinkedHashMap<String, String> hmapDfltUOMMstrPrdtWise;
     StringBuilder strReqStockToSend=new StringBuilder();
 
     PRJDatabase dbengine = new PRJDatabase(this);
@@ -63,7 +76,11 @@ public class StockRequestActivity extends BaseActivity {
     public String back="0";
     public int bck = 0;
     public LinearLayout listView;
+    LinkedHashMap<String,String> hmapTotalCalcOnUOMSlctd=new LinkedHashMap<String,String>();
+    LinkedHashMap<String,String> hmapprdctUOMSlctd=new LinkedHashMap<String,String>();
 
+    LinkedHashMap<String,String> hmapprdctQtyFilled=new LinkedHashMap<String,String>();
+    LinkedHashMap<String,String> hmapprdctQtyPrvsFilled=new LinkedHashMap<String,String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +115,7 @@ public class StockRequestActivity extends BaseActivity {
         hmapUOMMstrIdName=listUOMData.get(1);
          hmapUOMPrdctWise=dbengine.getPrdctMpngWithUOM();
         baseUOMID=dbengine.getBaseUOMId();
+        hmapDfltUOMMstrPrdtWise=dbengine.getPrdctDfltMpngWithUOM();
         hmapBaseUOMCalcValue=dbengine.getBaseUOMCalcValue(baseUOMID);
 
     }
@@ -148,13 +166,13 @@ public class StockRequestActivity extends BaseActivity {
         for(Map.Entry<String,String> entry:hmapPrdct_details.entrySet())
         {
             String prdctId=entry.getKey();
-            EditText edRqrdStk= (EditText) listView.findViewWithTag(prdctId+"_edRqstStk");
+            TextView edRqrdStk= (TextView) listView.findViewWithTag(prdctId+"_edRqstStk");
             if(edRqrdStk!=null)
             {
-                if(!TextUtils.isEmpty(edRqrdStk.getText().toString()) &&(Integer.parseInt(edRqrdStk.getText().toString())>0))
+                if(hmapTotalCalcOnUOMSlctd.containsKey(prdctId))
 
                 {
-                    int requiredStk=Integer.parseInt(edRqrdStk.getText().toString());
+                    Double requiredStk=Double.parseDouble(hmapTotalCalcOnUOMSlctd.get(prdctId));
                     TextView tvUOM= (TextView) listView.findViewWithTag (prdctId+"_tvUOM");
                     String uomIDSlctd="0";
                     if(tvUOM!=null)
@@ -200,20 +218,30 @@ public class StockRequestActivity extends BaseActivity {
 
         if(hmapPrdct_details!=null && hmapPrdct_details.size()>0)
         {
-            int index=0;
+            int index=1;
            for(Map.Entry<String,String> entryPrdct:hmapPrdct_details.entrySet())
             {
 
                 viewProduct=inflater.inflate(R.layout.list_stock_request,null);
 
+                if (index % 2 == 0) {
+                    viewProduct.setBackgroundResource(R.drawable.card_background);
+                } else {
+                    //ll_prdct_detal.getChildAt(position).setBackgroundColor(Color.parseColor("#ffffff"));
+                    //ll_prdct_detal.getChildAt(position).setBackgroundColor(Color.parseColor("#F2F2F2"));
+                    viewProduct.setBackgroundResource(R.drawable.card_background_white);
+
+                }
                 final String prdctId=entryPrdct.getKey();
                 final String prdctName=entryPrdct.getValue();
                 TextView tv_product_name=(TextView) viewProduct.findViewById(R.id.tvProdctName);
                 tv_product_name.setText(prdctName);
-
+                tv_product_name.setTag(prdctId+"_PrdctName");
                 final TextView tvOpnStk=(TextView) viewProduct.findViewById(R.id.tvOpnStk);
+                tvOpnStk.setTag(prdctId+"_openStk");
                 if(hmapStore_details.containsKey(prdctId+"^"+prdctName))
                 {
+
                     tvOpnStk.setText(hmapStore_details.get(prdctId+"^"+prdctName));
                 }
                 else
@@ -221,14 +249,36 @@ public class StockRequestActivity extends BaseActivity {
                     tvOpnStk.setText("0");
                 }
 
-                final EditText edReqStk=(EditText) viewProduct.findViewById(R.id.tvReqStk);
-                edReqStk.setTag(prdctId+"_edRqstStk");
+                final TextView tvReqStk=(TextView) viewProduct.findViewById(R.id.tvReqStk);
+                tvReqStk.setTag(prdctId+"_edRqstStk");
 
                 final TextView tvUOM=(TextView) viewProduct.findViewById(R.id.tvUOM);
                 tvUOM.setTag(prdctId+"_tvUOM");
-                tvUOM.setText(hmapUOMMstrIdName.get(String.valueOf(baseUOMID)));
+                if(hmapDfltUOMMstrPrdtWise.containsKey(prdctId))
+                {
+                    tvUOM.setText(hmapUOMMstrIdName.get(hmapDfltUOMMstrPrdtWise.get(prdctId)));
+                    hmapprdctUOMSlctd.put(prdctId,hmapDfltUOMMstrPrdtWise.get(prdctId));
+                    if(hmapStore_details.containsKey(prdctId+"^"+prdctName))
+                    {
+                       String uomIdSlctdDft= hmapDfltUOMMstrPrdtWise.get(prdctId);
+                        Double conversionUnitSlctdUOM=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+uomIdSlctdDft));
+                        Double valueOfStock=Double.parseDouble(hmapStore_details.get(prdctId+"^"+prdctName));
+                       Double crntStockVal=valueOfStock/conversionUnitSlctdUOM;
+                        crntStockVal= Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(crntStockVal)));
+                        tvOpnStk.setText(""+crntStockVal);
+                    }
+
+
+                }
+                else
+                {
+                    tvUOM.setText(hmapUOMMstrIdName.get(String.valueOf(baseUOMID)));
+                    hmapprdctUOMSlctd.put(prdctId,String.valueOf(baseUOMID));
+                }
+
 
                 final TextView tvFnlStock=(TextView) viewProduct.findViewById(R.id.tvFnlStock);
+                tvFnlStock.setTag(prdctId+"_tvFnlStock");
                 if(hmapStore_details.containsKey(prdctId+"^"+prdctName))
                 {
                     tvFnlStock.setText(hmapStore_details.get(prdctId+"^"+prdctName));
@@ -238,37 +288,16 @@ public class StockRequestActivity extends BaseActivity {
                     tvFnlStock.setText("0");
                 }
 
-                edReqStk.addTextChangedListener(new TextWatcher() {
+
+                tvReqStk.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    public void onClick(View v) {
 
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-
-                        if(!TextUtils.isEmpty(edReqStk.getText().toString()))
+                        if(hmapUOMPrdctWise.containsKey(prdctId))
                         {
-                            if((Integer.parseInt(edReqStk.getText().toString())>0))
-                            {
-                                int finalStk=Integer.parseInt(edReqStk.getText().toString())+Integer.parseInt(tvOpnStk.getText().toString());
-                                tvFnlStock.setText(""+finalStk);
-                            }
-                            else
-                            {
-                                tvFnlStock.setText(tvOpnStk.getText().toString());
-                            }
+                            customReqStock(prdctId );
+                        }
 
-                        }
-                        else
-                        {
-                            tvFnlStock.setText(tvOpnStk.getText().toString());
-                        }
                     }
                 });
 
@@ -282,6 +311,8 @@ public class StockRequestActivity extends BaseActivity {
                        View convertView = (View) inflater.inflate(R.layout.activity_list, null);
                         EditText inputSearch=	 (EditText) convertView.findViewById(R.id.inputSearch);
                         inputSearch.setVisibility(View.GONE);
+                        TextView txt_header= (TextView) convertView.findViewById(R.id.txt_header);
+                        txt_header.setText("Unit Of Measurments");
                         final ListView   listUOM = (ListView)convertView. findViewById(R.id.list_view);
 
                         String[] UOMArray;
@@ -299,23 +330,86 @@ public class StockRequestActivity extends BaseActivity {
                                 if(hmapUOMMstrIdName.containsKey(uomToSpinner))
                                 {
                                     UOMArray[UomIndex]=hmapUOMMstrIdName.get(uomToSpinner);
-                                    ArrayAdapter  adapterUOM = new ArrayAdapter<String>(StockRequestActivity.this, R.layout.list_item, R.id.product_name, UOMArray);
-                                    listUOM.setAdapter(adapterUOM);
-                                    listDialog.setContentView(convertView);
-                                    listDialog.setTitle(getResources().getString(R.string.txtQualification));
-                                    listUOM.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                            String abc=listUOM.getItemAtPosition(position).toString().trim();
-                                            tvUOM.setText(abc);
-                                            listDialog.dismiss();
 
-                                        }
-                                    });
-                                }
 
                                 UomIndex++;
                             }
+                            }
+                            if(UOMArray!=null && UOMArray.length>0)
+                            {
+                                ArrayAdapter  adapterUOM = new ArrayAdapter<String>(StockRequestActivity.this, R.layout.list_item, R.id.product_name, UOMArray);
+                                listUOM.setAdapter(adapterUOM);
+                                listDialog.setContentView(convertView);
+                                listDialog.setTitle(getResources().getString(R.string.txtQualification));
+
+
+
+                                listUOM.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        String abc=listUOM.getItemAtPosition(position).toString().trim();
+                                        tvUOM.setText(abc);
+
+                                        String uomIdSlctd= hmapUOMMstrNameId.get(abc);
+
+                                        String prdctId=tvUOM.getTag().toString().split(Pattern.quote("_"))[0];
+                                        if(hmapStore_details.containsKey(prdctId+"^"+prdctName))
+                                        {
+
+                                            View viewproductName=listView.findViewWithTag(prdctId+"_PrdctName");
+                                            if(viewproductName!=null && viewproductName instanceof TextView)
+                                            {
+                                                Double conversionUnitSlctdUOM=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+uomIdSlctd));
+                                                String productName=((TextView) viewproductName).getText().toString();
+                                                Double valueOfStock=Double.parseDouble(hmapStore_details.get(prdctId+"^"+productName));
+                                                Double crntStockVal=valueOfStock/conversionUnitSlctdUOM;
+                                                crntStockVal= Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(crntStockVal)));
+                                                tvOpnStk.setText(""+crntStockVal);
+                                            }
+
+                                        }
+                                        if(hmapTotalCalcOnUOMSlctd.containsKey(prdctId))
+                                        {
+                                           String prvsUomIdSlctd= hmapprdctUOMSlctd.get(prdctId);
+                                            Double conversionUnit=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+prvsUomIdSlctd));
+                                            Double conversionUnitSlctdUOM=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+uomIdSlctd));
+                                            Double valueInBaseUnit=conversionUnit/conversionUnitSlctdUOM;
+                                            valueInBaseUnit=valueInBaseUnit*Double.parseDouble(hmapTotalCalcOnUOMSlctd.get(prdctId));
+                                           // valueInBaseUnit=Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(valueInBaseUnit)));
+                                            hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(valueInBaseUnit));
+                                            TextView txtRqstVw= (TextView) listView.findViewWithTag(prdctId+"_edRqstStk");
+                                            TextView txtFinalStock=(TextView) listView.findViewWithTag(prdctId+"_tvFnlStock");
+
+
+                                            TextView txtOpnStck=(TextView) listView.findViewWithTag(prdctId+"_openStk");
+                                            if((txtRqstVw!=null) && (txtFinalStock!=null) && (txtOpnStck!=null))
+                                            {
+                                              Double valueToPut=  Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(hmapTotalCalcOnUOMSlctd.get(prdctId))));
+                                                txtRqstVw.setText(""+valueToPut);
+                                                Double realStock=Double.parseDouble(hmapTotalCalcOnUOMSlctd.get(prdctId));
+                                                Double finalStock=realStock+Double.parseDouble(txtOpnStck.getText().toString());
+
+                                                finalStock=Double.parseDouble(new DecimalFormat("##.##").format(finalStock));
+
+
+                                                txtFinalStock.setText(""+finalStock);
+                                            }
+
+
+
+
+
+
+
+                                        }
+
+                                        hmapprdctUOMSlctd.put(prdctId,hmapUOMMstrNameId.get(abc));
+                                        listDialog.dismiss();
+
+                                    }
+                                });
+                            }
+
 
 
                         }
@@ -330,7 +424,7 @@ public class StockRequestActivity extends BaseActivity {
                     }
                 });
 
-
+                index++;
                 listView.addView(viewProduct);
 
             }
@@ -485,4 +579,318 @@ public class StockRequestActivity extends BaseActivity {
 
         alertDialog.show();
     }
+
+    public void customReqStock(final String prdctId)
+    {
+
+        final Dialog listDialog = new Dialog(StockRequestActivity.this);
+        listDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        listDialog.setContentView(R.layout.custom_req_stock);
+        listDialog.setCanceledOnTouchOutside(false);
+        listDialog.setCancelable(false);
+        WindowManager.LayoutParams parms = listDialog.getWindow().getAttributes();
+        parms.gravity = Gravity.CENTER;
+        parms.width=   WindowManager.LayoutParams.MATCH_PARENT;
+        //there are a lot of settings, for dialog, check them all out!
+        parms.dimAmount = (float) 0.5;
+
+
+        LinearLayout ll_reqStockViews= (LinearLayout) listDialog.findViewById(R.id.ll_reqStockViews);
+
+        Button btn_Cancel=(Button) listDialog.findViewById(R.id.btn_Cancel);
+        Button btn_Done=(Button) listDialog.findViewById(R.id.btn_Done);
+        //    TextView txtVwSubmit=(TextView) listDialog.findViewById(R.id.txtVwSubmit);
+
+
+
+            //  LinkedHashMap<String, String> map = new LinkedHashMap<String, String>(hmapUOM);
+            ArrayList<String> listPrdctUOM=hmapUOMPrdctWise.get(prdctId);
+
+            for(String uomToSpinner:listPrdctUOM)
+            {
+                if(hmapUOMMstrIdName.containsKey(uomToSpinner))
+                {
+                   String UOMDesc=hmapUOMMstrIdName.get(uomToSpinner);
+                  TextView txtVw= getTextView(UOMDesc);
+                  //prdctId+"^"+uomIDSlctd
+                  View edText=getEditTextView(4,prdctId+"^"+uomToSpinner);
+                  LinearLayout linearLayout=getLinearLayoutHorizontal(txtVw,edText);
+                  ll_reqStockViews.addView(linearLayout);
+                }
+
+
+            }
+
+
+
+        btn_Done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ArrayList<String> listPrdctUOM=hmapUOMPrdctWise.get(prdctId);
+                hmapTotalCalcOnUOMSlctd.remove(prdctId);
+                for(String uomToSpinner:listPrdctUOM)
+                {
+                    if(hmapUOMMstrIdName.containsKey(uomToSpinner))
+                    {
+
+                        String UomId=uomToSpinner;
+                        String uomIdSlctd= hmapprdctUOMSlctd.get(prdctId);
+                        String tagVal=prdctId+"^"+UomId;
+
+                        if( hmapprdctQtyFilled.containsKey(tagVal))
+                        {
+                            //(String editTextvalue,String uomIdSlctd,String UomId,String prdctId,String tagVal)
+                            addValue(hmapprdctQtyFilled.get(tagVal),uomIdSlctd,UomId,prdctId,tagVal);
+
+                        }
+                        else
+                        {
+
+                        }
+
+
+
+
+                    }
+
+
+                }
+
+                if(hmapTotalCalcOnUOMSlctd.containsKey(prdctId))
+                {
+                    //prdctId+"_edRqstStk"
+                    TextView txtRqstVw= (TextView) listView.findViewWithTag(prdctId+"_edRqstStk");
+                    //  tvFnlStock.setTag(prdctId+"_tvFnlStock");
+                    TextView txtFinalStock=(TextView) listView.findViewWithTag(prdctId+"_tvFnlStock");
+
+
+                    TextView txtOpnStck=(TextView) listView.findViewWithTag(prdctId+"_openStk");
+                    if((txtRqstVw!=null) && (txtFinalStock!=null) && (txtOpnStck!=null) && (hmapTotalCalcOnUOMSlctd!=null))
+                    {
+                        Double realStock=Double.parseDouble(hmapTotalCalcOnUOMSlctd.get(prdctId));
+                        Double finalStock=realStock+Double.parseDouble(txtOpnStck.getText().toString());
+                     Double requestedStock=Double.parseDouble(new DecimalFormat("##.##").format(realStock));
+                        finalStock=Double.parseDouble(new DecimalFormat("##.##").format(finalStock));
+
+                        txtRqstVw.setText(""+requestedStock);
+                        txtFinalStock.setText(""+finalStock);
+
+
+                    }
+
+
+
+                }
+                else
+                {
+                    //prdctId+"_edRqstStk"
+                    TextView txtRqstVw= (TextView) listView.findViewWithTag(prdctId+"_edRqstStk");
+                    //  tvFnlStock.setTag(prdctId+"_tvFnlStock");
+                    TextView txtFinalStock=(TextView) listView.findViewWithTag(prdctId+"_tvFnlStock");
+
+
+                    TextView txtOpnStck=(TextView) listView.findViewWithTag(prdctId+"_openStk");
+                    if((txtRqstVw!=null) && (txtFinalStock!=null) && (txtOpnStck!=null))
+                    {
+
+
+                        txtRqstVw.setText("0");
+                        txtFinalStock.setText(txtOpnStck.getText().toString());
+
+
+                    }
+
+                }
+                listDialog.dismiss();
+
+            }
+        });
+
+
+
+
+
+        //	editText.setBackgroundResource(R.drawable.et_boundary);
+
+
+
+
+
+        btn_Cancel.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                listDialog.dismiss();
+
+
+            }
+        });
+
+
+
+
+        //now that the dialog is set up, it's time to show it
+        listDialog.show();
+
+    }
+
+
+    public TextView getTextView(String uomDes)
+    {
+
+
+        TextView txtVw_ques=new TextView(StockRequestActivity.this);
+        LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, 1f);
+        txtVw_ques.setLayoutParams(layoutParams1);
+      //  txtVw_ques.setTag(tagVal);
+
+        txtVw_ques.setTextColor(getResources().getColor(R.color.blue));
+        txtVw_ques.setText(uomDes);
+
+
+
+
+        return txtVw_ques;
+    }
+
+    public View getEditTextView(int maxLength, final String tagVal)
+    {
+        View viewEditText = null;
+
+
+        viewEditText=getLayoutInflater().inflate(R.layout.edit_text_ans_numeric, null);
+        final EditText editText=(EditText) viewEditText.findViewById(R.id.et_numeric);
+        // editText.setHint(ed_hint);
+
+        // System.out.println("AnsCntrolType = "+ansControlInputTypeID);
+        //	editText.setBackgroundResource(R.drawable.et_boundary);
+        LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, 1f);
+        editText.setLayoutParams(layoutParams1);
+        editText.setTag(tagVal);
+
+        if(hmapprdctQtyFilled.containsKey(tagVal))
+        {
+            editText.setText(hmapprdctQtyFilled.get(tagVal));
+        }
+
+        //et_alphabet.setHint(ed_hint);
+        InputFilter[] FilterArray = new InputFilter[1];
+        FilterArray[0] = new InputFilter.LengthFilter(maxLength);
+        editText.setFilters(FilterArray);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                    if(!TextUtils.isEmpty(editText.getText().toString()))
+                    {
+                        hmapprdctQtyFilled.put(tagVal,editText.getText().toString());
+
+                    }
+                    else
+                    {
+                        if(hmapprdctQtyFilled.containsKey(tagVal))
+                        {
+
+                            hmapprdctQtyFilled.remove(tagVal);
+                        }
+
+                    }
+                }
+
+        });
+        return viewEditText;
+    }
+
+
+    private LinearLayout getLinearLayoutHorizontal(TextView tv,View edText) {
+        LinearLayout lay = new LinearLayout(StockRequestActivity.this);
+
+        lay.setOrientation(LinearLayout.HORIZONTAL);
+      //  lay.setBackgroundResource(R.drawable.card_background_white);
+
+        lay.addView(tv);
+        lay.setPadding(0,5,0,0);
+       lay.addView(edText);
+
+        return lay;
+
+    }
+
+        public void addValue(String editTextvalue,String uomIdSlctd,String UomId,String prdctId,String tagVal)
+        {
+            if(!TextUtils.isEmpty(editTextvalue) && (Integer.parseInt(editTextvalue)>0))
+            {
+
+
+
+                if(uomIdSlctd.equals(UomId))
+                {
+                    if(hmapTotalCalcOnUOMSlctd.containsKey(prdctId))
+                    {
+                        Double value= Double.parseDouble(hmapTotalCalcOnUOMSlctd.get(prdctId));
+                        Double totalVaue= value+Double.parseDouble(editTextvalue);
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(totalVaue));
+                    }
+                    else
+                    {
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,editTextvalue);
+                    }
+                }
+                else  if(baseUOMID==Integer.parseInt(UomId))
+                {
+                    Double requiredStk=Double.parseDouble(editTextvalue);
+                    Double conversionUnit=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+uomIdSlctd));
+                    Double valueInBaseUnit=requiredStk/conversionUnit;
+                    if(hmapTotalCalcOnUOMSlctd.containsKey(prdctId))
+                    {
+                        Double value= Double.parseDouble(hmapTotalCalcOnUOMSlctd.get(prdctId));
+                        Double totalVaue= value+valueInBaseUnit;
+
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(totalVaue));
+                    }
+                    else
+                    {
+
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(valueInBaseUnit));
+                    }
+
+
+                }
+                else
+                {
+                    Double requiredStk=Double.parseDouble(editTextvalue);
+                    Double conversionUnit=Double.parseDouble(hmapBaseUOMCalcValue.get(tagVal));
+                    Double conversionUnitSlctdUOM=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+uomIdSlctd));
+                    Double valueInBaseUnit=conversionUnit/conversionUnitSlctdUOM;
+                    valueInBaseUnit=valueInBaseUnit*requiredStk;
+                    if(hmapTotalCalcOnUOMSlctd.containsKey(prdctId))
+                    {
+                        Double value= Double.parseDouble(hmapTotalCalcOnUOMSlctd.get(prdctId));
+                        Double totalVaue= value+valueInBaseUnit;
+
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(totalVaue));
+                    }
+                    else
+                    {
+
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(valueInBaseUnit));
+                    }
+
+                }
+
+            }
+        }
+
+
 }

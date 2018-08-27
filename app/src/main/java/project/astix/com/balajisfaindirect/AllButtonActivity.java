@@ -4650,6 +4650,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             dismissProgress();   // Base class method for dismissing ProgressDialog
 
             flgStockOut= dbengine.fetchtblStockUploadedStatus();
+            int statusId = dbengine.confirmedStock();
             //  flgStockOut=1;
             if(serviceException)
             {
@@ -4665,6 +4666,10 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
 
                   //   Toast.makeText(AllButtonActivity.this,"Error while retrieving data.",Toast.LENGTH_SHORT).show();
+            }
+            else if(statusId==3)
+            {
+                showAlertStockOut(getResources().getString(R.string.genTermNoDataConnection),getResources().getString(R.string.AlertVANStockConfrmDstrbtr));
             }
             else
             {

@@ -884,7 +884,7 @@
     <string name="ReqStock">આવશ્યક સ્ટોક</string>
     <string name="fnlStk">અંતિમ સ્ટોક</string>
     <string name="uom">UOM</string>
-    <string name="AlertVANStockForRqstStk">અન્ય સ્ટોક વિનંતીને મૂકવા માટે કૃપા કરીને વેરહાઉસ સ્ટોકની પુષ્ટિ કરો.</string>
-
-
+    <string name="AlertVANStockForRqstStk">પાછલા સાયકલ સ્ટોક તમારા અને ડિલરની મંજૂરી માટેની પુષ્ટિકરણ માટે બાકી છે. તે પછી તમે સ્ટોક આવશ્યકતા માટે જઈ શકો છો.</string>
+    <string name="AlertVANStockConfrmDstrbtr">અગાઉના સાયકલ સ્ટોક ડીલર પુષ્ટિ માટે બાકી છે. તે પછી તમે વેરહાઉસ ચેકિન માટે જઈ શકો છો.</string>
+    <string name="avgSales">અપેક્ષિત સેલ્સ</string>
 </resources>

@@ -46,7 +46,7 @@ public class PRJDatabase
     private static final String DATABASE_CREATE_TABLE_tblUOMMstr = "create table tblUOMMaster(UOMId int null,UOM text null,flgBaseUnit int null);";
 
     private static final String TABLE_tblUOMMapping = "tblUOMMapping";
-    private static final String DATABASE_CREATE_TABLE_tblUOMMapping = "create table tblUOMMapping(NodeId int null,NodeType int null,BaseUnitID int null,PackUnitId int null,BaseValue real null);";
+    private static final String DATABASE_CREATE_TABLE_tblUOMMapping = "create table tblUOMMapping(NodeId int null,NodeType int null,BaseUnitID int null,PackUnitId int null,BaseValue real null,flgDefaultUOM int null);";
 
     private static final String TABLE_tbl_StockRqst = "tblStockRqst";
     private static final String DATABASE_CREATE_TABLE_tblStockReq = "create table tblStockRqst(ProductID int null,ReqStock int null,dfltUOMId int null,SlctdUOMID int null);";
@@ -34919,7 +34919,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         values.put("flgBaseUnit",flgBaseUnit);
         db.insert(TABLE_tblUOMMstr,null,values);
     }
-    public static void insertUOMMapping(int nodeId,int nodeType,int BaseUnitID,int PackUnitId,Double BaseValue)
+    public static void insertUOMMapping(int nodeId,int nodeType,int BaseUnitID,int PackUnitId,Double BaseValue,int flgDefaultUOM)
     {
 
         ContentValues values=new ContentValues();
@@ -34928,6 +34928,8 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         values.put("BaseUnitID",BaseUnitID);
         values.put("PackUnitId",PackUnitId);
         values.put("BaseValue",BaseValue);
+        values.put("flgDefaultUOM",flgDefaultUOM);
+
         db.insert(TABLE_tblUOMMapping,null,values);
     }
 
@@ -35222,13 +35224,45 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         }
     }
 
+
+    public static LinkedHashMap<String,String> getPrdctDfltMpngWithUOM()
+    {
+        // open();
+        LinkedHashMap<String,String> hmapDfltUOMMstrPrdtWise=new LinkedHashMap<String,String>();
+        Cursor cur=null;
+
+        try {
+            cur=db.rawQuery("Select NodeId,PackUnitId from tblUOMMapping where flgDefaultUOM=1",null);
+            if(cur.getCount()>0)
+            {
+                if(cur.moveToFirst())
+                {
+                    for(int i=0;i<cur.getCount();i++)
+                    {
+
+                        hmapDfltUOMMstrPrdtWise.put(cur.getString(0),cur.getString(1));
+
+                        // hmapUOMMstr.put(cur.getString(0).trim(),cur.getInt(1));
+                        cur.moveToNext();
+                    }
+                }
+            }
+        }catch(Exception e)
+        {
+            System.out.println("Error = "+e.toString());
+        }
+        finally
+        {
+            if(cur!=null)
+            {
+                cur.close();
+            }
+
+        }
+        return hmapDfltUOMMstrPrdtWise;
+    }
+
 }
-
-
-
-
-
-
 
 
 

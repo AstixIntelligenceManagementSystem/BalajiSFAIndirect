@@ -6870,6 +6870,7 @@ String RouteType="0";
 				int BaseUomId=0;
 				int PackUomId=0;
 				Double relConverionUnit=0.0;
+				int flgDefaultUOM=0;
 
 
 
@@ -6938,9 +6939,21 @@ String RouteType="0";
 						relConverionUnit=Double.parseDouble(xmlParser.getCharacterDataFromElement(line));
 					}
 				}
+				if(!element.getElementsByTagName("flgVanLoading").equals(null))
+				{
+
+					NodeList flgDefaultUOMNode = element.getElementsByTagName("flgVanLoading");
+					Element     line = (Element) flgDefaultUOMNode.item(0);
+
+					if(flgDefaultUOMNode.getLength()>0)
+					{
+
+						flgDefaultUOM=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+					}
+				}
 
 
-				dbengine.insertUOMMapping(NodeId,NodeType,BaseUomId,PackUomId,relConverionUnit);
+				dbengine.insertUOMMapping(NodeId,NodeType,BaseUomId,PackUomId,relConverionUnit,flgDefaultUOM);
 			}
 
 			//dbengine.close();;

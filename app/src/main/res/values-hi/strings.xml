@@ -840,12 +840,12 @@
 
 
     <string name="StockRequest">स्टॉक अनुरोध</string>
-
+    <string name="avgSales">अपेक्षित बिक्री</string>
     <string name="StockinVan">वैन में स्टॉक</string>
     <string name="ReqStock">आवश्यक स्टॉक</string>
     <string name="fnlStk">अंतिम स्टॉक</string>
     <string name="uom">UOM</string>
-    <string name="AlertVANStockForRqstStk">कृपया एक और स्टॉक अनुरोध रखने के लिए पहले वेयरहाउस स्टॉक की पुष्टि करें।</string>
+    <string name="AlertVANStockForRqstStk">पिछले चक्र स्टॉक आपके और डीलर की स्वीकृति के लिए पुष्टि के लिए लंबित है। उसके बाद आप स्टॉक अनुरोध के लिए जा सकते हैं</string>
     <string name="AlertDialogRequstionStock">स्टॉक अनुरोध रखने में त्रुटि!</string>
-
+    <string name="AlertVANStockConfrmDstrbtr">पिछले चक्र स्टॉक डीलर पुष्टिकरण के लिए लंबित है। इसके बाद आप वेयरहाउस चेकइन के लिए जा सकते हैं।</string>
 </resources>
