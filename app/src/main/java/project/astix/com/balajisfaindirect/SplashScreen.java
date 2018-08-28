@@ -225,7 +225,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
 
         String [] AllFilesName= checkNumberOfFiles(del);
 
-        if(AllFilesName.length>0)
+        if(AllFilesName!=null && AllFilesName.length>0)
         {
             totalFiles=AllFilesName.length;
         }
@@ -239,7 +239,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
 
         String [] AllFilesName= checkNumberOfFiles(del);
 
-        if(AllFilesName.length>0)
+        if(AllFilesName!=null && AllFilesName.length>0)
         {
             totalFiles=AllFilesName.length;
         }
@@ -318,7 +318,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
         //imei="911383400331938";  // Test User Anil Kumar
 
 
-        //imei="862856033025653";   // Live user
+       // imei="862856033025653";   // Live user
 
         //imei="359670066016988";
 
@@ -333,7 +333,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
       // imei="352801088236109";
 
 
-      // imei="354010084603910";  // paras imei like Godrej
+       //imei="863408031291603";  // paras imei like Godrej
         CommonInfo.imei = imei;
 
         if(dbengine.isDBOpen()==false)
