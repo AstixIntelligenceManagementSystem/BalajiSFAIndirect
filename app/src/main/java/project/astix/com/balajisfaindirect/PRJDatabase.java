@@ -34413,6 +34413,23 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
 
                 }
             }
+            else
+            {
+                arrWareHouseDetails.add("Not Available");
+                arrWareHouseDetails.add("Not Available");
+                arrWareHouseDetails.add("Not Available");
+                arrWareHouseDetails.add("Not Available");
+                arrWareHouseDetails.add("Not Available");
+                arrWareHouseDetails.add("Not Available");
+                arrWareHouseDetails.add("Not Available");
+                int IsCompositeStatus=0;
+                if(IsCompositeStatus==0){
+                    arrWareHouseDetails.add("No");
+                }
+                if(IsCompositeStatus==1){
+                    arrWareHouseDetails.add("Yes");
+                }
+            }
             return arrWareHouseDetails;
         } finally {
 
@@ -34696,7 +34713,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
       //  Cursor cursor = db.rawQuery("SELECT NodeID ,NodeType from tblWarehouseMstr", null); //order by AutoIdOutlet Desc
         try
         {
-            Cursor cursor = db.rawQuery("SELECT NodeID ,NodeType from tblWarehouseMstr", null); //order by AutoIdOutlet Desc
+            Cursor cursor = db.rawQuery("SELECT NodeID,NodeType from tblWarehouseMstr", null); //order by AutoIdOutlet Desc
             if(cursor.getCount()>0)
             {
                 if (cursor.moveToFirst())

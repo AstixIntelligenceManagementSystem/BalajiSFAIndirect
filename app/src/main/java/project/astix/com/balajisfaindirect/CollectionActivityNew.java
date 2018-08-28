@@ -93,6 +93,7 @@ import project.astix.com.balajisfaindirect.printer.UnicodeFormatter;
 public class CollectionActivityNew extends BaseActivity  implements DatePickerDialog.OnDateSetListener, LocationListener,GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,InterfaceClass,View.OnFocusChangeListener,Runnable
 {
+    ProgressDialog pDialogGetStores;
     //Bluetooth Code
 
     private CoundownClass countDownTimer;
@@ -164,6 +165,8 @@ LocationRequest mLocationRequest;
     private static final long MIN_TIME_BW_UPDATES = 1000  * 1; //1 second
     private final long startTime = 10000;
     private final long interval = 200;
+    private final long startTimePrint = 10000;
+
 
     public  int flgLocationServicesOnOffOrderReview=0;
     public  int flgGPSOnOffOrderReview=0;
@@ -2223,7 +2226,7 @@ Double OverAllAmountCollected=0.0;
     private class FullSyncDataNow extends AsyncTask<Void, Void, Void> {
 
 
-        ProgressDialog pDialogGetStores;
+
         public FullSyncDataNow(CollectionActivityNew activity)
         {
             pDialogGetStores = new ProgressDialog(activity);
@@ -2405,10 +2408,7 @@ Double OverAllAmountCollected=0.0;
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            if(pDialogGetStores.isShowing())
-            {
-                pDialogGetStores.dismiss();
-            }
+
             try
             {
                 if(flgOnlySubmitOrPrint==1)
@@ -2421,37 +2421,35 @@ Double OverAllAmountCollected=0.0;
                         arrAllPrintResult= dbengine.fnFetch_InvoiceReportForPrint(StoreVisitCode,storeID, Integer.parseInt(arrResult.get(0)),Integer.parseInt(arrResult.get(1)));
                         if((arrAllPrintResult!=null) && (arrAllPrintResult.size()>0)){
                             PrintAll_Code();
+                            CoundownClassPrintComplete   coundownClassPrintComplete = new CoundownClassPrintComplete(startTimePrint, startTimePrint);
+                            coundownClassPrintComplete.start();
                         }
                         else{
+                            if(pDialogGetStores.isShowing())
+                            {
+                                pDialogGetStores.dismiss();
+                            }
                             Toast.makeText(CollectionActivityNew.this, "All print data is blank", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     else{
+                        if(pDialogGetStores.isShowing())
+                        {
+                            pDialogGetStores.dismiss();
+                        }
                         Toast.makeText(CollectionActivityNew.this, "NodeID Blank", Toast.LENGTH_SHORT).show();
                     }
 
                 }
-                StoreSelection.flgChangeRouteOrDayEnd=0;
-                DayStartActivity.flgDaySartWorking=0;
-                String presentRoute = dbengine.GetActiveRouteID();
-                Intent mMyServiceIntent = new Intent(getCtx(), MyService.class);
-                mMyServiceIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/" + CommonInfo.OrderXMLFolder + "/" + newfullFileName + ".xml");
-                mMyServiceIntent.putExtra("storeID", storeID);
-                mMyServiceIntent.putExtra("OrigZipFileName", newfullFileName);
-                mMyServiceIntent.putExtra("whereTo", "Regular");//
-                if (!isMyServiceRunning(MyService.class)) {
-                    startService(mMyServiceIntent);
+                else{
+                    if(pDialogGetStores.isShowing())
+                    {
+                        pDialogGetStores.dismiss();
+                    }
+                    sendIntentToOtherActivity();
                 }
 
-                Intent prevP2 = new Intent(CollectionActivityNew.this, StoreSelection.class);
-                //Location_Getting_Service.closeFlag = 0;
-                prevP2.putExtra("imei", imei);
-                prevP2.putExtra("userDate", date);
-                prevP2.putExtra("pickerDate", pickerDate);
-                prevP2.putExtra("rID", presentRoute);
-                startActivity(prevP2);
-                finish();
                /* Intent syncIntent = new Intent(CollectionActivityNew.this, SyncMaster.class);
                 //syncIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/RSPLSFAXml/" + newfullFileName + ".xml");
                 syncIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/" + CommonInfo.OrderXMLFolder + "/" + newfullFileName + ".xml");
@@ -3404,6 +3402,9 @@ Double OverAllAmountCollected=0.0;
                     Log.e("MainActivity", "Exe ", e);
 
                 }
+                finally {
+
+                }
             }
         };
         t.start();
@@ -3950,4 +3951,53 @@ Double OverAllAmountCollected=0.0;
         return builder.toString();
     }
     //Printer functions start here----------------------------------------------------------------
+
+    public void sendIntentToOtherActivity(){
+        StoreSelection.flgChangeRouteOrDayEnd=0;
+        DayStartActivity.flgDaySartWorking=0;
+        String presentRoute = dbengine.GetActiveRouteID();
+        Intent mMyServiceIntent = new Intent(getCtx(), MyService.class);
+        mMyServiceIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/" + CommonInfo.OrderXMLFolder + "/" + newfullFileName + ".xml");
+        mMyServiceIntent.putExtra("storeID", storeID);
+        mMyServiceIntent.putExtra("OrigZipFileName", newfullFileName);
+        mMyServiceIntent.putExtra("whereTo", "Regular");//
+        if (!isMyServiceRunning(MyService.class)) {
+            startService(mMyServiceIntent);
+        }
+
+        Intent prevP2 = new Intent(CollectionActivityNew.this, StoreSelection.class);
+        //Location_Getting_Service.closeFlag = 0;
+        prevP2.putExtra("imei", imei);
+        prevP2.putExtra("userDate", date);
+        prevP2.putExtra("pickerDate", pickerDate);
+        prevP2.putExtra("rID", presentRoute);
+        startActivity(prevP2);
+        finish();
+    }
+    public class CoundownClassPrintComplete extends CountDownTimer {
+
+        CoundownClassPrintComplete(long startTimePrint, long interval) {
+            super(startTime, interval);
+            // TODO Auto-generated constructor stub
+
+
+        }
+
+        @Override
+        public void onFinish()
+        {
+            if(pDialogGetStores.isShowing())
+            {
+                pDialogGetStores.dismiss();
+            }
+            sendIntentToOtherActivity();
+
+
+        }
+
+        @Override
+        public void onTick(long arg0) {
+            // TODO Auto-generated method stub
+
+        }}
 }
