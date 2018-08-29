@@ -3378,7 +3378,8 @@ Double OverAllAmountCollected=0.0;
                     String billDatatoprint=  MakePrintRecipt();
                     os.write(printformat);//for small text
                     os.write(center);//for center
-                   os.write(billDatatoprint.getBytes());
+                   os.write(billDatatoprint.getBytes(),0,billDatatoprint.getBytes().length-1);
+                   os.flush();
                     //This is printer specific code you can comment ==== > Start
 
                     // Setting height

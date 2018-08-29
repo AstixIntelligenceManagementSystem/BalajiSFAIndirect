@@ -6939,10 +6939,10 @@ String RouteType="0";
 						relConverionUnit=Double.parseDouble(xmlParser.getCharacterDataFromElement(line));
 					}
 				}
-				if(!element.getElementsByTagName("flgVanLoading").equals(null))
+				if(!element.getElementsByTagName("flgDefaultUOM").equals(null))
 				{
 
-					NodeList flgDefaultUOMNode = element.getElementsByTagName("flgVanLoading");
+					NodeList flgDefaultUOMNode = element.getElementsByTagName("flgDefaultUOM");
 					Element     line = (Element) flgDefaultUOMNode.item(0);
 
 					if(flgDefaultUOMNode.getLength()>0)

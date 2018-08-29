@@ -70,7 +70,7 @@ public class StockRequestActivity extends BaseActivity {
     String date_value="";
     String imei="";
     String rID;
-    int baseUOMID;
+    LinkedHashMap<String,String> hmapBaseUOMID;
     String pickerDate="";
     public LinearLayout ll_product_stock;
     public String back="0";
@@ -114,9 +114,9 @@ public class StockRequestActivity extends BaseActivity {
         hmapUOMMstrNameId=listUOMData.get(0);
         hmapUOMMstrIdName=listUOMData.get(1);
          hmapUOMPrdctWise=dbengine.getPrdctMpngWithUOM();
-        baseUOMID=dbengine.getBaseUOMId();
+        hmapBaseUOMID=dbengine.getBaseUOMId();
         hmapDfltUOMMstrPrdtWise=dbengine.getPrdctDfltMpngWithUOM();
-        hmapBaseUOMCalcValue=dbengine.getBaseUOMCalcValue(baseUOMID);
+        hmapBaseUOMCalcValue=dbengine.getBaseUOMCalcValue();
 
     }
 
@@ -179,7 +179,7 @@ public class StockRequestActivity extends BaseActivity {
                     {
                         Double valueInBaseUnit=0.0;
                         uomIDSlctd=hmapUOMMstrNameId.get(tvUOM.getText().toString());
-                        if(Integer.parseInt(uomIDSlctd)!=baseUOMID)
+                        if(!uomIDSlctd.equals(hmapBaseUOMID.get(prdctId)))
                         {
                             Double conversionUnit=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+uomIDSlctd));
                              valueInBaseUnit=conversionUnit*requiredStk;
@@ -192,11 +192,11 @@ public class StockRequestActivity extends BaseActivity {
                         isDataSaved=true;
                         if(index==0)
                         {
-                            strReqStockToSend.append(prdctId+"^"+valueInBaseUnit+"$"+baseUOMID+"^"+uomIDSlctd);
+                            strReqStockToSend.append(prdctId+"^"+valueInBaseUnit+"$"+hmapBaseUOMID.get(prdctId)+"^"+uomIDSlctd);
                         }
                         else
                         {
-                            strReqStockToSend.append("|").append(prdctId+"^"+valueInBaseUnit+"$"+baseUOMID+"^"+uomIDSlctd);
+                            strReqStockToSend.append("|").append(prdctId+"^"+valueInBaseUnit+"$"+hmapBaseUOMID.get(prdctId)+"^"+uomIDSlctd);
                         }
                     }
                 }//end  if(TextUtils.isEmpty(edRqrdStk.getText().toString()))
@@ -272,8 +272,8 @@ public class StockRequestActivity extends BaseActivity {
                 }
                 else
                 {
-                    tvUOM.setText(hmapUOMMstrIdName.get(String.valueOf(baseUOMID)));
-                    hmapprdctUOMSlctd.put(prdctId,String.valueOf(baseUOMID));
+                    tvUOM.setText(hmapUOMMstrIdName.get(hmapBaseUOMID.get(prdctId)));
+                    hmapprdctUOMSlctd.put(prdctId,hmapBaseUOMID.get(prdctId));
                 }
 
 
@@ -847,7 +847,7 @@ public class StockRequestActivity extends BaseActivity {
                         hmapTotalCalcOnUOMSlctd.put(prdctId,editTextvalue);
                     }
                 }
-                else  if(baseUOMID==Integer.parseInt(UomId))
+                else  if(UomId.equals(hmapBaseUOMID.get(prdctId)))
                 {
                     Double requiredStk=Double.parseDouble(editTextvalue);
                     Double conversionUnit=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+uomIdSlctd));

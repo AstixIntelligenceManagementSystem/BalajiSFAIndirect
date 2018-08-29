@@ -30231,7 +30231,7 @@ String fetchdate=fnGetDateTimeString();
         //open();
         LinkedHashMap<String, String> hmapCatgry = new LinkedHashMap<String, String>();
 //tblDistributorStock(PrdctId text null,StockQntty text null,DistributorNodeIdNodeType text null,SKUName text null,OpeningStock text null,TodaysAddedStock text null,CycleAddedStock text null,NetSalesQty text null,TodaysUnloadStk text null,CycleUnloadStk text null,CategoryID text null);";
-        Cursor cursor= db.rawQuery("Select DISTINCT S.SKUName,S.StockQntty-ifnull(D.OrderQty,0) AS StockAvailable,S.OpeningStock,ifnull(D.OrderQty,0) from tblDistributorStock S left outer join (SELECT ID.ProdID,SUM(ID.OrderQty) OrderQty FROM tblInvoiceHeader AS I INNER JOIN tblInvoiceDetails AS ID ON ID.InvoiceNumber=I.InvoiceNumber  WHERE I.flgProcessedInvoice=0 GROUP BY ID.ProdID) D ON D.ProdID=S.PrdctId", null);
+        Cursor cursor= db.rawQuery("Select DISTINCT S.SKUName,S.StockQntty-ifnull(D.OrderQty,0) AS StockAvailable,(S.OpeningStock+S.TodaysAddedStock)-S.TodaysUnloadStk,ifnull(D.OrderQty,0) from tblDistributorStock S left outer join (SELECT ID.ProdID,SUM(ID.OrderQty) OrderQty FROM tblInvoiceHeader AS I INNER JOIN tblInvoiceDetails AS ID ON ID.InvoiceNumber=I.InvoiceNumber  WHERE I.flgProcessedInvoice=0 GROUP BY ID.ProdID) D ON D.ProdID=S.PrdctId", null);
 
 //Cursor cur=db.rawQuery("Select PrdctId,OriginalStock from tblDistributorStock where DistributorNodeIdNodeType='"+distId+"'",null);
       //  Cursor	cursor = db.rawQuery("SELECT Distinct ProductShortName,IFNULL(StockQntty,0),IFNULL(OriginalStock,0) from tblDistributorStock inner join tblProductList on tblDistributorStock.PrdctId=tblProductList.ProductID", null); //order by AutoIdOutlet Desc
@@ -34992,20 +34992,25 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
     }
 
 
-    public static int getBaseUOMId()
+    public static LinkedHashMap<String,String> getBaseUOMId()
     {
        // open();
-       int baseUomId=0;
+           LinkedHashMap<String,String> hmapbaseUomId=new LinkedHashMap<String,String>();
         Cursor cur=null;
 
         try {
-            cur=db.rawQuery("Select UOMId from tblUOMMaster where flgBaseUnit=1",null);
+//         cur=db.rawQuery("Select NodeId||'^'||PackUnitId As prdId_packId,BaseValue from tblUOMMapping where BaseUnitID="+baseUOMID+"  Order by NodeId",null);
+            cur=db.rawQuery("Select DISTINCT NodeId,BaseUnitID  from tblUOMMapping ",null);
             if(cur.getCount()>0)
             {
                 if(cur.moveToFirst())
                 {
+                    for(int i=0;i<cur.getCount();i++)
+                    {
+                        hmapbaseUomId.put(cur.getString(0),cur.getString(1));
+                        cur.moveToNext();
+                    }
 
-                    baseUomId=Integer.parseInt(cur.getString(0));
 
                 }
             }
@@ -35021,17 +35026,17 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
             }
           //  close();
         }
-        return baseUomId;
+        return hmapbaseUomId;
     }
 
-    public static LinkedHashMap<String,String> getBaseUOMCalcValue(int baseUOMID)
+    public static LinkedHashMap<String,String> getBaseUOMCalcValue()
     {
         // open();
         LinkedHashMap<String,String> hmapUOMMstrPrdtWise=new LinkedHashMap<String,String>();
         Cursor cur=null;
 
         try {
-            cur=db.rawQuery("Select NodeId||'^'||PackUnitId As prdId_packId,BaseValue from tblUOMMapping where BaseUnitID="+baseUOMID+"  Order by NodeId",null);
+            cur=db.rawQuery("Select NodeId||'^'||PackUnitId As prdId_packId,BaseValue from tblUOMMapping  Order by NodeId",null);
             if(cur.getCount()>0)
             {
                 if(cur.moveToFirst())
