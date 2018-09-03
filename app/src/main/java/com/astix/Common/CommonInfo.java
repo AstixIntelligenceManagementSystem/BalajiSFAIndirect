@@ -64,7 +64,7 @@ public class CommonInfo {
 
 	//Devlopment LinkS tarts Here
 
-/*	public static String ActiveRouteSM = "0";
+	public static String ActiveRouteSM = "0";
 	public static int AnyVisit = 0;
 	public static String AppLatLngJsonFile = "BalajiSFALatLngJson";
 
@@ -74,7 +74,7 @@ public class CommonInfo {
 	public static int CoverageAreaNodeType = 0;
 	public static String DATABASE_NAME = "DbBalajiSFAApp";
 	public static int DATABASE_VERSIONID = 25;
-	public static String AppVersionID = "1.12";
+	public static String AppVersionID = "1.13";
 	public static int DayStartClick = 0;
 	public static int DistanceRange = 3000;
 
@@ -118,12 +118,12 @@ public class CommonInfo {
 	public static String quatationFlag = "";
 	public static String sPrefVanLoadedUnloaded = "VanLoadedUnloaded";
 	public static Uri uriSavedImage_savedInstance = null;
-	//Development Links Ends Here*/
+	//Development Links Ends Here
 
 
 	//Test LinkS tarts Here
 
-	public static String ActiveRouteSM = "0";
+	/*public static String ActiveRouteSM = "0";
 	public static int AnyVisit = 0;
 	public static String AppLatLngJsonFile = "BalajiSFALatLngJson";
 
@@ -176,7 +176,7 @@ public class CommonInfo {
 	public static String quatationFlag = "";
 	public static String sPrefVanLoadedUnloaded = "VanLoadedUnloaded";
 	public static Uri uriSavedImage_savedInstance = null;
-	//Development Links Ends Here
+	//Development Links Ends Here*/
 
 
 }
