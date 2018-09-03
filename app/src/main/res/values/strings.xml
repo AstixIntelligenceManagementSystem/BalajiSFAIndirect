@@ -1,9 +1,9 @@
 <resources>
 
-  <!-- <string name="app_name">Balaji SFA</string>-->
+    <!-- <string name="app_name">Balaji SFA</string>-->
     <!-- <string name="app_name">Balaji SFA Stagging</string>-->
     <string name="app_name">Balaji SFA Test</string>
-  <!-- <string name="app_name">Balaji SFA Dev</string>-->
+    <!-- <string name="app_name">Balaji SFA Dev</string>-->
 
     <string name="StoreSale">Store Sale </string>
     <string name="InvoiceReview">Invoice Review</string>
@@ -42,8 +42,6 @@
     <!--Alert Box message-->
     <string name="WareHouseMsgWithoutInvoiceNumber">Stock loaded/adjusted recently will reflect after few minutes.</string>
     <string name="genStoreListWhoseDataIsNotYetSubmitted">Following invoices are Not Submitted as Yet. Invoices only Saved but not Submitted now will be permanently lost.</string>
-
-
 
 
     <string name="AlertDialogHeaderMsg">Alert</string>
@@ -752,6 +750,8 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="title_activity_last_visit_details">LastVisitDetails</string>
     <string name="title_activity_stores_summary">Stores Summary</string>
     <string name="title_activity_return">Stock Returns</string>
+    <string name="title_activity_collectionreport">Collection Report</string>
+    <string name="title_activity_storewisereport">Store Wise Report</string>
     <string name="productlist_orderbooking">Invoice Booking Form</string>
     <string name="productlist_returnbutton">عودة المنتج</string>
     <string name="productlist_storebutton">Store Photo</string>
@@ -836,7 +836,6 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="AlertVANStockStockValidate">Please Confirm WareHouse Stock first for starting your market visit</string>
 
 
-
     <string name="DayStart">Day Start</string>
     <string name="Warehouse">Warehouse Check In</string>
     <string name="DayStartCheckIN">Day Start</string>
@@ -857,14 +856,14 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="avgSales">Exp Sales</string>
 
 
-
     <string name="AlertDialogRequstionStock">Error while placing stock request!</string>
     <string name="AlertVANStockForRqstStk">Previous Cycle stock is pending for your and Dealer confirmation for Approval. After that you can go for Stock Requesition</string>
     <string name="AlertVANStockConfrmDstrbtr">Previous Cycle stock is pending for Dealer confirmation. After that you can go for Warehouse checkin.</string>
 
 
-
-
+    <string name="UnloadStk">Unload Stk</string>
+    <string name="uploading_error_data">Error while uploading data</string>
+    <string name="AlertDialogUnloadStock">Error While Unloading Stock!</string>
 
 
 </resources>

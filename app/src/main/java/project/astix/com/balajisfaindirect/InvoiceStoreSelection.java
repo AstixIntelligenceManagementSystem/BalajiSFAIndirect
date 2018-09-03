@@ -581,6 +581,8 @@ public class InvoiceStoreSelection extends BaseActivity implements OnItemSelecte
 								//Intent intent = new Intent(InvoiceStoreSelection.this, LauncherActivity.class);
 						    	//intent.putExtra("imei", imei);
 						        // startActivity(intent);
+
+
 						         finish();
 							}
 						});

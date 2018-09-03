@@ -495,7 +495,22 @@
             android:name=".printer.DeviceListActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.DeviceDefault.Dialog" />
-        <activity android:name=".StockRequestActivity"
+        <activity
+            android:name=".StockRequestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DayCollectionReport"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:label="@string/title_activity_collectionreport"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DayEndStoreCollectionsChequeReport"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:label="@string/title_activity_collectionreport"
+            android:screenOrientation="portrait" />
+        <activity android:name=".StockUnloadEndClosure"
             android:screenOrientation="portrait" ></activity>
     </application>
 

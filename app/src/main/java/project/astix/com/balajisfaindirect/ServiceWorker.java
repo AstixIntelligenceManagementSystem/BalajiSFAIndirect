@@ -20897,7 +20897,7 @@ int flgProcessedInvoice=0;
 	}
 
 
-	public ServiceWorker getConfirmtionRqstStock(Context ctx,String RqstdStk,String uuid,String CoverageAreaNodeID,String coverageAreaNodeType)
+	public ServiceWorker getConfirmtionRqstStock(Context ctx,String RqstdStk,String uuid,String CoverageAreaNodeID,String coverageAreaNodeType,int statusID)
 	{
 		this.context = ctx;
 		PRJDatabase dbengine = new PRJDatabase(context);
@@ -20943,6 +20943,7 @@ int flgProcessedInvoice=0;
 
 			client.addProperty("coverageAreaNodeType", coverageAreaNodeType);
 			client.addProperty("Prdvalues", RqstdStk);
+			client.addProperty("StatusID", statusID);
 
 
 			sse.setOutputSoapObject(client);

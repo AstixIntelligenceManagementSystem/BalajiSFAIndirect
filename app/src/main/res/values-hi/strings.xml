@@ -4,6 +4,9 @@
     <!-- <string name="app_name">Balaji SFA Stagging</string>-->
     <string name="app_name">Balaji SFA Test</string>
    <!-- <string name="app_name">Balaji SFA Dev</string>-->
+
+    <string name="title_activity_collectionreport">संग्रह रिपोर्ट</string>
+    <string name="title_activity_storewisereport">स्टोर वार रिपोर्ट</string>
     <string name="RqrdQty">आवश्यक मात्रा : </string>
     <string name="StoreSale">स्टोर बिक्री </string>
     <string name="InvoiceReview">चालान समीक्षा</string>
@@ -848,4 +851,7 @@
     <string name="AlertVANStockForRqstStk">पिछले चक्र स्टॉक आपके और डीलर की स्वीकृति के लिए पुष्टि के लिए लंबित है। उसके बाद आप स्टॉक अनुरोध के लिए जा सकते हैं</string>
     <string name="AlertDialogRequstionStock">स्टॉक अनुरोध रखने में त्रुटि!</string>
     <string name="AlertVANStockConfrmDstrbtr">पिछले चक्र स्टॉक डीलर पुष्टिकरण के लिए लंबित है। इसके बाद आप वेयरहाउस चेकइन के लिए जा सकते हैं।</string>
+    <string name="UnloadStk">अनलोड स्टॉक</string>
+    <string name="uploading_error_data">डेटा अपलोड करते समय त्रुटि</string>
+    <string name="AlertDialogUnloadStock">स्टॉक उतारने में त्रुटि!</string>
 </resources>

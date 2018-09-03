@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="2dp"
+    android:background="@drawable/card_background_white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl_header"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtStoreName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:padding="2dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/txtInvoiceAmount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/table_cell_bg_left_up"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="Invoice Amount" />
+
+            <TextView
+                android:id="@+id/txtCollection"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/table_cell_bg_left_up"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="Collection" />
+
+            <TextView
+                android:id="@+id/txtChqAmt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/table_cell_bg_left_up"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="Cheque Amt" />
+
+            <TextView
+                android:id="@+id/txtBalance"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/table_cell_bg_left_up"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="Balance" />
+
+            <ImageView
+                android:id="@+id/btnModify"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/table_cell_bg_left_up"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:padding="2dp"
+               android:src="@drawable/modify" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll_storeInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

@@ -113,7 +113,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
     InputStream inputStream;
     public String userDate;
-    int flgStockAlert=0;
+    int flgClkdBtn=0;
 
 
 
@@ -148,7 +148,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
     ArrayList mSelectedItems = new ArrayList();
 
     public String[] storeStatus;
-
+    int isFinalSubmit=0;
 
     public int powerCheck=0;
 
@@ -340,6 +340,14 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
         }
 
+        if(isFinalSubmit==2)
+        {
+
+            String rID=dbengine.GetActiveRouteID();
+
+            dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
+            SyncNow();
+        }
 
     }
 
@@ -348,6 +356,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_button);
+
 
         StoreSelection.flgChangeRouteOrDayEnd=1;
         if(dbengine.isDBOpen()==false)
@@ -359,6 +368,11 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
 
         sharedPref = getSharedPreferences(CommonInfo.Preference, MODE_PRIVATE);
+
+        if(sharedPref.contains("FinalSubmit"))
+        {
+            isFinalSubmit=sharedPref.getInt("FinalSubmit",0);
+        }
         if(sharedPref.contains("CoverageAreaNodeID"))
         {
             if(sharedPref.getInt("CoverageAreaNodeID",0)!=0)
@@ -597,7 +611,9 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
                 }
 
-
+              /*  Intent refresh = new Intent(AllButtonActivity.this, DayCollectionReport.class);
+                startActivity(refresh);
+                finish();*/
             }
         });
     }
@@ -1153,12 +1169,47 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             }
             flgChangeRouteOrDayEnd=valDayEndOrChangeRoute;
 
-            Intent syncIntent = new Intent(AllButtonActivity.this, SyncMaster.class);
-             syncIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/" + CommonInfo.OrderXMLFolder + "/" + newfullFileName + ".xml");
-            syncIntent.putExtra("OrigZipFileName", newfullFileName);
-            syncIntent.putExtra("whereTo", whereTo);
-            startActivity(syncIntent);
-            finish();
+            if(isFinalSubmit==2)
+            {
+                Intent syncIntent = new Intent(AllButtonActivity.this, SyncMaster.class);
+                syncIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/" + CommonInfo.OrderXMLFolder + "/" + newfullFileName + ".xml");
+                syncIntent.putExtra("OrigZipFileName", newfullFileName);
+                syncIntent.putExtra("whereTo", whereTo);
+                startActivity(syncIntent);
+                finish();
+            }
+            else
+            {
+                if(isOnline())
+                {
+                    flgClkdBtn=2;
+
+                    if(dbengine.fnCheckForPendingImages()==1)
+                    {
+                        ImageSync task = new ImageSync(AllButtonActivity.this);
+                        task.execute();
+
+                    }
+                    else if(dbengine.fnCheckForPendingXMLFilesInTable()==1)
+                    {
+                        new FullSyncDataNow(AllButtonActivity.this).execute();
+
+                    }
+                    else
+                    {
+                        Intent refresh = new Intent(AllButtonActivity.this, DayCollectionReport.class);
+                        startActivity(refresh);
+                        finish();
+                    }
+
+                }
+                else
+                {
+                    showAlertSingleButtonError(getResources().getString(R.string.NoDataConnectionFullMsg));
+                }
+            }
+
+          /*  */
         }
         catch (IOException e)
         {
@@ -1308,9 +1359,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
     {
 
         //dbengine.open();
-        String rID=dbengine.GetActiveRouteID();
 
-        dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
         //dbengine.close();
 
         SyncNow();
@@ -1463,6 +1512,10 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                // Intent intent=new Intent(AllButtonActivity.this,DistributorMapActivity.class);
                // startActivity(intent);
 
+/*
+                Intent refresh = new Intent(AllButtonActivity.this, DayEndStoreCollectionsChequeReport.class);
+                startActivity(refresh);
+                finish();*/
                 final Dialog dialogLanguage = new Dialog(AllButtonActivity.this);
                 dialogLanguage.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialogLanguage.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
@@ -1924,7 +1977,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                // int flgStockOut=0;
                 if(isOnline())
                 {
-
+                    flgClkdBtn=1;
 
                     if(dbengine.fnCheckForPendingImages()==1)
                     {
@@ -4769,8 +4822,17 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             }
             else
             {
-                GetVanStockForDay taskVanStock = new GetVanStockForDay(AllButtonActivity.this);
-                taskVanStock.execute();
+                if(flgClkdBtn==1)
+                {
+                    GetVanStockForDay taskVanStock = new GetVanStockForDay(AllButtonActivity.this);
+                    taskVanStock.execute();
+                }
+               else
+                {
+                    Intent refresh = new Intent(AllButtonActivity.this, DayCollectionReport.class);
+                    startActivity(refresh);
+                    finish();
+                }
             }
 
 
@@ -4814,9 +4876,20 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
         //buffer.clear();
         //buffer = null;
         bitmap.recycle();
-        nameValuePairs.add(new BasicNameValuePair("image",image_str));
+  /*      nameValuePairs.add(new BasicNameValuePair("image",image_str));
         nameValuePairs.add(new BasicNameValuePair("FileName", fileName));
-        nameValuePairs.add(new BasicNameValuePair("TempID", tempIdImage));
+        nameValuePairs.add(new BasicNameValuePair("TempID", tempIdImage));*/
+        long syncTIMESTAMP = System.currentTimeMillis();
+        Date datefromat = new Date(syncTIMESTAMP);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.SSS",Locale.ENGLISH);
+        String onlyDate=df.format(datefromat);
+
+        nameValuePairs.add(new BasicNameValuePair("image", image_str));
+        nameValuePairs.add(new BasicNameValuePair("FileName",fileName));
+        nameValuePairs.add(new BasicNameValuePair("comment","NA"));
+        nameValuePairs.add(new BasicNameValuePair("storeID","0"));
+        nameValuePairs.add(new BasicNameValuePair("date",onlyDate));
+        nameValuePairs.add(new BasicNameValuePair("routeID","0"));
         try
         {
 
@@ -5066,10 +5139,23 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
                 dbengine.deleteXmlTable("4");
                 dbengine.UpdateStoreVisitWiseTablesAfterSync(4);
-                GetVanStockForDay taskVanStock = new GetVanStockForDay(AllButtonActivity.this);
-                taskVanStock.execute();
+                if(flgClkdBtn==1)
+                {
+                    GetVanStockForDay taskVanStock = new GetVanStockForDay(AllButtonActivity.this);
+                    taskVanStock.execute();
+                }
+                else
+                {
+                    Intent refresh = new Intent(AllButtonActivity.this, DayCollectionReport.class);
+                    startActivity(refresh);
+                    finish();
+                }
 
 
+            }
+            else
+            {
+               showAlertSingleButtonError(getString(R.string.uploading_error_data));
             }
 
 

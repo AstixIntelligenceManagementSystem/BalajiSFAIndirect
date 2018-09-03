@@ -4,7 +4,8 @@
     <!-- <string name="app_name">Balaji SFA Stagging</string>-->
     <string name="app_name">Balaji SFA Test</string>
     <!--<string name="app_name">Balaji SFA Dev</string>-->
-
+    <string name="title_activity_collectionreport">સંગ્રહ રિપોર્ટ</string>
+    <string name="title_activity_storewisereport">સ્ટોર વાઈસ રિપોર્ટ</string>
     <string name="CollectionAlert1">જો આજે કોઈ સંગ્રહ નથી, તો કૃપા કરીને  \'કોઈ સંગ્રહ આજે \' પર ટિક કરો</string>
     <string name="CollectionAlert2">
 એકત્રિત રકમ ન્યુનત્તમ સંગ્રહની રકમ કરતાં ઓછી છે, વર્તમાન ભરતિયું બનાવી શકાતું નથી.
@@ -887,4 +888,10 @@
     <string name="AlertVANStockForRqstStk">પાછલા સાયકલ સ્ટોક તમારા અને ડિલરની મંજૂરી માટેની પુષ્ટિકરણ માટે બાકી છે. તે પછી તમે સ્ટોક આવશ્યકતા માટે જઈ શકો છો.</string>
     <string name="AlertVANStockConfrmDstrbtr">અગાઉના સાયકલ સ્ટોક ડીલર પુષ્ટિ માટે બાકી છે. તે પછી તમે વેરહાઉસ ચેકિન માટે જઈ શકો છો.</string>
     <string name="avgSales">અપેક્ષિત સેલ્સ</string>
+
+    <string name="uploading_error_data">ડેટા અપલોડ કરતી વખતે ભૂલ</string>
+
+    <string name="UnloadStk">સ્ટોક અનલોડ કરો</string>
+
+    <string name="AlertDialogUnloadStock">સ્ટોક અનલોડ કરતી વખતે ભૂલ!</string>
 </resources>
