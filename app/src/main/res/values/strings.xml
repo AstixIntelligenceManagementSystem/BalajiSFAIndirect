@@ -5,6 +5,24 @@
     <string name="app_name">Balaji SFA Test</string>
     <!-- <string name="app_name">Balaji SFA Dev</string>-->
    <!-- <string name="app_name">Balaji SFA Test</string>-->
+    <string name="title_activity_storewisereport">Store Wise Report</string>
+
+
+    <string name="DayCollectionTotalInv">Total Invoice</string>
+    <string name="DayCollectionCashColec">Cash Collection</string>
+    <string name="DayCollectionChequeColec">Cheque Collection</string>
+    <string name="DayCollectionBalAmt">Balance Amount</string>
+    <string name="DayCollectionChequeDet">Cheque Details :</string>
+    <string name="DayCollectionChequeNo">Cheque No</string>
+    <string name="DayCollectionChequeAmt">Amount</string>
+    <string name="DayCollectionChequeDate">Date</string>
+    <string name="DayCollectionChequeBank">Bank</string>
+    <string name="DayCollectionReportViewDetails">View Details</string>
+    <string name="DayCollectionReportUpdateCollection">Update Collection</string>
+    <string name="DayStoreCollectionReportInvAmt">Invoice Amount</string>
+    <string name="DayStoreCollectionReportChequeAmt">Cheque Amt</string>
+    <string name="DayStoreCollectionReportBal">Balance</string>
+    <string name="DayStoreCollectionReportModify">Modify</string>
 
 
     <string name="StoreSale">Store Sale </string>

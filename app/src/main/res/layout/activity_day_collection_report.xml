@@ -55,10 +55,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-
+                    android:textStyle="bold"
                     android:padding="2dp"
                     android:gravity="center|left"
-                    android:text="Total Invoice"/>
+                    android:text="@string/DayCollectionTotalInv"/>
                 <TextView
                     android:id="@+id/txt_invoice"
                     android:layout_width="0dp"
@@ -102,15 +102,18 @@
                 android:background="@drawable/card_background_white"
                 android:paddingBottom="3dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:id="@+id/textView11"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:textStyle="bold"
                     android:layout_weight="1"
-
-                    android:padding="2dp"
                     android:gravity="center|left"
 
-                    android:text="Cash Collection"/>
+                    android:padding="2dp"
+                    android:text="@string/DayCollectionCashColec" />
+
                 <TextView
                     android:id="@+id/txt_cllctn"
                     android:layout_width="0dp"
@@ -128,15 +131,18 @@
                 android:background="@drawable/card_background_white"
                 android:paddingBottom="3dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:id="@+id/textView12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:layout_weight="1"
-
-                    android:padding="2dp"
                     android:gravity="center|left"
 
-                    android:text="Cheque Collection"/>
+                    android:padding="2dp"
+                    android:text="@string/DayCollectionChequeColec" />
+
                 <TextView
                     android:id="@+id/txt_chq_cllctn"
                     android:layout_width="0dp"
@@ -187,11 +193,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-
+                    android:textStyle="bold"
                     android:padding="2dp"
                     android:gravity="center|left"
 
-                    android:text="Balance Amount"/>
+                    android:text="@string/DayCollectionBalAmt"/>
                 <TextView
                     android:id="@+id/txt_blncClctn"
                     android:layout_width="0dp"
@@ -207,7 +213,24 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_background_white"
+            android:paddingBottom="3dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:padding="2dp"
+                android:gravity="center|left"
+                android:textStyle="bold"
+                android:text="@string/DayCollectionChequeDet"/>
 
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -219,40 +242,40 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
+                android:textStyle="bold"
                 android:padding="2dp"
                 android:gravity="center|left"
-                android:text="Cheque No"/>
+                android:text="@string/DayCollectionChequeNo"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
+                android:textStyle="bold"
                 android:padding="2dp"
                 android:gravity="center|left"
                 android:layout_marginLeft="2dp"
-                android:text="Amount"/>
+                android:text="@string/DayCollectionChequeAmt"/>
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-
+                android:textStyle="bold"
                 android:layout_marginLeft="2dp"
                 android:layout_weight="1"
                 android:gravity="center|left"
                 android:padding="2dp"
-                android:text="Date" />
+                android:text="@string/DayCollectionChequeDate" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
+                android:textStyle="bold"
                 android:padding="2dp"
                 android:gravity="center|left"
                 android:layout_marginLeft="2dp"
-                android:text="Bank"/>
+                android:text="@string/DayCollectionChequeBank"/>
         </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
@@ -280,7 +303,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="View Details"/>
+            android:text="@string/DayCollectionReportViewDetails"/>
         <LinearLayout
 
             android:layout_width="match_parent"
@@ -294,13 +317,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Update Collection"/>
+                android:text="@string/DayCollectionReportUpdateCollection"/>
             <Button
                 android:id="@+id/btn_Next"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Next"/>
+                android:text="@string/Next"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

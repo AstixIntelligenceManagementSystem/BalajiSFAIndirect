@@ -8,6 +8,7 @@ import android.os.Environment;
 import com.astix.Common.CommonInfo;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -17,8 +18,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
@@ -20010,6 +20014,11 @@ int flgProcessedInvoice=0;
 						VanIntialInvoiceIds=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
 					}
 				}
+				int VanInitialIdFromFile=fnReadTextFIle();
+				if(VanInitialIdFromFile>VanIntialInvoiceIds)
+				{
+					VanIntialInvoiceIds=VanInitialIdFromFile;
+				}
 				dbengine.savetblInvoiceCaption(INVPrefix,VanIntialInvoiceIds,InvSuffix);
 			}
 			//dbengine.close();;
@@ -21030,7 +21039,57 @@ int flgProcessedInvoice=0;
 		}
 	}
 
+	public int fnReadTextFIle(){
+		int VanIntialInvoiceIds=0;
+		try {
+			File jsonTxtFolder = new File(Environment.getExternalStorageDirectory(), CommonInfo.TextFileFolder);
+			if (!jsonTxtFolder.exists())
+			{
+				jsonTxtFolder.mkdirs();
 
+			}
+			String txtFileNamenew=CommonInfo.TextFileName;
+			File file = new File(jsonTxtFolder,txtFileNamenew);
+			if (file.exists()) {
+				StringBuffer buffer=new StringBuffer();
+				String myjson_stampiGPSLastLocation="";
+				StringBuffer sb = new StringBuffer();
+				BufferedReader br = null;
+
+				try {
+					br = new BufferedReader(new FileReader(file));
+
+					String temp;
+					while ((temp = br.readLine()) != null)
+						sb.append(temp);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						br.close(); // stop reading
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
+				myjson_stampiGPSLastLocation=sb.toString();
+				JSONObject jsonObjGPSLast = new JSONObject(myjson_stampiGPSLastLocation);
+				JSONArray jsonObjGPSLastInneralues = jsonObjGPSLast.getJSONArray(CommonInfo.TextFileArrayName);
+				String StringjsonGPSLastnew = jsonObjGPSLastInneralues.getString(0);
+				JSONObject jsonObjGPSLastnewwewe = new JSONObject(StringjsonGPSLastnew);
+				int    VanIntialInvoiceIdNum=jsonObjGPSLastnewwewe.getInt("VanIntialInvoiceIdNum");
+				VanIntialInvoiceIds=VanIntialInvoiceIdNum;
+			}
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+		finally {
+			return VanIntialInvoiceIds;
+		}
+	}
 
 
 

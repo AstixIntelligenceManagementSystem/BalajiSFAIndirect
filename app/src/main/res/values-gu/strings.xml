@@ -4,6 +4,25 @@
     <!-- <string name="app_name">Balaji SFA Stagging</string>-->
     <string name="app_name">Balaji SFA Test</string>
     <!--<string name="app_name">Balaji SFA Dev</string>-->
+
+
+    <string name="DayCollectionTotalInv">કુલ ભરતિયું</string>
+    <string name="DayCollectionCashColec">કેશ કલેક્શન</string>
+    <string name="DayCollectionChequeColec">કલેક્શન તપાસો</string>
+    <string name="DayCollectionBalAmt">બેલેન્સ રકમ</string>
+    <string name="DayCollectionChequeDet">વિગતો તપાસો :</string>
+    <string name="DayCollectionChequeNo">ચેક નં</string>
+    <string name="DayCollectionChequeAmt">રકમ</string>
+    <string name="DayCollectionChequeDate">તારીખ</string>
+    <string name="DayCollectionChequeBank">બેન્ક</string>
+    <string name="DayCollectionReportViewDetails">વિગતો જુઓ</string>
+    <string name="DayCollectionReportUpdateCollection">સંગ્રહ સુધારો</string>
+    <string name="DayStoreCollectionReportInvAmt">ઇન્વોઇસ રકમ</string>
+    <string name="DayStoreCollectionReportChequeAmt">તપાસો એમટી</string>
+    <string name="DayStoreCollectionReportBal">બેલેન્સ</string>
+    <string name="DayStoreCollectionReportModify">સુધારો</string>
+
+
     <string name="title_activity_collectionreport">સંગ્રહ રિપોર્ટ</string>
     <string name="title_activity_storewisereport">સ્ટોર વાઈસ રિપોર્ટ</string>
     <string name="CollectionAlert1">જો આજે કોઈ સંગ્રહ નથી, તો કૃપા કરીને  \'કોઈ સંગ્રહ આજે \' પર ટિક કરો</string>

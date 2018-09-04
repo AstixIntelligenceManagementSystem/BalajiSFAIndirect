@@ -40,7 +40,9 @@ public class CommonInfo {
 	public static String SalesQuoteId = "BLANK";
 	public static int SalesmanNodeId = 0;
 	public static int SalesmanNodeType = 0;
-	public static String TextFileFolder = "BalajiTextFile";
+	public static String TextFileFolder = ".BalajiTextFile";
+	public static String TextFileName="LtFoodAllDetails";
+ public static String TextFileArrayName="AllDetails";
 	public static String VersionDownloadAPKName = "BalajiSFA.apk";
 	public static String VersionDownloadPath = "http://103.20.212.194/downloads/";
 	public static String WebServicePath = "http://103.20.212.194/WebServiceAndroidBalajiLive/Service.asmx";
@@ -98,7 +100,9 @@ public class CommonInfo {
 	public static String SalesQuoteId = "BLANK";
 	public static int SalesmanNodeId = 0;
 	public static int SalesmanNodeType = 0;
-	public static String TextFileFolder = "BalajiTextFile";
+	public static String TextFileFolder = ".BalajiTextFile";
+	public static String TextFileName="LtFoodAllDetails";
+	public static String TextFileArrayName="AllDetails";
 	public static String VersionDownloadAPKName = "BalajiSFA_Dev.apk";
 	public static String VersionDownloadPath = "http://103.20.212.194/downloads/";
 	public static String WebServicePath = "http://103.20.212.194/WebServiceAndroidBalajiDevelopment/Service.asmx";
@@ -156,7 +160,9 @@ public class CommonInfo {
 	public static String SalesQuoteId = "BLANK";
 	public static int SalesmanNodeId = 0;
 	public static int SalesmanNodeType = 0;
-	public static String TextFileFolder = "BalajiTextFile";
+	public static String TextFileFolder = ".BalajiTextFile";
+	public static String TextFileName="LtFoodAllDetails";
+ public static String TextFileArrayName="AllDetails";
 	public static String VersionDownloadAPKName = "BalajiSFA_Test.apk";
 	public static String VersionDownloadPath = "http://103.20.212.194/downloads/";
 	public static String WebServicePath = "http://103.20.212.194/WebServiceAndroidBalajiTest/Service.asmx";

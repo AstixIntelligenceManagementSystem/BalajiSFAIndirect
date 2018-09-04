@@ -47,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:background="@drawable/card_background_white"
+
             android:orientation="horizontal">
 
 
@@ -55,52 +56,58 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
-
+                android:textStyle="bold"
+                android:textSize="11sp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
-                android:text="Invoice Amount" />
+                android:text="@string/DayStoreCollectionReportInvAmt" />
 
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-
+                android:textStyle="bold"
+                android:textSize="11sp"
                 android:layout_marginLeft="2dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
-                android:text="Collection" />
+                android:text="@string/collection" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="@string/DayStoreCollectionReportChequeAmt"
+                android:textSize="11sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
-
+                android:textStyle="bold"
+                android:textSize="11sp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
-                android:text="Cheque Amt" />
+                android:text="@string/DayStoreCollectionReportBal" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
-
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="2dp"
-                android:text="Balance" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="2dp"
-
+                android:textStyle="bold"
+                android:textSize="11sp"
                 android:layout_weight="0.5"
                 android:gravity="center"
                 android:padding="2dp"
-                android:text="Modify" />
+                android:text="@string/DayStoreCollectionReportModify" />
         </LinearLayout>
 
         <ScrollView
@@ -137,12 +144,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Update Collection"/>
+                android:text="@string/DayCollectionReportUpdateCollection"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Next"/>
+                android:text="@string/Next"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

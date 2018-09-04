@@ -10,12 +10,19 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.astix.Common.CommonInfo;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -34465,8 +34472,8 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         int valExistingDeliveryNoteNumber=0;
         valExistingDeliveryNoteNumber=fnGettblDeliveryNoteNumber();
         db.execSQL("UPDATE tblDeliveryNoteNumber SET LastDeliveryNoteNumber="+(valExistingDeliveryNoteNumber+1)+"");
+        fnWriteTextFile(valExistingDeliveryNoteNumber+1);
 
-        //
     }
 
 
@@ -35492,6 +35499,58 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
                 cursor.close();
             }
             // close();
+        }
+    }
+    public static void fnWriteTextFile(int VanIntialInvoiceIdNum)
+    {
+
+        try {
+
+            JSONArray jArray=new JSONArray();
+            JSONObject jsonObjMain=new JSONObject();
+            JSONObject jOnew = new JSONObject();
+            jOnew.put( "VanIntialInvoiceIdNum",VanIntialInvoiceIdNum);
+            jArray.put(jOnew);
+            jsonObjMain.put(CommonInfo.TextFileArrayName, jArray);
+            File jsonTxtFolder = new File(Environment.getExternalStorageDirectory(), CommonInfo.TextFileFolder);
+            if (!jsonTxtFolder.exists())
+            {
+                jsonTxtFolder.mkdirs();
+
+            }
+            String txtFileNamenew=CommonInfo.TextFileName;
+            File file = new File(jsonTxtFolder,txtFileNamenew);
+            // If file does not exists, then create it
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
+
+            FileWriter fw;
+            try {
+                fw = new FileWriter(file.getAbsoluteFile());
+
+                BufferedWriter bw = new BufferedWriter(fw);
+
+                bw.write(jsonObjMain.toString());
+
+                bw.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        finally{
+
         }
     }
 }

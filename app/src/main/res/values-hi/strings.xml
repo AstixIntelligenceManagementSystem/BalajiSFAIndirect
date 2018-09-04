@@ -5,6 +5,26 @@
     <string name="app_name">Balaji SFA Test</string>
    <!-- <string name="app_name">Balaji SFA Dev</string>-->
 
+
+    <string name="DayCollectionTotalInv">कुल इन्वॉइस</string>
+    <string name="DayCollectionCashColec">नकद - संग्रह</string>
+    <string name="DayCollectionChequeColec">संग्रह की जांच करें</string>
+    <string name="DayCollectionBalAmt">शेष राशि</string>
+    <string name="DayCollectionChequeDet">विवरण की जांच करें :</string>
+    <string name="DayCollectionChequeNo">चेक नंबर</string>
+    <string name="DayCollectionChequeAmt">रकम</string>
+    <string name="DayCollectionChequeDate">तारीख</string>
+    <string name="DayCollectionChequeBank">बैंक</string>
+    <string name="DayCollectionReportViewDetails">विवरण देखें</string>
+    <string name="DayCollectionReportUpdateCollection">अद्यतन संग्रह</string>
+    <string name="DayStoreCollectionReportInvAmt">बीजक राशि</string>
+    <string name="DayStoreCollectionReportChequeAmt">चेक राशि</string>
+    <string name="DayStoreCollectionReportBal">संतुलन</string>
+    <string name="DayStoreCollectionReportModify">संशोधित करें</string>
+
+
+
+
     <string name="title_activity_collectionreport">संग्रह रिपोर्ट</string>
     <string name="title_activity_storewisereport">स्टोर वार रिपोर्ट</string>
     <string name="RqrdQty">आवश्यक मात्रा : </string>
