@@ -1,5 +1,6 @@
 package project.astix.com.balajisfaindirect;
 
+import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -39,7 +40,7 @@ import java.util.regex.Pattern;
 
 public class PRJDatabase
 {
-
+    public static SharedPreferences sPref,sharedPrefReport;
     public static final String KEY_PHID = "phID";
     private static final String TAG = "PRJDatabase";
 
@@ -612,6 +613,7 @@ public class PRJDatabase
     private static String DATABASE_CREATE_TABLE_tblIncentiveDetailsData="";
     private static String DATABASE_CREATE_TABLE_tblIncentivePastDetailsData="";
     private final Context context;
+    private static Context contextForRecreate;
     public static Cursor cursor;
     public static int checkNumberOfStore=1;
     Locale locale  = new Locale("en", "UK");
@@ -4653,15 +4655,16 @@ public class PRJDatabase
         if(cycleId!=-1)
         {
             values.put("CycleId",String.valueOf(cycleId));
+            int affected = db.update("tblDayStartEndDetails", values, "RouteID=?",
+                    new String[] { ""+rID });
         }
         else
         {
             values.put("CycleId","0");
         }
 
-        int affected = db.update("tblDayStartEndDetails", values, "RouteID=?",
-                new String[] { ""+rID });
-        Log.w(TAG, "affected records: " + affected);
+
+        //Log.w(TAG, "affected records: " + affected);
 
         Log.w(TAG, "UpdatetblDayStartEndDetails Updated..");
     }
@@ -4955,6 +4958,18 @@ public class PRJDatabase
 
     public static void reCreateDB()
     {
+        sPref= contextForRecreate.getSharedPreferences(CommonInfo.Preference, contextForRecreate.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sPref.edit();
+        editor.clear();
+        editor.commit();
+
+        sharedPrefReport=contextForRecreate.getSharedPreferences("Report", contextForRecreate.MODE_PRIVATE);
+        SharedPreferences.Editor editorReport=sharedPrefReport.edit();
+        editorReport.clear();
+        editorReport.commit();
+
+
+
         db.execSQL("DELETE FROM  tblStoreCheckInPic");
 
         db.execSQL("DELETE FROM  tblActualVisitStock");
@@ -32433,6 +32448,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
     // ---opens the database---
     public PRJDatabase(Context ctx) {
         this.context = ctx;
+        this.contextForRecreate=ctx;
         DBHelper = new DatabaseHelper(this.context);
     }
     public PRJDatabase open() throws SQLException
@@ -34868,7 +34884,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
                     {
                         //hmapCatgry.put(cursor.getString(0).toString(),cursor.getString(1).toString() + "( Order Value:-"+cursor.getString(2).toString()+")");
                         // hmapCatgry.put((i+1)+")  "+cursor.getString(0).toString(), "[Stock Left: "+cursor.getString(2).toString()+"]");//[Stock Loaded:->"+cursor.getString(1).toString()+ "]
-                        hmapCatgry.put(cursor.getString(0), cursor.getString(2));//[Stock Loaded:->"+cursor.getString(1).toString()+ "]
+                        hmapCatgry.put(cursor.getString(0), cursor.getString(1));//[Stock Loaded:->"+cursor.getString(1).toString()+ "]
 
                         cursor.moveToNext();
                     }

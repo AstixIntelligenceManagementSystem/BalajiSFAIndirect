@@ -874,4 +874,6 @@
     <string name="UnloadStk">अनलोड स्टॉक</string>
     <string name="uploading_error_data">डेटा अपलोड करते समय त्रुटि</string>
     <string name="AlertDialogUnloadStock">स्टॉक उतारने में त्रुटि!</string>
+    <string name="AlertDialogUnloadVaidation">अनलोड स्टॉक वैन में स्टॉक से अधिक नहीं हो सकता है!</string>
+    <string name="StkUnload">स्टॉक अनलोड</string>
 </resources>

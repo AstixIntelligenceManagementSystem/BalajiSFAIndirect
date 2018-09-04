@@ -910,7 +910,10 @@
 
     <string name="uploading_error_data">ડેટા અપલોડ કરતી વખતે ભૂલ</string>
 
-    <string name="UnloadStk">સ્ટોક અનલોડ કરો</string>
+    <string name="UnloadStk">સ્ટોક અનલોડ</string>
+
+    <string name="StkUnload">સ્ટોક અનલોડ કરો</string>
 
     <string name="AlertDialogUnloadStock">સ્ટોક અનલોડ કરતી વખતે ભૂલ!</string>
+    <string name="AlertDialogUnloadVaidation">અનલોડ સ્ટોક સ્ટોક કરતાં વેન ન હોઈ શકે!</string>
 </resources>

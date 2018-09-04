@@ -68,6 +68,7 @@ public class DayCollectionReport extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(DayCollectionReport.this,StockRequestActivity.class);
+                intent.putExtra("IntentFrom",0);
                 startActivity(intent);
                 finish();
             }

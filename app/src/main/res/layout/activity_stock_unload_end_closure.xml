@@ -46,7 +46,7 @@
             android:textStyle="bold"
             android:shadowColor="#80FFFFFF"
             android:textSize="18sp"
-            android:text="@string/StockRequest"/>
+            android:text="@string/StkUnload"/>
 
         >
 

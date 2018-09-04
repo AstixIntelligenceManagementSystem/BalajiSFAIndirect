@@ -28,6 +28,7 @@ public class DayEndStoreCollectionsChequeReport extends AppCompatActivity {
     PRJDatabase dbengine = new PRJDatabase(this);
     LinkedHashMap<String,String> hmapAllStoreWiseCollectionReport=new  LinkedHashMap<String,String>();
     LinearLayout ll_storeInfo;
+    Button btn_updateCollection,btn_Next;
     ImageView imgVw_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +37,42 @@ public class DayEndStoreCollectionsChequeReport extends AppCompatActivity {
         hmapAllStoreWiseCollectionReport=dbengine.fnGetAllStoreWiseCollectionReport();
         LinearLayout ll_storeInfo=(LinearLayout)findViewById(R.id.ll_storeInfo);
         imgVw_back=(ImageView) findViewById(R.id.imgVw_back);
+        btn_updateCollection = (Button) findViewById(R.id.btn_updateCollection);
+                btn_Next = (Button) findViewById(R.id.btn_Next);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        btn_updateCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Date date1 = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+                String fDate = sdf.format(date1).toString().trim();
+
+                sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+                String fDateNew = sdf.format(date1).toString();
+                String rID = dbengine.GetActiveRouteID();
+                Intent storeIntent = new Intent(DayEndStoreCollectionsChequeReport.this, StoreSelection.class);
+                storeIntent.putExtra("imei", CommonInfo.imei);
+                storeIntent.putExtra("userDate", fDate);
+                storeIntent.putExtra("pickerDate", fDateNew);
+                storeIntent.putExtra("rID", rID);
+                startActivity(storeIntent);
+                finish();
+            }
+        });
+        btn_Next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DayEndStoreCollectionsChequeReport.this,StockRequestActivity.class);
+                intent.putExtra("IntentFrom",1);
+                startActivity(intent);
+                finish();
+            }
+        });
         imgVw_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DayEndStoreCollectionsChequeReport.this, AllButtonActivity.class);
-                intent.putExtra("imei", CommonInfo.imei);
+                Intent intent = new Intent(DayEndStoreCollectionsChequeReport.this, DayCollectionReport.class);
+
                 DayEndStoreCollectionsChequeReport.this.startActivity(intent);
                 finish();
             }

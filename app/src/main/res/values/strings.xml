@@ -876,11 +876,21 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="uom">UOM</string>
     <string name="avgSales">Exp Sales</string>
 
-
-
     <string name="AlertDialogRequstionStock">Error while placing stock request!</string>
     <string name="AlertVANStockForRqstStk">Previous Cycle stock is pending for your and Dealer confirmation for Approval. After that you can go for Stock Requesition</string>
     <string name="AlertVANStockConfrmDstrbtr">Previous Cycle stock is pending for Dealer confirmation. After that you can go for Warehouse checkin.</string>
+
+    <string name="UnloadStk">Unload Stk</string>
+    <string name="StkUnload">Stock Unload</string>
+
+
+
+
+
+
+     <string name="AlertDialogUnloadStock">Error while Unloading Stock!</string>
+    <string name="AlertDialogUnloadVaidation">Unload Stock cannot be greater than Stock in Van!</string>
+
 
 
 

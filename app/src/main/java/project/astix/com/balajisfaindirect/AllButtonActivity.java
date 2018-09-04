@@ -348,6 +348,11 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
             SyncNow();
         }
+        else if(isFinalSubmit==1)
+        {
+            ll_marketVisit.setOnClickListener(null);
+            ll_warehose.setOnClickListener(null);
+        }
 
     }
 
@@ -1552,6 +1557,8 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                     }
                 });
                 dialogLanguage.show();
+
+
 
 
             }

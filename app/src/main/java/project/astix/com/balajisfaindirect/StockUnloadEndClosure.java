@@ -41,7 +41,7 @@ public class StockUnloadEndClosure extends BaseActivity {
     boolean serviceException=false;
     ArrayAdapter<String> dataAdapter = null;
     String[] storeNames;
-
+    int intentFrom=0;
     LinkedHashMap<String, String> hmapStore_details=new LinkedHashMap<String, String>();
     LinkedHashMap<String, String> hmapPrdct_details=new LinkedHashMap<String, String>();
 
@@ -75,6 +75,8 @@ public class StockUnloadEndClosure extends BaseActivity {
         setContentView(R.layout.activity_stock_unload_end_closure);
         TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         // imei = tManager.getDeviceId();
+        Intent intent=getIntent();
+        intentFrom=intent.getIntExtra("IntentFrom",0);
         sharedPref = getSharedPreferences(CommonInfo.Preference, MODE_PRIVATE);
         if(CommonInfo.imei.trim().equals(null) || CommonInfo.imei.trim().equals(""))
         {
@@ -118,10 +120,23 @@ public class StockUnloadEndClosure extends BaseActivity {
 
                 if(isOnline())
                 {
-                    if(dataSaved())
-                    {
-                        new GetRqstStockForDay(StockUnloadEndClosure.this).execute();
-                    }
+
+                        if(dataSaved())
+                        {
+                            new GetRqstStockForDay(StockUnloadEndClosure.this).execute();
+                        }
+
+                         else
+                        {
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt("FinalSubmit", 1);
+                        editor.commit();
+                        Intent intent=new Intent(StockUnloadEndClosure.this,AllButtonActivity.class);
+
+                        startActivity(intent);
+                        finish();
+                     }
+
                 }
                 else
                 {
@@ -135,9 +150,19 @@ public class StockUnloadEndClosure extends BaseActivity {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                Intent intent=new Intent(StockUnloadEndClosure.this,AllButtonActivity.class);
-                startActivity(intent);
-                finish();
+                if(intentFrom==0)
+                {
+                    Intent intent=new Intent(StockUnloadEndClosure.this,DayCollectionReport.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else
+                {
+                    Intent intent=new Intent(StockUnloadEndClosure.this,DayEndStoreCollectionsChequeReport.class);
+                    startActivity(intent);
+                    finish();
+                }
+
 
             }
         });
@@ -160,32 +185,36 @@ public class StockUnloadEndClosure extends BaseActivity {
 
                 {
                     Double requiredStk=Double.parseDouble(hmapTotalCalcOnUOMSlctd.get(prdctId));
-                    TextView tvUOM= (TextView) listView.findViewWithTag (prdctId+"_tvUOM");
-                    String uomIDSlctd="0";
-                    if(tvUOM!=null)
+                    if(requiredStk>0)
                     {
-                        Double valueInBaseUnit=0.0;
-                        uomIDSlctd=hmapUOMMstrNameId.get(tvUOM.getText().toString());
-                        if(!uomIDSlctd.equals(hmapBaseUOMID.get(prdctId)))
+                        TextView tvUOM= (TextView) listView.findViewWithTag (prdctId+"_tvUOM");
+                        String uomIDSlctd="0";
+                        if(tvUOM!=null)
                         {
-                            Double conversionUnit=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+uomIDSlctd));
-                            valueInBaseUnit=conversionUnit*requiredStk;
+                            Double valueInBaseUnit=0.0;
+                            uomIDSlctd=hmapUOMMstrNameId.get(tvUOM.getText().toString());
+                            if(!uomIDSlctd.equals(hmapBaseUOMID.get(prdctId)))
+                            {
+                                Double conversionUnit=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+uomIDSlctd));
+                                valueInBaseUnit=conversionUnit*requiredStk;
 
-                        }
-                        else
-                        {
-                            valueInBaseUnit=Double.parseDouble(String.valueOf(requiredStk));
-                        }
-                        isDataSaved=true;
-                        if(index==0)
-                        {
-                            strReqStockToSend.append(prdctId+"^"+valueInBaseUnit+"$"+hmapBaseUOMID.get(prdctId)+"^"+uomIDSlctd);
-                        }
-                        else
-                        {
-                            strReqStockToSend.append("|").append(prdctId+"^"+valueInBaseUnit+"$"+hmapBaseUOMID.get(prdctId)+"^"+uomIDSlctd);
+                            }
+                            else
+                            {
+                                valueInBaseUnit=Double.parseDouble(String.valueOf(requiredStk));
+                            }
+                            isDataSaved=true;
+                            if(index==0)
+                            {
+                                strReqStockToSend.append(prdctId+"^"+valueInBaseUnit+"$"+hmapBaseUOMID.get(prdctId)+"^"+uomIDSlctd);
+                            }
+                            else
+                            {
+                                strReqStockToSend.append("|").append(prdctId+"^"+valueInBaseUnit+"$"+hmapBaseUOMID.get(prdctId)+"^"+uomIDSlctd);
+                            }
                         }
                     }
+
                 }//end  if(TextUtils.isEmpty(edRqrdStk.getText().toString()))
 
             }//end if(edRqrdStk!=null)
@@ -261,7 +290,11 @@ public class StockUnloadEndClosure extends BaseActivity {
                         Double conversionUnitSlctdUOM=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+uomIdSlctdDft));
                         Double valueOfStock=Double.parseDouble(hmapStore_details.get(prdctId));
                         Double tmpcrntStockVal=valueOfStock/conversionUnitSlctdUOM;
-                        hmapTotalCalcOnUOMSlctd.put(prdctId,""+tmpcrntStockVal);
+                        if(tmpcrntStockVal>0)
+                        {
+                            hmapTotalCalcOnUOMSlctd.put(prdctId,""+tmpcrntStockVal);
+                        }
+
                         Double crntStockVal= Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(tmpcrntStockVal)));
                         tvOpnStk.setText(""+crntStockVal);
 
@@ -360,7 +393,7 @@ public class StockUnloadEndClosure extends BaseActivity {
                                             {
                                                 Double conversionUnitSlctdUOM=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+uomIdSlctd));
                                                 String productName=((TextView) viewproductName).getText().toString();
-                                                Double valueOfStock=Double.parseDouble(hmapStore_details.get(prdctId+"^"+productName));
+                                                Double valueOfStock=Double.parseDouble(hmapStore_details.get(prdctId));
                                                 Double crntStockVal=valueOfStock/conversionUnitSlctdUOM;
                                                 crntStockVal= Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(crntStockVal)));
                                                 tvOpnStk.setText(""+crntStockVal);
@@ -531,7 +564,7 @@ public class StockUnloadEndClosure extends BaseActivity {
                 //showAlertException(getResources().getString(R.string.txtError),getResources().getString(R.string.txtErrorRetrievingData));
                 //Toast.makeText(StockUnloadEndClosure.this,"Please fill Stock out first for starting your market visit.", Toast.LENGTH_SHORT).show();
                 //  showSyncError();
-                showAlertStockOut(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDialogUnloadStock));
+                showAlertStockOut(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDialogUnloadStock),false,"0");
             }
 
             else  {
@@ -576,7 +609,7 @@ public class StockUnloadEndClosure extends BaseActivity {
         alertDialogGps.show();
     }
 
-    public void showAlertStockOut(String title,String msg)
+    public void showAlertStockOut(String title, String msg, final boolean isStockValidationAlrt, final String prdctId)
     {
         android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(StockUnloadEndClosure.this);
         alertDialog.setTitle(title);
@@ -586,6 +619,39 @@ public class StockUnloadEndClosure extends BaseActivity {
         alertDialog.setPositiveButton(getResources().getString(R.string.AlertDialogOkButton), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int which)
             {
+                if(isStockValidationAlrt)
+                {
+                    if(hmapUOMPrdctWise!=null && hmapUOMPrdctWise.containsKey(prdctId))
+                    {
+                        ArrayList<String> listPrdctUOM=hmapUOMPrdctWise.get(prdctId);
+                        if(listPrdctUOM!=null && listPrdctUOM.size()>0)
+                        {
+                            valueToSet(prdctId,listPrdctUOM);
+                            if(hmapStore_details.containsKey(prdctId))
+                            {
+                                TextView txtUnloadStk= (TextView) listView.findViewWithTag(prdctId+"_edRqstStk");
+
+                                 String prvsUomIdSlctd= hmapprdctUOMSlctd.get(prdctId);
+                                Double conversionUnitSlctdUOM=Double.parseDouble(hmapBaseUOMCalcValue.get(prdctId+"^"+prvsUomIdSlctd));
+                                Double valueOfStock=Double.parseDouble(hmapStore_details.get(prdctId));
+                                Double tmpcrntStockVal=valueOfStock/conversionUnitSlctdUOM;
+                                if(tmpcrntStockVal>0)
+                                {
+                                    hmapTotalCalcOnUOMSlctd.put(prdctId,""+tmpcrntStockVal);
+                                }
+                                Double crntStockVal= Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(tmpcrntStockVal)));
+                                  if(txtUnloadStk!=null)
+                                  {
+                                    txtUnloadStk.setText(""+crntStockVal);
+                                  }
+
+
+
+                            }
+                        }
+                    }
+
+                }
                 dialog.dismiss();
             }
         });
@@ -643,6 +709,7 @@ public class StockUnloadEndClosure extends BaseActivity {
 
                 ArrayList<String> listPrdctUOM=hmapUOMPrdctWise.get(prdctId);
                 hmapTotalCalcOnUOMSlctd.remove(prdctId);
+                boolean isUnloadExceeds=false;
                 for(String uomToSpinner:listPrdctUOM)
                 {
                     if(hmapUOMMstrIdName.containsKey(uomToSpinner))
@@ -655,7 +722,11 @@ public class StockUnloadEndClosure extends BaseActivity {
                         if( hmapprdctQtyFilled.containsKey(tagVal))
                         {
                             //(String editTextvalue,String uomIdSlctd,String UomId,String prdctId,String tagVal)
-                            addValue(hmapprdctQtyFilled.get(tagVal),uomIdSlctd,UomId,prdctId,tagVal);
+                            if(!isUnloadExceeds)
+                            {
+                                isUnloadExceeds= addValue(hmapprdctQtyFilled.get(tagVal),uomIdSlctd,UomId,prdctId,tagVal);
+                            }
+
 
                         }
                         else
@@ -671,7 +742,7 @@ public class StockUnloadEndClosure extends BaseActivity {
 
                 }
 
-                if(hmapTotalCalcOnUOMSlctd.containsKey(prdctId))
+                if((hmapTotalCalcOnUOMSlctd.containsKey(prdctId)) && (!isUnloadExceeds))
                 {
                     //prdctId+"_edRqstStk"
                     TextView txtRqstVw= (TextView) listView.findViewWithTag(prdctId+"_edRqstStk");
@@ -696,7 +767,8 @@ public class StockUnloadEndClosure extends BaseActivity {
 
 
                 }
-                else
+
+                else if(!isUnloadExceeds)
                 {
                     //prdctId+"_edRqstStk"
                     TextView txtRqstVw= (TextView) listView.findViewWithTag(prdctId+"_edRqstStk");
@@ -716,6 +788,7 @@ public class StockUnloadEndClosure extends BaseActivity {
                     }
 
                 }
+
                 listDialog.dismiss();
 
             }
@@ -842,11 +915,17 @@ public class StockUnloadEndClosure extends BaseActivity {
 
     }
 
-    public void addValue(String editTextvalue,String uomIdSlctd,String UomId,String prdctId,String tagVal)
+    public boolean addValue(String editTextvalue,String uomIdSlctd,String UomId,String prdctId,String tagVal)
     {
+        boolean isUnloadExceeds=false;
         if(!TextUtils.isEmpty(editTextvalue) && (Integer.parseInt(editTextvalue)>0))
         {
-
+              TextView txtOpngStck= (TextView) listView.findViewWithTag(prdctId+"_openStk");
+              Double stckInVan=0.0;
+            if(txtOpngStck!=null)
+            {
+                      stckInVan=Double.parseDouble(txtOpngStck.getText().toString());
+            }
 
 
             if(uomIdSlctd.equals(UomId))
@@ -855,11 +934,32 @@ public class StockUnloadEndClosure extends BaseActivity {
                 {
                     Double value= Double.parseDouble(hmapTotalCalcOnUOMSlctd.get(prdctId));
                     Double totalVaue= value+Double.parseDouble(editTextvalue);
-                    hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(totalVaue));
+
+                    if(totalVaue>stckInVan)
+                    {
+                        isUnloadExceeds=true;
+                        showAlertStockOut(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDialogUnloadVaidation),true,prdctId);
+                    }
+                    else
+                    {
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(totalVaue));
+                    }
+
                 }
                 else
                 {
-                    hmapTotalCalcOnUOMSlctd.put(prdctId,editTextvalue);
+
+                    if(Double.parseDouble(editTextvalue)>stckInVan)
+                    {
+
+                        isUnloadExceeds=true;
+                        showAlertStockOut(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDialogUnloadVaidation),true,prdctId);
+                    }
+                    else
+                    {
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,editTextvalue);
+                    }
+                   // hmapTotalCalcOnUOMSlctd.put(prdctId,editTextvalue);
                 }
             }
             else  if(UomId.equals(hmapBaseUOMID.get(prdctId)))
@@ -872,12 +972,30 @@ public class StockUnloadEndClosure extends BaseActivity {
                     Double value= Double.parseDouble(hmapTotalCalcOnUOMSlctd.get(prdctId));
                     Double totalVaue= value+valueInBaseUnit;
 
-                    hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(totalVaue));
+                    if(totalVaue>stckInVan)
+                    {
+                        isUnloadExceeds=true;
+                        showAlertStockOut(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDialogUnloadVaidation),true,prdctId);
+                    }
+                    else
+                    {
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(totalVaue));
+                    }
+                    //hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(totalVaue));
                 }
                 else
                 {
 
-                    hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(valueInBaseUnit));
+                    if(valueInBaseUnit>stckInVan)
+                    {
+                        isUnloadExceeds=true;
+                        showAlertStockOut(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDialogUnloadVaidation),true,prdctId);
+                    }
+                    else
+                    {
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(valueInBaseUnit));
+                    }
+                   // hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(valueInBaseUnit));
                 }
 
 
@@ -893,18 +1011,35 @@ public class StockUnloadEndClosure extends BaseActivity {
                 {
                     Double value= Double.parseDouble(hmapTotalCalcOnUOMSlctd.get(prdctId));
                     Double totalVaue= value+valueInBaseUnit;
-
-                    hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(totalVaue));
+                    if(totalVaue>stckInVan)
+                    {
+                        isUnloadExceeds=true;
+                        showAlertStockOut(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDialogUnloadVaidation),true,prdctId);
+                    }
+                    else
+                    {
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(totalVaue));
+                    }
+                   // hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(totalVaue));
                 }
                 else
                 {
-
-                    hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(valueInBaseUnit));
+                    if(valueInBaseUnit>stckInVan)
+                    {
+                        isUnloadExceeds=true;
+                        showAlertStockOut(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDialogUnloadVaidation),true,prdctId);
+                    }
+                    else
+                    {
+                        hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(valueInBaseUnit));
+                    }
+                    //hmapTotalCalcOnUOMSlctd.put(prdctId,String.valueOf(valueInBaseUnit));
                 }
 
             }
 
         }
+        return isUnloadExceeds;
     }
 
 
@@ -913,6 +1048,7 @@ public class StockUnloadEndClosure extends BaseActivity {
         if(hmapStore_details.containsKey(prdctId))
         {
             Double prdctStckCount=Double.parseDouble(hmapStore_details.get(prdctId));
+
             if(prdctStckCount>0.0)
             {
                 for(String uomToSpinner:listPrdctUOM)
