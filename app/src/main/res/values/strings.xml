@@ -249,11 +249,21 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="totAmt">Total Amount:-</string>
     <string name="NoCollection">No Collection Today</string>
     <string name="paymentCollection">Payment Collection</string>
-
+    <string name="PaymentCollection">Payment Collection</string>
     <string name="totLineCnt">Total Line Count</string>
     <string name="totInvoiceQty">Total Invoice Qty</string>
     <string name="PrevOutAmt">Previous Outsanding Amount</string>
     <!--Launcher Activity ends here-->
+    <string name="PrvAmtOutStnding">Outstanding Previous Amount:</string>
+    <string name="RefNochequeNoTrnNo">RefNo/chequeNo/TrnNo</string>
+    <string name="TtlAmtOutStnding">Total Outstanding: </string>
+    <string name="TotalAmount">Total Amount:-</string>
+    <string name="crntInvoice">Current invoice: </string>
+
+
+
+
+
 
 
     <!--Incentive Activity starts here-->
@@ -345,6 +355,9 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="txtGreaterThanNinety" translatable="false">&gt;=90 &lt;100</string>
     <string name="txtGreaterThanHundred" translatable="false">&gt;=100 &lt;=105</string>
     <string name="txtHighest" translatable="false">&gt;105</string>
+    <string name="AccountCensusBtn">Account Census Report</string>
+
+    <string name="AlertTelephonic">This is a telephonic order and the store visit will not be counted, please be sure to proceed</string>
 
     <!--TargetVsAcievedActivity Activity ends here-->
 
@@ -431,6 +444,16 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="CrAmt">Cr.Amt.</string>
     <string name="CrAdj">Cr.Adj.</string>
     <string name="UpdateTotal">Update Total</string>
+    <string name="DoneAndExit">Completed &amp; Exit</string>
+
+    <string name="OrderTypeTelephonic">Telephonic</string>
+
+
+    <string name="OrderTypeActualVisit">Actual Visit</string>
+    <string name="OrderTypeActualVisitNew">Actual Visit</string>
+    <string name="Amount">રકમ</string>
+    <string name="ConfirmOrderType">Confirm Telephone Order</string>
+    <string name="Bank">Bank</string>
     <string name="OrderDeliveryDetails">Invoice Delivery Details</string>
     <string name="CollectAmount">Collect Amount</string>
     <string name="Cancel">Cancel</string>
@@ -491,6 +514,15 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="OrderDetail">Invoice Detail</string>
     <string name="CategoryName">Category Name</string>
     <string name="StoreStock">Store Stock</string>
+    <string name="store_call">Store Call</string>
+
+    <string name="laststock">Last Stock</string>
+    <string name="outstandingBal">Outstanding Balance</string>
+    <string name="overdueBal">Overdue Balance</string>
+
+    <string name="uploading_error_data">Error while uploading data</string>
+
+    <string name="title_activity_collectionreport">Collection Report</string>
 
     <string name="currentStock">Current Stock</string>
     <string name="LastStock">Last Stock</string>

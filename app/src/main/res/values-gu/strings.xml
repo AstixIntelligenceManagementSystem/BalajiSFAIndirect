@@ -887,7 +887,7 @@
     <string name="AlertDialogRequstionStock">સ્ટોક વિનંતી મૂકીને ભૂલ!</string>
 
     <string name="TtlAmtOutStnding">કુલ ઉત્કૃષ્ટ: </string>
-    <string name="Amount">રકમ</string>
+    <string name="Amount">Amount</string>
     <string name="txtDate">તારીખ</string>
     <string name="Bank">બેન્ક</string>
     <string name="TotalAmount">કુલ રકમ:-</string>

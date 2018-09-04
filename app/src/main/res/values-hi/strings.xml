@@ -6,6 +6,15 @@
     <string name="app_name">Balaji SFA Dev</string>
 
 
+    <string name="Amount">रकम</string>
+    <string name="AlertTelephonic">यह एक टेलीफ़ोनिक ऑर्डर है और स्टोर की यात्रा की गणना नहीं की जाएगी, कृपया आगे बढ़ना सुनिश्चित करें</string>
+    <string name="AccountCensusBtn">खाता जनगणना रिपोर्ट</string>
+    <string name="txtLessThanNinety" translatable="false">&lt;90%</string>
+    <string name="txtGreaterThanNinety" translatable="false">&gt;=90 &lt;100</string>
+    <string name="txtGreaterThanHundred" translatable="false">&gt;=100 &lt;=105</string>
+    <string name="txtHighest" translatable="false">&gt;105</string>
+
+
     <string name="DayCollectionTotalInv">कुल इन्वॉइस</string>
     <string name="DayCollectionCashColec">नकद - संग्रह</string>
     <string name="DayCollectionChequeColec">संग्रह की जांच करें</string>
@@ -21,9 +30,14 @@
     <string name="DayStoreCollectionReportChequeAmt">चेक राशि</string>
     <string name="DayStoreCollectionReportBal">संतुलन</string>
     <string name="DayStoreCollectionReportModify">संशोधित करें</string>
+    <string name="Bank">बैंक</string>
+    <string name="OrderTypeTelephonic">टेलीफोनिक</string>
 
 
-
+    <string name="ConfirmOrderType">टेलीफोन आदेश की पुष्टि करें</string>
+    <string name="DoneAndExit">पूरा और &amp; बाहर जाएं</string>
+    <string name="OrderTypeActualVisit">वास्तविक यात्रा</string>
+    <string name="OrderTypeActualVisitNew">वास्तविक यात्रा</string>
 
     <string name="title_activity_collectionreport">संग्रह रिपोर्ट</string>
     <string name="title_activity_storewisereport">स्टोर वार रिपोर्ट</string>
@@ -775,12 +789,22 @@
     <string name="totAmt">कुल रकम:-</string>
     <string name="NoCollection">आज कोई संग्रह नहीं</string>
     <string name="paymentCollection">भुगतान संग्रह</string>
+    <string name="PaymentCollection">भुगतान संग्रह</string>
     <string name="AddStorePicture">स्टॉक पिक जोड़ें</string>
-
-
+    <string name="PrvAmtOutStnding">बकाया पिछली राशि:</string>
+    <string name="RefNochequeNoTrnNo">RefNo/chequeNo/TrnNo</string>
     <string name="totLineCnt">कुल रेखा गणना</string>
     <string name="totInvoiceQty">कुल चालान मात्रा</string>
     <string name="PrevOutAmt">पिछली आउटसमंडिंग राशि</string>
+    <string name="TtlAmtOutStnding">કकुल बकाया: </string>
+    <string name="TotalAmount">કकुल रकम:-</string>
+    <string name="crntInvoice">वर्तमान चालान: </string>
+
+    <string name="laststock">अंतिम स्टॉक</string>
+    <string name="outstandingBal">બबकाया राशि</string>
+    <string name="overdueBal">बकाया शेष</string>
+    <string name="store_call">स्टोर कॉल </string>
+
 
 
     <string name="PleaseSelectDistributor">कृपया वितरक का चयन करें।</string>
