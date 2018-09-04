@@ -340,7 +340,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
         }
 
-        if(isFinalSubmit==2)
+        if((isFinalSubmit==2) || ((dbengine.fetchtblDayEndStatus()==2) &&  (dbengine.CheckTotalStoreCount()>0)) )
         {
 
             String rID=dbengine.GetActiveRouteID();
@@ -353,6 +353,13 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             ll_marketVisit.setOnClickListener(null);
             ll_warehose.setOnClickListener(null);
         }
+        if(dbengine.fetchtblDayEndStatus()==1 )
+        {
+            ll_marketVisit.setOnClickListener(null);
+            ll_warehose.setOnClickListener(null);
+        }
+
+
 
     }
 

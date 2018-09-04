@@ -19490,6 +19490,7 @@ int flgProcessedInvoice=0;
 				int VanLoadUnLoadCycID=0;
 				String CycleTime="0";
 				int statusId=0;
+				int flgDayEnd=0;
 
 
 				Element element = (Element) tblStockUploadedStatusNode.item(i);
@@ -19536,6 +19537,16 @@ int flgProcessedInvoice=0;
 					}
 				}
 
+				if(!element.getElementsByTagName("flgDayEnd").equals(null))
+				{
+					NodeList flgDayEndNode = element.getElementsByTagName("flgDayEnd");
+					Element      line = (Element) flgDayEndNode.item(0);
+					if(flgDayEndNode.getLength()>0)
+					{
+						flgDayEnd=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+					}
+				}
+
 				if(statusId!=2)
 				{
 					dbengine.deleteVanConfirmFlag();
@@ -19543,7 +19554,7 @@ int flgProcessedInvoice=0;
 
 
 
-				dbengine.inserttblStockUploadedStatus(flgStockTrans,VanLoadUnLoadCycID,CycleTime,statusId);
+				dbengine.inserttblStockUploadedStatus(flgStockTrans,VanLoadUnLoadCycID,CycleTime,statusId,flgDayEndNode);
 
 			}
 

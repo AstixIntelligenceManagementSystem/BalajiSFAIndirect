@@ -123,7 +123,7 @@ public class PRJDatabase
     private static final String DATABASE_CREATE_TABLE_tblInvoiceLastVisitDetails = "create table tblInvoiceLastVisitDetails(StoreID text null,InvCode text null,InvDate text null,OutstandingAmt text null,AmtOverdue text null);";
     //setock out flg by Sunil, we are using below table
     private static final String DATABASE_TABLE_tblStockUploadedStatus="tblStockUploadedStatus";
-    private static final String DATABASE_CREATE_TABLE_tblStockUploadedStatus="create table tblStockUploadedStatus(flgStockTrans int null,VanLoadUnLoadCycID int null,CycleTime text null,StatusID int null);";
+    private static final String DATABASE_CREATE_TABLE_tblStockUploadedStatus="create table tblStockUploadedStatus(flgStockTrans int null,VanLoadUnLoadCycID int null,CycleTime text null,StatusID int null,flgDayEnd int null);";
     private static final String DATABASE_TABLE_TMP_DISTRIBUTOR_STOCK = "tblTmpDistributorStock";
     private static final String DATABASE_CREATE_TABLE_TEMP_DISTRIBUTOR_STOCK="create table tblTMPDistributorStock(PrdctId text null,StockQntty text null,DistributorNodeIdNodeType text null,SKUName text null,OpeningStock text null,TodaysAddedStock text null,CycleAddedStock text null,NetSalesQty text null,TodaysUnloadStk text null,CycleUnloadStk text null,CategoryID text null);";
     private static final String DATABASE_TABLE_tblStockConfirm="tblStockConfirm";
@@ -15335,7 +15335,7 @@ public class PRJDatabase
 
 //	saveSOAPdataStoreList
 
-    public static int CheckTotalStoreCount() throws IOException
+    public static int CheckTotalStoreCount()
     {
 
         int chkI = 0;
@@ -29955,7 +29955,7 @@ String fetchdate=fnGetDateTimeString();
         }
     }
 
-    public static void inserttblStockUploadedStatus(int flgStockTrans,int VanLoadUnLoadCycID,String CycleTime,int statusId)
+    public static void inserttblStockUploadedStatus(int flgStockTrans,int VanLoadUnLoadCycID,String CycleTime,int statusId,int flgDayEnd)
     {
 
         ContentValues values=new ContentValues();
@@ -29964,6 +29964,7 @@ String fetchdate=fnGetDateTimeString();
         values.put("VanLoadUnLoadCycID",VanLoadUnLoadCycID);
         values.put("CycleTime",CycleTime);
         values.put("StatusId",statusId);
+        values.put("flgDayEnd",flgDayEnd);
 
 
         db.insert(DATABASE_TABLE_tblStockUploadedStatus,null,values);
@@ -29988,6 +29989,35 @@ String fetchdate=fnGetDateTimeString();
                         retVal=Integer.parseInt(cur.getString(0));
                         cur.moveToNext();
                     }
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error getOtherReason = "+e.toString());
+        }
+        finally
+        {
+            //close();
+            return retVal;
+        }
+    }
+
+    public static int fetchtblDayEndStatus()
+    {
+        //open();
+        int retVal=0;
+        try
+        {
+            Cursor cur=db.rawQuery("Select flgDayEnd from tblStockUploadedStatus",null);
+            if(cur.getCount()>0)
+            {
+                if(cur.moveToFirst())
+                {
+
+                        retVal=cur.getInt(0);
+                        cur.moveToNext();
+
                 }
             }
         }
