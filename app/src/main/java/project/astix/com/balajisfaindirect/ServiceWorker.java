@@ -19554,7 +19554,7 @@ int flgProcessedInvoice=0;
 
 
 
-				dbengine.inserttblStockUploadedStatus(flgStockTrans,VanLoadUnLoadCycID,CycleTime,statusId,flgDayEndNode);
+				dbengine.inserttblStockUploadedStatus(flgStockTrans,VanLoadUnLoadCycID,CycleTime,statusId,flgDayEnd);
 
 			}
 

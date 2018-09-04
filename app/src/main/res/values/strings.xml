@@ -2,8 +2,8 @@
 
   <!-- <string name="app_name">Balaji SFA</string>-->
     <!-- <string name="app_name">Balaji SFA Stagging</string>-->
-    <string name="app_name">Balaji SFA Test</string>
-    <!-- <string name="app_name">Balaji SFA Dev</string>-->
+   <!-- <string name="app_name">Balaji SFA Test</string>-->
+     <string name="app_name">Balaji SFA Dev</string>
    <!-- <string name="app_name">Balaji SFA Test</string>-->
     <string name="title_activity_storewisereport">Store Wise Report</string>
 
