@@ -514,6 +514,7 @@
     <string name="ConfirmOrderType">ટેલિફોનિક ઓર્ડરની પુષ્ટિ કરો</string>
     <string name="AlertTelephonic">આ ટેલિફોનિક ઓર્ડર છે અને સ્ટોર મુલાકાતની ગણતરી કરવામાં આવશે નહીં, કૃપા કરી આગળ વધવાની ખાતરી કરો</string>
 
+
     <string name="StoreStock">દુકાન સ્ટોક</string>
     <string name="AlertExecNoSum">એક્ઝ્યુઝેશન સારાંશ માટે કોઈ ડેટા ઉપલબ્ધ નથી</string>
     <string name="AlertCancelOrder">શું તમે સ્ટોરની ઑર્ડરને રદ કરવાનું છે?</string>

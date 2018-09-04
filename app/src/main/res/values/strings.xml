@@ -7,7 +7,6 @@
    <!-- <string name="app_name">Balaji SFA Test</string>-->
     <string name="title_activity_storewisereport">Store Wise Report</string>
 
-
     <string name="DayCollectionTotalInv">Total Invoice</string>
     <string name="DayCollectionCashColec">Cash Collection</string>
     <string name="DayCollectionChequeColec">Cheque Collection</string>

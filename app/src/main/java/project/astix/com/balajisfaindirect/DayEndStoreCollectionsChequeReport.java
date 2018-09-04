@@ -62,7 +62,7 @@ public class DayEndStoreCollectionsChequeReport extends AppCompatActivity {
         btn_Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(DayEndStoreCollectionsChequeReport.this,StockRequestActivity.class);
+                Intent intent=new Intent(DayEndStoreCollectionsChequeReport.this,StockUnloadEndClosure.class);
                 intent.putExtra("IntentFrom",1);
                 startActivity(intent);
                 finish();
