@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -69,6 +70,7 @@ public class StockUnloadEndClosure extends BaseActivity {
     LinkedHashMap<String,String> hmapprdctQtyFilled=new LinkedHashMap<String,String>();
     LinkedHashMap<String,String> hmapprdctQtyPrvsFilled=new LinkedHashMap<String,String>();
     SharedPreferences sharedPref;
+    TextView txt_Skip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +116,17 @@ public class StockUnloadEndClosure extends BaseActivity {
 
         ImageView but_back=(ImageView)findViewById(R.id.backbutton);
         Button btn_sbmt= (Button) findViewById(R.id.btn_sbmt);
+         txt_Skip= (TextView) findViewById(R.id.txt_Skip);
+        String htmlString="<u><I>SKIP<I></u>";
+        txt_Skip.setText(Html.fromHtml(htmlString));
+        txt_Skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                strReqStockToSend=new StringBuilder();
+                strReqStockToSend.append("");
+                new GetRqstStockForDay(StockUnloadEndClosure.this).execute();
+            }
+        });
         btn_sbmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,13 +141,17 @@ public class StockUnloadEndClosure extends BaseActivity {
 
                          else
                         {
-                        SharedPreferences.Editor editor = sharedPref.edit();
+                            strReqStockToSend=new StringBuilder();
+                            strReqStockToSend.append("");
+                            new GetRqstStockForDay(StockUnloadEndClosure.this).execute();
+
+                      /*  SharedPreferences.Editor editor = sharedPref.edit();
                         editor.putInt("FinalSubmit", 1);
                         editor.commit();
                         Intent intent=new Intent(StockUnloadEndClosure.this,AllButtonActivity.class);
 
                         startActivity(intent);
-                        finish();
+                        finish();*/
                      }
 
                 }

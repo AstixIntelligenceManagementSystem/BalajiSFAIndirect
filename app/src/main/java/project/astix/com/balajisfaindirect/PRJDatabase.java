@@ -33593,7 +33593,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         Cursor cursor=null;
 
         try {
-            cursor = db.rawQuery("SELECT ProductID,ProductShortName from tblProductList", null);
+            cursor = db.rawQuery("SELECT ProductID,ProductShortName from tblProductList Order By PrdOrdr", null);
             if(cursor.getCount()>0)
             {
                 if (cursor.moveToFirst()) {

@@ -164,14 +164,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:orientation="horizontal">
         <Button
             android:id="@+id/btn_sbmt"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/custom_button"
             android:text="@string/Submit"
             android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/txt_Skip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:textColor="#213F7D"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:text="SKIP"
+            />
     </LinearLayout>
 
 </RelativeLayout>
