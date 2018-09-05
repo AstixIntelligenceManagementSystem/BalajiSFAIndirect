@@ -100,6 +100,14 @@ public class DayEndStoreCollectionsChequeReport extends AppCompatActivity {
                 txtCollection.setText(CheequeFulleDetails.split(Pattern.quote("^"))[1]);
                 txtChqAmt.setText(CheequeFulleDetails.split(Pattern.quote("^"))[2]);
                 txtBalance.setText(CheequeFulleDetails.split(Pattern.quote("^"))[3]);
+                if(Double.parseDouble(CheequeFulleDetails.split(Pattern.quote("^"))[3])>0.0)
+                {
+                    btnModify.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    btnModify.setVisibility(View.GONE);
+                }
                // btnModify.setText("Modify");
                 btnModify.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -15343,7 +15343,7 @@ public class PRJDatabase
         ////open();
         try
         {
-            cursorE2 = db.rawQuery("SELECT flgStoreOrder from tblStoreList order by flgStoreOrder descr limit 1", null);
+            cursorE2 = db.rawQuery("SELECT flgStoreOrder from tblStoreList order by flgStoreOrder limit 1", null);
             if(cursorE2.getCount()>0) {
                 if (cursorE2.moveToFirst()) {
 
@@ -35520,7 +35520,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
     public static LinkedHashMap<String,String> fnGetAllStoreWiseCollectionReport()
     {
         LinkedHashMap<String,String> hmapAllStoreWiseCollectionReport=new LinkedHashMap<String,String>();
-        Cursor cursor = db.rawQuery("SELECT DISTINCT tblStoreList.StoreName,ifnull(SUM(tblInvoiceHeader.InvoiceVal),'0.00') InvAmount,ifnull((select SUM(tblAllCollectionData.Amount) from tblAllCollectionData  where tblStoreList.StoreID=tblAllCollectionData.StoreID AND tblAllCollectionData.PaymentModeID='1'),'0.00') CashCollection,ifnull((select SUM(tblAllCollectionData.Amount) from tblAllCollectionData   where tblStoreList.StoreID=tblAllCollectionData.StoreID AND tblAllCollectionData.PaymentModeID='2'),'0.00')ChequeCollection,'0.00' AS BalAmount,tblStoreList.StoreID from tblStoreList tblSt inner join tblInvoiceHeader ON tblStoreList.StoreID=tblInvoiceHeader.StoreID Group By tblStoreList.StoreID,tblStoreList.StoreName", null); //order by AutoIdOutlet Desc
+        Cursor cursor = db.rawQuery("SELECT StoreName,ifnull(SUM(tblInvoiceHeader.InvoiceVal),'0.00') InvAmount,ifnull((select SUM(tblAllCollectionData.Amount) from tblAllCollectionData  where tblSt.StoreID=tblAllCollectionData.StoreID AND tblAllCollectionData.PaymentModeID='1'),'0.00') CashCollection,ifnull((select SUM(tblAllCollectionData.Amount) from tblAllCollectionData   where tblSt.StoreID=tblAllCollectionData.StoreID AND tblAllCollectionData.PaymentModeID='2'),'0.00')ChequeCollection,'0.00' AS BalAmount,tblSt.StoreID from tblStoreList tblSt inner join tblInvoiceHeader ON tblSt.StoreID=tblInvoiceHeader.StoreID Group By tblSt.StoreID,tblSt.StoreName", null);
         try
         {
             if(cursor.getCount()>0)
