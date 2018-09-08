@@ -3356,6 +3356,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 		if (v instanceof EditText) {
 
 			edtBox = (EditText) v;
+
 			if (v.getId() == R.id.et_OrderQty) {
 				mCustomKeyboardNumWithoutDecimal.registerEditText(edtBox);
 				mCustomKeyboardNumWithoutDecimal.showCustomKeyboard(v);
@@ -7544,4 +7545,5 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 		listDialog.show();
 
 	}
+
 }

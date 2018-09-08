@@ -32,14 +32,17 @@ import android.widget.TextView;
 import com.astix.Common.CommonInfo;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 public class StockUnloadEndClosure extends BaseActivity {
 
-    boolean serviceException=false;
+    String serviceException="NA";
     ArrayAdapter<String> dataAdapter = null;
     String[] storeNames;
     int intentFrom=0;
@@ -70,6 +73,7 @@ public class StockUnloadEndClosure extends BaseActivity {
     LinkedHashMap<String,String> hmapprdctQtyFilled=new LinkedHashMap<String,String>();
     LinkedHashMap<String,String> hmapprdctQtyPrvsFilled=new LinkedHashMap<String,String>();
     SharedPreferences sharedPref;
+    String fDate;
     TextView txt_Skip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,9 +126,8 @@ public class StockUnloadEndClosure extends BaseActivity {
         txt_Skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                strReqStockToSend=new StringBuilder();
-                strReqStockToSend.append("");
-                new GetRqstStockForDay(StockUnloadEndClosure.this).execute();
+                new DayEndClosureForDay(StockUnloadEndClosure.this).execute();
+
             }
         });
         btn_sbmt.setOnClickListener(new View.OnClickListener() {
@@ -141,9 +144,8 @@ public class StockUnloadEndClosure extends BaseActivity {
 
                          else
                         {
-                            strReqStockToSend=new StringBuilder();
-                            strReqStockToSend.append("");
-                            new GetRqstStockForDay(StockUnloadEndClosure.this).execute();
+                            new DayEndClosureForDay(StockUnloadEndClosure.this).execute();
+
 
                       /*  SharedPreferences.Editor editor = sharedPref.edit();
                         editor.putInt("FinalSubmit", 1);
@@ -224,11 +226,13 @@ public class StockUnloadEndClosure extends BaseActivity {
                             if(index==0)
                             {
                                 strReqStockToSend.append(prdctId+"^"+valueInBaseUnit+"$"+hmapBaseUOMID.get(prdctId)+"^"+uomIDSlctd);
+                                index++;
                             }
                             else
                             {
                                 strReqStockToSend.append("|").append(prdctId+"^"+valueInBaseUnit+"$"+hmapBaseUOMID.get(prdctId)+"^"+uomIDSlctd);
                             }
+
                         }
                     }
 
@@ -238,7 +242,7 @@ public class StockUnloadEndClosure extends BaseActivity {
 
 
             // hmapBaseUOMCalcValue
-            index++;
+
         }
 
         return isDataSaved;
@@ -497,7 +501,7 @@ public class StockUnloadEndClosure extends BaseActivity {
     }
 
 
-    private class GetRqstStockForDay extends AsyncTask<Void, Void, Void>
+     class GetRqstStockForDay extends AsyncTask<Void, Void, Void>
     {
 
         int flgStockOut=0;
@@ -514,7 +518,7 @@ public class StockUnloadEndClosure extends BaseActivity {
 
 
             // Base class method for Creating ProgressDialog
-            showProgress(getResources().getString(R.string.RetrivingDataMsg));
+            showProgress(getResources().getString(R.string.SubmittingDataMsg));
 
 
         }
@@ -539,11 +543,15 @@ public class StockUnloadEndClosure extends BaseActivity {
                         String prsnCvrgId_NdTyp=dbengine.fngetSalesPersonCvrgIdCvrgNdTyp();
                         newservice = newservice.getConfirmtionRqstStock(getApplicationContext(), strReqStockToSend.toString(),imei,prsnCvrgId_NdTyp.split(Pattern.quote("^"))[0],prsnCvrgId_NdTyp.split(Pattern.quote("^"))[1],4);
 
-                        if (!newservice.director.toString().trim().equals("1")) {
+                        if ((!newservice.director.toString().trim().equals("1")) && (!newservice.director.toString().trim().equals("0"))) {
 
-                            serviceException = true;
+                            serviceException = newservice.director;
                             break;
 
+                        }
+                        else
+                        {
+                            serviceException = newservice.director;
                         }
                     }
 
@@ -574,19 +582,133 @@ public class StockUnloadEndClosure extends BaseActivity {
 
 
             //  flgStockOut=1;
-            if(serviceException)
+            if((!serviceException.equals("0")) && (!serviceException.equals("1")))
             {
-                serviceException=false;
+                serviceException="NA";
                 //showAlertStockOut("Error","Error While Retrieving Data.");
                 //showAlertException(getResources().getString(R.string.txtError),getResources().getString(R.string.txtErrorRetrievingData));
                 //Toast.makeText(StockUnloadEndClosure.this,"Please fill Stock out first for starting your market visit.", Toast.LENGTH_SHORT).show();
                 //  showSyncError();
                 showAlertStockOut(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDialogUnloadStock),false,"0");
             }
+            else if(serviceException.equals("0"))
+            {
+                showAlertStockOut(getString(R.string.genTermNoDataConnection),getString(R.string.AlertVANStockConfrmDstrbtr),false,"0");
+            }
+
+            else  {
+             //   showAlertForSubmission(getString(R.string.DataSucc));
+                    new DayEndClosureForDay(StockUnloadEndClosure.this).execute();
+
+            }
+
+
+
+
+        }
+    }
+
+
+    private class DayEndClosureForDay extends AsyncTask<Void, Void, Void>
+    {
+
+        int flgStockOut=0;
+        public DayEndClosureForDay(StockUnloadEndClosure activity)
+        {
+
+        }
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+
+
+
+            // Base class method for Creating ProgressDialog
+            showProgress(getResources().getString(R.string.txtEndingDay));
+            Date date1 = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+            fDate = sdf.format(date1).toString().trim();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... args)
+        {
+
+
+            try
+            {
+
+                String RouteType="0";
+
+                for(int mm = 1; mm < 3  ; mm++)
+                {
+
+
+
+                    // System.out.println("Excecuted function : "+newservice.flagExecutedServiceSuccesfully);
+                    if (mm == 1) {
+
+                        newservice = newservice.submitDayEndClosure(getApplicationContext(),imei);
+
+                        if (!newservice.director.toString().trim().equals("1")) {
+
+                            serviceException = newservice.director;
+                            break;
+
+                        }
+                    }
+                    if (mm == 2) {
+
+
+                        newservice = newservice.fnGetStockUploadedStatus(getApplicationContext(),fDate, imei);
+
+                    }
+
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                Log.i("SvcMgr", "Service Execution Failed!", e);
+            }
+            finally
+            {
+                Log.i("SvcMgr", "Service Execution Completed...");
+            }
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+
+            dismissProgress();   // Base class method for dismissing ProgressDialog
+
+
+
+            //  flgStockOut=1;
+            if(!serviceException.equals("1"))
+            {
+                serviceException="NA";
+                //showAlertStockOut("Error","Error While Retrieving Data.");
+                //showAlertException(getResources().getString(R.string.txtError),getResources().getString(R.string.txtErrorRetrievingData));
+                //Toast.makeText(StockUnloadEndClosure.this,"Please fill Stock out first for starting your market visit.", Toast.LENGTH_SHORT).show();
+                //  showSyncError();
+                showAlertStockOut(getString(R.string.AlertDialogHeaderMsg),getString(R.string.uploading_error_data),false,"0");
+            }
 
             else  {
                 showAlertForSubmission(getString(R.string.DataSucc));
-
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("FinalSubmit", 1);
+                editor.commit();
 
             }
 
@@ -610,9 +732,7 @@ public class StockUnloadEndClosure extends BaseActivity {
         // On pressing Settings button
         alertDialogGps.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                SharedPreferences.Editor editor = sharedPref.edit();
-                 editor.putInt("FinalSubmit", 1);
-                 editor.commit();
+
                 Intent intent=new Intent(StockUnloadEndClosure.this,AllButtonActivity.class);
 
                 startActivity(intent);

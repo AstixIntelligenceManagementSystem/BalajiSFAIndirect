@@ -339,25 +339,72 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
         {
 
         }
-
-        if((isFinalSubmit==2) || ((dbengine.fetchtblDayEndStatus()==2) &&  (dbengine.CheckTotalStoreCount()>0)) )
+        int flgStockRqst = dbengine.fetchtblStockUploadedStatusForRqstStatus();
+        if((isFinalSubmit==2) || (dbengine.fetchtblDayEndStatus()==2)  )
         {
-
-            String rID=dbengine.GetActiveRouteID();
-
-            dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
-            SyncNow();
+            dbengine.reCreateDB();
+            ll_marketVisit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDayEndProcess(getString(R.string.AlertDialogHeaderMsg),getString(R.string.alrtDayEndDone));
+                }
+            });
+            ll_warehose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDayEndProcess(getString(R.string.AlertDialogHeaderMsg),getString(R.string.alrtDayEndDone));
+                }
+            });
+            ll_DayEnd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDayEndProcess(getString(R.string.AlertDialogHeaderMsg),getString(R.string.alrtDayEndDone));
+                }
+            });
         }
-        else if(isFinalSubmit==1)
+        else if((isFinalSubmit==1) || ((dbengine.fetchtblDayEndStatus()==1) && (dbengine.CheckTotalStoreCount()>0)))
         {
-            ll_marketVisit.setOnClickListener(null);
-            ll_warehose.setOnClickListener(null);
+            ll_marketVisit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDayEndProcess(getString(R.string.AlertDialogHeaderMsg),getString(R.string.alrtDayEndProcess));
+                }
+            });
+            ll_warehose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDayEndProcess(getString(R.string.AlertDialogHeaderMsg),getString(R.string.alrtDayEndProcess));
+                }
+            });
+            ll_DayEnd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDayEndProcess(getString(R.string.AlertDialogHeaderMsg),getString(R.string.alrtDayEndProcess));
+                }
+            });
         }
-        if(dbengine.fetchtblDayEndStatus()==1 )
-        {
-            ll_marketVisit.setOnClickListener(null);
-            ll_warehose.setOnClickListener(null);
-        }
+        else if(flgStockRqst==4)
+         {
+             ll_marketVisit.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     showDayEndProcess(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDayEndCnfrmForRqstStk));
+                 }
+             });
+             ll_warehose.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     showDayEndProcess(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDayEndCnfrmForRqstStk));
+                 }
+             });
+             ll_DayEnd.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     showDayEndProcess(getString(R.string.AlertDialogHeaderMsg),getString(R.string.AlertDayEndCnfrmForRqstStk));
+                 }
+             });
+         }
+
 
 
 
@@ -882,13 +929,14 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                         }
 
                     }
-                    if(countOfOrderNonSelected>0)
+                    /*if(countOfOrderNonSelected>0)
                     {
-                        confirmationForSubmission(String.valueOf(countOfOrderNonSelected));
+                       // confirmationForSubmission(String.valueOf(countOfOrderNonSelected));
+                        DayEnd();
                     }
 
                     else
-                    {
+                    {*/
 
 
                         whatTask = 2;
@@ -903,7 +951,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
                         }
 
-                    }
+                    //}
 
                 }
 
@@ -938,9 +986,9 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
             try {
                 //dbengine.open();
-                String rID=dbengine.GetActiveRouteID();
+          /*      String rID=dbengine.GetActiveRouteID();
 
-                dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
+                dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);*/
                 //dbengine.close();
 
 
@@ -997,7 +1045,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                     //dbengine.open();
                     //String rID=dbengine.GetActiveRouteID();
                     //dbengine.updateActiveRoute(rID, 0);
-                    dbengine.reCreateDB();
+                   // dbengine.reCreateDB();
 
                     //dbengine.close();
                 }
@@ -1085,7 +1133,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 String StoreIDToProcessWithoutAlret=me2.getKey().toString();
                 String  StoreVisitCode=dbengine.fnGetStoreVisitCode(StoreIDToProcessWithoutAlret);
                 String TmpInvoiceCodePDA=dbengine.fnGetInvoiceCodePDAWhileSync(StoreIDToProcessWithoutAlret,StoreVisitCode);
-                dbengine.UpdateStoreVisitWiseTables(StoreIDToProcessWithoutAlret, 4,StoreVisitCode,TmpInvoiceCodePDA);
+                dbengine.UpdateStoreVisitWiseTables(StoreIDToProcessWithoutAlret, 5,StoreVisitCode,TmpInvoiceCodePDA);
                 dbengine.updateflgFromWhereSubmitStatusAgainstStore(StoreIDToProcessWithoutAlret, 1,StoreVisitCode);
             }
         }
@@ -1117,7 +1165,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 {
                     Map.Entry me2 = (Map.Entry)iterator.next();
                     String StoreIDToProcessWithoutAlret=me2.getKey().toString();
-                    dbengine.UpdateStoreFlagAtDayEndOrChangeRouteWithOnlyVistOrCollection(StoreIDToProcessWithoutAlret,4);
+                    dbengine.UpdateStoreFlagAtDayEndOrChangeRouteWithOnlyVistOrCollection(StoreIDToProcessWithoutAlret,5);
                    /* String  StoreVisitCode=dbengine.fnGetStoreVisitCode(StoreIDToProcessWithoutAlret);
                     String TmpInvoiceCodePDA=dbengine.fnGetInvoiceCodePDAWhileSync(StoreIDToProcessWithoutAlret,StoreVisitCode);
                     dbengine.UpdateStoreVisitWiseTables(StoreIDToProcessWithoutAlret, 4,StoreVisitCode,TmpInvoiceCodePDA);*/
@@ -1133,7 +1181,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                     String StoreIDToProcessWithoutAlret=me2.getKey().toString();
                     String  StoreVisitCode=dbengine.fnGetStoreVisitCode(StoreIDToProcessWithoutAlret);
                     String TmpInvoiceCodePDA=dbengine.fnGetInvoiceCodePDAWhileSync(StoreIDToProcessWithoutAlret,StoreVisitCode);
-                    dbengine.UpdateStoreVisitWiseTables(StoreIDToProcessWithoutAlret, 4,StoreVisitCode,TmpInvoiceCodePDA);
+                    dbengine.UpdateStoreVisitWiseTables(StoreIDToProcessWithoutAlret, 5,StoreVisitCode,TmpInvoiceCodePDA);
                 }
 
             }
@@ -1148,7 +1196,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 int valID = stNames.indexOf(valSN);
                 String stIDneeded = stIDs.get(valID);
 
-                dbengine.UpdateStoreFlagAtDayEndOrChangeRoute(stIDneeded, 4);
+                dbengine.UpdateStoreFlagAtDayEndOrChangeRoute(stIDneeded, 5);
                // dbengine.UpdateStoreImage(stIDneeded, 5);
 
                 dbengine.UpdateStoreMaterialphotoFlag(stIDneeded.trim(), 5);
@@ -1209,9 +1257,14 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                     }
                     else
                     {
-                        Intent refresh = new Intent(AllButtonActivity.this, DayCollectionReport.class);
-                        startActivity(refresh);
-                        finish();
+
+
+                            Intent refresh = new Intent(AllButtonActivity.this, DayCollectionReport.class);
+                            startActivity(refresh);
+                            finish();
+
+
+
                     }
 
                 }
@@ -1989,6 +2042,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             @Override
             public void onClick(View view) {
                // int flgStockOut=0;
+
                 if(isOnline())
                 {
                     flgClkdBtn=1;
@@ -2020,6 +2074,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                     else
                      {
 */
+
                         GetVanStockForDay taskVanStock = new GetVanStockForDay(AllButtonActivity.this);
                         taskVanStock.execute();
 
@@ -4461,6 +4516,25 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             public void onClick(DialogInterface dialog,int which)
             {
                 dialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    public void showDayEndProcess(String title,String msg)
+    {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AllButtonActivity.this);
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(msg);
+        alertDialog.setIcon(R.drawable.error);
+        alertDialog.setCancelable(false);
+        alertDialog.setPositiveButton(getResources().getString(R.string.AlertDialogOkButton), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which)
+            {
+                dialog.dismiss();
+                finish();
             }
         });
 
@@ -4536,7 +4610,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
             int DatabaseVersion=dbengine.DATABASE_VERSION;
             String AppVersionID=dbengine.AppVersionID;
-            dbengine.insertTblDayStartEndDetails(imei,startTS,rID,DayEndFlg,ChangeRouteFlg,fDate,AppVersionID);//DatabaseVersion;//getVersionNumber
+         //   dbengine.insertTblDayStartEndDetails(imei,startTS,rID,DayEndFlg,ChangeRouteFlg,fDate,AppVersionID);//DatabaseVersion;//getVersionNumber
             //dbengine.close();
 
             showProgress(getResources().getString(R.string.RetrivingDataMsg));
@@ -4843,9 +4917,18 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 }
                else
                 {
+
+
+
+
+                        Intent refresh = new Intent(AllButtonActivity.this, DayCollectionReport.class);
+                        startActivity(refresh);
+                        finish();
+
+                    /*
                     Intent refresh = new Intent(AllButtonActivity.this, DayCollectionReport.class);
                     startActivity(refresh);
-                    finish();
+                    finish();*/
                 }
             }
 
@@ -5160,9 +5243,18 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 }
                 else
                 {
-                    Intent refresh = new Intent(AllButtonActivity.this, DayCollectionReport.class);
+
+
+
+
+                        Intent refresh = new Intent(AllButtonActivity.this, DayCollectionReport.class);
+                        startActivity(refresh);
+                        finish();
+
+
+                   /* Intent refresh = new Intent(AllButtonActivity.this, DayCollectionReport.class);
                     startActivity(refresh);
-                    finish();
+                    finish();*/
                 }
 
 
@@ -5398,7 +5490,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
                 String RouteType="0";
 
-                for(int mm = 1; mm < 2  ; mm++)
+                for(int mm = 1; mm < 3  ; mm++)
                 {
 
 
@@ -5411,6 +5503,32 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                             chkFlgForErrorToCloseApp = 1;
                             serviceException = true;
                             break;
+
+                        }
+                    }
+                    if (mm == 2) {
+                        flgStockOut = dbengine.fetchtblStockUploadedStatus();
+                        if (flgStockOut != 0) {
+                            int flgCycleId= dbengine.fetchtblStockUploadedCycleId();
+                            int vanCycleId= dbengine.fetchtblVanCycleId();
+                            String vanCycleTime=dbengine.fetchtblVanCycleTime();
+                            String StatusCycleTime=dbengine.fetchtblStatusCycleTime();
+                            if((flgCycleId!=vanCycleId) || (!vanCycleTime.equals(StatusCycleTime)) )
+                            {
+
+
+                              /*  //dbengine.open();
+                                dbengine.deleteVanConfirmFlag();
+                                //dbengine.close();*/
+                                newservice = newservice.fnGetVanStockData(getApplicationContext(), imei);
+                                if (newservice.flagExecutedServiceSuccesfully != 39) {
+                                    chkFlgForErrorToCloseApp = 1;
+                                    serviceExceptionCode=" for Van stock and Error Code is : "+newservice.exceptionCode;
+                                    serviceException=true;
+                                    break;
+                                }
+                            }
+
 
                         }
                     }
@@ -5457,11 +5575,15 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
 
             }
-           else
+           else if(flgStockRqst==4)
             {
 
-                    showAlertStockOut(getResources().getString(R.string.genTermNoDataConnection),getResources().getString(R.string.AlertVANStockForRqstStk));
+                showAlertStockOut(getResources().getString(R.string.genTermNoDataConnection),getResources().getString(R.string.AlertDayEndCnfrmForRqstStk));
 
+            }
+            else
+            {
+                showAlertStockOut(getResources().getString(R.string.genTermNoDataConnection),getResources().getString(R.string.AlertVANStockForRqstStk));
             }
 
 

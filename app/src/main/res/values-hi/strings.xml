@@ -900,4 +900,10 @@
     <string name="AlertDialogUnloadStock">स्टॉक उतारने में त्रुटि!</string>
     <string name="AlertDialogUnloadVaidation">अनलोड स्टॉक वैन में स्टॉक से अधिक नहीं हो सकता है!</string>
     <string name="StkUnload">स्टॉक अनलोड</string>
+
+    <string name="alrtDayEndProcess">आपकी दिन की अंत प्रक्रिया अभी भी लंबित है, कृपया पूरा होने तक प्रतीक्षा करें </string>
+    <string name="alrtDayEndDone">दिन बंद होने के बाद आप आगे नहीं बढ़ सकते हैं </string>
+    <string name="AlertDayEndCnfrmForRqstStk">आपका स्टॉक अनलोडिंग अनुरोध पुष्टि के बाद लंबित है। यह स्वीकार किए जाने के बाद है।</string>
+
+
 </resources>

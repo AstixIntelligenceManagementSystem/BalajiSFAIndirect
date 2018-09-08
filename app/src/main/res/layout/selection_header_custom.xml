@@ -166,8 +166,9 @@
         android:gravity="left|center_vertical"
         android:drawableRight="@drawable/ic_right2"
         android:textSize="14sp"
+
         android:text="@string/DayEnd"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     
 

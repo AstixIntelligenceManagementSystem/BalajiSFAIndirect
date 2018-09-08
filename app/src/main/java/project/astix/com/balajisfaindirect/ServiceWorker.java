@@ -21019,6 +21019,151 @@ int flgProcessedInvoice=0;
 					if (flgRequestAcceptNode.getLength()>0)
 					{
 						flgRequestAccept=xmlParser.getCharacterDataFromElement(line);
+
+							if(flgRequestAccept.equals("1"))
+							{
+								setmovie.director = "1";
+								break;
+							}
+
+
+							else
+							{
+								setmovie.director = "0";
+								break;
+							}
+
+
+					}
+				}
+
+			}
+
+
+
+
+			//dbengine.close();
+			return setmovie;
+
+		} catch (Exception e) {
+			//setmovie.exceptionCode=e.getCause().getMessage();
+			setmovie.director = e.toString();
+			setmovie.movie_name = e.toString();
+			//dbengine.close();
+
+			return setmovie;
+		}
+	}
+
+	public ServiceWorker submitDayEndClosure(Context ctx,String uuid)
+	{
+		this.context = ctx;
+		PRJDatabase dbengine = new PRJDatabase(context);
+
+		decimalFormat.applyPattern(pattern);
+
+		int chkTblStoreListContainsRow=1;
+		StringReader read;
+		InputSource inputstream;
+		final String SOAP_ACTION = "http://tempuri.org/fnPDAVanDayEndDet";
+		final String METHOD_NAME = "fnPDAVanDayEndDet";
+		final String NAMESPACE = "http://tempuri.org/";
+		final String URL = UrlForWebService;
+		//Create request
+		SoapObject table = null; // Contains table of dataset that returned
+		// through SoapObject
+		SoapObject client = null; // Its the client petition to the web service
+		SoapObject tableRow = null; // Contains row of table
+		SoapObject responseBody = null; // Contains XML content of dataset
+
+		//SoapObject param
+		HttpTransportSE transport = null; // That call webservice
+		SoapSerializationEnvelope sse = null;
+
+		sse = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+
+		sse.dotNet = true;
+		HttpTransportSE androidHttpTransport = new HttpTransportSE(URL,timeout);
+
+		ServiceWorker setmovie = new ServiceWorker();
+		Date currDate= new Date();
+
+		long syncTIMESTAMP = System.currentTimeMillis();
+		Date dateobj = new Date(syncTIMESTAMP);
+		SimpleDateFormat df = new SimpleDateFormat(
+				"dd-MMM-yyyy HH:mm:ss",Locale.ENGLISH);
+		String EndTS = df.format(dateobj);
+
+		int cycleId=dbengine.fetchtblVanCycleId();
+		if(cycleId==-1)
+		{
+			cycleId=0;
+
+		}
+
+		SimpleDateFormat currDateFormat = new SimpleDateFormat("dd-MMM-yyyy",Locale.ENGLISH);
+		String rID=dbengine.GetActiveRouteID();
+		currSysDate = currDateFormat.format(currDate).toString();
+		String crntDate = currSysDate.trim().toString();
+		try {
+			client = new SoapObject(NAMESPACE, METHOD_NAME);
+
+
+
+			client.addProperty("PDA_IMEI", uuid.toString());
+			client.addProperty("DayEndTime", EndTS);
+			client.addProperty("VisitDate", crntDate);
+
+			client.addProperty("AppVersionID", CommonInfo.DATABASE_VERSIONID);
+			client.addProperty("VanLoadUnLoadCycID", cycleId);
+
+
+
+			sse.setOutputSoapObject(client);
+
+			sse.bodyOut = client;
+
+			androidHttpTransport.call(SOAP_ACTION, sse);
+
+			responseBody = (SoapObject)sse.bodyIn;
+			// This step: get file XML
+			//responseBody = (SoapObject) sse.getResponse();
+			int totalCount = responseBody.getPropertyCount();
+
+			// // System.out.println("Kajol 2 :"+totalCount);
+			String resultString=androidHttpTransport.responseDump;
+
+			String name=responseBody.getProperty(0).toString();
+
+			XMLParser xmlParser = new XMLParser();
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			InputSource is = new InputSource();
+			is.setCharacterStream(new StringReader(name));
+			Document doc = db.parse(is);
+
+			//dbengine.open();
+
+
+
+
+			NodeList tblDistributorListForSONode = doc.getElementsByTagName("tblflgPDAVanDayEndDet");
+			for (int i = 0; i < tblDistributorListForSONode.getLength(); i++)
+			{
+
+				String VanLoadUnLoadCycID="0";
+				String flgRequestAccept="0";
+
+
+				Element element = (Element) tblDistributorListForSONode.item(i);
+
+				if(!element.getElementsByTagName("flgDayEndRequestAccept").equals(null))
+				{
+					NodeList flgRequestAcceptNode = element.getElementsByTagName("flgDayEndRequestAccept");
+					Element     line = (Element) flgRequestAcceptNode.item(0);
+					if (flgRequestAcceptNode.getLength()>0)
+					{
+						flgRequestAccept=xmlParser.getCharacterDataFromElement(line);
 						if(flgRequestAccept.equals("1"))
 						{
 							setmovie.director = "1";

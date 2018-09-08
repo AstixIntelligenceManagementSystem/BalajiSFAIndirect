@@ -4995,7 +4995,7 @@ public class PRJDatabase
         db.execSQL("DELETE FROM tblStockConfirm");
         db.execSQL("DELETE FROM tblStoreList");
         db.execSQL("DELETE FROM tblNewAddedStoreLocationDetails");
-        db.execSQL("DELETE FROM tblProductList");
+       // db.execSQL("DELETE FROM tblProductList");
         db.execSQL("DELETE FROM tblProductSegementMap");
         db.execSQL("DELETE FROM tblCatagoryMstr");
 
@@ -30283,7 +30283,7 @@ String fetchdate=fnGetDateTimeString();
         //open();
         LinkedHashMap<String, String> hmapCatgry = new LinkedHashMap<String, String>();
 //tblDistributorStock(PrdctId text null,StockQntty text null,DistributorNodeIdNodeType text null,SKUName text null,OpeningStock text null,TodaysAddedStock text null,CycleAddedStock text null,NetSalesQty text null,TodaysUnloadStk text null,CycleUnloadStk text null,CategoryID text null);";
-        Cursor cursor= db.rawQuery("Select DISTINCT S.SKUName,S.StockQntty-ifnull(D.OrderQty,0) AS StockAvailable,(S.OpeningStock+S.TodaysAddedStock)-S.TodaysUnloadStk,ifnull(D.OrderQty,0) from tblDistributorStock S left outer join (SELECT ID.ProdID,SUM(ID.OrderQty) OrderQty FROM tblInvoiceHeader AS I INNER JOIN tblInvoiceDetails AS ID ON ID.InvoiceNumber=I.InvoiceNumber  WHERE I.flgProcessedInvoice=0 GROUP BY ID.ProdID) D ON D.ProdID=S.PrdctId", null);
+        Cursor cursor= db.rawQuery("Select DISTINCT S.SKUName,S.StockQntty-ifnull(D.OrderQty,0) AS StockAvailable,(S.OpeningStock+S.TodaysAddedStock)-S.TodaysUnloadStk,S.NetSalesQty+ifnull(D.OrderQty,0) from tblDistributorStock S left outer join (SELECT ID.ProdID,SUM(ID.OrderQty) OrderQty FROM tblInvoiceHeader AS I INNER JOIN tblInvoiceDetails AS ID ON ID.InvoiceNumber=I.InvoiceNumber  WHERE I.flgProcessedInvoice=0 GROUP BY ID.ProdID) D ON D.ProdID=S.PrdctId", null);
 
 //Cursor cur=db.rawQuery("Select PrdctId,OriginalStock from tblDistributorStock where DistributorNodeIdNodeType='"+distId+"'",null);
       //  Cursor	cursor = db.rawQuery("SELECT Distinct ProductShortName,IFNULL(StockQntty,0),IFNULL(OriginalStock,0) from tblDistributorStock inner join tblProductList on tblDistributorStock.PrdctId=tblProductList.ProductID", null); //order by AutoIdOutlet Desc
@@ -32284,6 +32284,11 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
 
                 }
             }
+            else
+            {
+                hmapInvoiceCaptionPrefixAndSuffix.put("INVPrefix","");
+                hmapInvoiceCaptionPrefixAndSuffix.put("INVSuffix","");
+            }
 
             return hmapInvoiceCaptionPrefixAndSuffix;
         }
@@ -34194,7 +34199,8 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         Double TotCollectionAmt=0.0;
         try {
 
-            Cursor cursor = db.rawQuery("SELECT  IFNULL(SUM(InvoiceVal),0.0) from tblInvoiceHeader inner join tblAllCollectionData ON tblInvoiceHeader.StoreVisitCode=tblAllCollectionData.StoreVisitCode where tblInvoiceHeader.StoreID = '"+StoreID +"'", null);
+            Cursor cursor = db.rawQuery("SELECT  IFNULL(SUM(InvoiceVal),0.0) from tblInvoiceHeader where tblInvoiceHeader.StoreID = '"+StoreID +"'", null);
+
             if(cursor.getCount()>0){
                 if (cursor.moveToFirst()){
                     TotCollectionAmt=Double.parseDouble(cursor.getString(0).toString());

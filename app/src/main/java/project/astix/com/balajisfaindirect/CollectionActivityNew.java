@@ -378,6 +378,12 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
             lnCollection.setVisibility(View.VISIBLE);
         }
 
+        if (totOutstandingValue > 0.0 && cntInvoceValue== 0.0) {
+            ll_collectionMandatory.setVisibility(View.GONE);
+            lnCollection.setVisibility(View.VISIBLE);
+            btn_print.setVisibility(View.GONE);
+        }
+
 
         if (flgVisitCollectionMarkedStatus == 1) {
 

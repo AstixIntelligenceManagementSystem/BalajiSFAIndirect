@@ -362,6 +362,11 @@ public class DatabaseAssistant
 
 				}
 			}
+			else
+			{
+				hmapInvoiceCaptionPrefixAndSuffix.put("INVPrefix","");
+				hmapInvoiceCaptionPrefixAndSuffix.put("INVSuffix","");
+			}
 
 			return hmapInvoiceCaptionPrefixAndSuffix;
 		}

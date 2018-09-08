@@ -39,11 +39,14 @@ import com.astix.Common.CommonInfo;
 import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -78,7 +81,7 @@ public class StockRequestActivity extends BaseActivity {
     public LinearLayout listView;
     LinkedHashMap<String,String> hmapTotalCalcOnUOMSlctd=new LinkedHashMap<String,String>();
     LinkedHashMap<String,String> hmapprdctUOMSlctd=new LinkedHashMap<String,String>();
-
+    String fDate;
     LinkedHashMap<String,String> hmapprdctQtyFilled=new LinkedHashMap<String,String>();
     LinkedHashMap<String,String> hmapprdctQtyPrvsFilled=new LinkedHashMap<String,String>();
     @Override
@@ -99,6 +102,9 @@ public class StockRequestActivity extends BaseActivity {
             imei= CommonInfo.imei.trim();
         }
 
+        Date date1 = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+        fDate = sdf.format(date1).toString().trim();
         getAllStoreListDetail();
 
         initialization();
@@ -532,7 +538,7 @@ public class StockRequestActivity extends BaseActivity {
             }
 
             else  {
-                showAlertForSubmission(getString(R.string.DataSucc));
+                new GetVanStockForDay(StockRequestActivity.this).execute();
 
 
             }
@@ -897,6 +903,81 @@ public class StockRequestActivity extends BaseActivity {
 
             }
         }
+
+
+
+
+    private class GetVanStockForDay extends AsyncTask<Void, Void, Void>
+    {
+
+        int flgStockOut=0;
+        public GetVanStockForDay(StockRequestActivity activity)
+        {
+
+        }
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+
+
+
+            // Base class method for Creating ProgressDialog
+            showProgress(getResources().getString(R.string.RetrivingDataMsg));
+
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... args)
+        {
+
+
+            try
+            {
+
+                String RouteType="0";
+
+                for(int mm = 1; mm < 2  ; mm++)
+                {
+
+
+
+                    // System.out.println("Excecuted function : "+newservice.flagExecutedServiceSuccesfully);
+                    if (mm == 1) {
+                        newservice = newservice.fnGetStockUploadedStatus(getApplicationContext(), fDate, imei);
+
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                Log.i("SvcMgr", "Service Execution Failed!", e);
+            }
+            finally
+            {
+                Log.i("SvcMgr", "Service Execution Completed...");
+            }
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+
+            dismissProgress();   // Base class method for dismissing ProgressDialog
+
+            showAlertForSubmission(getString(R.string.DataSucc));
+
+        }
+    }
 
 
 }

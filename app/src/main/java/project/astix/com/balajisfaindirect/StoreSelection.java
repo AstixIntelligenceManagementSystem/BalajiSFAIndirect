@@ -703,7 +703,7 @@ public class StoreSelection extends BaseActivity implements com.google.android.g
 				//dbengine.open();
 				String rID=dbengine.GetActiveRouteID();
 
-				dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
+			//	dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
 				//dbengine.close();
 
 
@@ -938,7 +938,7 @@ public void DayEndWithoutalert()
 		//dbengine.open();
 		String rID=dbengine.GetActiveRouteID();
 
-		dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
+	//	dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
 		//dbengine.close();
 		
 		SyncNow();

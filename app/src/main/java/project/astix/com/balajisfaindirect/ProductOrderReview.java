@@ -7855,10 +7855,10 @@ public void loadPurchaseProductDefault()
 
 				//dbengine.close();
 
-			Double outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
+			/*Double outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
 			outstandingvalue=Double.parseDouble(new DecimalFormat("##.##").format(outstandingvalue));
 			dbengine.updateOutstandingOfStore(storeID,0.0);
-
+*/
 			Double CollectionAmtAgainstStore=dbengine.fnTotCollectionAmtAgainstStore(storeID.trim(),TmpInvoiceCodePDA,StoreVisitCode);
 
 				dbengine.updateStoreQuoteSubmitFlgInStoreMstr(storeID.trim(),0,StoreVisitCode);

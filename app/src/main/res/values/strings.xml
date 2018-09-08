@@ -924,6 +924,9 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
 
 
 
+<string name="alrtDayEndProcess">Your day end process is still pending, please wait till it gets completed. </string>
+    <string name="alrtDayEndDone">You cannot proceed after day is closed </string>
+    <string name="AlertDayEndCnfrmForRqstStk">Your stock unloading request is stil pending for confirmation.try after is it is accepted.</string>
 
 
 

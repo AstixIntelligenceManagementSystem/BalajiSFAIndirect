@@ -2693,7 +2693,7 @@ if(NoOfOutletID.length>0)
 							        			e.printStackTrace();
 							        		}*/
 
-							Intent submitStoreIntent = new Intent(SyncMaster.this, AllButtonActivity.class);
+							Intent submitStoreIntent = new Intent(SyncMaster.this, SplashScreen.class);
 							startActivity(submitStoreIntent);
 							finish();
 

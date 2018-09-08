@@ -680,7 +680,7 @@ private void downloadapk()
 			
 			int DatabaseVersion=dbengine.DATABASE_VERSION;
 			String AppVersionID=dbengine.AppVersionID;
-			dbengine.insertTblDayStartEndDetails(imei,startTS,rID,DayEndFlg,ChangeRouteFlg,fDate,AppVersionID);//DatabaseVersion;//getVersionNumber
+			//dbengine.insertTblDayStartEndDetails(imei,startTS,rID,DayEndFlg,ChangeRouteFlg,fDate,AppVersionID);//DatabaseVersion;//getVersionNumber
 			//dbengine.close();
 			
 			

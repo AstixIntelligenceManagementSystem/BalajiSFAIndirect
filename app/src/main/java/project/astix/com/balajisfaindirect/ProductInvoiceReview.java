@@ -856,14 +856,40 @@ public void loadPurchaseProductDefault()
 					}
 			 });
 
-			Double outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
+			/*Double outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
 			outstandingvalue=Double.parseDouble(new DecimalFormat("##.##").format(outstandingvalue));
+
+
+			Double cntInvoceValue=dbengine.fetch_Store_InvValAmount(storeID,TmpInvoiceCodePDA);
+			cntInvoceValue=Double.parseDouble(new DecimalFormat("##.##").format(cntInvoceValue));*/
+
 
 			Double CollectionAmt=dbengine.fnTotCollectionAmtAgainstStore(storeID,TmpInvoiceCodePDA,StoreVisitCode);
 			CollectionAmt=Double.parseDouble(new DecimalFormat("##.##").format(CollectionAmt));
 
+
+
 			Double cntInvoceValue=dbengine.fetch_Store_InvValAmount(storeID,TmpInvoiceCodePDA);
 			cntInvoceValue=Double.parseDouble(new DecimalFormat("##.##").format(cntInvoceValue));
+
+			Double cntAllOustandings=dbengine.fetch_Store_AllOustandings(storeID);
+			cntAllOustandings=Double.parseDouble(new DecimalFormat("##.##").format(cntAllOustandings));
+
+
+			Double cntTotCollectionAmtAgainstStoreIrespectiveOfVisit=dbengine.fnTotCollectionAmtAgainstStoreIrespectiveOfVisit(storeID);
+			cntTotCollectionAmtAgainstStoreIrespectiveOfVisit=Double.parseDouble(new DecimalFormat("##.##").format(cntTotCollectionAmtAgainstStoreIrespectiveOfVisit));
+
+
+
+
+			Double cntTotInvoicesAmtAgainstStoreIrespectiveOfVisit=dbengine.fnTotInvoicesAmtAgainstStoreIrespectiveOfVisit(storeID);
+			cntTotInvoicesAmtAgainstStoreIrespectiveOfVisit=Double.parseDouble(new DecimalFormat("##.##").format(cntTotInvoicesAmtAgainstStoreIrespectiveOfVisit));
+
+
+
+			Double totOutstandingValue=cntAllOustandings+cntTotInvoicesAmtAgainstStoreIrespectiveOfVisit-cntTotCollectionAmtAgainstStoreIrespectiveOfVisit;
+			totOutstandingValue=Double.parseDouble(new DecimalFormat("##.##").format(totOutstandingValue));
+
 			final Button btn_AmountCollect=(Button) findViewById(R.id.btn_collectAmount);
 			btn_AmountCollect.setVisibility(View.GONE);
 
@@ -943,7 +969,7 @@ public void loadPurchaseProductDefault()
 
 
 			final Button btn_NextToCollection=(Button) findViewById(R.id.btn_NextToCollection);
-			if(outstandingvalue==0.0 && cntInvoceValue==0.0)
+			if(totOutstandingValue==0.0 && cntInvoceValue==0.0)
 			{
 				btn_NextToCollection.setVisibility(View.GONE);
 
@@ -1225,21 +1251,19 @@ public void loadPurchaseProductDefault()
 
 
 
-
-
-			if(outstandingvalue<0.0)
+			if(totOutstandingValue<0.0)
 			{
 				btn_Submit.setEnabled(true);
 				btn_Print.setEnabled(true);
 				//btn_AmountCollect.setBackgroundColor(Color.parseColor("#2E7D32"));
 			}
-			else if(outstandingvalue==0.0)
+			else if(totOutstandingValue==0.0)
 			{
 				btn_Submit.setEnabled(true);
 				btn_Print.setEnabled(true);
 				//btn_AmountCollect.setBackgroundColor(Color.parseColor("#2E7D32"));
 			}
-			else if(Math.ceil(CollectionAmt)>Math.ceil(outstandingvalue+cntInvoceValue))
+			else if(Math.ceil(CollectionAmt)>Math.ceil(totOutstandingValue+cntInvoceValue))
 			{
 				btn_Submit.setEnabled(false);
 				btn_Print.setEnabled(false);
@@ -1247,7 +1271,7 @@ public void loadPurchaseProductDefault()
 				btn_Submit.setBackgroundColor(Color.parseColor("#D3D3D3"));
 				//btn_AmountCollect.setBackgroundColor(Color.parseColor("#2E7D32"));
 			}
-			else if(outstandingvalue>0.0 && CollectionAmt==0.0)
+			else if(totOutstandingValue>0.0 && CollectionAmt==0.0)
 			{
 				btn_Submit.setEnabled(false);
 				btn_Submit.setBackgroundColor(Color.parseColor("#D3D3D3"));
@@ -1255,12 +1279,12 @@ public void loadPurchaseProductDefault()
 				btn_Print.setBackgroundColor(Color.parseColor("#D3D3D3"));
 				//btn_AmountCollect.setBackgroundColor(Color.parseColor("#2E7D32"));
 			}
-			else if(Math.ceil(outstandingvalue+ cntInvoceValue)==Math.ceil(CollectionAmt))
+			else if(Math.ceil(totOutstandingValue+ cntInvoceValue)==Math.ceil(CollectionAmt))
 			{
 				btn_Submit.setEnabled(true);
 				btn_AmountCollect.setBackgroundColor(Color.parseColor("#FFFF33"));
 			}
-			else if(outstandingvalue>0.0 && CollectionAmt>0.0)
+			else if(totOutstandingValue>0.0 && CollectionAmt>0.0)
 			{
 				btn_Submit.setEnabled(true);
 				btn_AmountCollect.setBackgroundColor(Color.parseColor("#2E7D32"));
@@ -7894,10 +7918,10 @@ public void loadPurchaseProductDefault()
 
 				//dbengine.close();
 
-			Double outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
+			/*Double outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
 			outstandingvalue=Double.parseDouble(new DecimalFormat("##.##").format(outstandingvalue));
 			dbengine.updateOutstandingOfStore(storeID,0.0);
-
+*/
 			Double CollectionAmtAgainstStore=dbengine.fnTotCollectionAmtAgainstStore(storeID.trim(),TmpInvoiceCodePDA,StoreVisitCode);
 
 				dbengine.updateStoreQuoteSubmitFlgInStoreMstr(storeID.trim(),0,StoreVisitCode);

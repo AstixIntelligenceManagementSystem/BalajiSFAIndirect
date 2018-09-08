@@ -917,4 +917,10 @@
 
     <string name="AlertDialogUnloadStock">સ્ટોક અનલોડ કરતી વખતે ભૂલ!</string>
     <string name="AlertDialogUnloadVaidation">અનલોડ સ્ટોક સ્ટોક કરતાં વેન ન હોઈ શકે!</string>
+
+
+    <string name="alrtDayEndProcess">તમારી દિવસની પ્રક્રિયા હજુ બાકી છે, કૃપા કરીને તે પૂર્ણ થાય ત્યાં સુધી રાહ જુઓ. </string>
+    <string name="alrtDayEndDone">દિવસ બંધ થઈ જાય પછી તમે આગળ વધી શકતા નથી. </string>
+    <string name="AlertDayEndCnfrmForRqstStk">તમારા સ્ટોક અનલોડ કરવાની વિનંતી પુષ્ટિ માટે સ્ટેલ બાકી છે. પછી તે સ્વીકૃત છે.</string>
+
 </resources>
