@@ -176,7 +176,7 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
                 index++;
             }
 
-            OrderAdapter orderAdapter=new OrderAdapter(ProductEntryForm.this,listProduct,hmapFilterProductList,hmapProductStandardRateBeforeTax,hmapProductMRP,hmapProductIdStock,hmapProductVatTaxPerventage,hmapProductIdLastStock,hampGetLastProductExecution,prdctModelArrayList);
+            OrderAdapter orderAdapter=new OrderAdapter(ProductEntryForm.this,listProduct,hmapFilterProductList,hmapProductStandardRateBeforeTax,hmapProductMRP,hmapProductIdStock,hmapProductVatTaxPerventage,hmapProductIdLastStock,hampGetLastProductExecution,hmapDistPrdctStockCount,prdctModelArrayList);
             rv_prdct_detal.setAdapter(orderAdapter);
             rv_prdct_detal.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         }

@@ -30,9 +30,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     focusLostCalled interfacefocusLostCalled;
     HashMap<String, String> hmapProductIdLastStock;
     LinkedHashMap<String,String> hampGetLastProductExecution;
+    HashMap<String, Integer> hmapDistPrdctStockCount;
 
     HashMap<String, String> hmapProductVatTaxPerventage;
-    public OrderAdapter(Context context,String[] listProduct,LinkedHashMap<String, String> hmapFilterProductList,HashMap<String, String> hmapProductStandardRateBeforeTax,HashMap<String, String> hmapProductMRP,HashMap<String, String> hmapProductIdStock, HashMap<String, String> hmapProductVatTaxPerventage,HashMap<String, String> hmapProductIdLastStock, LinkedHashMap<String,String> hampGetLastProductExecution,ProductFilledDataModel prdctModelArrayList)
+    public OrderAdapter(Context context,String[] listProduct,LinkedHashMap<String, String> hmapFilterProductList,HashMap<String, String> hmapProductStandardRateBeforeTax,HashMap<String, String> hmapProductMRP,HashMap<String, String> hmapProductIdStock, HashMap<String, String> hmapProductVatTaxPerventage,HashMap<String, String> hmapProductIdLastStock, LinkedHashMap<String,String> hampGetLastProductExecution,HashMap<String, Integer> hmapDistPrdctStockCount,ProductFilledDataModel prdctModelArrayList)
     {
         interfacefocusLostCalled= (focusLostCalled) context;
         inflater = LayoutInflater.from(context);
@@ -45,6 +46,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         this.hmapProductVatTaxPerventage=hmapProductVatTaxPerventage;
         this.hmapProductIdLastStock=hmapProductIdLastStock;
         this.hampGetLastProductExecution=hampGetLastProductExecution;
+        this.hmapDistPrdctStockCount=hmapDistPrdctStockCount;
 
 
     }
@@ -67,6 +69,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         String prductId = listProduct[position].split(Pattern.quote("^"))[0];
         String prductName = listProduct[position].split(Pattern.quote("^"))[1];
         holder.tvProdctName.setText(prductName);
+        if (hmapDistPrdctStockCount != null && hmapDistPrdctStockCount.size() > 0) {
+            if (hmapDistPrdctStockCount.containsKey(prductId)) {
+
+                holder.tvProdctName.setText(prductName+"( Avl : " + hmapDistPrdctStockCount.get(prductId)+")");//+"( Avl : "+hmapDistPrdctStockCount.get(productIdDynamic)+")"
+            } else {
+                holder.tvProdctName.setText(prductName);
+            }
+        } else {
+            holder.tvProdctName.setText(prductName);
+        }
         holder.txtVwRate.setText(hmapProductStandardRateBeforeTax.get(prductId));
         holder.et_ProductMRP.setText(hmapProductMRP.get(prductId));
         holder.et_OrderQty.setTag(prductId + "_etOrderQty");
