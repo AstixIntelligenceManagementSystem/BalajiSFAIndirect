@@ -316,7 +316,7 @@ LinkedHashMap<String,String> hmapProductStockFromPurchaseTable=new LinkedHashMap
     }
 
 public void passIntentToProductOrderFilter(){
-    Intent nxtP4 = new Intent(ActualVisitStock.this,ProductOrderEntry.class);
+    Intent nxtP4 = new Intent(ActualVisitStock.this,ProductEntryForm.class);
     //Intent nxtP4 = new Intent(LastVisitDetails.this,ProductOrderFilterSearch_RecycleView.class);
     nxtP4.putExtra("storeID", storeID);
     nxtP4.putExtra("SN", selStoreName);

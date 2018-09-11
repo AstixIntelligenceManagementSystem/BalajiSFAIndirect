@@ -13,7 +13,7 @@
     <string name="txtGreaterThanNinety" translatable="false">&gt;=90 &lt;100</string>
     <string name="txtGreaterThanHundred" translatable="false">&gt;=100 &lt;=105</string>
     <string name="txtHighest" translatable="false">&gt;105</string>
-
+    <string name="hintSearch">खोज..</string>
 
     <string name="DayCollectionTotalInv">कुल इन्वॉइस</string>
     <string name="DayCollectionCashColec">नकद - संग्रह</string>

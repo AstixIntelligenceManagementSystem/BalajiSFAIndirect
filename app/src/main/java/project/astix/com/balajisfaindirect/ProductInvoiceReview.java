@@ -8205,7 +8205,7 @@ public void loadPurchaseProductDefault()
 		     else if(isReturnClkd==2)
 		     {
 		    	 //Intent fireBackDetPg=new Intent(ProductOrderSearch.this,POSMaterialActivity.class);
-		    	Intent fireBackDetPg=new Intent(ProductInvoiceReview.this,ProductOrderEntry.class);
+		    	Intent fireBackDetPg=new Intent(ProductInvoiceReview.this,ProductEntryForm.class);
 			    fireBackDetPg.putExtra("storeID", storeID);
 			    fireBackDetPg.putExtra("SN", SN);
 			    fireBackDetPg.putExtra("bck", 1);

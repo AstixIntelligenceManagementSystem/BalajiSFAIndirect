@@ -147,7 +147,8 @@ public class DatabaseAssistant
 				exportTableAttandance("tblAttandanceDetails");
 				exportTable("tblStoreCheckInPic");
 
-
+				exportTable("tblCollectionReportCashChange");
+				exportTable("tblCollectionReportChequeChange");
 
 			//String routeID=GetActiveRouteIDSunil();
 			UpdateNewAddedStorephotoFlag();

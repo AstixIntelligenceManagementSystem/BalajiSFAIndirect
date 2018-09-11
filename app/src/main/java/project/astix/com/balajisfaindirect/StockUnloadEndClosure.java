@@ -1,11 +1,13 @@
 package project.astix.com.balajisfaindirect;
 
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -31,17 +33,21 @@ import android.widget.TextView;
 
 import com.astix.Common.CommonInfo;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class StockUnloadEndClosure extends BaseActivity {
 
+    DatabaseAssistant DASFA = new DatabaseAssistant(this);
     String serviceException="NA";
     ArrayAdapter<String> dataAdapter = null;
     String[] storeNames;
@@ -75,6 +81,10 @@ public class StockUnloadEndClosure extends BaseActivity {
     SharedPreferences sharedPref;
     String fDate;
     TextView txt_Skip;
+    Context ctx;
+    public Context getCtx() {
+        return ctx;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -733,6 +743,67 @@ public class StockUnloadEndClosure extends BaseActivity {
         alertDialogGps.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
+
+                rID=dbengine.GetActiveRouteID();
+
+                if(rID.equals("0"))
+                {
+                    rID=dbengine.GetNotActiveRouteID();
+                }
+                dbengine.updateActiveRoute(rID, 1);
+
+                long syncTIMESTAMP = System.currentTimeMillis();
+                Date dateobj = new Date(syncTIMESTAMP);
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss",Locale.ENGLISH);
+                String startTS = df.format(dateobj);
+
+                int DayEndFlg=0;
+                int ChangeRouteFlg=0;
+
+                int DatabaseVersion=dbengine.DATABASE_VERSION;
+                String AppVersionID=dbengine.AppVersionID;
+                   dbengine.insertTblDayStartEndDetails(imei,startTS,rID,DayEndFlg,ChangeRouteFlg,fDate,AppVersionID);//DatabaseVersion;//getVersionNumber
+
+                int valDayEndOrChangeRoute=1;
+                dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
+
+
+                    File OrderXMLFolder = new File(Environment.getExternalStorageDirectory(), CommonInfo.OrderXMLFolder);
+
+                    if (!OrderXMLFolder.exists()) {
+                        OrderXMLFolder.mkdirs();
+                    }
+
+                    String routeID = dbengine.GetActiveRouteIDSunil();
+                    StoreSelection.flgChangeRouteOrDayEnd = 0;
+
+
+                    String newfullFileName = imei + "." + routeID + "." + df.format(dateobj);
+                    try {
+                        DASFA.open();
+                        DASFA.export(dbengine.DATABASE_NAME, newfullFileName, routeID);
+                        DASFA.close();
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
+
+                    dbengine.savetbl_XMLfiles(newfullFileName, "3", "1");
+
+
+
+
+
+                Intent mMyServiceIntent = new Intent(getCtx(), MyService.class);
+                mMyServiceIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/" + CommonInfo.OrderXMLFolder + "/" + newfullFileName + ".xml");
+                mMyServiceIntent.putExtra("storeID", "0");
+                mMyServiceIntent.putExtra("OrigZipFileName", newfullFileName);
+                mMyServiceIntent.putExtra("whereTo", "Regular");//
+
+                if (!isMyServiceRunning(MyService.class)) {
+                    startService(mMyServiceIntent);
+                }
                 Intent intent=new Intent(StockUnloadEndClosure.this,AllButtonActivity.class);
 
                 startActivity(intent);
@@ -1213,5 +1284,16 @@ public class StockUnloadEndClosure extends BaseActivity {
 
             }
         }
+    }
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i ("isMyServiceRunning?", true+"");
+                return true;
+            }
+        }
+        Log.i ("isMyServiceRunning?", false+"");
+        return false;
     }
 }

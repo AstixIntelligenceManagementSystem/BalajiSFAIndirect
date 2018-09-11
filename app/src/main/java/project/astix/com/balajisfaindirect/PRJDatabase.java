@@ -44,6 +44,14 @@ public class PRJDatabase
     public static final String KEY_PHID = "phID";
     private static final String TAG = "PRJDatabase";
 
+
+
+    private static final String TABLE_tblCollectionReportCashChange = "tblCollectionReportCashChange";
+    private static final String DATABASE_CREATE_TABLE_tblCollectionReportCashChange = "create table tblCollectionReportCashChange(StoreID text null,PreviousCashCollectionAmt real null,ModifiedCashCollectionAmt real null,Sstat text null);";
+    private static final String DATABASE_TABLE_tblCollectionReportChequeChange="tblCollectionReportChequeChange";
+    private static final String DATABASE_CREATE_TABLE_tblCollectionReportChequeChange="create table tblCollectionReportChequeChange (StoreID text not null, PaymentMode_Old text null,PaymentModeID_Old text null, Amount_Old text null, RefNoChequeNoTrnNo_Old text null, Date_Old text null, Bank_Old text null,PaymentMode_New text null,PaymentModeID_New text null, Amount_New text null, RefNoChequeNoTrnNo_New text null, Date_New text null, Bank_New text null,flgDeleteModifyNew text null,Sstat text null);";
+
+
     private static final String TABLE_tblDeliveryNoteNumber = "tblDeliveryNoteNumber";
     private static final String DATABASE_CREATE_TABLE_tblDeliveryNoteNumber = "create table tblDeliveryNoteNumber(LastDeliveryNoteNumber int null);";
 
@@ -4684,7 +4692,7 @@ public class PRJDatabase
         initialValues.put("ForDate", ForDate);
         //initialValues.put("AppVersionID", AppVersionID);
         initialValues.put("AppVersionID", strAppVersionID.trim());
-        initialValues.put("Sstat", 0);
+        initialValues.put("Sstat", 3);
 
 
         //initialValues.put("StoreID", StoreID);
@@ -4968,7 +4976,8 @@ public class PRJDatabase
         editorReport.clear();
         editorReport.commit();
 
-
+        db.execSQL("DELETE FROM  tblCollectionReportCashChange");
+        db.execSQL("DELETE FROM  tblCollectionReportChequeChange");
 
         db.execSQL("DELETE FROM  tblStoreCheckInPic");
 
@@ -32506,6 +32515,8 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
 
             try
             {
+                db.execSQL(DATABASE_CREATE_TABLE_tblCollectionReportChequeChange);
+                db.execSQL(DATABASE_CREATE_TABLE_tblCollectionReportCashChange);
                 db.execSQL(DATABASE_CREATE_TABLE_tblUOMMstr);
                 db.execSQL(DATABASE_CREATE_TABLE_tblUOMMapping);
                 db.execSQL(DATABASE_CREATE_TABLE_tblStockReq);
@@ -32783,6 +32794,11 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             try
             {
+
+                db.execSQL("DROP TABLE IF EXISTS tblCollectionReportChequeChange");
+                db.execSQL("DROP TABLE IF EXISTS tblCollectionReportCashChange");
+
+
                 db.execSQL("DROP TABLE IF EXISTS tblUOMMaster");
                 db.execSQL("DROP TABLE IF EXISTS tblUOMMapping");
                 db.execSQL("DROP TABLE IF EXISTS tblStockRqst");
@@ -35605,6 +35621,283 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
 
         }
     }
+
+    public static HashMap<String, String> fnGetProductPurchaseList(String StoreID,String TmpInvoiceCodePDA)
+    {
+        //open();
+        HashMap<String, String> hmapPrdctOdrQty=new HashMap<String, String>();
+        Cursor cursor = db.rawQuery("SELECT ProdID,OrderQty From tblTmpInvoiceDetails where StoreID='"+StoreID+"'  AND TmpInvoiceCodePDA='"+TmpInvoiceCodePDA+"'" , null);
+        try {
+            String CompleteResult[] = new String[cursor.getCount()];
+            if (cursor.getCount() > 0) {
+                if (cursor.moveToFirst()) {
+                    for (int i = 0; i <= (cursor.getCount() - 1); i++) {
+                        hmapPrdctOdrQty.put( cursor.getString(0),cursor.getString(1)) ;
+                        cursor.moveToNext();
+                    }
+                }
+            }
+            return hmapPrdctOdrQty;
+
+        } finally {
+            cursor.close();
+            // close();
+        }
+    }
+
+
+
+
+    public static String[] FetchAllStoreListForCollectionReport()
+    {
+        int ScodecolumnIndex = 0;
+        int SnamecolumnIndex = 1;
+
+        //Cursor cursor = db.rawQuery("SELECT StoreID, StoreName FROM tblStoreList   ORDER BY DistanceNear", null); //where StoreRouteID='"+ rID +"'
+        Cursor cursor = db.rawQuery("SELECT StoreID, StoreName FROM tblStoreList", null); //where StoreRouteID='"+ rID +"'
+
+        try
+        {
+            String StoreName[] = new String[cursor.getCount()];
+
+            if (cursor.moveToFirst())
+            {
+                for (int i = 0; i <= (cursor.getCount() - 1); i++)
+                {
+                    StoreName[i] = (String) cursor.getString(ScodecolumnIndex).toString()+ "_"+ (String) cursor.getString(SnamecolumnIndex).toString();
+                    cursor.moveToNext();
+                }
+
+            }
+            return StoreName;
+        }
+        finally
+        {
+            cursor.close();
+        }
+    }
+
+
+    public static void fnDeleteInsertCollectionReportCashChange(String StoreID,String PreviousCashCollectionAmt,String ModifiedCashCollectionAmt,String Sstat)
+    {
+        db.execSQL("DELETE FROM tblCollectionReportCashChange Where StoreID='"+StoreID+"'");
+        ContentValues values=new ContentValues();
+        values.put("StoreID", StoreID);
+        values.put("PreviousCashCollectionAmt", PreviousCashCollectionAmt);
+        values.put("ModifiedCashCollectionAmt", ModifiedCashCollectionAmt);
+        values.put("Sstat", Sstat);
+        db.insert(TABLE_tblCollectionReportCashChange, null, values);
+    }
+
+    public static void fnDeletetblCollectionReportChequeChange(String StoreID)
+    {
+        db.execSQL("DELETE FROM tblCollectionReportChequeChange Where StoreID='"+StoreID+"'");
+    }
+
+
+
+
+    public static long fnsavetblCollectionReportChequeChange(String StoreID, String PaymentMode_Old,String PaymentModeID_Old, String Amount_Old,
+                                                             String RefNoChequeNoTrnNo_Old, String Date_Old, String Bank_Old,String PaymentMode_New,String PaymentModeID_New, String Amount_New,
+                                                             String RefNoChequeNoTrnNo_New, String Date_New, String Bank_New,int flgDeleteModifyNew)
+    {
+        //db.execSQL("DELETE FROM tblCollectionReportChequeChange Where StoreID='"+StoreID+"'");
+        ContentValues initialValues = new ContentValues();
+        initialValues.put("StoreID", StoreID.toString().trim());
+        initialValues.put("PaymentMode_Old", PaymentMode_Old.toString().trim());
+        initialValues.put("PaymentModeID_Old", PaymentModeID_Old.toString().trim());
+        initialValues.put("Amount_Old", Amount_Old.toString().trim());
+        initialValues.put("RefNoChequeNoTrnNo_Old", RefNoChequeNoTrnNo_Old.toString().trim());
+        initialValues.put("Date_Old", Date_Old.toString().trim());
+        initialValues.put("Bank_Old", Bank_Old.toString().trim());
+        initialValues.put("PaymentMode_New", PaymentMode_New.toString().trim());
+        initialValues.put("PaymentModeID_New", PaymentModeID_New.toString().trim());
+        initialValues.put("Amount_New", Amount_New.toString().trim());
+        initialValues.put("RefNoChequeNoTrnNo_New", RefNoChequeNoTrnNo_New.toString().trim());
+        initialValues.put("Date_New", Date_New.toString().trim());
+        initialValues.put("Bank_New", Bank_New.toString().trim());
+        initialValues.put("Sstat", "3");
+        initialValues.put("flgDeleteModifyNew", flgDeleteModifyNew);
+        return db.insert(DATABASE_TABLE_tblCollectionReportChequeChange, null, initialValues);
+    }
+
+    public static ArrayList<LinkedHashMap<String,LinkedHashMap<String,String>>>  fnRetrievetblCollectionReportChequeChange(String StoreID)
+    {
+        ArrayList<LinkedHashMap<String,LinkedHashMap<String,String>>> arrStoreChequeDetails=new ArrayList<LinkedHashMap<String,LinkedHashMap<String,String>>>();
+        Cursor cursor=null;
+        LinkedHashMap<String,LinkedHashMap<String,String>> hmapStoreAllChequeDetails=new LinkedHashMap<String,LinkedHashMap<String,String>>();
+        try {
+            cursor = db.rawQuery("SELECT ifnull(PaymentMode_Old,'NA')PaymentMode_Old,ifnull(PaymentModeID_Old,0) PaymentMode_Old,ifnull(Amount_Old,0.0)Amount_Old,ifnull(RefNoChequeNoTrnNo_Old,'NA') RefNoChequeNoTrnNo_Old,ifnull(Date_Old,'NA') Date_Old,ifnull(Bank_Old,0) Bank_Old,PaymentMode_New,PaymentModeID_New,Amount_New,RefNoChequeNoTrnNo_New,Date_New,Bank_New,flgDeleteModifyNew from tblCollectionReportChequeChange where StoreID='"+StoreID+"'", null);
+            if(cursor.getCount()>0){
+                if (cursor.moveToFirst()) {
+                    for (int i = 0; i <= (cursor.getCount() - 1); i++)
+                    {
+                        LinkedHashMap<String, String> hmapChequeRecords = new LinkedHashMap<String, String>();
+
+                        String PaymentMode_Old=cursor.getString(0).toString();
+                        int PaymentModeID_Old=Integer.parseInt(cursor.getString(1).toString());
+                        Double Amount_Old=Double.parseDouble(cursor.getString(2).toString());
+                        String RefNoChequeNoTrnNo_Old=cursor.getString(3).toString();
+                        String Date_Old=cursor.getString(4).toString();
+                        String Bank_Old=cursor.getString(5).toString();
+                        String PaymentMode_New=cursor.getString(6).toString();
+                        int PaymentModeID_New=Integer.parseInt(cursor.getString(7).toString());
+                        Double Amount_New=Double.parseDouble(cursor.getString(8).toString());
+                        String RefNoChequeNoTrnNo_New=cursor.getString(9).toString();
+                        String Date_New=cursor.getString(10).toString();
+                        String Bank_New=cursor.getString(11).toString();
+                        int flgDeleteModifyNew=Integer.parseInt(cursor.getString(12).toString());
+
+                        String oldChequeRecord=PaymentMode_Old+"^"+PaymentModeID_Old+"^"+Amount_Old+"^"+RefNoChequeNoTrnNo_Old+"^"+Date_Old+"^"+Bank_Old;
+                        String newChequeRecord=PaymentMode_New+"^"+PaymentModeID_New+"^"+Amount_New+"^"+RefNoChequeNoTrnNo_New+"^"+Date_New+"^"+Bank_New;
+
+                        hmapChequeRecords.put("Old",oldChequeRecord);
+                        hmapChequeRecords.put("New",newChequeRecord);
+
+                        hmapStoreAllChequeDetails.put(""+(i+1)+"^"+flgDeleteModifyNew,hmapChequeRecords);
+
+                    }
+
+                }
+                arrStoreChequeDetails.add(hmapStoreAllChequeDetails);
+            }
+            // return arrStoreChequeDetails;
+        }catch(Exception e)
+        {
+
+        }
+
+        finally
+        {
+            if(cursor!=null)
+            {
+                cursor.close();
+            }
+        }
+        return arrStoreChequeDetails;
+    }
+
+    public static int fnCheckflgCollectionReportChequeChangeAgainstStore(String StoreID)
+    {
+        Cursor cursorE2 = db.rawQuery("SELECT * FROM tblCollectionReportChequeChange WHERE StoreID='"+StoreID+"'", null);
+        int chkI = 0;
+        try {
+            if(cursorE2.getCount()>0) {
+                if (cursorE2.moveToFirst()) {
+                    if (!cursorE2.isNull(0)) {
+                        chkI = 1;
+                    } else {
+                        chkI = 0;
+                    }
+                }
+            }
+        } finally {
+            if(cursorE2!=null) {
+                cursorE2.close();
+            }
+        }
+        return chkI;
+    }
+
+    public static ArrayList<LinkedHashMap<String,LinkedHashMap<String,String>>>  fnRetrievetblCollectionChequeAgainstStore(String StoreID)
+    {
+        ArrayList<LinkedHashMap<String,LinkedHashMap<String,String>>> arrStoreChequeDetails=new ArrayList<LinkedHashMap<String,LinkedHashMap<String,String>>>();
+        Cursor cursor=null;
+        LinkedHashMap<String,LinkedHashMap<String,String>> hmapStoreAllChequeDetails=new LinkedHashMap<String,LinkedHashMap<String,String>>();
+        try {
+            cursor = db.rawQuery("SELECT PaymentMode,PaymentModeID,Amount,RefNoChequeNoTrnNo,Date,Bank from tblAllCollectionData where StoreID='"+StoreID+"' AND PaymentModeID=2", null);
+            if(cursor.getCount()>0){
+                if (cursor.moveToFirst()) {
+                    for (int i = 0; i <= (cursor.getCount() - 1); i++)
+                    {
+                        LinkedHashMap<String, String> hmapChequeRecords = new LinkedHashMap<String, String>();
+
+                        String PaymentMode_Old=cursor.getString(0).toString();
+                        int PaymentModeID_Old=Integer.parseInt(cursor.getString(1).toString());
+                        Double Amount_Old=Double.parseDouble(cursor.getString(2).toString());
+                        String RefNoChequeNoTrnNo_Old=cursor.getString(3).toString();
+                        String Date_Old=cursor.getString(4).toString();
+                        String Bank_Old=cursor.getString(5).toString();
+
+                        int flgDeleteModifyNew=2;
+
+                        String oldChequeRecord=PaymentMode_Old+"^"+PaymentModeID_Old+"^"+Amount_Old+"^"+RefNoChequeNoTrnNo_Old+"^"+Date_Old+"^"+Bank_Old;
+                        String newChequeRecord=PaymentMode_Old+"^"+PaymentModeID_Old+"^"+Amount_Old+"^"+RefNoChequeNoTrnNo_Old+"^"+Date_Old+"^"+Bank_Old;
+
+                        hmapChequeRecords.put("Old",oldChequeRecord);
+                        hmapChequeRecords.put("New",newChequeRecord);
+
+                        hmapStoreAllChequeDetails.put(""+(i+1)+"^"+flgDeleteModifyNew,hmapChequeRecords);
+
+                    }
+                }
+                arrStoreChequeDetails.add(hmapStoreAllChequeDetails);
+            }
+            // return arrStoreChequeDetails;
+        }catch(Exception e)
+        {
+
+        }
+
+        finally
+        {
+            if(cursor!=null)
+            {
+                cursor.close();
+            }
+        }
+        return arrStoreChequeDetails;
+    }
+
+
+
+    public static double fnGetAllCashCollectedAmountDetailsAgainstStore(String StoreID)
+    {
+        Double CashCollectedAmountDetailsAgainstStore=0.0;
+        Cursor cursor = db.rawQuery("SELECT ifnull(SUM(Amount),'0.00') CashAmount from tblAllCollectionData WHERE PaymentModeID=1 And StoreID='"+StoreID+"'", null); //order by AutoIdOutlet Desc
+        try
+        {
+            if(cursor.getCount()>0)
+            {
+                cursor.moveToFirst();
+                CashCollectedAmountDetailsAgainstStore=Double.parseDouble(cursor.getString(0));
+
+            }
+            return CashCollectedAmountDetailsAgainstStore;
+        }
+        finally
+        {
+            if(cursor!=null) {
+                cursor.close();
+            }
+            // close();
+        }
+    }
+
+
+    public static Double fnfetchModifiedCollectionReportCashChange(String StoreID)
+    {
+        Cursor cursorE2 = db.rawQuery("SELECT ModifiedCashCollectionAmt FROM tblCollectionReportCashChange WHERE StoreID='"+StoreID+"'", null);
+        Double chkI = 0.0;
+        try {
+            if (cursorE2.getCount()>0) {
+                if (cursorE2.moveToFirst()) {
+                    if (!cursorE2.isNull(0)) {
+                        chkI = Double.parseDouble((cursorE2.getString(0)));
+                    } else {
+                        chkI = 0.0;
+                    }
+                }
+            }
+
+        } finally {
+            if(cursorE2!=null) {
+                cursorE2.close();
+            }
+        }
+        return chkI;
+    }
+
 }
 
 

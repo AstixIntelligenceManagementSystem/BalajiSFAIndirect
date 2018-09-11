@@ -6,6 +6,7 @@
     <string name="app_name">Balaji SFA Dev</string>
 
 
+    <string name="hintSearch">શોધ ..</string>
     <string name="DayCollectionTotalInv">કુલ ભરતિયું</string>
     <string name="DayCollectionCashColec">કેશ કલેક્શન</string>
     <string name="DayCollectionChequeColec">કલેક્શન તપાસો</string>

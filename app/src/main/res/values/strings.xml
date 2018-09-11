@@ -1,10 +1,10 @@
 <resources>
 
-  <!-- <string name="app_name">Balaji SFA</string>-->
+    <!-- <string name="app_name">Balaji SFA</string>-->
     <!-- <string name="app_name">Balaji SFA Stagging</string>-->
-   <!-- <string name="app_name">Balaji SFA Test</string>-->
-     <string name="app_name">Balaji SFA Dev</string>
-   <!-- <string name="app_name">Balaji SFA Test</string>-->
+    <!-- <string name="app_name">Balaji SFA Test</string>-->
+    <string name="app_name">Balaji SFA Dev</string>
+    <!-- <string name="app_name">Balaji SFA Test</string>-->
     <string name="title_activity_storewisereport">Store Wise Report</string>
 
     <string name="DayCollectionTotalInv">Total Invoice</string>
@@ -61,8 +61,6 @@
     <!--Alert Box message-->
     <string name="WareHouseMsgWithoutInvoiceNumber">Stock loaded/adjusted recently will reflect after few minutes.</string>
     <string name="genStoreListWhoseDataIsNotYetSubmitted">Following invoices are Not Submitted as Yet. Invoices only Saved but not Submitted now will be permanently lost.</string>
-
-
 
 
     <string name="AlertDialogHeaderMsg">Alert</string>
@@ -258,11 +256,6 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="TtlAmtOutStnding">Total Outstanding: </string>
     <string name="TotalAmount">Total Amount:-</string>
     <string name="crntInvoice">Current invoice: </string>
-
-
-
-
-
 
 
     <!--Incentive Activity starts here-->
@@ -887,7 +880,6 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="AlertVANStockStockValidate">Please Confirm WareHouse Stock first for starting your market visit</string>
 
 
-
     <string name="DayStart">Day Start</string>
     <string name="Warehouse">Warehouse Check In</string>
     <string name="DayStartCheckIN">Day Start</string>
@@ -915,18 +907,16 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="StkUnload">Stock Unload</string>
 
 
-
-
-
-
-     <string name="AlertDialogUnloadStock">Error while Unloading Stock!</string>
+    <string name="AlertDialogUnloadStock">Error while Unloading Stock!</string>
     <string name="AlertDialogUnloadVaidation">Unload Stock cannot be greater than Stock in Van!</string>
 
 
-
-<string name="alrtDayEndProcess">Your day end process is still pending, please wait till it gets completed. </string>
+    <string name="alrtDayEndProcess">Your day end process is still pending, please wait till it gets completed. </string>
     <string name="alrtDayEndDone">You cannot proceed after day is closed </string>
     <string name="AlertDayEndCnfrmForRqstStk">Your stock unloading request is stil pending for confirmation.try after is it is accepted.</string>
+
+    <string name="hintSearch">Search..</string>
+
 
 
 

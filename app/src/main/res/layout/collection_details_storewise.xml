@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:background="#085d8c"
+
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextAppearance="@style/Toolbar.TitleText" >
+        <ImageView
+            android:id="@+id/backIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:visibility="visible"
+            android:paddingRight="10dp"
+            android:src="@drawable/ic_back"
+
+
+            android:textSize="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:visibility="visible"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="Collection Details"/>
+
+        <ImageView
+            android:id="@+id/logoutIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:visibility="gone"
+            android:paddingRight="10dp"
+            android:src="@drawable/logout30"
+
+
+            android:textSize="15sp" />
+
+        <!-- app:titleTextAppearance using for custom title size -->
+
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="@drawable/shadow_last"
+        android:layout_weight="10">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginTop="1dp"
+            android:id="@+id/storeNameText"
+            android:text="Store Name"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:background="@drawable/header_background"
+            android:layout_height="30dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:background="#0070AF"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight=".75"
+                android:layout_margin="2dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:textSize="12sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Total Collection"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:textSize="11sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:gravity="center"
+                android:text="Modified Collection"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:textSize="11sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:background="#0070AF"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight=".75"
+                android:gravity="center"
+                android:layout_margin="2dp"
+                android:textStyle="bold"
+                android:text="Cash Collection"
+                android:textColor="#fff"
+                android:textSize="11sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="0dp"
+                android:id="@+id/tv_total_collection"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:background="@drawable/edittext_background_transparent_white_border"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+android:maxLength="12"
+
+                android:padding="2dp"
+                android:text=""
+                android:textColor="#fff"
+                android:textSize="11sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/et_modified"
+                android:maxLength="12"
+                android:layout_margin="2dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_bg"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+
+                android:padding="2dp"
+
+                android:text=""
+                android:textColor="#000"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#085d8c"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Add/Modify Cheque Details"
+            android:textColor="#fff"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0070AF"
+            android:gravity="center"
+
+            android:orientation="horizontal">
+            <TextView android:layout_width="0dp"
+                android:text="Payment Mode"
+                android:textSize="10sp"
+                android:visibility="gone"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:id="@+id/pymtModeTextView"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_margin="2dp"
+                android:textColor="#fff"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <View android:layout_width="1dp"
+                android:background="#868686"
+                android:layout_height="match_parent"/>
+            <TextView android:layout_width="0dp"
+                android:text="Amount"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:id="@+id/AmountTextview"
+                android:gravity="center"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <View android:layout_width="1dp"
+                android:background="#868686"
+                android:layout_height="match_parent"/>
+            <TextView android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="RefNo/chequeNo/TrnNo"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_margin="1dp"
+                android:id="@+id/chequeNoTextview"
+                android:textColor="#fff"
+                android:layout_weight="1.3"/>
+            <View android:layout_width="1dp"
+                android:background="#868686"
+                android:layout_height="match_parent"/>
+            <TextView android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textColor="#fff"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:id="@+id/DateLabelTextview"
+                android:gravity="center"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"/>
+            <View android:layout_width="1dp"
+                android:background="#868686"
+                android:layout_height="match_parent"/>
+            <TextView android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/BankLabelTextview"
+                android:textColor="#fff"
+                android:focusable="true"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:focusableInTouchMode="true"
+                android:layout_margin="2dp"
+                android:text="Bank"
+                android:layout_weight="1.5"/>
+            <ImageView android:layout_width="30dp"
+                android:text="Select"
+                android:layout_margin="2dp"
+                android:id="@+id/delete"
+                android:visibility="invisible"
+                android:layout_height="match_parent"
+                android:src="@drawable/delete"
+                android:layout_gravity="center"
+                />
+
+
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/parentOfAllChequeRow"
+                android:layout_height="wrap_content">
+
+
+            </LinearLayout>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/btn_add_cheque"
+                    android:text="ADD Cheque"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:textColor="#fff"
+                    android:background="@drawable/button_background"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/submit_btn"
+        android:text="@string/Submit"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:textColor="#fff"
+        android:background="@drawable/button_background"
+        android:layout_height="30dp" />
+
+
+</LinearLayout>

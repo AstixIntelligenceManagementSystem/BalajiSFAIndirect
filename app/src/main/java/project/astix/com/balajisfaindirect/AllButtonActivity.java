@@ -339,7 +339,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
         {
 
         }
-        int flgStockRqst = dbengine.fetchtblStockUploadedStatusForRqstStatus();
+       /* int flgStockRqst = dbengine.fetchtblStockUploadedStatusForRqstStatus();
         if((isFinalSubmit==2) || (dbengine.fetchtblDayEndStatus()==2)  )
         {
             dbengine.reCreateDB();
@@ -404,7 +404,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                  }
              });
          }
-
+*/
 
 
 
@@ -986,9 +986,9 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
             try {
                 //dbengine.open();
-          /*      String rID=dbengine.GetActiveRouteID();
+                String rID=dbengine.GetActiveRouteID();
 
-                dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);*/
+                dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
                 //dbengine.close();
 
 
@@ -1228,8 +1228,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 dbengine.updateflgFromWhereSubmitStatusAgainstStore(stIDneeded, 1,StoreVisitCode);
             }
             flgChangeRouteOrDayEnd=valDayEndOrChangeRoute;
-
-            if(isFinalSubmit==2)
+            if(isOnline())
             {
                 Intent syncIntent = new Intent(AllButtonActivity.this, SyncMaster.class);
                 syncIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/" + CommonInfo.OrderXMLFolder + "/" + newfullFileName + ".xml");
@@ -1238,9 +1237,13 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 startActivity(syncIntent);
                 finish();
             }
-            else
+
+          else
             {
-                if(isOnline())
+                showAlertSingleButtonError(getResources().getString(R.string.NoDataConnectionFullMsg));
+            }
+
+                /*if(isOnline())
                 {
                     flgClkdBtn=2;
 
@@ -1271,8 +1274,8 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 else
                 {
                     showAlertSingleButtonError(getResources().getString(R.string.NoDataConnectionFullMsg));
-                }
-            }
+                }*/
+
 
           /*  */
         }
@@ -4610,7 +4613,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
             int DatabaseVersion=dbengine.DATABASE_VERSION;
             String AppVersionID=dbengine.AppVersionID;
-         //   dbengine.insertTblDayStartEndDetails(imei,startTS,rID,DayEndFlg,ChangeRouteFlg,fDate,AppVersionID);//DatabaseVersion;//getVersionNumber
+           dbengine.insertTblDayStartEndDetails(imei,startTS,rID,DayEndFlg,ChangeRouteFlg,fDate,AppVersionID);//DatabaseVersion;//getVersionNumber
             //dbengine.close();
 
             showProgress(getResources().getString(R.string.RetrivingDataMsg));

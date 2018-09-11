@@ -100,14 +100,14 @@ public class DayEndStoreCollectionsChequeReport extends AppCompatActivity {
                 txtCollection.setText(CheequeFulleDetails.split(Pattern.quote("^"))[1]);
                 txtChqAmt.setText(CheequeFulleDetails.split(Pattern.quote("^"))[2]);
                 txtBalance.setText(CheequeFulleDetails.split(Pattern.quote("^"))[3]);
-                if(Double.parseDouble(CheequeFulleDetails.split(Pattern.quote("^"))[3])>0.0)
+                /*if(Double.parseDouble(CheequeFulleDetails.split(Pattern.quote("^"))[3])>0.0)
                 {
                     btnModify.setVisibility(View.VISIBLE);
                 }
                 else
                 {
                     btnModify.setVisibility(View.GONE);
-                }
+                }*/
                // btnModify.setText("Modify");
                 btnModify.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -119,7 +119,7 @@ public class DayEndStoreCollectionsChequeReport extends AppCompatActivity {
                         sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
                         String fDateNew = sdf.format(date1).toString();
                         String rID = dbengine.GetActiveRouteID();
-                        Intent storeIntent = new Intent(DayEndStoreCollectionsChequeReport.this, StoreSelection.class);
+                        Intent storeIntent = new Intent(DayEndStoreCollectionsChequeReport.this, collectionReportStoreList.class);
                         storeIntent.putExtra("imei", CommonInfo.imei);
                         storeIntent.putExtra("userDate", fDate);
                         storeIntent.putExtra("pickerDate", fDateNew);
