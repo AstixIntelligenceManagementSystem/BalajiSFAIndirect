@@ -90,7 +90,7 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
     public void initializeAllView(){
 
 
-         backIcon=(ImageView) findViewById(R.id.backIcon);
+        backIcon=(ImageView) findViewById(R.id.backIcon);
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,8 +100,8 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
             }
         });
         TextView storeNameText=(TextView) findViewById(R.id.storeNameText);
-         tv_total_collection=(TextView) findViewById(R.id.tv_total_collection);
-       et_modified=(EditText) findViewById(R.id.et_modified);
+        tv_total_collection=(TextView) findViewById(R.id.tv_total_collection);
+        et_modified=(EditText) findViewById(R.id.et_modified);
 
         storeNameText.setText(selStoreName);
 
@@ -110,7 +110,7 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
             @Override
             public void onClick(View v) {
                 if(!et_modified.getText().toString().trim().equals("")){
-                    if(validateChequeRowFillOrNot()){
+                    if(validateChequeRowFillOrNot() && validateAllRows().equals("TRUE")){
                         saveDataToDataBase();
 
                     }
@@ -374,7 +374,7 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
         et_modified.setText("" + modifiedValue);
 
         if (modifiedValue != 0.0) {
-           // et_modified.setText("" + modifiedValue);
+            // et_modified.setText("" + modifiedValue);
         }
         int chequeChangeAgainstStore = dbengine.fnCheckflgCollectionReportChequeChangeAgainstStore(storeID);
         if (chequeChangeAgainstStore == 0) {
@@ -391,7 +391,7 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
     public void setDataToLayout(ArrayList<LinkedHashMap<String,LinkedHashMap<String,String>>> chequeAllDataArrayPassed,int flagOnlyOldDataOrBoth){
         if(chequeAllDataArrayPassed.size()>0){
             for(int i=0;i<chequeAllDataArrayPassed.size();i++){
-                 chequeRowData= chequeAllDataArrayPassed.get(i);
+                chequeRowData= chequeAllDataArrayPassed.get(i);
                 //i+1+"^"+2 this key is using to save data thats why using this key
                 for(Map.Entry<String,LinkedHashMap<String,String>>  entry:chequeRowData.entrySet()){
 
@@ -415,130 +415,134 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
     }
     public boolean validateChequeRowFillOrNot(){
 
-                if((parentOfAllChequeRow!=null) && (parentOfAllChequeRow.getChildCount()>0)){
-                int childCOut=    parentOfAllChequeRow.getChildCount();
-                 View view=   parentOfAllChequeRow.getChildAt(childCOut-1);
-                  EditText amountEdittextSecond= (EditText) view.findViewById(R.id.amountEdittextSecond);
-                    EditText checqueNoEdittextSecond= (EditText) view.findViewById(R.id.checqueNoEdittextSecond);
-                    TextView dateTextViewSecond= (TextView) view.findViewById(R.id.dateTextViewSecond);
-                    TextView BankSpinnerSecond= (TextView) view.findViewById(R.id.BankSpinnerSecond);
-                    if(amountEdittextSecond.getText().toString().trim().equals("")){
-                        showAlertSingleButtonError("Please Enter the Amount.");
-                        return false;
-                    }
-                  else  if(checqueNoEdittextSecond.getText().toString().trim().equals("")){
-                        showAlertSingleButtonError("Please Enter ChequeNo/RefNo.");
-                        return false;
-                    }
-                    else   if(dateTextViewSecond.getText().toString().trim().equals("")){
-                        showAlertSingleButtonError("Please select Data");
-                        return false;
-                    }
-                    else  if(BankSpinnerSecond.getText().toString().trim().equals("") || BankSpinnerSecond.getText().toString().trim().equals("Select")){
-                        showAlertSingleButtonError("Please select Bank");
-                        return false;
-                    }
-                    else{
-                        return true;
-                    }
-
-                }
-                else{
-                    return true;
-                }
-    }
-
-public void saveDataToDataBase(){
-    if(parentOfAllChequeRow.getChildCount()>0){
         if((parentOfAllChequeRow!=null) && (parentOfAllChequeRow.getChildCount()>0)){
-            dbengine.fnDeletetblCollectionReportChequeChange(storeID);
-            for(int i=0;i<parentOfAllChequeRow.getChildCount();i++) {
-                View view = parentOfAllChequeRow.getChildAt(i);
-                EditText amountEdittextSecond = (EditText) view.findViewById(R.id.amountEdittextSecond);
-                EditText checqueNoEdittextSecond = (EditText) view.findViewById(R.id.checqueNoEdittextSecond);
-                TextView dateTextViewSecond = (TextView) view.findViewById(R.id.dateTextViewSecond);
-                TextView BankSpinnerSecond = (TextView) view.findViewById(R.id.BankSpinnerSecond);
-                ImageView delete = (ImageView) view.findViewById(R.id.delete);
-             String oldChequeRecord=   delete.getTag().toString();
-                if(view.getTag().equals("NEW")){
-                    dbengine.fnsavetblCollectionReportChequeChange(storeID,"Cheque/DD","2",amountEdittextSecond.getText().toString().trim(),checqueNoEdittextSecond.getText().toString().trim(),dateTextViewSecond.getText().toString().trim(),BankSpinnerSecond.getText().toString().trim(),"Cheque/DD","2",amountEdittextSecond.getText().toString().trim(),checqueNoEdittextSecond.getText().toString().trim(),dateTextViewSecond.getText().toString().trim(),BankSpinnerSecond.getText().toString().trim(),3);
-                }
-               else if(view.getTag().equals("DELETE")){
-                    dbengine.fnsavetblCollectionReportChequeChange(storeID,"Cheque/DD","2",amountEdittextSecond.getText().toString().trim(),checqueNoEdittextSecond.getText().toString().trim(),dateTextViewSecond.getText().toString().trim(),BankSpinnerSecond.getText().toString().trim(),"Cheque/DD","2",amountEdittextSecond.getText().toString().trim(),checqueNoEdittextSecond.getText().toString().trim(),dateTextViewSecond.getText().toString().trim(),BankSpinnerSecond.getText().toString().trim(),1);
-                }
-                else if(view.getTag().equals("NEWDELETE")){
-
-                }
-                else{
-                    String PaymentMode_Old = oldChequeRecord.split(Pattern.quote("^"))[0];
-                    String PaymentModeID_Old = oldChequeRecord.split(Pattern.quote("^"))[1];
-                    String Amount_Old = oldChequeRecord.split(Pattern.quote("^"))[2];
-                    String RefNoChequeNoTrnNo_Old = oldChequeRecord.split(Pattern.quote("^"))[3];
-                    String Date_Old = oldChequeRecord.split(Pattern.quote("^"))[4];
-                    String Bank_Old = oldChequeRecord.split(Pattern.quote("^"))[5];
-                   int flag=2;
-                    if(view.getTag().toString().contains("^")){
-                        try{
-                            flag=    Integer.parseInt(view.getTag().toString().split(Pattern.quote("^"))[1]);
-                        }
-                        catch (Exception e){
-                            flag=2;
-                        }
-                        finally {
-
-                        }
-
-                            }
-                    dbengine.fnsavetblCollectionReportChequeChange(storeID,PaymentMode_Old,PaymentModeID_Old,Amount_Old,RefNoChequeNoTrnNo_Old,Date_Old,Bank_Old,"Cheque/DD","2",amountEdittextSecond.getText().toString().trim(),checqueNoEdittextSecond.getText().toString().trim(),dateTextViewSecond.getText().toString().trim(),BankSpinnerSecond.getText().toString().trim(),flag);
-                }
-
-            }
-        }
-
-    }
-
-    dbengine.fnDeleteInsertCollectionReportCashChange(storeID,tv_total_collection.getText().toString().trim(),et_modified.getText().toString().trim(),"3");
-}
-/*public String validateAllRows(){
-    String flag="TRUE";
-
-    if((parentOfAllChequeRow!=null) && (parentOfAllChequeRow.getChildCount()>0)){
-        for(int i=0;i<parentOfAllChequeRow.getChildCount();i++){
-            View view=    parentOfAllChequeRow.getChildAt(i);
-
-
+            int childCOut=    parentOfAllChequeRow.getChildCount();
+            View view=   parentOfAllChequeRow.getChildAt(childCOut-1);
             EditText amountEdittextSecond= (EditText) view.findViewById(R.id.amountEdittextSecond);
             EditText checqueNoEdittextSecond= (EditText) view.findViewById(R.id.checqueNoEdittextSecond);
             TextView dateTextViewSecond= (TextView) view.findViewById(R.id.dateTextViewSecond);
             TextView BankSpinnerSecond= (TextView) view.findViewById(R.id.BankSpinnerSecond);
             if(amountEdittextSecond.getText().toString().trim().equals("")){
                 showAlertSingleButtonError("Please Enter the Amount.");
-                break;
-                flag="FALSE";
+                return false;
             }
             else  if(checqueNoEdittextSecond.getText().toString().trim().equals("")){
                 showAlertSingleButtonError("Please Enter ChequeNo/RefNo.");
-                break;
-                flag="FALSE";
+                return false;
             }
             else   if(dateTextViewSecond.getText().toString().trim().equals("")){
                 showAlertSingleButtonError("Please select Data");
-                break;
-                flag="FALSE";
+                return false;
             }
             else  if(BankSpinnerSecond.getText().toString().trim().equals("") || BankSpinnerSecond.getText().toString().trim().equals("Select")){
                 showAlertSingleButtonError("Please select Bank");
-                break;
-                flag="FALSE";
+                return false;
+            }
+            else{
+                return true;
+            }
+
+        }
+        else{
+            return true;
+        }
+    }
+
+    public void saveDataToDataBase(){
+        if(parentOfAllChequeRow.getChildCount()>0){
+            if((parentOfAllChequeRow!=null) && (parentOfAllChequeRow.getChildCount()>0)){
+                dbengine.fnDeletetblCollectionReportChequeChange(storeID);
+                for(int i=0;i<parentOfAllChequeRow.getChildCount();i++) {
+                    View view = parentOfAllChequeRow.getChildAt(i);
+                    EditText amountEdittextSecond = (EditText) view.findViewById(R.id.amountEdittextSecond);
+                    EditText checqueNoEdittextSecond = (EditText) view.findViewById(R.id.checqueNoEdittextSecond);
+                    TextView dateTextViewSecond = (TextView) view.findViewById(R.id.dateTextViewSecond);
+                    TextView BankSpinnerSecond = (TextView) view.findViewById(R.id.BankSpinnerSecond);
+                    ImageView delete = (ImageView) view.findViewById(R.id.delete);
+                    String oldChequeRecord=   delete.getTag().toString();
+                    if(view.getTag().equals("NEW")){
+                        dbengine.fnsavetblCollectionReportChequeChange(storeID,"Cheque/DD","2",amountEdittextSecond.getText().toString().trim(),checqueNoEdittextSecond.getText().toString().trim(),dateTextViewSecond.getText().toString().trim(),BankSpinnerSecond.getText().toString().trim(),"Cheque/DD","2",amountEdittextSecond.getText().toString().trim(),checqueNoEdittextSecond.getText().toString().trim(),dateTextViewSecond.getText().toString().trim(),BankSpinnerSecond.getText().toString().trim(),3);
+                    }
+                    else if(view.getTag().equals("DELETE")){
+                        dbengine.fnsavetblCollectionReportChequeChange(storeID,"Cheque/DD","2",amountEdittextSecond.getText().toString().trim(),checqueNoEdittextSecond.getText().toString().trim(),dateTextViewSecond.getText().toString().trim(),BankSpinnerSecond.getText().toString().trim(),"Cheque/DD","2",amountEdittextSecond.getText().toString().trim(),checqueNoEdittextSecond.getText().toString().trim(),dateTextViewSecond.getText().toString().trim(),BankSpinnerSecond.getText().toString().trim(),1);
+                    }
+                    else if(view.getTag().equals("NEWDELETE")){
+
+                    }
+                    else{
+                        String PaymentMode_Old = oldChequeRecord.split(Pattern.quote("^"))[0];
+                        String PaymentModeID_Old = oldChequeRecord.split(Pattern.quote("^"))[1];
+                        String Amount_Old = oldChequeRecord.split(Pattern.quote("^"))[2];
+                        String RefNoChequeNoTrnNo_Old = oldChequeRecord.split(Pattern.quote("^"))[3];
+                        String Date_Old = oldChequeRecord.split(Pattern.quote("^"))[4];
+                        String Bank_Old = oldChequeRecord.split(Pattern.quote("^"))[5];
+                        int flag=2;
+                        if(view.getTag().toString().contains("^")){
+                            try{
+                                flag=    Integer.parseInt(view.getTag().toString().split(Pattern.quote("^"))[1]);
+                            }
+                            catch (Exception e){
+                                flag=2;
+                            }
+                            finally {
+
+                            }
+
+                        }
+                        dbengine.fnsavetblCollectionReportChequeChange(storeID,PaymentMode_Old,PaymentModeID_Old,Amount_Old,RefNoChequeNoTrnNo_Old,Date_Old,Bank_Old,"Cheque/DD","2",amountEdittextSecond.getText().toString().trim(),checqueNoEdittextSecond.getText().toString().trim(),dateTextViewSecond.getText().toString().trim(),BankSpinnerSecond.getText().toString().trim(),flag);
+                    }
+
+                }
             }
 
         }
 
-
+        dbengine.fnDeleteInsertCollectionReportCashChange(storeID,tv_total_collection.getText().toString().trim(),et_modified.getText().toString().trim(),"3");
     }
-    else{
-        flag="TRUE";
-    }
+    public String validateAllRows(){
+        String flag="TRUE";
 
-}*/
+        if((parentOfAllChequeRow!=null) && (parentOfAllChequeRow.getChildCount()>0)){
+            for(int i=0;i<parentOfAllChequeRow.getChildCount();i++){
+                View view=    parentOfAllChequeRow.getChildAt(i);
+
+
+                EditText amountEdittextSecond= (EditText) view.findViewById(R.id.amountEdittextSecond);
+                EditText checqueNoEdittextSecond= (EditText) view.findViewById(R.id.checqueNoEdittextSecond);
+                TextView dateTextViewSecond= (TextView) view.findViewById(R.id.dateTextViewSecond);
+                TextView BankSpinnerSecond= (TextView) view.findViewById(R.id.BankSpinnerSecond);
+                if(amountEdittextSecond.getText().toString().trim().equals("")){
+                    showAlertSingleButtonError("Please Enter the Amount.");
+                    flag="FALSE";
+                    break;
+
+                }
+                else  if(checqueNoEdittextSecond.getText().toString().trim().equals("")){
+                    showAlertSingleButtonError("Please Enter ChequeNo/RefNo.");
+                    flag="FALSE";
+                    break;
+                }
+                else   if(dateTextViewSecond.getText().toString().trim().equals("")){
+                    showAlertSingleButtonError("Please select Data");
+                    flag="FALSE";
+                    break;
+                }
+                else  if(BankSpinnerSecond.getText().toString().trim().equals("") || BankSpinnerSecond.getText().toString().trim().equals("Select")){
+                    showAlertSingleButtonError("Please select Bank");
+                    flag="FALSE";
+
+                    break;
+
+                }
+
+
+            }
+
+
+        }
+        else{
+            flag="TRUE";
+        }
+        return flag;
+    }
 }

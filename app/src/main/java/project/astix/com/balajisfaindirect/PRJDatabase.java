@@ -35755,6 +35755,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
                         hmapChequeRecords.put("New",newChequeRecord);
 
                         hmapStoreAllChequeDetails.put(""+(i+1)+"^"+flgDeleteModifyNew,hmapChequeRecords);
+                        cursor.moveToNext();
 
                     }
 
@@ -35777,6 +35778,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         return arrStoreChequeDetails;
     }
 
+
     public static int fnCheckflgCollectionReportChequeChangeAgainstStore(String StoreID)
     {
         Cursor cursorE2 = db.rawQuery("SELECT * FROM tblCollectionReportChequeChange WHERE StoreID='"+StoreID+"'", null);
@@ -35798,7 +35800,6 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         }
         return chkI;
     }
-
     public static ArrayList<LinkedHashMap<String,LinkedHashMap<String,String>>>  fnRetrievetblCollectionChequeAgainstStore(String StoreID)
     {
         ArrayList<LinkedHashMap<String,LinkedHashMap<String,String>>> arrStoreChequeDetails=new ArrayList<LinkedHashMap<String,LinkedHashMap<String,String>>>();
@@ -35828,6 +35829,7 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
                         hmapChequeRecords.put("New",newChequeRecord);
 
                         hmapStoreAllChequeDetails.put(""+(i+1)+"^"+flgDeleteModifyNew,hmapChequeRecords);
+                        cursor.moveToNext();
 
                     }
                 }

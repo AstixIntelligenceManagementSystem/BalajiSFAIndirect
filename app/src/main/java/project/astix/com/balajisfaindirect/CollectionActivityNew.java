@@ -1226,8 +1226,35 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
 
                }
                else {*/
-                onlyPrintFlag = 0;
-                fnCallSaveDataFromTempToPermanetWithoutPrint("Do you want to submit visit data without printing Invoice");
+
+                if(onlyPrintFlag==1){
+                    StoreSelection.flgChangeRouteOrDayEnd = 0;
+                    DayStartActivity.flgDaySartWorking = 0;
+                    String presentRoute = dbengine.GetActiveRouteID();
+                    Intent mMyServiceIntent = new Intent(getCtx(), MyService.class);
+                    mMyServiceIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/" + CommonInfo.OrderXMLFolder + "/" + newfullFileName + ".xml");
+                    mMyServiceIntent.putExtra("storeID", storeID);
+                    mMyServiceIntent.putExtra("OrigZipFileName", newfullFileName);
+                    mMyServiceIntent.putExtra("whereTo", "Regular");//
+                    if (!isMyServiceRunning(MyService.class)) {
+                        startService(mMyServiceIntent);
+                    }
+
+                    Intent prevP2 = new Intent(CollectionActivityNew.this, StoreSelection.class);
+                    //Location_Getting_Service.closeFlag = 0;
+                    prevP2.putExtra("imei", imei);
+                    prevP2.putExtra("userDate", date);
+                    prevP2.putExtra("pickerDate", pickerDate);
+                    prevP2.putExtra("rID", presentRoute);
+                    startActivity(prevP2);
+                    finish();
+                }
+                else{
+                    onlyPrintFlag = 0;
+                    fnCallSaveDataFromTempToPermanetWithoutPrint("Do you want to submit visit data without printing Invoice");
+                }
+
+
 
                 // }
             }
@@ -2187,11 +2214,32 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                 dbengine.savetbl_XMLfiles(newfullFileName, "3", "1");
 
                 dbengine.UpdateXMLCreatedFilesTablesFlag(5);
+
             } catch (Exception e) {
 
                 e.printStackTrace();
                 if (pDialogGetStores.isShowing()) {
                     pDialogGetStores.dismiss();
+                }
+            }
+            finally {
+                if (flgOnlySubmitOrPrint == 1) {
+                    //dbengine.open();
+                    ArrayList<String> arrResult = dbengine.fnFetch_tblWarehouseMstr();
+                    // dbengine.close();
+                    arrAllPrintResult = null;
+                    if ((arrResult != null) && (arrResult.size() > 0)) {
+                        arrAllPrintResult = dbengine.fnFetch_InvoiceReportForPrint(StoreVisitCode, storeID, Integer.parseInt(arrResult.get(0)), Integer.parseInt(arrResult.get(1)));
+                        if ((arrAllPrintResult != null) && (arrAllPrintResult.size() > 0)) {
+                            // PrintAll_Code();
+                            PrintAll_CodeFromASyncTask();
+                        } else {
+                            Toast.makeText(CollectionActivityNew.this, "All print data is blank", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(CollectionActivityNew.this, "NodeID Blank", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
             return null;
@@ -2209,7 +2257,7 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                 pDialogGetStores.dismiss();
             }
             try {
-                if (flgOnlySubmitOrPrint == 1) {
+            /*    if (flgOnlySubmitOrPrint == 1) {
                     //dbengine.open();
                     ArrayList<String> arrResult = dbengine.fnFetch_tblWarehouseMstr();
                     // dbengine.close();
@@ -2217,7 +2265,8 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                     if ((arrResult != null) && (arrResult.size() > 0)) {
                         arrAllPrintResult = dbengine.fnFetch_InvoiceReportForPrint(StoreVisitCode, storeID, Integer.parseInt(arrResult.get(0)), Integer.parseInt(arrResult.get(1)));
                         if ((arrAllPrintResult != null) && (arrAllPrintResult.size() > 0)) {
-                            PrintAll_Code();
+                           // PrintAll_Code();
+                            PrintAll_CodeFromASyncTask();
                         } else {
                             Toast.makeText(CollectionActivityNew.this, "All print data is blank", Toast.LENGTH_SHORT).show();
                         }
@@ -2225,13 +2274,23 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                         Toast.makeText(CollectionActivityNew.this, "NodeID Blank", Toast.LENGTH_SHORT).show();
                     }
 
-                }
+                }*/
                 if(onlyPrintFlag==1) {
-                    Toast.makeText(CollectionActivityNew.this, "Please submit your data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CollectionActivityNew.this, "Please submit your data ", Toast.LENGTH_SHORT).show();
                     PrintOnly.setEnabled(false);
                     btn_bck.setEnabled(false);
                     btn_print.setEnabled(false);
-                    Toast.makeText(CollectionActivityNew.this, "NodeID Blank", Toast.LENGTH_SHORT).show();
+                    cb_collection.setEnabled(false);
+                            amountEdittextFirst.setEnabled(false);
+                    amountEdittextSecond.setEnabled(false);
+                            amountEdittextThird.setEnabled(false);
+                    checqueNoEdittextSecond.setEnabled(false);
+                            dateTextViewSecond.setEnabled(false);
+                    dateTextViewThird.setEnabled(false);
+                            BankSpinnerSecond.setEnabled(false);
+                    BankSpinnerThird.setEnabled(false);
+                    Toast.makeText(CollectionActivityNew.this, "Please submit your data", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(CollectionActivityNew.this, "NodeID Blank", Toast.LENGTH_SHORT).show();
                 }
 
                 if(onlyPrintFlag==0) {
@@ -2256,7 +2315,7 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                     startActivity(prevP2);
                     finish();
                 }
-                onlyPrintFlag=0;
+                //onlyPrintFlag=0;
                 flgOnlySubmitOrPrint=0;
                /* Intent syncIntent = new Intent(CollectionActivityNew.this, SyncMaster.class);
                 //syncIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/RSPLSFAXml/" + newfullFileName + ".xml");
@@ -2999,6 +3058,7 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                 if ((mBluetoothSocket != null) && (mBluetoothSocket.isConnected())) {
                     flgOnlySubmitOrPrint = 1;
                     //Abhinav Will first transer the data from tem to Permanent table and then call for Print
+                    retrieveLocationAndSubmitData();
 
                 } else {
                     flgOnlySubmitOrPrint = 0;
@@ -3028,7 +3088,7 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
             } else {
                 if ((mBluetoothSocket != null) && (mBluetoothSocket.isConnected())) {
                     flgOnlySubmitOrPrint = 1;
-
+                    retrieveLocationAndSubmitData();
                     //Abhinav Will first transer the data from tem to Permanent table and then call for Print
 
                 } else {
@@ -3124,6 +3184,60 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
 
         // Showing Alert Message
         alertDialog.show();
+    }
+
+    public void PrintAll_CodeFromASyncTask() {
+
+                try {
+                    /*String data="";
+                    for(int i=1;i<10;i++){
+                        if(i==0){
+                            data  ="\n";
+                        }
+                        else{
+                            data=data+"\n " + String.format("%1$-10s %2$10s %3$11s %4$10s", "Shivam-001", "5", "10", "50.00");
+                        }
+                    }*/
+                    OutputStream os = mBluetoothSocket
+                            .getOutputStream();
+                    byte[] format = {29, 10, 35}; // manipulate your font size in the second parameter
+                    byte[] center = {0x1b, 'a', 0x01}; // center alignment
+
+
+                    byte[] printformat = new byte[]{0x1b, 0x21, 0x01};//center bold
+                           /*  byte[] printformat = new byte[]{0x1,'a',0x01};//center normal
+                            os.write(printformat);*/
+                    //os.write(printformat);
+                    //  os.write(format);
+
+                    String billDatatoprint = MakePrintRecipt();
+                    os.write(printformat);//for small text
+                    os.write(center);//for center
+                    os.write(billDatatoprint.getBytes());
+                    //This is printer specific code you can comment ==== > Start
+
+                    // Setting height
+                /*    int gs = 29;
+                    os.write(intToByteArray(gs));
+                    int h = 104;
+                    os.write(intToByteArray(h));
+                    int n = 162;
+                    os.write(intToByteArray(n));
+
+                    // Setting Width
+                    int gs_width = 29;
+                    os.write(intToByteArray(gs_width));
+                    int w = 119;
+                    os.write(intToByteArray(w));
+                    int n_width = 2;
+                    os.write(intToByteArray(n_width));*/
+
+
+                } catch (Exception e) {
+                    Log.e("MainActivity", "Exe ", e);
+
+                }
+
     }
 
     public void PrintAll_Code() {
@@ -3605,46 +3719,9 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
             if ((countDownTimer != null)) {
                 countDownTimer.cancel();
             }
-            flgOnlySubmitOrPrint = 1;
             Toast.makeText(CollectionActivityNew.this, "DeviceConnected", Toast.LENGTH_SHORT).show();
-           /* if (onlyPrintFlag == 0) {*/
-                //means print and submit both
-                saveDataToDatabase();
-                butClickForGPS = 3;
+            retrieveLocationAndSubmitData();
 
-                if ((dbengine.PrevLocChk(storeID.trim(), StoreVisitCode))) {
-
-
-                    FullSyncDataNow task = new FullSyncDataNow(CollectionActivityNew.this);
-                    task.execute();
-                } else {
-
-                    appLocationService = new AppLocationService();
-                    pDialog2STANDBY = ProgressDialog.show(CollectionActivityNew.this, getText(R.string.genTermPleaseWaitNew), getText(R.string.genTermRetrivingLocation), true);
-                    pDialog2STANDBY.setIndeterminate(true);
-
-                    pDialog2STANDBY.setCancelable(false);
-                    pDialog2STANDBY.show();
-
-                    if (isGooglePlayServicesAvailable()) {
-                        createLocationRequest();
-
-                        mGoogleApiClient = new GoogleApiClient.Builder(CollectionActivityNew.this)
-                                .addApi(LocationServices.API)
-                                .addConnectionCallbacks(CollectionActivityNew.this)
-                                .addOnConnectionFailedListener(CollectionActivityNew.this)
-                                .build();
-                        mGoogleApiClient.connect();
-                    }
-                    //startService(new Intent(DynamicActivity.this, AppLocationService.class));
-                    startService(new Intent(CollectionActivityNew.this, AppLocationService.class));
-                    Location nwLocation = appLocationService.getLocation(locationManager, LocationManager.GPS_PROVIDER, location);
-                    Location gpsLocation = appLocationService.getLocation(locationManager, LocationManager.NETWORK_PROVIDER, location);
-
-                       countDownTimer2 = new CoundownClass2(startTime, interval);
-                       countDownTimer2.start();
-
-                }
 
            /* } else {
                 //means print only
@@ -3692,8 +3769,10 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                     countDownTimer.cancel();
                 }
             }
-            if (mBluetoothSocket != null)
+            if (mBluetoothSocket != null){
                 mBluetoothSocket.close();
+            }
+
         } catch (Exception e) {
             Log.e("Tag", "Exe ", e);
         }
@@ -3737,4 +3816,47 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
         return builder.toString();
     }
     //Printer functions start here----------------------------------------------------------------
+
+    public void retrieveLocationAndSubmitData(){
+        flgOnlySubmitOrPrint = 1;
+
+           /* if (onlyPrintFlag == 0) {*/
+        //means print and submit both
+        saveDataToDatabase();
+        butClickForGPS = 3;
+
+        if ((dbengine.PrevLocChk(storeID.trim(), StoreVisitCode))) {
+
+
+            FullSyncDataNow task = new FullSyncDataNow(CollectionActivityNew.this);
+            task.execute();
+        } else {
+
+            appLocationService = new AppLocationService();
+            pDialog2STANDBY = ProgressDialog.show(CollectionActivityNew.this, getText(R.string.genTermPleaseWaitNew), getText(R.string.genTermRetrivingLocation), true);
+            pDialog2STANDBY.setIndeterminate(true);
+
+            pDialog2STANDBY.setCancelable(false);
+            pDialog2STANDBY.show();
+
+            if (isGooglePlayServicesAvailable()) {
+                createLocationRequest();
+
+                mGoogleApiClient = new GoogleApiClient.Builder(CollectionActivityNew.this)
+                        .addApi(LocationServices.API)
+                        .addConnectionCallbacks(CollectionActivityNew.this)
+                        .addOnConnectionFailedListener(CollectionActivityNew.this)
+                        .build();
+                mGoogleApiClient.connect();
+            }
+            //startService(new Intent(DynamicActivity.this, AppLocationService.class));
+            startService(new Intent(CollectionActivityNew.this, AppLocationService.class));
+            Location nwLocation = appLocationService.getLocation(locationManager, LocationManager.GPS_PROVIDER, location);
+            Location gpsLocation = appLocationService.getLocation(locationManager, LocationManager.NETWORK_PROVIDER, location);
+
+            countDownTimer2 = new CoundownClass2(startTime, interval);
+            countDownTimer2.start();
+
+        }
+    }
 }
