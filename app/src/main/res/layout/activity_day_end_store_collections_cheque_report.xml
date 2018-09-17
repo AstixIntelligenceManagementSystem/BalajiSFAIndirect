@@ -61,6 +61,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
+                android:visibility="gone"
                 android:text="@string/DayStoreCollectionReportInvAmt" />
 
             <TextView
@@ -73,7 +74,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
-                android:text="@string/collection" />
+                android:text="@string/CashCollection" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -96,7 +97,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
-                android:text="@string/DayStoreCollectionReportBal" />
+                android:text="@string/txtNet" />
 
             <TextView
                 android:layout_width="0dp"
@@ -107,7 +108,7 @@
                 android:layout_weight="0.5"
                 android:gravity="center"
                 android:padding="2dp"
-                android:visibility="gone"
+                android:visibility="invisible"
                 android:text="@string/DayStoreCollectionReportModify" />
         </LinearLayout>
 

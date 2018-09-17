@@ -1197,7 +1197,8 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
             @Override
             public void onClick(View v) {
                 onlyPrintFlag = 1;
-                PrintOnlyALlFuctionality();
+                PrintOnlyAlert(getResources().getString(R.string.onlyprintMsg));
+
             }
         });
         btn_print = (Button) findViewById(R.id.btn_print);
@@ -1380,6 +1381,42 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
             alertDialog.show();
 
 
+        }
+    }
+    public void PrintOnlyAlert(String msgForAlert) {
+        if (validate() && validateCollectionAmt()) {
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(CollectionActivityNew.this);
+            alertDialog.setTitle("Information");
+
+            alertDialog.setCancelable(false);
+            alertDialog.setMessage(msgForAlert);
+            alertDialog.setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            PrintOnlyALlFuctionality();
+                            dialog.dismiss();
+
+
+                        }
+                    });
+            alertDialog.setNegativeButton("No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            onlyPrintFlag = 0;
+                            dialog.dismiss();
+                        }
+                    });
+
+            // Showing Alert Message
+            alertDialog.show();
+
+
+        }
+        else{
+            onlyPrintFlag = 0;
         }
     }
 
@@ -2281,16 +2318,16 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                     btn_bck.setEnabled(false);
                     btn_print.setEnabled(false);
                     cb_collection.setEnabled(false);
-                            amountEdittextFirst.setEnabled(false);
+                    amountEdittextFirst.setEnabled(false);
                     amountEdittextSecond.setEnabled(false);
-                            amountEdittextThird.setEnabled(false);
+                    amountEdittextThird.setEnabled(false);
                     checqueNoEdittextSecond.setEnabled(false);
-                            dateTextViewSecond.setEnabled(false);
+                    dateTextViewSecond.setEnabled(false);
                     dateTextViewThird.setEnabled(false);
-                            BankSpinnerSecond.setEnabled(false);
+                    BankSpinnerSecond.setEnabled(false);
                     BankSpinnerThird.setEnabled(false);
                     Toast.makeText(CollectionActivityNew.this, "Please submit your data", Toast.LENGTH_SHORT).show();
-                   // Toast.makeText(CollectionActivityNew.this, "NodeID Blank", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(CollectionActivityNew.this, "NodeID Blank", Toast.LENGTH_SHORT).show();
                 }
 
                 if(onlyPrintFlag==0) {
@@ -3127,6 +3164,7 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                     try {
                         if (mBluetoothSocket != null)
                             mBluetoothSocket.close();
+                        onlyPrintFlag = 0;
                         Toast.makeText(CollectionActivityNew.this, "Not Connected", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         Log.e("Tag", "Exe ", e);
@@ -3178,6 +3216,7 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int which) {
+                        onlyPrintFlag = 0;
                         dialog.dismiss();
                     }
                 });
@@ -3188,7 +3227,7 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
 
     public void PrintAll_CodeFromASyncTask() {
 
-                try {
+        try {
                     /*String data="";
                     for(int i=1;i<10;i++){
                         if(i==0){
@@ -3198,25 +3237,25 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                             data=data+"\n " + String.format("%1$-10s %2$10s %3$11s %4$10s", "Shivam-001", "5", "10", "50.00");
                         }
                     }*/
-                    OutputStream os = mBluetoothSocket
-                            .getOutputStream();
-                    byte[] format = {29, 10, 35}; // manipulate your font size in the second parameter
-                    byte[] center = {0x1b, 'a', 0x01}; // center alignment
+            OutputStream os = mBluetoothSocket
+                    .getOutputStream();
+            byte[] format = {29, 10, 35}; // manipulate your font size in the second parameter
+            byte[] center = {0x1b, 'a', 0x01}; // center alignment
 
 
-                    byte[] printformat = new byte[]{0x1b, 0x21, 0x01};//center bold
+            byte[] printformat = new byte[]{0x1b, 0x21, 0x01};//center bold
                            /*  byte[] printformat = new byte[]{0x1,'a',0x01};//center normal
                             os.write(printformat);*/
-                    //os.write(printformat);
-                    //  os.write(format);
+            //os.write(printformat);
+            //  os.write(format);
 
-                    String billDatatoprint = MakePrintRecipt();
-                    os.write(printformat);//for small text
-                    os.write(center);//for center
-                    os.write(billDatatoprint.getBytes());
-                    //This is printer specific code you can comment ==== > Start
+            String billDatatoprint = MakePrintRecipt();
+            os.write(printformat);//for small text
+            os.write(center);//for center
+            os.write(billDatatoprint.getBytes());
+            //This is printer specific code you can comment ==== > Start
 
-                    // Setting height
+            // Setting height
                 /*    int gs = 29;
                     os.write(intToByteArray(gs));
                     int h = 104;
@@ -3233,10 +3272,10 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
                     os.write(intToByteArray(n_width));*/
 
 
-                } catch (Exception e) {
-                    Log.e("MainActivity", "Exe ", e);
+        } catch (Exception e) {
+            Log.e("MainActivity", "Exe ", e);
 
-                }
+        }
 
     }
 
@@ -3489,10 +3528,10 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
             double taxAmount = Double.parseDouble(arrTaxValue.get(0));//"20.00";
             totalTaxValue = totalTaxValue + taxAmount;
             if (hmapTaxWisePrdctDtlt.size() > 1) {
-                taxData.append("\n" + String.format("%1$-11s %2$-19s %3$9s %4$3s %5$13s %6$3s", "", tax, "", "", String.format("%.2f", taxAmount), ""));
+                taxData.append("\n" + String.format("%1$-11s %2$-19s %3$9s %4$3s %5$13s %6$3s", "", "  "+tax, "", "", String.format("%.2f", taxAmount), ""));
                 //taxData = taxData +"\n"+ String.format("%1$-11s %2$-19s %3$9s %4$3s %5$13s %6$3s",  "", tax, "","",String.format("%.2f", taxAmount), "");
             } else {
-                taxData.append("\n" + String.format("%1$-11s %2$-19s %3$9s %4$3s %5$3s %6$13s", "", tax, "", "", "", String.format("%.2f", taxAmount)));
+                taxData.append("\n" + String.format("%1$-11s %2$-19s %3$9s %4$3s %5$3s %6$13s", "", "  "+tax, "", "", "", String.format("%.2f", taxAmount)));
                 //taxData = taxData +"\n"+  String.format("%1$-11s %2$-19s %3$9s %4$3s %5$3s %6$13s",  "", tax, "","","", String.format("%.2f", taxAmount));
             }
 
@@ -3501,7 +3540,7 @@ public class CollectionActivityNew extends BaseActivity implements DatePickerDia
 
         String totalTax = "" + String.format("%.2f", totalTaxValue);//"40.00";
         if (hmapTaxWisePrdctDtlt.size() > 1) {
-            taxData.append("\n" + String.format("%1$-11s %2$-19s %3$9s %4$3s %5$13s %6$3s", "", "Tax Value", "", "", totalTax, ""));
+            taxData.append("\n" + String.format("%1$-11s %2$-19s %3$9s %4$3s %5$3s %6$13s", "", "Tax Value", "", "", "", totalTax));
             //taxData = taxData +"\n"+ String.format("%1$-11s %2$-19s %3$9s %4$3s %5$13s %6$3s",  "", "Tax Value", "","",totalTax, "");
         }
         //Tax details Ends

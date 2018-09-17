@@ -5,7 +5,7 @@
     <!--<string name="app_name">Balaji SFA Test</string>-->
     <string name="app_name">Balaji SFA Dev</string>
 
-
+    <string name="alrtForNegativeStock">નકારાત્મક સ્ટોકની પુષ્ટિ કરી શકાતી નથી, કૃપયા વેપારીને સંપર્ક કરો</string>
     <string name="hintSearch">શોધ ..</string>
     <string name="DayCollectionTotalInv">કુલ ભરતિયું</string>
     <string name="DayCollectionCashColec">કેશ કલેક્શન</string>
@@ -924,4 +924,21 @@
     <string name="alrtDayEndDone">દિવસ બંધ થઈ જાય પછી તમે આગળ વધી શકતા નથી. </string>
     <string name="AlertDayEndCnfrmForRqstStk">તમારા સ્ટોક અનલોડ કરવાની વિનંતી પુષ્ટિ માટે સ્ટેલ બાકી છે. પછી તે સ્વીકૃત છે.</string>
 
+
+
+    <string name="onlyprintMsg">એકવાર ભરતિયું છપાય છે, કોઈ ફેરફાર / એડિટિંગની મંજૂરી નથી, ફક્ત સબમિશનની મંજૂરી છે. શું તમે ભરતિયું છાપવા માંગો છો?</string>
+    <string name="CollectionDetails">સંગ્રહ વિગતો</string>
+    <string name="TotalCollection">કુલ સંગ્રહ</string>
+    <string name="ModifiedCollection">ફેરફાર કરેલ કલેક્શન</string>
+    <string name="CashCollection">કેશ કલેક્શન</string>
+    <string name="AddModifyChequeDetails">તપાસ વિગતો ઉમેરો / સંશોધિત કરો</string>
+    <string name="ADDCheque"> ચેક ઉમેરો</string>
+    <string name="PleaseEntertheModifiedAmount"> કૃપા કરીને સુધારેલી રકમ દાખલ કરો</string>
+    <string name="PleaseEntertheAmount">કૃપા કરીને રકમ દાખલ કરો</string>
+    <string name="PleaseEnterChequeNoRefNo">કૃપા કરીને ChequeNo / RefNo દાખલ કરો</string>
+    <string name="PleaseselectDate"> તારીખ પસંદ કરો</string>
+    <string name="PleaseselectBank"> બેંક પસંદ કરો</string>
+    <string name="PleaseEntertheAmountorChequeNoRefNo">કૃપા કરીને રકમ દાખલ કરો અથવા ચેકઅને / RefNo</string>
+    <string name="PleaseEntertheAmountorChequeNoRefNoorSelectDate">કૃપા કરીને રકમ દાખલ કરો અથવા ચેકઅને / RefNo અથવા તારીખ પસંદ કરો</string>
+    <string name="txtNet">કુલ કિંમત</string>
 </resources>

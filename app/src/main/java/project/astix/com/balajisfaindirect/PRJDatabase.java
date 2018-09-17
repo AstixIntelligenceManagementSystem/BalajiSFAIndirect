@@ -4976,6 +4976,11 @@ public class PRJDatabase
         editorReport.clear();
         editorReport.commit();
 
+        SplashScreen.sPrefVanStockChanged = contextForRecreate.getSharedPreferences(CommonInfo.sPrefVanLoadedUnloaded, 0);
+        SharedPreferences.Editor editorVanStockChanged = SplashScreen.sPrefVanStockChanged.edit();
+        editorVanStockChanged.clear();
+        editorVanStockChanged.commit();
+
         db.execSQL("DELETE FROM  tblCollectionReportCashChange");
         db.execSQL("DELETE FROM  tblCollectionReportChequeChange");
 
@@ -30292,7 +30297,7 @@ String fetchdate=fnGetDateTimeString();
         //open();
         LinkedHashMap<String, String> hmapCatgry = new LinkedHashMap<String, String>();
 //tblDistributorStock(PrdctId text null,StockQntty text null,DistributorNodeIdNodeType text null,SKUName text null,OpeningStock text null,TodaysAddedStock text null,CycleAddedStock text null,NetSalesQty text null,TodaysUnloadStk text null,CycleUnloadStk text null,CategoryID text null);";
-        Cursor cursor= db.rawQuery("Select DISTINCT S.SKUName,S.StockQntty-ifnull(D.OrderQty,0) AS StockAvailable,(S.OpeningStock+S.TodaysAddedStock)-S.TodaysUnloadStk,S.NetSalesQty+ifnull(D.OrderQty,0) from tblDistributorStock S left outer join (SELECT ID.ProdID,SUM(ID.OrderQty) OrderQty FROM tblInvoiceHeader AS I INNER JOIN tblInvoiceDetails AS ID ON ID.InvoiceNumber=I.InvoiceNumber  WHERE I.flgProcessedInvoice=0 GROUP BY ID.ProdID) D ON D.ProdID=S.PrdctId", null);
+        Cursor cursor= db.rawQuery("Select DISTINCT S.SKUName,S.StockQntty-ifnull(D.OrderQty,0) AS StockAvailable,((S.OpeningStock+S.TodaysAddedStock)-S.TodaysUnloadStk) As openingStk,S.NetSalesQty+ifnull(D.OrderQty,0) from tblDistributorStock S left outer join (SELECT ID.ProdID,SUM(ID.OrderQty) OrderQty FROM tblInvoiceHeader AS I INNER JOIN tblInvoiceDetails AS ID ON ID.InvoiceNumber=I.InvoiceNumber  WHERE I.flgProcessedInvoice=0 GROUP BY ID.ProdID) D ON D.ProdID=S.PrdctId", null);
 
 //Cursor cur=db.rawQuery("Select PrdctId,OriginalStock from tblDistributorStock where DistributorNodeIdNodeType='"+distId+"'",null);
       //  Cursor	cursor = db.rawQuery("SELECT Distinct ProductShortName,IFNULL(StockQntty,0),IFNULL(OriginalStock,0) from tblDistributorStock inner join tblProductList on tblDistributorStock.PrdctId=tblProductList.ProductID", null); //order by AutoIdOutlet Desc
@@ -35542,6 +35547,12 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
     public static LinkedHashMap<String,String> fnGetAllStoreWiseCollectionReport()
     {
         LinkedHashMap<String,String> hmapAllStoreWiseCollectionReport=new LinkedHashMap<String,String>();
+        LinkedHashMap<String,String> hmapAllStoreWiseCollectionReportModified=new LinkedHashMap<String,String>();
+        hmapAllStoreWiseCollectionReportModified=fnGetAllDistinctStoreWithInvoiceOrCollectionModified();
+
+        LinkedHashMap<String,String> hmapAllDistinctStoreWithInvoiceOrCheque=new LinkedHashMap<String,String>();
+        hmapAllDistinctStoreWithInvoiceOrCheque=fnGetAllDistinctStoreWithInvoiceOrChequeModified();
+
         Cursor cursor = db.rawQuery("SELECT StoreName,ifnull(SUM(tblInvoiceHeader.InvoiceVal),'0.00') InvAmount,ifnull((select SUM(tblAllCollectionData.Amount) from tblAllCollectionData  where tblSt.StoreID=tblAllCollectionData.StoreID AND tblAllCollectionData.PaymentModeID='1'),'0.00') CashCollection,ifnull((select SUM(tblAllCollectionData.Amount) from tblAllCollectionData   where tblSt.StoreID=tblAllCollectionData.StoreID AND tblAllCollectionData.PaymentModeID='2'),'0.00')ChequeCollection,'0.00' AS BalAmount,tblSt.StoreID from tblStoreList tblSt inner join tblInvoiceHeader ON tblSt.StoreID=tblInvoiceHeader.StoreID Group By tblSt.StoreID,tblSt.StoreName", null);
         try
         {
@@ -35552,13 +35563,36 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
 
                     for (int i = 0; i <= (cursor.getCount() - 1); i++)
                     {
-                        Double BalAmt=Double.parseDouble(cursor.getString(1))-(Double.parseDouble(cursor.getString(2))+Double.parseDouble(cursor.getString(3)));
-                        hmapAllStoreWiseCollectionReport.put(cursor.getString(0).toString(),cursor.getString(1)+"^"+cursor.getString(2)+"^"+cursor.getString(3)+"^"+BalAmt);
+
+                        String txtInvoiceAmount= cursor.getString(1);
+                        String txtCollection= cursor.getString(2);
+                        String txtChqAmt= cursor.getString(3);
+                        if(hmapAllStoreWiseCollectionReportModified!=null && hmapAllStoreWiseCollectionReportModified.size()>0) {
+                            if (hmapAllStoreWiseCollectionReportModified.containsKey(cursor.getString(5) + "^" + cursor.getString(0).toString())) {
+                                txtCollection = hmapAllStoreWiseCollectionReportModified.get(cursor.getString(5) + "^" + cursor.getString(0).toString());
+                            }
+                        }
+                        if(hmapAllDistinctStoreWithInvoiceOrCheque!=null && hmapAllDistinctStoreWithInvoiceOrCheque.size()>0) {
+                            if (hmapAllDistinctStoreWithInvoiceOrCheque.containsKey(cursor.getString(5) + "^" + cursor.getString(0).toString())) {
+                                txtChqAmt = hmapAllDistinctStoreWithInvoiceOrCheque.get(cursor.getString(5) + "^" + cursor.getString(0).toString());
+                            }
+                        }
+                       //Double BalAmt=Double.parseDouble(txtInvoiceAmount)-(Double.parseDouble(txtCollection)+Double.parseDouble(txtChqAmt));
+                        Double BalAmt=(Double.parseDouble(txtCollection)+Double.parseDouble(txtChqAmt));
+
+
+                        hmapAllStoreWiseCollectionReport.put(cursor.getString(5)+"^"+cursor.getString(0).toString(),txtInvoiceAmount+"^"+txtCollection+"^"+txtChqAmt+"^"+BalAmt);
+
                         cursor.moveToNext();
                     }
                 }
 
             }
+           // hmapAllStoreWiseCollectionReport.putAll(hmapAllStoreWiseCollectionReportModified);
+           /* if(hmapAllStoreWiseCollectionReportModified.containsKey(cursor.getString(5)+"^"+cursor.getString(0).toString()))
+            {
+                hmapAllStoreWiseCollectionReport.put(cursor.getString(5)+"^"+cursor.getString(0).toString(),hmapAllStoreWiseCollectionReportModified.get(cursor.getString(5)+"^"+cursor.getString(0).toString()));
+            }*/
             return hmapAllStoreWiseCollectionReport;
         }
         finally
@@ -35899,7 +35933,60 @@ public static void fnUpdateflgTransferStatusInInvoiceHeader(String storeID,Strin
         }
         return chkI;
     }
+    public static LinkedHashMap<String,String> fnGetAllDistinctStoreWithInvoiceOrCollectionModified()
+    {
+        LinkedHashMap<String,String> hmapAllDistinctStoreWithInvoiceOrCollection=new LinkedHashMap<String,String>();
+        Cursor cursor = db.rawQuery("SELECT StoreName,ifnull(SUM(tblCollectionReportCashChange.ModifiedCashCollectionAmt),'0.00') CashCollection,tblStoreList.StoreID from tblStoreList inner join tblCollectionReportCashChange ON tblStoreList.StoreID=tblCollectionReportCashChange.StoreID Group By tblStoreList.StoreID,tblStoreList.StoreName", null);
+        try
+        {
+            if(cursor.getCount()>0)
+            {
+                if (cursor.moveToFirst())
+                {
+                    for (int i = 0; i <= (cursor.getCount() - 1); i++)
+                    {
+                      //  Double BalAmt=Double.parseDouble(cursor.getString(1))-(Double.parseDouble(cursor.getString(2))+Double.parseDouble(cursor.getString(3)));
+                        hmapAllDistinctStoreWithInvoiceOrCollection.put(cursor.getString(2)+"^"+cursor.getString(0).toString(),cursor.getString(1));
+                        cursor.moveToNext();
+                    }
+                }
+            }
+            return hmapAllDistinctStoreWithInvoiceOrCollection;
+        }
+        finally
+        {
+            if(cursor!=null) {
+                cursor.close();
+            }
+        }
+    }
 
+    public static LinkedHashMap<String,String> fnGetAllDistinctStoreWithInvoiceOrChequeModified()
+    {
+        LinkedHashMap<String,String> hmapAllDistinctStoreWithInvoiceOrCheque=new LinkedHashMap<String,String>();
+        Cursor cursor = db.rawQuery("SELECT StoreName,ifnull(SUM(tblCollectionReportChequeChange.Amount_New),'0.00') AS ChequeCollection,tblStoreList.StoreID from tblStoreList inner join tblCollectionReportChequeChange ON tblStoreList.StoreID=tblCollectionReportChequeChange.StoreID Group By tblStoreList.StoreID,tblStoreList.StoreName", null);
+        try
+        {
+            if(cursor.getCount()>0)
+            {
+                if (cursor.moveToFirst())
+                {
+                    for (int i = 0; i <= (cursor.getCount() - 1); i++)
+                    {
+                        hmapAllDistinctStoreWithInvoiceOrCheque.put(cursor.getString(2)+"^"+cursor.getString(0).toString(),cursor.getString(1));
+                        cursor.moveToNext();
+                    }
+                }
+            }
+            return hmapAllDistinctStoreWithInvoiceOrCheque;
+        }
+        finally
+        {
+            if(cursor!=null) {
+                cursor.close();
+            }
+        }
+    }
 }
 
 

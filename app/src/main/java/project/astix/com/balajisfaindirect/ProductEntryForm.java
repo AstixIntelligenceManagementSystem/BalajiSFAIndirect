@@ -66,7 +66,7 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
     CustomKeyboard mCustomKeyboardNum, mCustomKeyboardNumWithoutDecimal;
 
     //Initialize fields
-    ImageView img_ctgry,btn_go,img_return,btn_bck;
+    ImageView img_ctgry,btn_go,img_return,btn_bck,btn_erase;
     EditText ed_search;
     TextView txt_RefreshOdrTot;
     Button btn_InvoiceReview,btn_OrderReview;
@@ -124,6 +124,7 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
 
         img_ctgry = (ImageView) findViewById(R.id.img_ctgry);
         ed_search = (EditText) findViewById(R.id.ed_search);
+        btn_erase= (ImageView) findViewById(R.id.btn_erase);
         btn_go = (ImageView) findViewById(R.id.btn_go);
         txt_RefreshOdrTot = (TextView) findViewById(R.id.txt_RefreshOdrTot);
         btn_InvoiceReview = (Button) findViewById(R.id.btn_InvoiceReview);
@@ -139,6 +140,7 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
         btn_OrderReview.setOnClickListener(this);
         ed_search.setOnClickListener(this);
         btn_go.setOnClickListener(this);
+        btn_erase.setOnClickListener(this);
 
 
     }
@@ -176,7 +178,7 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
                 index++;
             }
 
-            OrderAdapter orderAdapter=new OrderAdapter(ProductEntryForm.this,listProduct,hmapFilterProductList,hmapProductStandardRateBeforeTax,hmapProductMRP,hmapProductIdStock,hmapProductVatTaxPerventage,hmapProductIdLastStock,hampGetLastProductExecution,hmapDistPrdctStockCount,prdctModelArrayList);
+            OrderAdapter orderAdapter=new OrderAdapter(ProductEntryForm.this,listProduct,hmapFilterProductList,hmapProductStandardRate,hmapProductMRP,hmapProductIdStock,hmapProductIdLastStock,hampGetLastProductExecution,hmapDistPrdctStockCount,prdctModelArrayList);
             rv_prdct_detal.setAdapter(orderAdapter);
             rv_prdct_detal.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         }
@@ -330,25 +332,32 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        EditText ed_LastEditextFocusd=prdctModelArrayList.getLastEditText();
         switch (v.getId())
         {
+
             case R.id.img_ctgry:
                 img_ctgry.setEnabled(false);
                 customAlertStoreList(categoryNames, "Select Category");
                 break;
             case R.id.btn_bck:
-                fnCreditAndStockCal(5);
+
+                fnCreditAndStockCal(5,ed_LastEditextFocusd);
                 break;
             case R.id.btn_InvoiceReview:
 
-                fnCreditAndStockCal(0);
+                fnCreditAndStockCal(0,ed_LastEditextFocusd);
                 break;
             case R.id.btn_OrderReview:
-                fnCreditAndStockCal(1);
+                fnCreditAndStockCal(1,ed_LastEditextFocusd);
                 break;
             case R.id.ed_search:
+
                 mCustomKeyboardNumWithoutDecimal.hideCustomKeyboard();
                 // mCustomKeyboardNum.hideCustomKeyboard();
+                break;
+            case R.id.btn_erase:
+                ed_search.setText("");
                 break;
             case R.id.btn_go:
                 if (!TextUtils.isEmpty(ed_search.getText().toString().trim())) {
@@ -443,11 +452,12 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
 
     }
 
-    public void fnCreditAndStockCal(int butnClkd)
+    public void fnCreditAndStockCal(int butnClkd, EditText ed_LastEditextFocusd)
     {
-        EditText ed_LastEditextFocusd=prdctModelArrayList.getLastEditText();
+
         if(ed_LastEditextFocusd!=null)
         {
+
             String ProductIdOnClickedEdit=ed_LastEditextFocusd.getTag().toString().split(Pattern.quote("_"))[0];
             String tag=ed_LastEditextFocusd.getTag().toString();
             if(tag.contains("etOrderQty"))
@@ -463,8 +473,17 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
 
                     if (originalNetQntty>totalStockLeft)
                     {
+                        EditText edOrderCurrent=prdctModelArrayList.getLastEditText();
+                        if(edOrderCurrent!=null)
+                        {
+                            alertForOrderExceedStock(ProductIdOnClickedEdit,edOrderCurrent,ed_LastEditextFocusd,-1);
+                        }
+                        else
+                        {
+                            alertForOrderExceedStock(ProductIdOnClickedEdit,ed_LastEditextFocusd,ed_LastEditextFocusd,-1);
+                        }
 
-                        alertForOrderExceedStock(ProductIdOnClickedEdit,ed_LastEditextFocusd,ed_LastEditextFocusd,-1);
+
                     }
                     else
                     {
@@ -507,16 +526,20 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
 
     public void nextStepAfterRetailerCreditBal(int btnClkd)
     {
-        if(btnClkd==0 || btnClkd==1) // Invoice Review
+        if(btnClkd!=-1)
         {
-            orderInvoiceReviewClkd(btnClkd);
+            if(btnClkd==0 || btnClkd==1) // Invoice Review
+            {
+                orderInvoiceReviewClkd(btnClkd);
+            }
+
+            if(btnClkd==5)// btn back pressed
+            {
+                orderInvoiceReviewClkd(btnClkd);
+
+            }
         }
 
-        if(btnClkd==5)// btn back pressed
-        {
-            orderInvoiceReviewClkd(btnClkd);
-
-        }
     }
 
     public void orderInvoiceReviewClkd(int btnClkd)
@@ -624,6 +647,8 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
         mCustomKeyboardNumWithoutDecimal.hideCustomKeyboard();
         if(!hasFocus)
         {
+            EditText edtFcsLst=prdctModelArrayList.getFocusLostEditText();
+            fnCreditAndStockCal(-1,edtFcsLst);
             orderBookingTotalCalc();
         }
         else
@@ -721,7 +746,7 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
                 finish();
             }
             if(btnClkd==5) {
-                Intent fireBackDetPg = new Intent(ProductEntryForm.this,ActualVisitStock.class);
+               /* Intent fireBackDetPg = new Intent(ProductEntryForm.this,ActualVisitStock.class);
 
                 fireBackDetPg.putExtra("storeID", storeID);
                 fireBackDetPg.putExtra("SN", SN);
@@ -729,6 +754,17 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
                 fireBackDetPg.putExtra("userdate", date);
                 fireBackDetPg.putExtra("pickerDate", pickerDate);
 
+                startActivity(fireBackDetPg);
+                finish();*/
+                Intent fireBackDetPg=new Intent(ProductEntryForm.this,LastVisitDetails.class);
+                fireBackDetPg.putExtra("storeID", storeID);
+                fireBackDetPg.putExtra("SN", SN);
+                fireBackDetPg.putExtra("bck", 1);
+                fireBackDetPg.putExtra("imei", imei);
+                fireBackDetPg.putExtra("userdate", date);
+                fireBackDetPg.putExtra("pickerDate", pickerDate);
+                fireBackDetPg.putExtra("flgOrderType", 1);
+                //fireBackDetPg.putExtra("rID", routeID);
                 startActivity(fireBackDetPg);
                 finish();
             }
@@ -784,6 +820,7 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
             {
                 int PCateId=Integer.parseInt(hmapCtgryPrdctDetail.get(entry.getKey()));
                 String PName =hmapPrdctIdPrdctName.get(entry.getKey());
+                PName= PName.replaceAll("&","-");
                 String ProductID=entry.getKey();
                 String ProductStock ="0";
                 if(hmapProductIdStock!=null && hmapProductIdStock.containsKey(ProductID))
@@ -1028,9 +1065,6 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
                     Double OrderValPrdQtyBasis = ActualRateAfterDiscountAfterTax * Double.parseDouble(prdctQty);
                     hmapLineValAftrTxAftrDscnt.put(ProductID, "" + OrderValPrdQtyBasis);
 
-
-
-
                     TotalOrderValBeforeTax = TotalOrderValBeforeTax + (ActualRateAfterDiscountBeforeTax * Double.parseDouble(prdctQty));
                     hmapLineValBfrTxAftrDscnt.put(ProductID, "" + ActualRateAfterDiscountBeforeTax * Double.parseDouble(prdctQty));
                     TotOderValueAfterTax = TotOderValueAfterTax + OrderValPrdQtyBasis;
@@ -1105,8 +1139,8 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
 
         Double GrossInvValue = totalGrossVALAfterDiscount + TotTaxAmount;
         GrossInvValue = Double.parseDouble(new DecimalFormat("##.##").format(GrossInvValue));
-        tv_GrossInvVal.setText("" + GrossInvValue);
-        tvAfterTaxValue.setText("" + GrossInvValue);
+        tv_GrossInvVal.setText("" + String.format("%.2f", GrossInvValue) );
+        tvAfterTaxValue.setText("" + String.format("%.2f", GrossInvValue));
 
         Double CollectionAmt = dbengine.fnTotCollectionAmtAgainstStore(storeID, TmpInvoiceCodePDA, StoreVisitCode);
         CollectionAmt = Double.parseDouble(new DecimalFormat("##.##").format(CollectionAmt));
@@ -1155,7 +1189,7 @@ public class ProductEntryForm extends BaseActivity implements View.OnClickListen
         tvAfterTaxValue = (TextView) row123.findViewById(R.id.tvAfterTaxValue);
         ll_scheme_detail.addView(row123);
         Double outstandingvalue = dbengine.fnGetStoretblLastOutstanding(storeID);
-        tvPreAmtOutstandingVALNew.setText("" + outstandingvalue);
+        tvPreAmtOutstandingVALNew.setText("" + String.format("%.2f", outstandingvalue));
 
     }
 

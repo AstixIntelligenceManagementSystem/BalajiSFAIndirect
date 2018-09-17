@@ -21055,7 +21055,7 @@ int flgProcessedInvoice=0;
 		}
 	}
 
-	public ServiceWorker submitDayEndClosure(Context ctx,String uuid)
+	public ServiceWorker submitDayEndClosure(Context ctx,String uuid,int flgUnloading)
 	{
 		this.context = ctx;
 		PRJDatabase dbengine = new PRJDatabase(context);
@@ -21116,7 +21116,7 @@ int flgProcessedInvoice=0;
 
 			client.addProperty("AppVersionID", CommonInfo.DATABASE_VERSIONID);
 			client.addProperty("VanLoadUnLoadCycID", cycleId);
-
+			client.addProperty("flgUnloading", flgUnloading);
 
 
 			sse.setOutputSoapObject(client);

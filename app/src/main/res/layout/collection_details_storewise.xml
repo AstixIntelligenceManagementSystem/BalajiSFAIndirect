@@ -37,7 +37,7 @@
             android:visibility="visible"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:text="Collection Details"/>
+            android:text="@string/CollectionDetails"/>
 
         <ImageView
             android:id="@+id/logoutIcon"
@@ -68,9 +68,10 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="#fff"
+            android:padding="3dp"
             android:textSize="15sp"
             android:background="@drawable/header_background"
-            android:layout_height="30dp" />
+            android:layout_height="wrap_content" />
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
@@ -91,7 +92,7 @@
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Total Collection"
+                android:text="@string/TotalCollection"
                 android:textStyle="bold"
                 android:textColor="#fff"
                 android:textSize="11sp"
@@ -101,7 +102,7 @@
                 android:layout_weight="1"
                 android:layout_margin="2dp"
                 android:gravity="center"
-                android:text="Modified Collection"
+                android:text="@string/ModifiedCollection"
                 android:textStyle="bold"
                 android:textColor="#fff"
                 android:textSize="11sp"
@@ -119,7 +120,7 @@
                 android:gravity="center"
                 android:layout_margin="2dp"
                 android:textStyle="bold"
-                android:text="Cash Collection"
+                android:text="@string/CashCollection"
                 android:textColor="#fff"
                 android:textSize="11sp"
                 android:layout_height="wrap_content" />
@@ -132,7 +133,7 @@
                 android:background="@drawable/edittext_background_transparent_white_border"
                 android:gravity="center"
                 android:inputType="numberDecimal"
-android:maxLength="12"
+                android:maxLength="12"
 
                 android:padding="2dp"
                 android:text=""
@@ -165,7 +166,7 @@ android:maxLength="12"
             android:background="#085d8c"
             android:gravity="center"
             android:padding="3dp"
-            android:text="Add/Modify Cheque Details"
+            android:text="@string/AddModifyChequeDetails"
             android:textColor="#fff"
             android:textSize="13sp"
             android:textStyle="bold" />
@@ -193,7 +194,7 @@ android:maxLength="12"
                 android:background="#868686"
                 android:layout_height="match_parent"/>
             <TextView android:layout_width="0dp"
-                android:text="Amount"
+                android:text="@string/Amount"
                 android:textColor="#fff"
                 android:textStyle="bold"
                 android:textSize="10sp"
@@ -213,7 +214,7 @@ android:maxLength="12"
                 android:textSize="10sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:text="RefNo/chequeNo/TrnNo"
+                android:text="@string/RefNochequeNoTrnNo"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:layout_margin="1dp"
@@ -225,7 +226,7 @@ android:maxLength="12"
                 android:layout_height="match_parent"/>
             <TextView android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Date"
+                android:text="@string/DayCollectionChequeDate"
                 android:textColor="#fff"
                 android:textSize="10sp"
                 android:textStyle="bold"
@@ -249,7 +250,7 @@ android:maxLength="12"
                 android:textSize="10sp"
                 android:focusableInTouchMode="true"
                 android:layout_margin="2dp"
-                android:text="Bank"
+                android:text="@string/DayCollectionChequeBank"
                 android:layout_weight="1.5"/>
             <ImageView android:layout_width="30dp"
                 android:text="Select"
@@ -271,19 +272,19 @@ android:maxLength="12"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:id="@+id/parentOfAllChequeRow"
-                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/parentOfAllChequeRow"
+                    android:layout_height="wrap_content">
 
 
-            </LinearLayout>
+                </LinearLayout>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_marginTop="10dp"
                     android:id="@+id/btn_add_cheque"
-                    android:text="ADD Cheque"
+                    android:text="@string/ADDCheque"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textStyle="bold"

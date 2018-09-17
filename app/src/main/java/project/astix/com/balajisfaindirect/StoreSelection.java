@@ -3623,6 +3623,8 @@ else
 		 btn_uploadPending_data.setOnClickListener(new OnClickListener() {
 			 @Override
 			 public void onClick(View v) {
+
+				 dialog.dismiss();
 				 if(isOnline())
 				 {
 

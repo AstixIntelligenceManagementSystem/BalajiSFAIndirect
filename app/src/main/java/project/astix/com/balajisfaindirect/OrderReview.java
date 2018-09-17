@@ -3090,11 +3090,11 @@ public void loadPurchaseProductDefault()
 
 
 
-		final ImageView btnExcptn=(ImageView) viewProduct.findViewById(R.id.btnExcptn);
+		//final ImageView btnExcptn=(ImageView) viewProduct.findViewById(R.id.btnExcptn);
 
 
 
-		btnExcptn.setTag("btnException"+"_"+productIdDynamic);
+	//	btnExcptn.setTag("btnException"+"_"+productIdDynamic);
 
 
 
@@ -3760,7 +3760,7 @@ public void loadPurchaseProductDefault()
 
 
 
-				if(!viewCurrentBoxValue.equals(s.toString()))
+				/*if(!viewCurrentBoxValue.equals(s.toString()))
 				{
 					if(btnExcptn.getVisibility()==View.VISIBLE)
 					{
@@ -3777,7 +3777,7 @@ public void loadPurchaseProductDefault()
 					}
 				}
 
-
+*/
 				int getPIDTag=Integer.parseInt(et_OrderQty.getTag().toString().split("_")[1].toString());
 
 				if(!et_OrderQty.getText().equals(""))

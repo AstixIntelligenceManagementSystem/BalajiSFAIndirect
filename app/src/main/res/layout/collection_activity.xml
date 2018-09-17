@@ -490,7 +490,8 @@
 		android:orientation="horizontal"
 		android:gravity="center"
 		android:layout_marginTop="10dp"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:visibility="gone">
 		<TextView android:layout_width="0dp"
 			android:text="Select"
 			android:layout_margin="2dp"
@@ -640,7 +641,7 @@
 			android:background="@drawable/custom_button"
 			android:gravity="center"
 			android:text="@string/PrintSubmit"
-			android:visibility="visible"
+			android:visibility="gone"
 			android:textColor="#ffffff"
 			android:textSize="11sp"/>
 		<Button

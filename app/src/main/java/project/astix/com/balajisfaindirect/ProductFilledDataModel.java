@@ -10,6 +10,17 @@ public class ProductFilledDataModel {
    private LinkedHashMap<String,String> hmapPrdctOrderQty=new LinkedHashMap<String,String>();
    private LinkedHashMap<String,String> hmapPrdctOrderVal=new LinkedHashMap<String,String>();
    private EditText lastEditText;
+    private EditText focusLostEditText;
+
+    public EditText getFocusLostEditText() {
+        return focusLostEditText;
+    }
+
+    public void setFocusLostEditText(EditText focusLostEditText) {
+        this.focusLostEditText = focusLostEditText;
+    }
+
+
 
    //Product Quantity
 

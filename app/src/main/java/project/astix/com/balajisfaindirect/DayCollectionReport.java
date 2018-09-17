@@ -55,11 +55,12 @@ public class DayCollectionReport extends AppCompatActivity {
                 sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
                 String fDateNew = sdf.format(date1).toString();
                 String rID = dbengine.GetActiveRouteID();
-                Intent storeIntent = new Intent(DayCollectionReport.this, StoreSelection.class);
+                Intent storeIntent = new Intent(DayCollectionReport.this, collectionReportStoreList.class);
                 storeIntent.putExtra("imei", CommonInfo.imei);
                 storeIntent.putExtra("userDate", fDate);
                 storeIntent.putExtra("pickerDate", fDateNew);
                 storeIntent.putExtra("rID", rID);
+                storeIntent.putExtra("PageFrom", "1");
                 startActivity(storeIntent);
                 finish();
             }

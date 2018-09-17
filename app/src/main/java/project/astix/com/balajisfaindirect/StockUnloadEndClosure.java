@@ -47,6 +47,7 @@ import java.util.regex.Pattern;
 
 public class StockUnloadEndClosure extends BaseActivity {
 
+    public int flgUnloading=0;
     DatabaseAssistant DASFA = new DatabaseAssistant(this);
     String serviceException="NA";
     ArrayAdapter<String> dataAdapter = null;
@@ -136,6 +137,7 @@ public class StockUnloadEndClosure extends BaseActivity {
         txt_Skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                flgUnloading=0;
                 new DayEndClosureForDay(StockUnloadEndClosure.this).execute();
 
             }
@@ -146,7 +148,7 @@ public class StockUnloadEndClosure extends BaseActivity {
 
                 if(isOnline())
                 {
-
+                    flgUnloading=1;
                         if(dataSaved())
                         {
                             new GetRqstStockForDay(StockUnloadEndClosure.this).execute();
@@ -661,7 +663,7 @@ public class StockUnloadEndClosure extends BaseActivity {
                     // System.out.println("Excecuted function : "+newservice.flagExecutedServiceSuccesfully);
                     if (mm == 1) {
 
-                        newservice = newservice.submitDayEndClosure(getApplicationContext(),imei);
+                        newservice = newservice.submitDayEndClosure(getApplicationContext(),imei,flgUnloading);
 
                         if (!newservice.director.toString().trim().equals("1")) {
 

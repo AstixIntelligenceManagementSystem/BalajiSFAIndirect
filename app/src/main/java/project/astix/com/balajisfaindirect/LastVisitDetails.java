@@ -1267,7 +1267,7 @@ final Button btn_Cancel=(Button) findViewById(R.id.btn_Cancel);
 						////dbengine.open();
 						dbengine.UpdateStoreEndVisit(storeID,startTS);
 						//dbengine.close();
-						Intent nxtP4 = new Intent(LastVisitDetails.this,ActualVisitStock.class);
+					/*	Intent nxtP4 = new Intent(LastVisitDetails.this,ActualVisitStock.class);
 						//Intent nxtP4 = new Intent(LastVisitDetails.this,ProductOrderFilterSearch_RecycleView.class);
 						nxtP4.putExtra("storeID", storeID);
 						nxtP4.putExtra("SN", selStoreName);
@@ -1275,7 +1275,17 @@ final Button btn_Cancel=(Button) findViewById(R.id.btn_Cancel);
 						nxtP4.putExtra("userdate", date);
 						nxtP4.putExtra("pickerDate", pickerDate);
 						startActivity(nxtP4);
-						finish();
+						finish();*/
+
+					Intent nxtP4 = new Intent(LastVisitDetails.this,ProductEntryForm.class);
+					//Intent nxtP4 = new Intent(LastVisitDetails.this,ProductOrderFilterSearch_RecycleView.class);
+					nxtP4.putExtra("storeID", storeID);
+					nxtP4.putExtra("SN", selStoreName);
+					nxtP4.putExtra("imei", imei);
+					nxtP4.putExtra("userdate", date);
+					nxtP4.putExtra("pickerDate", pickerDate);
+					nxtP4.putExtra("flgOrderType", 1);
+					startActivity(nxtP4);
 				}
 				
 			}
@@ -1949,12 +1959,12 @@ public void setInvoiceData(){
 			String strInvDate=tokens.nextToken().toString().trim();
 			String strOutstandingAmt=tokens.nextToken().toString().trim();
 			String strAmtOverdue=tokens.nextToken().toString().trim();
-
+			Double AmtOverdue=Double.parseDouble(strAmtOverdue);
 
 			InvCode.setText(strInvCode);
 			InvDate.setText(strInvDate);
-			OutStandingAmnt.setText(strOutstandingAmt);
-			AmntOverDue.setText(strAmtOverdue);
+			OutStandingAmnt.setText(String.format("%.2f",Double.parseDouble(strOutstandingAmt) ));
+			AmntOverDue.setText( String.format("%.2f", AmtOverdue));
 
 
 			ll_inflateInvoiceData.addView(view);

@@ -35,7 +35,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 public class WarehouseCheckInSecondActivity extends BaseActivity implements CategoryCommunicator {
-
+    public int flgCheckAnyStockInMinus=0;
     LinkedHashMap<String, String> hmapctgry_details = new LinkedHashMap<String, String>();
     public int StoreCurrentStoreType=0;
     LinkedHashMap<String, String> hmapctgry_detaeils=new LinkedHashMap<String, String>();
@@ -262,6 +262,10 @@ public void inflateRows(){
                 edittxt_addedStock.setText(String.valueOf(addedQty));
                 edittxt_NetStockQty.setText(String.valueOf(NetStockQty));
                 edittxt_stckOutQty.setText(String.valueOf(StockOutQty));
+                if(Integer.parseInt(finlQty)<0)
+                {
+                    flgCheckAnyStockInMinus=1;
+                }
                 view_rows.setTag(CategoryID);
 
                 lLayout_main.addView(view_rows);
@@ -277,27 +281,45 @@ void conFirmBtn(){
     btn_Refresh.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            flgCheckAnyStockInMinus=0;
             new GetVanStockForDay(WarehouseCheckInSecondActivity.this).execute();
         }
     });
     btn_save.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(!userId.equals("0"))
-            {
-              //
-                new FullSyncDataNow(WarehouseCheckInSecondActivity.this).execute();
+            if(flgCheckAnyStockInMinus==0) {
+                if (!userId.equals("0")) {
+                    //
+                    new FullSyncDataNow(WarehouseCheckInSecondActivity.this).execute();
+                }
             }
-
-           /* Intent i=new Intent(WarehouseCheckInSecondActivity.this,AllButtonActivity.class);
-            startActivity(i);
-            finish();*/
+            else if(flgCheckAnyStockInMinus==0) {
+                //Negative Stock can not be confirmed, Kindly contact dealer.
+                showAlertSingleButtonSubmissionSuccessfull(getResources().getString(R.string.alrtForNegativeStock));
+            }
 
         }
     });
 }
 
+    public void showAlertSingleButtonSubmissionSuccessfull(String msg)
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.genTermInformation))
+                .setMessage(msg)
+                .setCancelable(false)
+                .setIcon(R.drawable.info_icon)
+                .setPositiveButton(getResources().getString(R.string.AlertDialogOkButton), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        dialogInterface.dismiss();
 
+                    }
+                }).create().show();
+    }
     private class FullSyncDataNow extends AsyncTask<Void, Void, Integer>
     {
 

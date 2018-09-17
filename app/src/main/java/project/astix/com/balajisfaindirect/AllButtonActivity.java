@@ -339,10 +339,15 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
         {
 
         }
-       /* int flgStockRqst = dbengine.fetchtblStockUploadedStatusForRqstStatus();
-        if((isFinalSubmit==2) || (dbengine.fetchtblDayEndStatus()==2)  )
+        int flgStockRqst = dbengine.fetchtblStockUploadedStatusForRqstStatus();
+       if((isFinalSubmit==3) || (dbengine.fetchtblDayEndStatus()==2))
         {
             dbengine.reCreateDB();
+
+            finishAffinity();
+        }
+        else if((isFinalSubmit==2))
+        {
             ll_marketVisit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -362,7 +367,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 }
             });
         }
-        else if((isFinalSubmit==1) || ((dbengine.fetchtblDayEndStatus()==1) && (dbengine.CheckTotalStoreCount()>0)))
+        else if((isFinalSubmit==1) || ((dbengine.fetchtblDayEndStatus()==1)))//; && (dbengine.CheckTotalStoreCount()>0)))
         {
             ll_marketVisit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -404,7 +409,6 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                  }
              });
          }
-*/
 
 
 
@@ -986,9 +990,9 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
             try {
                 //dbengine.open();
-                String rID=dbengine.GetActiveRouteID();
+            /*    String rID=dbengine.GetActiveRouteID();
 
-                dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
+                dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);*/
                 //dbengine.close();
 
 
@@ -1228,7 +1232,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 dbengine.updateflgFromWhereSubmitStatusAgainstStore(stIDneeded, 1,StoreVisitCode);
             }
             flgChangeRouteOrDayEnd=valDayEndOrChangeRoute;
-            if(isOnline())
+           /* if(isOnline())
             {
                 Intent syncIntent = new Intent(AllButtonActivity.this, SyncMaster.class);
                 syncIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/" + CommonInfo.OrderXMLFolder + "/" + newfullFileName + ".xml");
@@ -1241,9 +1245,9 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
           else
             {
                 showAlertSingleButtonError(getResources().getString(R.string.NoDataConnectionFullMsg));
-            }
+            }*/
 
-                /*if(isOnline())
+                if(isOnline())
                 {
                     flgClkdBtn=2;
 
@@ -1274,7 +1278,7 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
                 else
                 {
                     showAlertSingleButtonError(getResources().getString(R.string.NoDataConnectionFullMsg));
-                }*/
+                }
 
 
           /*  */
@@ -4608,12 +4612,12 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
             SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss",Locale.ENGLISH);
             String startTS = df.format(dateobj);
 
-            int DayEndFlg=0;
+         /*   int DayEndFlg=0;
             int ChangeRouteFlg=0;
 
             int DatabaseVersion=dbengine.DATABASE_VERSION;
             String AppVersionID=dbengine.AppVersionID;
-           dbengine.insertTblDayStartEndDetails(imei,startTS,rID,DayEndFlg,ChangeRouteFlg,fDate,AppVersionID);//DatabaseVersion;//getVersionNumber
+           dbengine.insertTblDayStartEndDetails(imei,startTS,rID,DayEndFlg,ChangeRouteFlg,fDate,AppVersionID);*///DatabaseVersion;//getVersionNumber
             //dbengine.close();
 
             showProgress(getResources().getString(R.string.RetrivingDataMsg));

@@ -42,6 +42,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
+                android:visibility="gone"
                 android:text="Invoice Amount" />
 
             <TextView
@@ -71,12 +72,12 @@
                 android:id="@+id/txtBalance"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/table_cell_bg_left_up"
                 android:layout_marginLeft="2dp"
                 android:layout_weight="1"
+                android:background="@drawable/table_cell_bg_left_up"
                 android:gravity="center"
                 android:padding="2dp"
-                android:text="Balance" />
+                android:text="Net Val" />
 
             <ImageView
                 android:id="@+id/btnModify"

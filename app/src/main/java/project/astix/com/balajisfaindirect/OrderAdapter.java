@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
     LinkedHashMap<String, String> hmapFilterProductList ;
-    HashMap<String, String> hmapProductStandardRateBeforeTax;
+    HashMap<String, String> hmapProductStandardRate;
     HashMap<String, String> hmapProductIdStock;
     HashMap<String, String> hmapProductMRP;
     String[] listProduct;
@@ -32,18 +32,18 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     LinkedHashMap<String,String> hampGetLastProductExecution;
     HashMap<String, Integer> hmapDistPrdctStockCount;
 
-    HashMap<String, String> hmapProductVatTaxPerventage;
-    public OrderAdapter(Context context,String[] listProduct,LinkedHashMap<String, String> hmapFilterProductList,HashMap<String, String> hmapProductStandardRateBeforeTax,HashMap<String, String> hmapProductMRP,HashMap<String, String> hmapProductIdStock, HashMap<String, String> hmapProductVatTaxPerventage,HashMap<String, String> hmapProductIdLastStock, LinkedHashMap<String,String> hampGetLastProductExecution,HashMap<String, Integer> hmapDistPrdctStockCount,ProductFilledDataModel prdctModelArrayList)
+
+    public OrderAdapter(Context context,String[] listProduct,LinkedHashMap<String, String> hmapFilterProductList,HashMap<String, String> hmapProductStandardRate,HashMap<String, String> hmapProductMRP,HashMap<String, String> hmapProductIdStock,HashMap<String, String> hmapProductIdLastStock, LinkedHashMap<String,String> hampGetLastProductExecution,HashMap<String, Integer> hmapDistPrdctStockCount,ProductFilledDataModel prdctModelArrayList)
     {
         interfacefocusLostCalled= (focusLostCalled) context;
         inflater = LayoutInflater.from(context);
         this.hmapFilterProductList=hmapFilterProductList;
         this.prdctModelArrayList=prdctModelArrayList;
-        this.hmapProductStandardRateBeforeTax=hmapProductStandardRateBeforeTax;
+        this.hmapProductStandardRate=hmapProductStandardRate;
         this.hmapProductMRP=hmapProductMRP;
         this.hmapProductIdStock=hmapProductIdStock;
         this.listProduct=listProduct;
-        this.hmapProductVatTaxPerventage=hmapProductVatTaxPerventage;
+
         this.hmapProductIdLastStock=hmapProductIdLastStock;
         this.hampGetLastProductExecution=hampGetLastProductExecution;
         this.hmapDistPrdctStockCount=hmapDistPrdctStockCount;
@@ -79,7 +79,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         } else {
             holder.tvProdctName.setText(prductName);
         }
-        holder.txtVwRate.setText(hmapProductStandardRateBeforeTax.get(prductId));
+        holder.txtVwRate.setText(hmapProductStandardRate.get(prductId));
         holder.et_ProductMRP.setText(hmapProductMRP.get(prductId));
         holder.et_OrderQty.setTag(prductId + "_etOrderQty");
         holder.et_OrderQty.setText(prdctModelArrayList.getPrdctOrderQty(prductId));
@@ -178,11 +178,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
                 String prdctOrderQty=ediText.getText().toString().trim();
                 prdctModelArrayList.setPrdctQty(prdctId,prdctOrderQty);
-                Double StandardRateBfrTx=Double.parseDouble(hmapProductStandardRateBeforeTax.get(prdctId));
-              Double  ActualTax = StandardRateBfrTx * (Double.parseDouble(hmapProductVatTaxPerventage.get(prdctId)) / 100);
-                Double ActualRateAfterDiscountAfterTax = StandardRateBfrTx + ActualTax;//ActualRateAfterDiscountBeforeTax*((Double.parseDouble(hmapProductVatTaxPerventage.get(ProductID))/100));
+                Double StandardRate=Double.parseDouble(hmapProductStandardRate.get(prdctId));
 
-                Double OrderValPrdQtyBasis = ActualRateAfterDiscountAfterTax * Double.parseDouble(prdctOrderQty);
+
+
+                Double OrderValPrdQtyBasis = StandardRate * Double.parseDouble(prdctOrderQty);
                 prdctModelArrayList.setPrdctVal(prdctId,""+OrderValPrdQtyBasis);
                 Double OrderValPrdQtyBasisToDisplay = Double.parseDouble(new DecimalFormat("##.##").format(OrderValPrdQtyBasis));
                 txtOrderVal.setText(""+OrderValPrdQtyBasisToDisplay);
@@ -204,16 +204,23 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         public void onFocusChange(View v, boolean hasFocus) {
 
             EditText editText= (EditText) v;
-            interfacefocusLostCalled.fcsLstCld(hasFocus,editText);
+
             if(!hasFocus)
             {
+                if(editText.getId()==R.id.et_OrderQty)
+                {
 
+                    prdctModelArrayList.setFocusLostEditText(editText);
+                    interfacefocusLostCalled.fcsLstCld(hasFocus,editText);
+
+                }
             }
             else
             {
                 if(editText.getId()==R.id.et_OrderQty)
                 {
                     prdctModelArrayList.setLastEditText(editText);
+                    interfacefocusLostCalled.fcsLstCld(hasFocus,editText);
                 }
 
             }

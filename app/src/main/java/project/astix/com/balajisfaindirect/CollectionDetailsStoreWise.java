@@ -21,12 +21,24 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.astix.Common.CommonInfo;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -36,6 +48,8 @@ import java.util.regex.Pattern;
  */
 
 public class CollectionDetailsStoreWise extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+
+public String PageFrom="0";
     Button btn_add_cheque,submit_btn;
     LinearLayout parentOfAllChequeRow;
     TextView chequeDate;
@@ -82,6 +96,7 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
         date = passedvals.getStringExtra("userDate");
         pickerDate= passedvals.getStringExtra("pickerDate");
         pickerDate= passedvals.getStringExtra("bck");
+        PageFrom=passedvals.getStringExtra("PageFrom");
 
         hashmapBank = dbengine.fnGettblBankMaster();
         initializeAllView();
@@ -94,9 +109,36 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent refresh = new Intent(CollectionDetailsStoreWise.this, AllButtonActivity.class);
+                /*Intent refresh = new Intent(CollectionDetailsStoreWise.this, AllButtonActivity.class);
                 startActivity(refresh);
-                finish();
+                finish();*/
+                if(PageFrom.equals("1"))
+                {
+                    Intent ready4GetLoc = new Intent(CollectionDetailsStoreWise.this,collectionReportStoreList.class);
+                    ready4GetLoc.putExtra("storeID", storeID);
+                    ready4GetLoc.putExtra("selStoreName", selStoreName);
+                    ready4GetLoc.putExtra("imei", imei);
+                    ready4GetLoc.putExtra("userDate", date);
+                    ready4GetLoc.putExtra("pickerDate", pickerDate);
+                    ready4GetLoc.putExtra("bck", 0);
+                    ready4GetLoc.putExtra("PageFrom", "1");
+
+                    startActivity(ready4GetLoc);
+                    finish();
+                }
+                else if(PageFrom.equals("2"))
+                {
+                    Intent refresh = new Intent(CollectionDetailsStoreWise.this, DayEndStoreCollectionsChequeReport.class);
+                    startActivity(refresh);
+                    finish();
+                }
+                else
+                {
+                    Intent refresh = new Intent(CollectionDetailsStoreWise.this, AllButtonActivity.class);
+                    startActivity(refresh);
+                    finish();
+                }
+
             }
         });
         TextView storeNameText=(TextView) findViewById(R.id.storeNameText);
@@ -116,7 +158,12 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
                     }
                 }
                 else{
-                    showAlertSingleButtonError("Please Enter the Modified Amount.");
+                    et_modified.setText("0.0");
+                    if(validateChequeRowFillOrNot() && validateAllRows().equals("TRUE")){
+                        saveDataToDataBase();
+
+                    }
+                    //showAlertSingleButtonError(getResources().getString(R.string.PleaseEntertheModifiedAmount));
                 }
 
             }
@@ -153,6 +200,7 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
         });
         final EditText amountEdittextSecond= (EditText) view.findViewById(R.id.amountEdittextSecond);
         final EditText checqueNoEdittextSecond= (EditText) view.findViewById(R.id.checqueNoEdittextSecond);
+
         final TextView dateTextViewSecond= (TextView) view.findViewById(R.id.dateTextViewSecond);
         dateTextViewSecond.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,11 +236,11 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
                 }
                 else{
                     if (amountEdittextSecond.getText().toString().trim().equals("")) {
-                        showAlertSingleButtonError("Please Enter the Amount.");
+                        showAlertSingleButtonError(getResources().getString(R.string.PleaseEntertheAmount));
                     } else if (checqueNoEdittextSecond.getText().toString().trim().equals("")) {
-                        showAlertSingleButtonError("Please Enter ChequeNo/RefNo.");
+                        showAlertSingleButtonError(getResources().getString(R.string.PleaseEnterChequeNoRefNo));
                     } else {
-                        showAlertSingleButtonError("Please Enter the Amount or ChequeNo/RefNo.");
+                        showAlertSingleButtonError(getResources().getString(R.string.PleaseEntertheAmountorChequeNoRefNo));
                     }
                 }
 
@@ -294,13 +342,13 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
                 else{
                     if (amountEdittextSecond.getText().toString().trim().equals("")) {
                         // allMessageAlert("Please Enter the Amount.");
-                        showAlertSingleButtonError("Please Enter the Amount.");
+                        showAlertSingleButtonError(getResources().getString(R.string.PleaseEntertheAmount));
                     } else if (checqueNoEdittextSecond.getText().toString().trim().equals("")) {
-                        showAlertSingleButtonError("Please Enter ChequeNo/RefNo.");
+                        showAlertSingleButtonError(getResources().getString(R.string.PleaseEnterChequeNoRefNo));
                     } else if (dateTextViewSecond.getText().toString().trim().equals("")) {
-                        showAlertSingleButtonError("Please Select the Date.");
+                        showAlertSingleButtonError(getResources().getString(R.string.PleaseselectDate));
                     } else {
-                        showAlertSingleButtonError("Please Enter the Amount or ChequeNo/RefNo. or Select Date");
+                        showAlertSingleButtonError(getResources().getString(R.string.PleaseEntertheAmountorChequeNoRefNoorSelectDate));
                     }
                 }
 
@@ -317,6 +365,13 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
             String Bank_Old = oldChequeRecord.split(Pattern.quote("^"))[5];
             amountEdittextSecond.setText(Amount_Old);
             checqueNoEdittextSecond.setText(RefNoChequeNoTrnNo_Old);
+            /*if(RefNoChequeNoTrnNo_Old.equals("0.0")){
+                checqueNoEdittextSecond.setHint(RefNoChequeNoTrnNo_Old);
+            }
+            else{
+                checqueNoEdittextSecond.setText(RefNoChequeNoTrnNo_Old);
+            }*/
+
             dateTextViewSecond.setText(Date_Old);
             BankSpinnerSecond.setText(Bank_Old);
         }
@@ -332,6 +387,12 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
             String Bank_Old = newChequeRecord.split(Pattern.quote("^"))[5];
             amountEdittextSecond.setText(Amount_Old);
             checqueNoEdittextSecond.setText(RefNoChequeNoTrnNo_Old);
+           /* if(RefNoChequeNoTrnNo_Old.equals("0.0")){
+                checqueNoEdittextSecond.setHint(RefNoChequeNoTrnNo_Old);
+            }
+            else{
+                checqueNoEdittextSecond.setText(RefNoChequeNoTrnNo_Old);
+            }*/
             dateTextViewSecond.setText(Date_Old);
             BankSpinnerSecond.setText(Bank_Old);
         }
@@ -371,7 +432,13 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
         Double totalCollection = dbengine.fnGetAllCashCollectedAmountDetailsAgainstStore(storeID);
         Double modifiedValue = dbengine.fnfetchModifiedCollectionReportCashChange(storeID);
         tv_total_collection.setText(""+totalCollection);
-        et_modified.setText("" + modifiedValue);
+        if((modifiedValue==0.0) || (modifiedValue==0.00)){
+            et_modified.setHint("0.0");
+        }
+        else{
+            et_modified.setText("" + modifiedValue);
+        }
+        //et_modified.setText("" + modifiedValue);
 
         if (modifiedValue != 0.0) {
             // et_modified.setText("" + modifiedValue);
@@ -422,20 +489,20 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
             EditText checqueNoEdittextSecond= (EditText) view.findViewById(R.id.checqueNoEdittextSecond);
             TextView dateTextViewSecond= (TextView) view.findViewById(R.id.dateTextViewSecond);
             TextView BankSpinnerSecond= (TextView) view.findViewById(R.id.BankSpinnerSecond);
-            if(amountEdittextSecond.getText().toString().trim().equals("")){
-                showAlertSingleButtonError("Please Enter the Amount.");
+            if(amountEdittextSecond.getText().toString().trim().equals("") && (view.getVisibility()==View.VISIBLE)){
+                showAlertSingleButtonError(getResources().getString(R.string.PleaseEntertheAmount));
                 return false;
             }
-            else  if(checqueNoEdittextSecond.getText().toString().trim().equals("")){
-                showAlertSingleButtonError("Please Enter ChequeNo/RefNo.");
+            else  if(checqueNoEdittextSecond.getText().toString().trim().equals("") && (view.getVisibility()==View.VISIBLE)){
+                showAlertSingleButtonError(getResources().getString(R.string.PleaseEnterChequeNoRefNo));
                 return false;
             }
-            else   if(dateTextViewSecond.getText().toString().trim().equals("")){
-                showAlertSingleButtonError("Please select Data");
+            else   if(dateTextViewSecond.getText().toString().trim().equals("")&& (view.getVisibility()==View.VISIBLE)){
+                showAlertSingleButtonError(getResources().getString(R.string.PleaseselectDate));
                 return false;
             }
-            else  if(BankSpinnerSecond.getText().toString().trim().equals("") || BankSpinnerSecond.getText().toString().trim().equals("Select")){
-                showAlertSingleButtonError("Please select Bank");
+            else  if((BankSpinnerSecond.getText().toString().trim().equals("") || BankSpinnerSecond.getText().toString().trim().equals("Select")) && (view.getVisibility()==View.VISIBLE)){
+                showAlertSingleButtonError(getResources().getString(R.string.PleaseselectBank));
                 return false;
             }
             else{
@@ -493,11 +560,72 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
                     }
 
                 }
+
+
             }
 
         }
 
         dbengine.fnDeleteInsertCollectionReportCashChange(storeID,tv_total_collection.getText().toString().trim(),et_modified.getText().toString().trim(),"3");
+        showAlertSingleButtonSubmissionSuccessfull(getResources().getString(R.string.DataSucc));
+    }
+    public void showAlertSingleButtonSubmissionSuccessfull(String msg)
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.genTermInformation))
+                .setMessage(msg)
+                .setCancelable(false)
+                .setIcon(R.drawable.info_icon)
+                .setPositiveButton(getResources().getString(R.string.AlertDialogOkButton), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        dialogInterface.dismiss();
+
+                      /*  Date date1 = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+                        String fDate = sdf.format(date1).toString().trim();
+
+                        sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+                        String fDateNew = sdf.format(date1).toString();
+                        String rID = dbengine.GetActiveRouteID();
+                        Intent storeIntent = new Intent(CollectionDetailsStoreWise.this, collectionReportStoreList.class);
+                        storeIntent.putExtra("imei", CommonInfo.imei);
+                        storeIntent.putExtra("userDate", fDate);
+                        storeIntent.putExtra("pickerDate", fDateNew);
+                        storeIntent.putExtra("rID", rID);
+                        startActivity(storeIntent);
+                        finish();*/
+
+                        if(PageFrom.equals("1"))
+                        {
+                            Intent ready4GetLoc = new Intent(CollectionDetailsStoreWise.this,collectionReportStoreList.class);
+                            ready4GetLoc.putExtra("storeID", storeID);
+                            ready4GetLoc.putExtra("selStoreName", selStoreName);
+                            ready4GetLoc.putExtra("imei", imei);
+                            ready4GetLoc.putExtra("userDate", date);
+                            ready4GetLoc.putExtra("pickerDate", pickerDate);
+                            ready4GetLoc.putExtra("bck", 0);
+                            ready4GetLoc.putExtra("PageFrom", "1");
+
+                            startActivity(ready4GetLoc);
+                            finish();
+                        }
+                        else if(PageFrom.equals("2"))
+                        {
+                            Intent refresh = new Intent(CollectionDetailsStoreWise.this, DayEndStoreCollectionsChequeReport.class);
+                            startActivity(refresh);
+                            finish();
+                        }
+                        else
+                        {
+                            Intent refresh = new Intent(CollectionDetailsStoreWise.this, AllButtonActivity.class);
+                            startActivity(refresh);
+                            finish();
+                        }
+                    }
+                }).create().show();
     }
     public String validateAllRows(){
         String flag="TRUE";
@@ -505,35 +633,37 @@ public class CollectionDetailsStoreWise extends AppCompatActivity implements Dat
         if((parentOfAllChequeRow!=null) && (parentOfAllChequeRow.getChildCount()>0)){
             for(int i=0;i<parentOfAllChequeRow.getChildCount();i++){
                 View view=    parentOfAllChequeRow.getChildAt(i);
+                if(view.getVisibility()==View.VISIBLE){
+                    EditText amountEdittextSecond= (EditText) view.findViewById(R.id.amountEdittextSecond);
+                    EditText checqueNoEdittextSecond= (EditText) view.findViewById(R.id.checqueNoEdittextSecond);
+                    TextView dateTextViewSecond= (TextView) view.findViewById(R.id.dateTextViewSecond);
+                    TextView BankSpinnerSecond= (TextView) view.findViewById(R.id.BankSpinnerSecond);
+                    if(amountEdittextSecond.getText().toString().trim().equals("")){
+                        showAlertSingleButtonError(getResources().getString(R.string.PleaseEntertheAmount));
+                        flag="FALSE";
+                        break;
 
+                    }
+                    else  if(checqueNoEdittextSecond.getText().toString().trim().equals("")){
+                        showAlertSingleButtonError(getResources().getString(R.string.PleaseEnterChequeNoRefNo));
+                        flag="FALSE";
+                        break;
+                    }
+                    else   if(dateTextViewSecond.getText().toString().trim().equals("")){
+                        showAlertSingleButtonError(getResources().getString(R.string.PleaseselectDate));
+                        flag="FALSE";
+                        break;
+                    }
+                    else  if(BankSpinnerSecond.getText().toString().trim().equals("") || BankSpinnerSecond.getText().toString().trim().equals("Select")){
+                        showAlertSingleButtonError(getResources().getString(R.string.PleaseselectBank));
+                        flag="FALSE";
 
-                EditText amountEdittextSecond= (EditText) view.findViewById(R.id.amountEdittextSecond);
-                EditText checqueNoEdittextSecond= (EditText) view.findViewById(R.id.checqueNoEdittextSecond);
-                TextView dateTextViewSecond= (TextView) view.findViewById(R.id.dateTextViewSecond);
-                TextView BankSpinnerSecond= (TextView) view.findViewById(R.id.BankSpinnerSecond);
-                if(amountEdittextSecond.getText().toString().trim().equals("")){
-                    showAlertSingleButtonError("Please Enter the Amount.");
-                    flag="FALSE";
-                    break;
+                        break;
 
+                    }
                 }
-                else  if(checqueNoEdittextSecond.getText().toString().trim().equals("")){
-                    showAlertSingleButtonError("Please Enter ChequeNo/RefNo.");
-                    flag="FALSE";
-                    break;
-                }
-                else   if(dateTextViewSecond.getText().toString().trim().equals("")){
-                    showAlertSingleButtonError("Please select Data");
-                    flag="FALSE";
-                    break;
-                }
-                else  if(BankSpinnerSecond.getText().toString().trim().equals("") || BankSpinnerSecond.getText().toString().trim().equals("Select")){
-                    showAlertSingleButtonError("Please select Bank");
-                    flag="FALSE";
 
-                    break;
 
-                }
 
 
             }

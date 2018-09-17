@@ -2603,11 +2603,11 @@ public void loadPurchaseProductDefault()
 
 
 
-		final ImageView btnExcptn=(ImageView) viewProduct.findViewById(R.id.btnExcptn);
+		//final ImageView btnExcptn=(ImageView) viewProduct.findViewById(R.id.btnExcptn);
 
 
 
-		btnExcptn.setTag("btnException"+"_"+productIdDynamic);
+		//btnExcptn.setTag("btnException"+"_"+productIdDynamic);
 
 
 

@@ -1672,10 +1672,10 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 */
 
 
-		final ImageView btnExcptn = (ImageView) viewProduct.findViewById(R.id.btnExcptn);
+		//final ImageView btnExcptn = (ImageView) viewProduct.findViewById(R.id.btnExcptn);
 
 
-		btnExcptn.setTag("btnException" + "_" + productIdDynamic);
+		//btnExcptn.setTag("btnException" + "_" + productIdDynamic);
 
 
 		final EditText txtVwRate = (EditText) viewProduct.findViewById(R.id.txtVwRate);
@@ -2130,7 +2130,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 				}
 
 
-				if (!viewCurrentBoxValue.equals(s.toString())) {
+				/*if (!viewCurrentBoxValue.equals(s.toString())) {
 					if (btnExcptn.getVisibility() == View.VISIBLE) {
 
 						btnExcptn.setVisibility(View.INVISIBLE);
@@ -2140,7 +2140,7 @@ GoogleApiClient.OnConnectionFailedListener,CategoryCommunicator {
 
 						btnExcptn.setVisibility(View.VISIBLE);
 					}
-				}
+				}*/
 
 
 				int getPIDTag = Integer.parseInt(et_OrderQty.getTag().toString().split("_")[1].toString());

@@ -50,11 +50,12 @@ public class DayEndStoreCollectionsChequeReport extends AppCompatActivity {
                 sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
                 String fDateNew = sdf.format(date1).toString();
                 String rID = dbengine.GetActiveRouteID();
-                Intent storeIntent = new Intent(DayEndStoreCollectionsChequeReport.this, StoreSelection.class);
+                Intent storeIntent = new Intent(DayEndStoreCollectionsChequeReport.this, collectionReportStoreList.class);
                 storeIntent.putExtra("imei", CommonInfo.imei);
                 storeIntent.putExtra("userDate", fDate);
                 storeIntent.putExtra("pickerDate", fDateNew);
                 storeIntent.putExtra("rID", rID);
+                storeIntent.putExtra("PageFrom", "2");
                 startActivity(storeIntent);
                 finish();
             }
@@ -95,7 +96,8 @@ public class DayEndStoreCollectionsChequeReport extends AppCompatActivity {
                 TextView txtChqAmt= (TextView) layoutStoreWise.findViewById(R.id.txtChqAmt);
                 TextView txtBalance= (TextView) layoutStoreWise.findViewById(R.id.txtBalance);
                 ImageView btnModify= (ImageView) layoutStoreWise.findViewById(R.id.btnModify);
-                txtStoreName.setText(StoreName);
+               btnModify.setTag(StoreName);
+                txtStoreName.setText(StoreName.split(Pattern.quote("^"))[1]);
                 txtInvoiceAmount.setText(CheequeFulleDetails.split(Pattern.quote("^"))[0]);
                 txtCollection.setText(CheequeFulleDetails.split(Pattern.quote("^"))[1]);
                 txtChqAmt.setText(CheequeFulleDetails.split(Pattern.quote("^"))[2]);
@@ -112,20 +114,34 @@ public class DayEndStoreCollectionsChequeReport extends AppCompatActivity {
                 btnModify.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Date date1 = new Date();
+                      Date date1 = new Date();
                         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
                         String fDate = sdf.format(date1).toString().trim();
 
                         sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
                         String fDateNew = sdf.format(date1).toString();
                         String rID = dbengine.GetActiveRouteID();
-                        Intent storeIntent = new Intent(DayEndStoreCollectionsChequeReport.this, collectionReportStoreList.class);
+                        String StoreName=v.getTag().toString();
+                      /*    Intent storeIntent = new Intent(DayEndStoreCollectionsChequeReport.this, collectionReportStoreList.class);
                         storeIntent.putExtra("imei", CommonInfo.imei);
                         storeIntent.putExtra("userDate", fDate);
                         storeIntent.putExtra("pickerDate", fDateNew);
                         storeIntent.putExtra("rID", rID);
                         startActivity(storeIntent);
-                        finish();
+                        finish();*/
+
+                            Intent ready4GetLoc = new Intent(DayEndStoreCollectionsChequeReport.this,CollectionDetailsStoreWise.class);
+                            ready4GetLoc.putExtra("storeID", StoreName.split(Pattern.quote("^"))[0]);
+                            ready4GetLoc.putExtra("selStoreName", StoreName.split(Pattern.quote("^"))[1]);
+                            ready4GetLoc.putExtra("imei", CommonInfo.imei);
+                            ready4GetLoc.putExtra("userDate", fDate);
+                            ready4GetLoc.putExtra("pickerDate", fDateNew);
+                            ready4GetLoc.putExtra("bck", 0);
+                            ready4GetLoc.putExtra("PageFrom", "2");
+                            startActivity(ready4GetLoc);
+                            finish();
+
+
                     }
                 });
 

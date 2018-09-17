@@ -133,6 +133,18 @@ public class GCMNotificationIntentService extends IntentService
 							SharedPreferences.Editor editorFinalSubmit = sharedPref.edit();
 							editorFinalSubmit.putInt("FinalSubmit", 2);
 							editorFinalSubmit.commit();
+							SplashScreen.sPrefVanStockChanged = getSharedPreferences(CommonInfo.sPrefVanLoadedUnloaded, 0);
+							SharedPreferences.Editor editor = SplashScreen.sPrefVanStockChanged.edit();
+							editor.clear();
+							editor.commit();
+							SplashScreen.sPrefVanStockChanged.edit().putString("isVanLoadedUnloaded", "1").commit();
+							CommonInfo.VanLoadedUnloaded = 1;
+						}
+						else if (extras.get(ApplicationConstants.MSG_isVanLoadedUnloaded).toString().equals("3")) {
+							SharedPreferences sharedPref = getSharedPreferences(CommonInfo.Preference, MODE_PRIVATE);
+							SharedPreferences.Editor editorFinalSubmit = sharedPref.edit();
+							editorFinalSubmit.putInt("FinalSubmit", 3);
+							editorFinalSubmit.commit();
 
 							SplashScreen.sPrefVanStockChanged = getSharedPreferences(CommonInfo.sPrefVanLoadedUnloaded, 0);
 							SharedPreferences.Editor editor = SplashScreen.sPrefVanStockChanged.edit();

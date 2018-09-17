@@ -2613,13 +2613,13 @@ public void loadPurchaseProductDefault()
 
 
 
-		final ImageView btnExcptn=(ImageView) viewProduct.findViewById(R.id.btnExcptn);
+		/*final ImageView btnExcptn=(ImageView) viewProduct.findViewById(R.id.btnExcptn);
 
 
 
 		btnExcptn.setTag("btnException"+"_"+productIdDynamic);
 
-
+*/
 
 
 		final EditText txtVwRate=(EditText) viewProduct.findViewById(R.id.txtVwRate);
@@ -2642,7 +2642,7 @@ public void loadPurchaseProductDefault()
 
 		Double rateValBeforeTax=Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(hmapProductStandardRateBeforeTax.get(productIdDynamic))));
 		//Double rateValBeforeTax=Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(hmapProductStandardRate.get(productIdDynamic))));
-		if(hmapProductStandardRate.get(productIdDynamic).equals("-99.0") || hmapProductStandardRate.get(productIdDynamic).equals("-99.00") || hmapProductStandardRate.get(productIdDynamic).equals("-99"))
+		if(hmapProductStandardRateBeforeTax.get(productIdDynamic).equals("-99.0") || hmapProductStandardRateBeforeTax.get(productIdDynamic).equals("-99.00") || hmapProductStandardRateBeforeTax.get(productIdDynamic).equals("-99"))
 		{
 			txtVwRate.setText("");
 			txtVwRate.setBackgroundResource(R.drawable.edit_text_bg);
@@ -2668,8 +2668,8 @@ public void loadPurchaseProductDefault()
 		{
 			if(hmapMinDlvrQty.containsKey(productIdDynamic))
 			{
-				rateValBeforeTax=Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(hmapMinDlvrQtyQPBT.get(productIdDynamic))));
-				txtVwRate.setText(""+rateValBeforeTax);
+				/*rateValBeforeTax=Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(hmapMinDlvrQtyQPBT.get(productIdDynamic))));
+				txtVwRate.setText(""+rateValBeforeTax);*/
 			}
 		}
 
@@ -2884,17 +2884,17 @@ public void loadPurchaseProductDefault()
 
 	//	et_ProductMRP.setOnFocusChangeListener(this);
 
-
+        Double rateOFProductMRP=Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(hmapProductMRP.get(productIdDynamic))));
 		if(hmapProductMRP.get(productIdDynamic).equals("-99.0") || hmapProductMRP.get(productIdDynamic).equals("-99.00") || hmapProductMRP.get(productIdDynamic).equals("-99"))
 		{
 			et_ProductMRP.setText("");
 		}
-		else if((""+rateValBeforeTax).equals("-99.0") || (""+rateValBeforeTax).equals("-99.00") || (""+rateValBeforeTax).equals("-99"))
+		else if((""+rateOFProductMRP).equals("-99.0") || (""+rateOFProductMRP).equals("-99.00") || (""+rateOFProductMRP).equals("-99"))
 		{
 			et_ProductMRP.setText("");
 		}
 		else {
-			Double rateOFProductMRP=Double.parseDouble(new DecimalFormat("##.##").format(Double.valueOf(hmapProductMRP.get(productIdDynamic))));
+
 			et_ProductMRP.setText(""+rateOFProductMRP);
 		}
 
@@ -4166,7 +4166,7 @@ public void loadPurchaseProductDefault()
 
 
 		Double outstandingvalue=dbengine.fnGetStoretblLastOutstanding(storeID);
-		tvPreAmtOutstandingVALNew.setText(""+outstandingvalue);
+		tvPreAmtOutstandingVALNew.setText(""+String.format("%.2f", outstandingvalue));
 
 		Double TotalAmtCollected=dbengine.fnTotCollectionAmtAgainstStore(storeID,TmpInvoiceCodePDA,StoreVisitCode);
 		tvTotalAmtCollected.setText(""+TotalAmtCollected);
@@ -4998,7 +4998,7 @@ public void loadPurchaseProductDefault()
 		tvDis.setText((""+ TotalProductLevelDiscount).trim());
 
 		TotalOrderValBeforeTax=Double.parseDouble(new DecimalFormat("##.##").format(TotalOrderValBeforeTax));
-		tv_NetInvValue.setText((""+ TotalOrderValBeforeTax).trim());
+		tv_NetInvValue.setText((""+ String.format("%.2f", TotalOrderValBeforeTax)).trim());
 
 		String percentBenifitMax=dbengine.fnctnGetMaxAssignedBen8DscntApld1(storeID,strGlobalOrderID,TmpInvoiceCodePDA);
 		Double percentMax=0.00;
@@ -5042,7 +5042,7 @@ public void loadPurchaseProductDefault()
 		tv_NetInvAfterDiscount.setText(""+ TotalOrderValBeforeTax);
 
 		TotTaxAmount=Double.parseDouble(new DecimalFormat("##.##").format(TotTaxAmount));
-		tvTAmt.setText(""+ TotTaxAmount);
+		tvTAmt.setText(""+ String.format("%.2f", TotTaxAmount));
 
 		Double totalGrossVALMaxPercentage=TotalOrderValBeforeTax-TotalOrderValBeforeTax*(percentMaxGross/100);
 		Double totalGrossrVALMaxAmount=TotalOrderValBeforeTax-amountMaxGross;
@@ -5083,7 +5083,7 @@ public void loadPurchaseProductDefault()
 			VisitTypeStatus="4";
 		}
 		dbengine.updateVisitTypeStatusOfStore(storeID,VisitTypeStatus,StoreVisitCode);
-		tv_GrossInvVal.setText(""+GrossInvValue);
+		tv_GrossInvVal.setText(""+String.format("%.2f", GrossInvValue));
 		/*Double TotOrderValuebasedonWholeSale=fnOnlyCalculateWholeSaleValue(PriceApplyDiscountLevelType);
 		if(PriceApplyDiscountLevelType!=0) {
 			if(PriceApplyDiscountLevelType==1) {// Invoice Level Whole Sell Price Applicable but Not At Invoice Level
@@ -5428,7 +5428,7 @@ public void loadPurchaseProductDefault()
 		tvDis.setText(("" + TotalProductLevelDiscount).trim());
 
 		TotalOrderValBeforeTax = Double.parseDouble(new DecimalFormat("##.##").format(TotalOrderValBeforeTax));
-		tv_NetInvValue.setText(("" + TotalOrderValBeforeTax).trim());
+		tv_NetInvValue.setText(("" + String.format("%.2f", TotalOrderValBeforeTax)).trim());
 
 		/*String percentBenifitMax=dbengine.fnctnGetMaxAssignedBen8DscntApld1(storeID,strGlobalOrderID);
 		Double percentMax=0.00;
@@ -5472,7 +5472,7 @@ public void loadPurchaseProductDefault()
 		tv_NetInvAfterDiscount.setText("" + TotalOrderValBeforeTax);
 
 		TotTaxAmount = Double.parseDouble(new DecimalFormat("##.##").format(TotTaxAmount));
-		tvTAmt.setText("" + TotTaxAmount);
+		tvTAmt.setText("" + String.format("%.2f", TotTaxAmount));
 		Double totalGrossVALAfterDiscount = TotalOrderValBeforeTax;//0.0;
 		/*Double totalGrossVALMaxPercentage=TotalOrderValBeforeTax-TotalOrderValBeforeTax*(percentMaxGross/100);
 		Double totalGrossrVALMaxAmount=TotalOrderValBeforeTax-amountMaxGross;
@@ -5497,7 +5497,7 @@ public void loadPurchaseProductDefault()
 
 		Double GrossInvValue = totalGrossVALAfterDiscount + TotTaxAmount;
 		GrossInvValue = Double.parseDouble(new DecimalFormat("##.##").format(GrossInvValue));
-		tv_GrossInvVal.setText("" + TotOderValueAfterTax);
+		tv_GrossInvVal.setText("" + String.format("%.2f", TotOderValueAfterTax));
 		//tvAfterTaxValue.setText("" + TotOderValueAfterTax);
 		//Now the its Time to Show the OverAll Summary Code Starts Here
 	}
@@ -5794,6 +5794,9 @@ public void loadPurchaseProductDefault()
 
 			int PCateId=Integer.parseInt(hmapCtgryPrdctDetail.get(entry.getKey()));
 			String PName =entry.getValue();
+
+			PName=PName.replaceAll("&","-");
+
 			String ProductID=entry.getKey();
 			String ProductStock =hmapProductIdStock.get(ProductID);
 			int ProductExtraOrder=Integer.parseInt(hmapProductExtraOrder.get(ProductID));

@@ -43,6 +43,7 @@ import java.util.regex.Pattern;
 
 public class collectionReportStoreList extends BaseActivity {
     //public static HashMap<String, String> hmapStoreIdSstat=new HashMap<String, String>();
+    public String PageFrom="0";
     public String[] xmlForWeb = new String[1];
     int serverResponseCode = 0;
     public int syncFLAG = 0;
@@ -102,7 +103,7 @@ public class collectionReportStoreList extends BaseActivity {
 
     private final Context mContext = this;
 
-    public String rID;
+
     public PowerManager pm;
     public	 PowerManager.WakeLock wl;
 
@@ -237,6 +238,8 @@ public class collectionReportStoreList extends BaseActivity {
         pickerDate=getDateInMonthTextFormat();
         userDate=getDateInMonthTextFormat();
 
+        Intent passedvals = getIntent();
+        PageFrom=passedvals.getStringExtra("PageFrom");
 
 
         relativeLayout1=(RelativeLayout) findViewById(R.id.relativeLayout1);
@@ -269,9 +272,24 @@ public class collectionReportStoreList extends BaseActivity {
         btn_bck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent refresh = new Intent(collectionReportStoreList.this, AllButtonActivity.class);
-                startActivity(refresh);
-                finish();
+                if(PageFrom.equals("1"))
+                {
+                    Intent intent = new Intent(collectionReportStoreList.this, DayCollectionReport.class);
+
+                    collectionReportStoreList.this.startActivity(intent);
+                    finish();
+                }
+                else if(PageFrom.equals("2"))
+                {
+                    Intent refresh = new Intent(collectionReportStoreList.this, DayEndStoreCollectionsChequeReport.class);
+                    startActivity(refresh);
+                    finish();
+                }
+                else {
+                    Intent refresh = new Intent(collectionReportStoreList.this, AllButtonActivity.class);
+                    startActivity(refresh);
+                    finish();
+                }
             }
         });
     }
@@ -409,13 +427,15 @@ public class collectionReportStoreList extends BaseActivity {
 
                         if (!selStoreID.isEmpty())
                         {
-                               Intent ready4GetLoc = new Intent(collectionReportStoreList.this,LastVisitDetails.class);
+                                 Intent ready4GetLoc = new Intent(collectionReportStoreList.this,CollectionDetailsStoreWise.class);
                                 ready4GetLoc.putExtra("storeID", selStoreID);
                                 ready4GetLoc.putExtra("selStoreName", selStoreName);
                                 ready4GetLoc.putExtra("imei", imei);
                                 ready4GetLoc.putExtra("userDate", userDate);
                                 ready4GetLoc.putExtra("pickerDate", pickerDate);
                                 ready4GetLoc.putExtra("bck", 0);
+                                ready4GetLoc.putExtra("PageFrom", "1");
+
                                 startActivity(ready4GetLoc);
                                 finish();
 

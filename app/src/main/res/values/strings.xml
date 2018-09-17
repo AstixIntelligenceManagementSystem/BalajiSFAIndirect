@@ -419,7 +419,7 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
 
     <!--surbhi-->
     <!-- Order view Activity -->
-
+    <string name="alrtForNegativeStock">Negative Stock can not be confirmed, Kindly contact dealer.</string>
     <string name="OrderReview">Order Review</string>
     <string name="Stock">Stock</string>
     <string name="SmplQty">Smpl.Qty</string>
@@ -443,7 +443,7 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
 
     <string name="OrderTypeActualVisit">Actual Visit</string>
     <string name="OrderTypeActualVisitNew">Actual Visit</string>
-    <string name="Amount">રકમ</string>
+    <string name="Amount">Amount</string>
     <string name="ConfirmOrderType">Confirm Telephone Order</string>
     <string name="Bank">Bank</string>
     <string name="OrderDeliveryDetails">Invoice Delivery Details</string>
@@ -915,8 +915,25 @@ Click on UPDATE PAYMENT to update Collection amount.</string>
     <string name="alrtDayEndDone">You cannot proceed after day is closed </string>
     <string name="AlertDayEndCnfrmForRqstStk">Your stock unloading request is stil pending for confirmation.try after is it is accepted.</string>
 
+
+
+
     <string name="hintSearch">Search..</string>
 
+    <string name="onlyprintMsg">Once the Invoice gets printed, No Change/Editing is allowed, Only Submission is allowed.Do you want to print invoice?</string>
+    <string name="CollectionDetails">Collection Details</string>
+    <string name="TotalCollection">Total Collection</string>
+    <string name="ModifiedCollection">Modified Collection</string>
+    <string name="CashCollection">Cash Collection</string>
+    <string name="AddModifyChequeDetails">Add/Modify Cheque Details</string>
+    <string name="ADDCheque"> ADD Cheque</string>
+    <string name="PleaseEntertheModifiedAmount"> Please Enter the Modified Amount.</string>
+    <string name="PleaseEntertheAmount">Please Enter the Amount</string>
+    <string name="PleaseEnterChequeNoRefNo">Please Enter ChequeNo/RefNo.</string>
+    <string name="PleaseselectDate"> Please select Date</string>
+    <string name="PleaseselectBank"> Please select Bank</string>
+    <string name="PleaseEntertheAmountorChequeNoRefNo">Please Enter the Amount or ChequeNo/RefNo.</string>
+    <string name="PleaseEntertheAmountorChequeNoRefNoorSelectDate">Please Enter the Amount or ChequeNo/RefNo. or Select Date</string>
 
-
+    <string name="txtNet">Total Value</string>
 </resources>

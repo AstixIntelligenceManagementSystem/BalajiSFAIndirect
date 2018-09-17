@@ -5,7 +5,7 @@
     <!--<string name="app_name">Balaji SFA Test</string>-->
     <string name="app_name">Balaji SFA Dev</string>
 
-
+    <string name="alrtForNegativeStock">नकारात्मक स्टॉक की पुष्टि नहीं की जा सकती है, कृपया डीलर से संपर्क करें।</string>
     <string name="Amount">रकम</string>
     <string name="AlertTelephonic">यह एक टेलीफ़ोनिक ऑर्डर है और स्टोर की यात्रा की गणना नहीं की जाएगी, कृपया आगे बढ़ना सुनिश्चित करें</string>
     <string name="AccountCensusBtn">खाता जनगणना रिपोर्ट</string>
@@ -905,5 +905,19 @@
     <string name="alrtDayEndDone">दिन बंद होने के बाद आप आगे नहीं बढ़ सकते हैं </string>
     <string name="AlertDayEndCnfrmForRqstStk">आपका स्टॉक अनलोडिंग अनुरोध पुष्टि के बाद लंबित है। यह स्वीकार किए जाने के बाद है।</string>
 
-
+    <string name="onlyprintMsg">एक बार बीजक मुद्रित हो जाने के बाद, कोई परिवर्तन / संपादन की अनुमति नहीं है, केवल सबमिशन की अनुमति है। क्या आप चालान प्रिंट करना चाहते हैं?</string>
+    <string name="CollectionDetails">कलेक्शन विवरण</string>
+    <string name="TotalCollection">कुल कलेक्शन</string>
+    <string name="ModifiedCollection">संशोधित कलेक्शन</string>
+    <string name="CashCollection">नकद - कलेक्शन</string>
+    <string name="AddModifyChequeDetails">चेक विवरण जोड़ें / संशोधित करें</string>
+    <string name="ADDCheque">चेक जोड़ें</string>
+    <string name="PleaseEntertheModifiedAmount"> कृपया संशोधित राशि दर्ज करें।</string>
+    <string name="PleaseEntertheAmount">कृपया राशि दर्ज करें</string>
+    <string name="PleaseEnterChequeNoRefNo">कृपया ChequeNo / RefNo दर्ज करें।</string>
+    <string name="PleaseselectDate"> कृपया तिथि का चयन करें</string>
+    <string name="PleaseselectBank"> कृपया बैंक का चयन करें</string>
+    <string name="PleaseEntertheAmountorChequeNoRefNo">कृपया राशि या ChequeNo / RefNo दर्ज करें।</string>
+    <string name="PleaseEntertheAmountorChequeNoRefNoorSelectDate">कृपया राशि या ChequeNo / RefNo दर्ज करें। या तिथि का चयन करें</string>
+    <string name="txtNet">कुल मूल्य</string>
 </resources>
