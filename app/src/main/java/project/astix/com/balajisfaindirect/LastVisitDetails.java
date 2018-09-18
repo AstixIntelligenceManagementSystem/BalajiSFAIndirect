@@ -1286,6 +1286,7 @@ final Button btn_Cancel=(Button) findViewById(R.id.btn_Cancel);
 					nxtP4.putExtra("pickerDate", pickerDate);
 					nxtP4.putExtra("flgOrderType", 1);
 					startActivity(nxtP4);
+					finish();
 				}
 				
 			}

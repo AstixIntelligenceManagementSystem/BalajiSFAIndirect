@@ -5275,8 +5275,6 @@ public class AllButtonActivity extends BaseActivity implements LocationListener,
 
         }
     }
-
-
     public  int upLoad2Server(String sourceFileUri,String fileUri)
     {
 

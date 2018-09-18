@@ -21353,6 +21353,10 @@ public class PRJDatabase
 
 
     }
+    public static void  delDayEnd()
+    {
+        db.execSQL("DELETE FROM tblDayStartEndDetails");
+    }
 
     public static void savetbl_XMLfiles(String XmlFileName,String Sstat,String filetype)
     {

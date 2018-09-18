@@ -1,6 +1,7 @@
 package project.astix.com.balajisfaindirect;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,7 +34,16 @@ import android.widget.TextView;
 
 import com.astix.Common.CommonInfo;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,8 +54,15 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class StockUnloadEndClosure extends BaseActivity {
+
+
+    public String[] xmlForWeb = new String[1];
+    int serverResponseCode = 0;
+    public int syncFLAG = 0;
 
     public int flgUnloading=0;
     DatabaseAssistant DASFA = new DatabaseAssistant(this);
@@ -83,13 +100,17 @@ public class StockUnloadEndClosure extends BaseActivity {
     String fDate;
     TextView txt_Skip;
     Context ctx;
+
+    //private MyService mMyService;
     public Context getCtx() {
         return ctx;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_unload_end_closure);
+        ctx = this;
         TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         // imei = tManager.getDeviceId();
         Intent intent=getIntent();
@@ -609,7 +630,7 @@ public class StockUnloadEndClosure extends BaseActivity {
             }
 
             else  {
-             //   showAlertForSubmission(getString(R.string.DataSucc));
+
                     new DayEndClosureForDay(StockUnloadEndClosure.this).execute();
 
             }
@@ -671,6 +692,10 @@ public class StockUnloadEndClosure extends BaseActivity {
                             break;
 
                         }
+                        else
+                        {
+                            serviceException =newservice.director;
+                        }
                     }
                     if (mm == 2) {
 
@@ -717,10 +742,9 @@ public class StockUnloadEndClosure extends BaseActivity {
             }
 
             else  {
-                showAlertForSubmission(getString(R.string.DataSucc));
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putInt("FinalSubmit", 1);
-                editor.commit();
+
+                DayEndXMLFileUpload();
+
 
             }
 
@@ -730,6 +754,57 @@ public class StockUnloadEndClosure extends BaseActivity {
         }
     }
 
+    public void DayEndXMLFileUpload()
+    {
+        rID=dbengine.GetActiveRouteID();
+
+        if(rID.equals("0"))
+        {
+            rID=dbengine.GetNotActiveRouteID();
+        }
+        dbengine.updateActiveRoute(rID, 1);
+
+        long syncTIMESTAMP = System.currentTimeMillis();
+        Date dateobj = new Date(syncTIMESTAMP);
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy.HH.mm.ss",Locale.ENGLISH);
+        String startTS = df.format(dateobj);
+
+        int DayEndFlg=0;
+        int ChangeRouteFlg=0;
+
+        int DatabaseVersion=dbengine.DATABASE_VERSION;
+        String AppVersionID=dbengine.AppVersionID;
+        dbengine.insertTblDayStartEndDetails(imei,startTS,rID,DayEndFlg,ChangeRouteFlg,fDate,AppVersionID);//DatabaseVersion;//getVersionNumber
+
+        int valDayEndOrChangeRoute=1;
+        dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
+
+
+        File OrderXMLFolder = new File(Environment.getExternalStorageDirectory(), CommonInfo.OrderXMLFolder);
+
+        if (!OrderXMLFolder.exists()) {
+            OrderXMLFolder.mkdirs();
+        }
+
+        String routeID = dbengine.GetActiveRouteIDSunil();
+        StoreSelection.flgChangeRouteOrDayEnd = 0;
+
+
+        String newfullFileName = imei + "." + routeID + "." + df.format(dateobj);
+        try {
+            DASFA.open();
+            DASFA.export(dbengine.DATABASE_NAME, newfullFileName, routeID);
+            DASFA.close();
+        }
+        catch(Exception ex)
+        {
+
+        }
+
+        dbengine.savetbl_XMLfiles(newfullFileName, "3", "1");
+        dbengine.delDayEnd();
+        new FullSyncDataNow(StockUnloadEndClosure.this).execute();
+    }
 
     public void showAlertForSubmission(String msg){
         android.app.AlertDialog.Builder alertDialogGps = new android.app.AlertDialog.Builder(this);
@@ -746,66 +821,6 @@ public class StockUnloadEndClosure extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
 
 
-                rID=dbengine.GetActiveRouteID();
-
-                if(rID.equals("0"))
-                {
-                    rID=dbengine.GetNotActiveRouteID();
-                }
-                dbengine.updateActiveRoute(rID, 1);
-
-                long syncTIMESTAMP = System.currentTimeMillis();
-                Date dateobj = new Date(syncTIMESTAMP);
-                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss",Locale.ENGLISH);
-                String startTS = df.format(dateobj);
-
-                int DayEndFlg=0;
-                int ChangeRouteFlg=0;
-
-                int DatabaseVersion=dbengine.DATABASE_VERSION;
-                String AppVersionID=dbengine.AppVersionID;
-                   dbengine.insertTblDayStartEndDetails(imei,startTS,rID,DayEndFlg,ChangeRouteFlg,fDate,AppVersionID);//DatabaseVersion;//getVersionNumber
-
-                int valDayEndOrChangeRoute=1;
-                dbengine.UpdateTblDayStartEndDetails(Integer.parseInt(rID), valDayEndOrChangeRoute);
-
-
-                    File OrderXMLFolder = new File(Environment.getExternalStorageDirectory(), CommonInfo.OrderXMLFolder);
-
-                    if (!OrderXMLFolder.exists()) {
-                        OrderXMLFolder.mkdirs();
-                    }
-
-                    String routeID = dbengine.GetActiveRouteIDSunil();
-                    StoreSelection.flgChangeRouteOrDayEnd = 0;
-
-
-                    String newfullFileName = imei + "." + routeID + "." + df.format(dateobj);
-                    try {
-                        DASFA.open();
-                        DASFA.export(dbengine.DATABASE_NAME, newfullFileName, routeID);
-                        DASFA.close();
-                    }
-                    catch(Exception ex)
-                    {
-
-                    }
-
-                    dbengine.savetbl_XMLfiles(newfullFileName, "3", "1");
-
-
-
-
-
-                Intent mMyServiceIntent = new Intent(getCtx(), MyService.class);
-                mMyServiceIntent.putExtra("xmlPathForSync", Environment.getExternalStorageDirectory() + "/" + CommonInfo.OrderXMLFolder + "/" + newfullFileName + ".xml");
-                mMyServiceIntent.putExtra("storeID", "0");
-                mMyServiceIntent.putExtra("OrigZipFileName", newfullFileName);
-                mMyServiceIntent.putExtra("whereTo", "Regular");//
-
-                if (!isMyServiceRunning(MyService.class)) {
-                    startService(mMyServiceIntent);
-                }
                 Intent intent=new Intent(StockUnloadEndClosure.this,AllButtonActivity.class);
 
                 startActivity(intent);
@@ -1297,5 +1312,334 @@ public class StockUnloadEndClosure extends BaseActivity {
         }
         Log.i ("isMyServiceRunning?", false+"");
         return false;
+    }
+
+
+    private class FullSyncDataNow extends AsyncTask<Void, Void, Void>
+    {
+
+
+
+        int responseCode=0;
+        public FullSyncDataNow(StockUnloadEndClosure activity)
+        {
+
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            File LTFoodXMLFolder = new File(Environment.getExternalStorageDirectory(), CommonInfo.OrderXMLFolder);
+
+            if (!LTFoodXMLFolder.exists())
+            {
+                LTFoodXMLFolder.mkdirs();
+            }
+
+
+            showProgress(getResources().getString(R.string.txtEndingDay));
+
+        }
+
+        @Override
+
+        protected Void doInBackground(Void... params)
+        {
+
+
+            try
+            {
+
+
+
+                File del = new File(Environment.getExternalStorageDirectory(), CommonInfo.OrderXMLFolder);
+
+                // check number of files in folder
+                String [] AllFilesName= checkNumberOfFiles(del);
+
+
+                if(AllFilesName.length>0)
+                {
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+
+
+                    for(int vdo=0;vdo<AllFilesName.length;vdo++)
+                    {
+                        String fileUri=  AllFilesName[vdo];
+
+
+                        //System.out.println("Sunil Again each file Name :" +fileUri);
+
+                        if(fileUri.contains(".zip"))
+                        {
+                            File file = new File(Environment.getExternalStorageDirectory().getPath()+ "/" + CommonInfo.OrderXMLFolder + "/" +fileUri);
+                            file.delete();
+                        }
+                        else
+                        {
+                            String f1=fileUri;
+                            if(fileUri.contains(".xml"))
+                            {
+                                 f1=Environment.getExternalStorageDirectory().getPath()+ "/" + CommonInfo.OrderXMLFolder + "/" +fileUri;
+                            }
+                            else {
+                                 f1 = Environment.getExternalStorageDirectory().getPath() + "/" + CommonInfo.OrderXMLFolder + "/" + fileUri + ".xml";
+                            }
+                            // System.out.println("Sunil Again each file full path"+f1);
+                            try
+                            {
+                                responseCode= upLoad2Server(f1,fileUri);
+                            }
+                            catch (Exception e)
+                            {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                        if(responseCode!=200)
+                        {
+                            break;
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    responseCode=200;
+                }
+
+
+
+
+
+
+
+            } catch (Exception e)
+            {
+
+                e.printStackTrace();
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onCancelled() {
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            dismissProgress();
+
+            if(responseCode == 200)
+            {
+                showAlertForSubmission(getString(R.string.DataSucc));
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("FinalSubmit", 1);
+                editor.commit();
+
+            }
+            else
+            {
+                showDayEndError(getString(R.string.uploading_error_data));
+                //showAlertSingleButtonError(getString(R.string.uploading_error_data));
+               // checkXMLFilesInFolder();
+            }
+
+
+
+        }
+    }
+
+
+
+    public void showDayEndError(String msg)
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.AlertDialogHeaderErrorMsg))
+                .setMessage(msg)
+                .setCancelable(false)
+                .setIcon(R.drawable.error_ico)
+                .setPositiveButton(getResources().getString(R.string.txtRetry), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        dialogInterface.dismiss();
+                        new FullSyncDataNow(StockUnloadEndClosure.this).execute();
+                    }
+                }).create().show();
+    }
+    public  int upLoad2Server(String sourceFileUri,String fileUri)
+    {
+
+        fileUri=fileUri.replace(".xml", "");
+
+        String fileName = fileUri;
+        String zipFileName=fileUri;
+
+        String newzipfile = Environment.getExternalStorageDirectory() + "/"+ CommonInfo.OrderXMLFolder+"/" + fileName + ".zip";
+
+        sourceFileUri=newzipfile;
+
+        xmlForWeb[0]=         Environment.getExternalStorageDirectory() + "/"+ CommonInfo.OrderXMLFolder+"/" + fileName + ".xml";
+
+
+        try
+        {
+            zip(xmlForWeb,newzipfile);
+        }
+        catch (Exception e1)
+        {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            //java.io.FileNotFoundException: /359648069495987.2.21.04.2016.12.44.02: open failed: EROFS (Read-only file system)
+        }
+
+
+        HttpURLConnection conn = null;
+        DataOutputStream dos = null;
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+        int bytesRead, bytesAvailable, bufferSize;
+        byte[] buffer;
+        int maxBufferSize = 1 * 1024 * 1024;
+
+
+        File file2send = new File(newzipfile);
+
+        String urlString = CommonInfo.OrderSyncPath.trim()+"?CLIENTFILENAME=" + zipFileName;
+
+        try {
+
+            // open a URL connection to the Servlet
+            FileInputStream fileInputStream = new FileInputStream(file2send);
+            URL url = new URL(urlString);
+
+            // Open a HTTP  connection to  the URL
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true); // Allow Inputs
+            conn.setDoOutput(true); // Allow Outputs
+            conn.setUseCaches(false); // Don't use a Cached Copy
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+            conn.setRequestProperty("zipFileName", zipFileName);
+
+            dos = new DataOutputStream(conn.getOutputStream());
+
+            dos.writeBytes(twoHyphens + boundary + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
+                    + zipFileName + "\"" + lineEnd);
+
+            dos.writeBytes(lineEnd);
+
+            // create a buffer of  maximum size
+            bytesAvailable = fileInputStream.available();
+
+            bufferSize = Math.min(bytesAvailable, maxBufferSize);
+            buffer = new byte[bufferSize];
+
+            // read file and write it into form...
+            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+            while (bytesRead > 0)
+            {
+                dos.write(buffer, 0, bufferSize);
+                bytesAvailable = fileInputStream.available();
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+            }
+
+            // send multipart form data necesssary after file data...
+            dos.writeBytes(lineEnd);
+            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+            // Responses from the server (code and message)
+            serverResponseCode = conn.getResponseCode();
+            String serverResponseMessage = conn.getResponseMessage();
+
+            //Log.i("uploadFile", "HTTP Response is : " + serverResponseMessage + ": " + serverResponseCode);
+
+            if(serverResponseCode == 200)
+            {
+                syncFLAG = 1;
+
+
+                dbengine.upDateTblXmlFile(fileName);
+                delXML(xmlForWeb[0].toString());
+
+
+            }
+            else
+            {
+                syncFLAG = 0;
+            }
+
+            //close the streams //
+            fileInputStream.close();
+            dos.flush();
+            dos.close();
+
+        } catch (MalformedURLException ex)
+        {
+            ex.printStackTrace();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+
+
+        return serverResponseCode;
+
+    }
+
+
+    public static void zip(String[] files, String zipFile) throws IOException
+    {
+        BufferedInputStream origin = null;
+        final int BUFFER_SIZE = 2048;
+
+        ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFile)));
+        try {
+            byte data[] = new byte[BUFFER_SIZE];
+
+            for (int i = 0; i < files.length; i++) {
+                FileInputStream fi = new FileInputStream(files[i]);
+                origin = new BufferedInputStream(fi, BUFFER_SIZE);
+                try {
+                    ZipEntry entry = new ZipEntry(files[i].substring(files[i].lastIndexOf("/") + 1));
+                    out.putNextEntry(entry);
+                    int count;
+                    while ((count = origin.read(data, 0, BUFFER_SIZE)) != -1) {
+                        out.write(data, 0, count);
+                    }
+                }
+                finally {
+                    origin.close();
+                }
+            }
+        }
+
+        finally {
+            out.close();
+        }
+    }
+
+    public void delXML(String delPath)
+    {
+        File file = new File(delPath);
+        file.delete();
+        File file1 = new File(delPath.toString().replace(".xml", ".zip"));
+        file1.delete();
     }
 }

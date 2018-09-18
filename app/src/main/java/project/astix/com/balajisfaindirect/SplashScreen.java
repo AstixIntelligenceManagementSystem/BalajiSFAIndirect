@@ -313,7 +313,7 @@ public class SplashScreen extends BaseActivity implements  TaskListner
         sPref=getSharedPreferences(CommonInfo.Preference, MODE_PRIVATE);
         //imei = "359670066016988"; //  Varun Sir Testing phone imei
 
-        //  imei="354010084603910";  // New Testing Phoine
+         // imei="354010084603910";  // New Testing Phoine
 
         //imei="911383400331938";  // Test User Anil Kumar
 

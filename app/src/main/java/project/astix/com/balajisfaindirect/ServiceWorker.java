@@ -3,6 +3,7 @@ package project.astix.com.balajisfaindirect;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.SharedPreferences;
 import android.os.Environment;
 
 import com.astix.Common.CommonInfo;
@@ -41,6 +42,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class ServiceWorker 
 {
+	SharedPreferences sharedPref;
 	
 	public static int flagExecutedServiceSuccesfully=0;
 	public int chkTblStoreListContainsRow=1;
@@ -19444,6 +19446,7 @@ int flgProcessedInvoice=0;
 		//dbengine.open();
 
 		//SoapObject param
+		sharedPref = context.getSharedPreferences(CommonInfo.Preference, context.MODE_PRIVATE);
 		SoapSerializationEnvelope sse = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 
 		sse.dotNet = true;
@@ -19544,6 +19547,9 @@ int flgProcessedInvoice=0;
 					if(flgDayEndNode.getLength()>0)
 					{
 						flgDayEnd=Integer.parseInt(xmlParser.getCharacterDataFromElement(line));
+						SharedPreferences.Editor editor = sharedPref.edit();
+						editor.putInt("FinalSubmit", flgDayEnd);
+						editor.commit();
 					}
 				}
 
